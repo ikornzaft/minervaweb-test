@@ -26,30 +26,31 @@ const TopMenu = () => {
   const menuHandler = (e) => {
     if (e.target.id === 'feedBtn') history.push('/feed/');
     if (e.target.id === 'formBtn') history.push('/form/');
+    if (e.target.id === 'mixBtn') history.push('/mix/');
   };
   return (
     <Stack alignSelf="center" width="100%">
       <Flex backgroundColor="gray.200">
         <Box p="2" paddingLeft="6">
-          <Button ref={btnRef1} colorScheme="teal" onClick={onOpen}>
+          <Button ref={btnRef1} colorScheme="blue" onClick={onOpen}>
             Open
           </Button>
         </Box>
         <Spacer />
         <Box p="2">
-          <Button colorScheme="teal" mr="4" id="feedBtn" onClick={menuHandler}>
+          <Button colorScheme="blue" mr="4" id="feedBtn" onClick={menuHandler}>
             Feed
           </Button>
-          <Button colorScheme="teal" mr="4" id="formBtn" onClick={menuHandler}>
+          <Button colorScheme="blue" mr="4" id="formBtn" onClick={menuHandler}>
             Form Cualquiera
           </Button>
-          <Button colorScheme="teal" mr="4">
-            Opcion3
+          <Button colorScheme="blue" mr="4" id="mixBtn" onClick={menuHandler}>
+            Links y Botones
           </Button>
         </Box>
         <Spacer />
         <Box p="2" paddingRight="6">
-          <Button ref={btnRef2} colorScheme="teal" onClick={onOpenRight}>
+          <Button ref={btnRef2} colorScheme="blue" onClick={onOpenRight}>
             Open
           </Button>
         </Box>
