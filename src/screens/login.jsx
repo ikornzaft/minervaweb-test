@@ -48,7 +48,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
       setLoginOn(!isLoginOn);
       history.push('/feed/');
     }
-  }, [validUser]);
+  }, [validUser, history, isLoginOn, setLoginOn]);
 
   return (
     <form method="POST" onSubmit={handleSubmit}>

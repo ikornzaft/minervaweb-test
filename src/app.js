@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { Route, Switch, Redirect } from 'react-router';
-import { Layout } from './pages/layout';
-import { Login } from './pages/login';
-import { Feed } from './pages/feed';
+import { Layout } from './screens/layout';
+import { Login } from './screens/login';
+import { Feed } from './screens/feed';
+import { Form } from './screens/form';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -10,9 +11,10 @@ function App() {
     <Layout isLoginOn={isLoginOn}>
       <Switch>
         <Route exact path="/">
-          <Login setLoginOn={isLoginOn, setLoginOn} />
+          <Login isLogin={isLoginOn} setLoginOn={setLoginOn} />
         </Route> 
         <Route exact path="/feed/" component={Feed} />
+        <Route exact path="/form/" component={Form} />
         <Redirect to="/" />
       </Switch>
     </Layout>

@@ -1,7 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Stack,
-  Container,
   Flex,
   Box,
   Spacer,
@@ -18,10 +18,15 @@ import {
 } from '@chakra-ui/react';
 
 const TopMenu = () => {
+  const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isOpenRight, onOpen: onOpenRight, onClose: onCloseRight } = useDisclosure();
   const btnRef1 = React.useRef();
   const btnRef2 = React.useRef();
+  const menuHandler = (e) => {
+    if (e.target.id === 'feedBtn') history.push('/feed/');
+    if (e.target.id === 'formBtn') history.push('/form/');
+  };
   return (
     <Stack alignSelf="center" width="100%">
       <Flex backgroundColor="gray.200">
@@ -32,11 +37,11 @@ const TopMenu = () => {
         </Box>
         <Spacer />
         <Box p="2">
-          <Button colorScheme="teal" mr="4">
-            Opcion1
+          <Button colorScheme="teal" mr="4" id="feedBtn" onClick={menuHandler}>
+            Feed
           </Button>
-          <Button colorScheme="teal" mr="4">
-            Opcion2
+          <Button colorScheme="teal" mr="4" id="formBtn" onClick={menuHandler}>
+            Form Cualquiera
           </Button>
           <Button colorScheme="teal" mr="4">
             Opcion3

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as emailValidator from 'email-validator';
 
-import { useHistory } from 'react-router-dom';
-
 // import { authService, localStorageService } from "../../services";
 
 const validateEmail = emailValidator.validate;
