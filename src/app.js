@@ -5,6 +5,7 @@ import { Login } from './screens/login';
 import { Feed } from './screens/feed';
 import { Form } from './screens/form';
 import { MixedElements } from './screens/mixedElements';
+import { DeTodo } from './screens/deTodo';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/feed/" component={Feed} />
         <Route exact path="/form/" component={Form} />
         <Route exact path="/mix/" component={MixedElements} />
+        <Route exact path="/detodo/" component={DeTodo} />
         <Redirect to="/" />
       </Switch>
     </Layout>

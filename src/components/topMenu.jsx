@@ -14,19 +14,24 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  Input,
+  Input
 } from '@chakra-ui/react';
 
 const TopMenu = () => {
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen: isOpenRight, onOpen: onOpenRight, onClose: onCloseRight } = useDisclosure();
+  const {
+    isOpen: isOpenRight,
+    onOpen: onOpenRight,
+    onClose: onCloseRight,
+  } = useDisclosure();
   const btnRef1 = React.useRef();
   const btnRef2 = React.useRef();
   const menuHandler = (e) => {
     if (e.target.id === 'feedBtn') history.push('/feed/');
     if (e.target.id === 'formBtn') history.push('/form/');
     if (e.target.id === 'mixBtn') history.push('/mix/');
+    if (e.target.id === 'deTodoBtn') history.push('/detodo/');
   };
   return (
     <Stack alignSelf="center" width="100%">
@@ -47,6 +52,15 @@ const TopMenu = () => {
           <Button colorScheme="blue" mr="4" id="mixBtn" onClick={menuHandler}>
             Links y Botones
           </Button>
+          <Button
+            colorScheme="blue"
+            mr="4"
+            id="deTodoBtn"
+            onClick={menuHandler}
+          >
+            De todo un poco
+          </Button>
+
         </Box>
         <Spacer />
         <Box p="2" paddingRight="6">
@@ -102,7 +116,6 @@ const TopMenu = () => {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
-
       </Flex>
     </Stack>
   );
