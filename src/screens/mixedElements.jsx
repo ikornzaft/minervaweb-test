@@ -1,27 +1,33 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useFetch } from '../hooks/useFetch';
 import {
   Container,
   Stack,
   Heading,
   Button,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  Text,
-  ModalFooter,
+  Image,
   useDisclosure,
 } from '@chakra-ui/react';
+import { InfoModal } from '../components/infoModal';
 
 const MixedElements = () => {
+  const dogFetch = useFetch();
   const history = useHistory();
   const {
     isOpen: isOpenInfo,
     onOpen: onOpenInfo,
     onClose: onCloseInfo,
   } = useDisclosure();
+  const {
+    isOpen: isOpenDog,
+    onOpen: onOpenDog,
+    onClose: onCloseDog,
+  } = useDisclosure();
+  const modalTitle = 'Acá hay más información';
+  const modalContent =
+    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam rerum iure a aut obcaecati doloribus natus explicabo possimus magni, ipsa cum iste officia esse eum quia eaque reiciendis veniam? Dignissimos.';
   const handleSubmit = (e) => {
     if (e.target.id === 'toFeedBtn') history.push('/feed/');
     if (e.target.id === 'toFormBtn') history.push('/form/');
@@ -33,30 +39,18 @@ const MixedElements = () => {
       backgroundColor="gray.50"
       padding="0px"
     >
-      <Modal isOpen={isOpenInfo} onClose={onCloseInfo}>
-        <ModalOverlay />
-        <ModalContent padding={4}>
-          <Heading alignSelf="center" as="h4" size="sm">
-            Acá hay más información
-          </Heading>
-          <Container paddingTop={4}>
-            <Text>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Laboriosam rerum iure a aut obcaecati doloribus natus explicabo
-              possimus magni, ipsa cum iste officia esse eum quia eaque
-              reiciendis veniam? Dignissimos.
-            </Text>
-          </Container>
-          <ModalCloseButton />
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onCloseInfo}>
-              Close
-            </Button>
-
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <InfoModal
+        isOpen={isOpenInfo}
+        onClose={onCloseInfo}
+        modalTitle={modalTitle}
+        modalContent={modalContent}
+      />
+      <InfoModal
+        isOpen={isOpenDog}
+        onClose={onCloseDog}
+        modalTitle="Un perro"
+        modalContent={<Image objectFit="cover" src={dogFetch.dogImage} alt="Un perro" />}
+      />
       <Stack direction="column" textAlign="center">
         <Stack
           backgroundColor="gray.50"
@@ -70,7 +64,7 @@ const MixedElements = () => {
             backgroundColor="white"
             width="80%"
             padding={8}
-            justifyContent="flex-start"
+            justifyContent="space-evenly"
             alignItems="center"
             direction="column"
           >
@@ -113,8 +107,17 @@ const MixedElements = () => {
                 mr="4"
                 id="toFeedBtn"
                 onClick={onOpenInfo}
+                marginBottom="1rem"
               >
                 Más información
+              </Button>
+              <Button
+                colorScheme="blue"
+                mr="4"
+                id="toFeedBtn"
+                onClick={onOpenDog}
+              >
+                ¿Querés un perro?
               </Button>
             </Flex>
           </Flex>
