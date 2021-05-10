@@ -1,0 +1,7 @@
+    Options -MultiViews
+    RewriteBase /
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [QSA,L]
+    FallbackResource ./index.html
+    
