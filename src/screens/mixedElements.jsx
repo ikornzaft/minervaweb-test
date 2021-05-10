@@ -9,8 +9,10 @@ import {
   Flex,
   Image,
   useDisclosure,
+  Spinner
 } from '@chakra-ui/react';
 import { InfoModal } from '../components/infoModal';
+import { GenericForm } from '../components/genericForm';
 
 const MixedElements = () => {
   const dogFetch = useFetch();
@@ -24,6 +26,16 @@ const MixedElements = () => {
     isOpen: isOpenDog,
     onOpen: onOpenDog,
     onClose: onCloseDog,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenForm,
+    onOpen: onOpenForm,
+    onClose: onCloseForm,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenLoader,
+    onOpen: onOpenLoader,
+    onClose: onCloseLoader,
   } = useDisclosure();
   const modalTitle = 'Acá hay más información';
   const modalContent =
@@ -51,6 +63,18 @@ const MixedElements = () => {
         modalTitle="Un perro"
         modalContent={<Image objectFit="cover" src={dogFetch.dogImage} alt="Un perro" />}
       />
+      <InfoModal
+        isOpen={isOpenForm}
+        onClose={onCloseForm}
+        modalTitle="Soy un form genérico"
+        modalContent={<GenericForm />}
+      />
+      <InfoModal
+      isOpen={isOpenLoader}
+      onClose={onCloseLoader}
+      modalTitle="Cargando por siempre..."
+      modalContent={<Spinner />}
+    />
       <Stack direction="column" textAlign="center">
         <Stack
           backgroundColor="gray.50"
@@ -118,6 +142,34 @@ const MixedElements = () => {
                 onClick={onOpenDog}
               >
                 ¿Querés un perro?
+              </Button>
+            </Flex>
+            <Flex
+              width="20rem"
+              borderColor="gray.500"
+              borderWidth="2px"
+              borderRadius="lg"
+              padding={4}
+              justifyContent="space-evenly"
+            >
+              <Heading as="h4" size="md">
+                Más cosas...
+              </Heading>
+              <Button
+                colorScheme="blue"
+                mr="4"
+                id="toFeedBtn"
+                onClick={onOpenForm}
+              >
+                Otro form
+              </Button>
+              <Button
+                colorScheme="blue"
+                mr="4"
+                id="toFormBtn"
+                onClick={onOpenLoader}
+              >
+                Loader
               </Button>
             </Flex>
           </Flex>
