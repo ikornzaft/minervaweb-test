@@ -17,7 +17,17 @@ import {
   PopoverBody,
   PopoverFooter,
   Box,
-  ButtonGroup
+  ButtonGroup,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+  Tab,
+  Tabs,
+  TabPanel,
+  TabPanels,
+  TabList
 } from '@chakra-ui/react';
 import { TiArrowSortedDown } from 'react-icons/ti';
 
@@ -39,6 +49,7 @@ const DeTodo = () => {
           spacing={6}
         >
           <Heading>De todo un poco</Heading>
+          {/* Menu */}
           <Menu>
             <MenuButton as={Button} rightIcon={<TiArrowSortedDown />}>
               Un Menú
@@ -51,6 +62,7 @@ const DeTodo = () => {
               <MenuItem>Attend a Workshop</MenuItem>
             </MenuList>
           </Menu>
+          {/* Popover */}
           <Popover>
             <PopoverTrigger>
               <Button>Popver</Button>
@@ -97,6 +109,66 @@ const DeTodo = () => {
               </PopoverFooter>
             </PopoverContent>
           </Popover>
+          {/* Accordion */}
+          <Container padding={4}>
+            <Accordion allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      Esta es la sección 1 de un acordeón
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </AccordionPanel>
+              </AccordionItem>
+
+              <AccordionItem>
+                <h2>
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      Y esta es la sección 2
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+          </Container>
+          {/* Tabs */}
+          <Container>
+            <Tabs>
+              <TabList>
+                <Tab>Uno</Tab>
+                <Tab>Dos</Tab>
+                <Tab>Tres</Tab>
+              </TabList>
+
+              <TabPanels>
+                <TabPanel>
+                  <p>one!</p>
+                </TabPanel>
+                <TabPanel>
+                  <p>two!</p>
+                </TabPanel>
+                <TabPanel>
+                  <p>three!</p>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Container>
         </Stack>
       </Stack>
     </Container>
