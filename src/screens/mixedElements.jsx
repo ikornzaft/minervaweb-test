@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { GenericModal } from '../components/genericModal';
 import { GenericForm } from '../components/genericForm';
+import { LABELS } from '../locals/sp/labels';
 
 const MixedElements = () => {
   const dogFetch = useFetch();
@@ -37,9 +38,6 @@ const MixedElements = () => {
     onOpen: onOpenLoader,
     onClose: onCloseLoader,
   } = useDisclosure();
-  const modalTitle = 'Acá hay más información';
-  const modalContent =
-    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam rerum iure a aut obcaecati doloribus natus explicabo possimus magni, ipsa cum iste officia esse eum quia eaque reiciendis veniam? Dignissimos.';
   const handleSubmit = (e) => {
     if (e.target.id === 'toFeedBtn') history.push('/feed/');
     if (e.target.id === 'toFormBtn') history.push('/form/');
@@ -51,33 +49,6 @@ const MixedElements = () => {
       backgroundColor="gray.50"
       padding="0px"
     >
-      <GenericModal
-        isOpen={isOpenInfo}
-        onClose={onCloseInfo}
-        modalTitle={modalTitle}
-        modalContent={modalContent}
-        secondButtonText="Seguir"
-      />
-      <GenericModal
-        isOpen={isOpenDog}
-        onClose={onCloseDog}
-        modalTitle="Un perro"
-        modalContent={
-          <Image objectFit="cover" src={dogFetch.dogImage} alt="Un perro" />
-        }
-      />
-      <GenericModal
-        isOpen={isOpenForm}
-        onClose={onCloseForm}
-        modalTitle="Soy un form genérico"
-        modalContent={<GenericForm />}
-      />
-      <GenericModal
-        isOpen={isOpenLoader}
-        onClose={onCloseLoader}
-        modalTitle="Cargando por siempre..."
-        modalContent={<Spinner />}
-      />
       <Stack direction="column" textAlign="center">
         <Stack
           backgroundColor="gray.50"
@@ -86,7 +57,7 @@ const MixedElements = () => {
           paddingBottom={8}
           spacing={6}
         >
-          <Heading>Acá hay links y botones</Heading>
+          <Heading>{LABELS.MIXED_ELEMENTS.TITLE}</Heading>
           <Flex
             backgroundColor="white"
             width="80%"
@@ -104,9 +75,9 @@ const MixedElements = () => {
               justifyContent="space-evenly"
             >
               <Link to="/feed/">
-                  <Heading as="h4" size="md">
-                    ¿A dónde querés ir?
-                  </Heading>
+                <Heading as="h4" size="md">
+                  {LABELS.MIXED_ELEMENTS.SECTION_1.TITLE}
+                </Heading>
               </Link>
               <Button
                 colorScheme="blue"
@@ -114,7 +85,7 @@ const MixedElements = () => {
                 id="toFeedBtn"
                 onClick={handleSubmit}
               >
-                Feed
+                {LABELS.MIXED_ELEMENTS.SECTION_1.BUTTON_1}
               </Button>
               <Button
                 colorScheme="blue"
@@ -122,7 +93,7 @@ const MixedElements = () => {
                 id="toFormBtn"
                 onClick={handleSubmit}
               >
-                Form
+                {LABELS.MIXED_ELEMENTS.SECTION_1.BUTTON_2}
               </Button>
             </Flex>
             <Flex
@@ -134,19 +105,19 @@ const MixedElements = () => {
               <Button
                 colorScheme="blue"
                 mr="4"
-                id="toFeedBtn"
+                id="toModal1Btn"
                 onClick={onOpenInfo}
                 marginBottom="1rem"
               >
-                Más información
+                {LABELS.MIXED_ELEMENTS.MODAL_1.BUTTON_TEXT}
               </Button>
               <Button
                 colorScheme="blue"
                 mr="4"
-                id="toFeedBtn"
+                id="toModal2Btn"
                 onClick={onOpenDog}
               >
-                ¿Querés un perro?
+                {LABELS.MIXED_ELEMENTS.MODAL_2.BUTTON_TEXT}
               </Button>
             </Flex>
             <Flex
@@ -158,7 +129,7 @@ const MixedElements = () => {
               justifyContent="space-evenly"
             >
               <Heading as="h4" size="md">
-                Más cosas...
+                {LABELS.MIXED_ELEMENTS.SECTION_2.TITLE}
               </Heading>
               <Button
                 colorScheme="blue"
@@ -166,7 +137,7 @@ const MixedElements = () => {
                 id="toFeedBtn"
                 onClick={onOpenForm}
               >
-                Otro form
+                {LABELS.MIXED_ELEMENTS.SECTION_2.MODAL_3.BUTTON_TEXT}
               </Button>
               <Button
                 colorScheme="blue"
@@ -174,12 +145,39 @@ const MixedElements = () => {
                 id="toFormBtn"
                 onClick={onOpenLoader}
               >
-                Loader
+                {LABELS.MIXED_ELEMENTS.SECTION_2.MODAL_4.BUTTON_TEXT}
               </Button>
             </Flex>
           </Flex>
         </Stack>
       </Stack>
+      <GenericModal
+        isOpen={isOpenInfo}
+        onClose={onCloseInfo}
+        modalTitle={LABELS.MIXED_ELEMENTS.MODAL_1.TITLE}
+        modalContent={LABELS.MIXED_ELEMENTS.MODAL_1.CONTENT}
+        secondButtonText={LABELS.MIXED_ELEMENTS.MODAL_1.SECOND_BUTON_TEXT}
+      />
+      <GenericModal
+        isOpen={isOpenDog}
+        onClose={onCloseDog}
+        modalTitle={LABELS.MIXED_ELEMENTS.MODAL_2.TITLE}
+        modalContent={
+          <Image objectFit="cover" src={dogFetch.dogImage} alt="Un perro" />
+        }
+      />
+      <GenericModal
+        isOpen={isOpenForm}
+        onClose={onCloseForm}
+        modalTitle="Soy un form genérico"
+        modalContent={<GenericForm firstFieldLabel={LABELS.MIXED_ELEMENTS.SECTION_2.MODAL_3.FIRST_FIELD_LABEL} firstFieldPlaceholder={LABELS.MIXED_ELEMENTS.SECTION_2.MODAL_3.FIRST_FIELD_PLACEHOLDER} firstFieldType='text' firstFieldId='opinion' buttonText={LABELS.MIXED_ELEMENTS.SECTION_2.MODAL_3.SUBMIT_BUTTON_TEXT}  />}
+      />
+      <GenericModal
+        isOpen={isOpenLoader}
+        onClose={onCloseLoader}
+        modalTitle={LABELS.MIXED_ELEMENTS.SECTION_2.MODAL_4.TITLE}
+        modalContent={<Spinner />}
+      />
     </Container>
   );
 };

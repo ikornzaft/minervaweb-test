@@ -24,7 +24,7 @@ const GenericModal = ({
       <ModalOverlay />
       <ModalContent padding={4}>
         <ModalHeader>{modalTitle}</ModalHeader>
-        <ModalBody>{modalContent}</ModalBody>
+        <ModalBody textAlign="center">{modalContent}</ModalBody>
         <ModalCloseButton />
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>

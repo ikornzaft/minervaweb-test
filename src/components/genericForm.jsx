@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Box, FormControl, Button } from '@chakra-ui/react';
+import { Stack, Flex, FormControl, Button } from '@chakra-ui/react';
 import { GenericFormField } from './genericFormField';
 
 const GenericForm = ({
@@ -15,7 +15,7 @@ const GenericForm = ({
   onSubmit,
 }) => {
   return (
-    <Box backgroundColor="white" width="80%" padding={4}>
+    <Flex backgroundColor="white" width="100%" padding={4} justifyContent="center">
       <Stack alignItems="center" padding={2}>
         <form method="GET" onSubmit={onSubmit}>
           <Stack
@@ -47,13 +47,13 @@ const GenericForm = ({
             ) : null}
             <FormControl padding={2}>
               <Button fontSize="sm" colorScheme="blue" type="submit" margin="5">
-                Enviar
+                {buttonText}
               </Button>
             </FormControl>
           </Stack>
         </form>
       </Stack>
-    </Box>
+    </Flex>
   );
 };
 
