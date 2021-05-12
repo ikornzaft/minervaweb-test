@@ -1,20 +1,23 @@
 import React from 'react';
-import {
-  Stack,
-  Box,
-  FormControl,
-  FormLabel,
-  InputGroup,
-  Input,
-  Button,
-} from '@chakra-ui/react';
+import { Stack, Box, FormControl, Button } from '@chakra-ui/react';
+import { GenericFormField } from './genericFormField';
 
-const GenericForm = () => {
-  const handleSubmit = (e) => console.log(e);
+const GenericForm = ({
+  firstFieldLabel,
+  firstFieldPlaceholder,
+  firstFieldType,
+  firstFieldId,
+  secondFieldLabel,
+  secondFieldPlaceholder,
+  secondFieldType,
+  secondFieldId,
+  buttonText,
+  onSubmit,
+}) => {
   return (
     <Box backgroundColor="white" width="80%" padding={4}>
       <Stack alignItems="center" padding={2}>
-        <form method="GET" onSubmit={handleSubmit}>
+        <form method="GET" onSubmit={onSubmit}>
           <Stack
             alignSelf="center"
             textAlign="center"
@@ -28,21 +31,20 @@ const GenericForm = () => {
             marginBottom={2}
             padding={2}
           >
-            <FormControl>
-              <FormLabel fontSize="sm" htmlFor="nombre">
-                ¿Todo bien?
-              </FormLabel>
-              <InputGroup>
-                <Input
-                  isRequired
-                  fontSize="sm"
-                  type="text"
-                  id="nombre"
-                  placeholder="Si/No/Otra cosa"
-                  errorBorderColor="red.300"
-                />
-              </InputGroup>
-            </FormControl>
+            <GenericFormField
+              fieldLabel={firstFieldLabel}
+              fieldPlaceholder={firstFieldPlaceholder}
+              fieldType={firstFieldType}
+              fieldId={firstFieldId}
+            />
+            {secondFieldLabel ? (
+              <GenericFormField
+                fieldLabel={secondFieldLabel}
+                fieldPlaceholder={secondFieldPlaceholder}
+                fieldType={secondFieldType}
+                fieldId={secondFieldId}
+              />
+            ) : null}
             <FormControl padding={2}>
               <Button fontSize="sm" colorScheme="blue" type="submit" margin="5">
                 Enviar

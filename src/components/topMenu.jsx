@@ -19,13 +19,13 @@ const TopMenu = () => {
     onOpen: onOpenLeft,
     onClose: onCloseLeft,
   } = useDisclosure();
+  const btnRef1 = React.useRef();
   // Right drawer
   const {
     isOpen: isOpenRight,
     onOpen: onOpenRight,
     onClose: onCloseRight,
   } = useDisclosure();
-  const btnRef1 = React.useRef();
   const btnRef2 = React.useRef();
   const menuHandler = (e) => {
     if (e.target.id === 'feedBtn') history.push('/feed/');
@@ -38,7 +38,7 @@ const TopMenu = () => {
       <Flex backgroundColor="gray.200">
         <Box p="2" paddingLeft="6">
           <Button ref={btnRef1} colorScheme="blue" onClick={onOpenLeft}>
-            {LABELS.FEED.MENU.LEFT_DRAWER.BUTTON_TEXT}
+            {LABELS.TOP_MENU.MENU.LEFT_DRAWER.BUTTON_TEXT}
           </Button>
         </Box>
         <Spacer />
@@ -64,7 +64,7 @@ const TopMenu = () => {
         <Spacer />
         <Box p="2" paddingRight="6">
           <Button ref={btnRef2} colorScheme="blue" onClick={onOpenRight}>
-            {LABELS.FEED.MENU.RIGHT_DRAWER.BUTTON_TEXT}
+            {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
           </Button>
         </Box>
 
@@ -73,20 +73,20 @@ const TopMenu = () => {
           isOpen={isOpenLeft}
           onClose={onCloseLeft}
           finalFocusRef={btnRef1}
-          title={LABELS.FEED.MENU.LEFT_DRAWER.TITLE}
-          inputPlaceholder={LABELS.FEED.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
-          firstButton={LABELS.FEED.MENU.LEFT_DRAWER.CANCEL_BUTTON}
-          secondButton={LABELS.FEED.MENU.LEFT_DRAWER.SAVE_BUTTON}
+          title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
+          inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
+          firstButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.CANCEL_BUTTON}
+          secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
         />
         <GenericDrawer
           placement="right"
           isOpen={isOpenRight}
           onClose={onCloseRight}
           finalFocusRef={btnRef2}
-          title={LABELS.FEED.MENU.RIGHT_DRAWER.TITLE}
-          inputPlaceholder={LABELS.FEED.MENU.RIGHT_DRAWER.INPUT_PLACEHOLDER}
-          firstButton={LABELS.FEED.MENU.RIGHT_DRAWER.CANCEL_BUTTON}
-          secondButton={LABELS.FEED.MENU.RIGHT_DRAWER.SAVE_BUTTON}
+          title={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.TITLE}
+          inputPlaceholder={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.INPUT_PLACEHOLDER}
+          firstButton={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.CANCEL_BUTTON}
+          secondButton={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.SAVE_BUTTON}
         />
       </Flex>
     </Stack>

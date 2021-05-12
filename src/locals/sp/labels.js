@@ -20,8 +20,7 @@ const LABELS = {
       },
     },
   },
-  FEED: {
-    TITLE: 'Bienvenido al feed',
+  TOP_MENU: {
     MENU: {
       LEFT_DRAWER: {
         BUTTON_TEXT: 'Un drawer',
@@ -37,8 +36,29 @@ const LABELS = {
         CANCEL_BUTTON: 'Cancelar',
         SAVE_BUTTON: 'Guardar'
       },
+      BUTTONS: {
+        BUTTON_1: 'Feed',
+        BUTTON_2: 'Form cualquiera',
+        BUTTON_3: 'Links y Botones',
+        BUTTON_4: 'De todo un poco',
+      }
     },
   },
+  FEED: {
+    TITLE: 'Bienvenido al feed',
+  },
+  FORM: {
+    TITLE: 'Esto es un form',
+    FIRST_FIELD: {
+      TEXT: 'Nombre',
+      PLACEHOLDER: 'Tu nombre'
+    },
+    SECOND_FIELD: {
+      TEXT: 'Apellido',
+      PLACEHOLDER: 'Tu apellido'
+    },
+    BUTTON_TEXT: 'Enviar'
+  }
 };
 
 export { LABELS };

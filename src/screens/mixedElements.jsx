@@ -103,19 +103,19 @@ const MixedElements = () => {
               padding={4}
               justifyContent="space-evenly"
             >
-              <Heading as="h4" size="md">
-                ¿A dónde querés ir?
-              </Heading>
               <Link to="/feed/">
-                <Button
-                  colorScheme="blue"
-                  mr="4"
-                  id="toFeedBtn"
-                  onClick={handleSubmit}
-                >
-                  Feed
-                </Button>
+                  <Heading as="h4" size="md">
+                    ¿A dónde querés ir?
+                  </Heading>
               </Link>
+              <Button
+                colorScheme="blue"
+                mr="4"
+                id="toFeedBtn"
+                onClick={handleSubmit}
+              >
+                Feed
+              </Button>
               <Button
                 colorScheme="blue"
                 mr="4"
