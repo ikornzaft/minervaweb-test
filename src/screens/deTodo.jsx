@@ -1,38 +1,13 @@
 import React from 'react';
-import {
-  Container,
-  Stack,
-  Heading,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  Box,
-  ButtonGroup,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
-  Tab,
-  Tabs,
-  TabPanel,
-  TabPanels,
-  TabList
-} from '@chakra-ui/react';
-import { TiArrowSortedDown } from 'react-icons/ti';
+import { Container, Stack, Heading } from '@chakra-ui/react';
+import { GenericMenu } from '../components/genericMenu';
+import { BasicPopover } from '../components/basicPopover';
+import { StyledPopover } from '../components/styledPopover';
+import { LABELS } from '../locals/sp/labels';
+import { GenericAccordion } from '../components/genericAccordion';
+import { GenericTabs } from '../components/genericTabs';
 
 const DeTodo = () => {
-  const initialFocusRef = React.useRef();
   return (
     <Container
       maxWidth="container.lg"
@@ -49,125 +24,49 @@ const DeTodo = () => {
           spacing={6}
         >
           <Heading>De todo un poco</Heading>
-          {/* Menu */}
-          <Menu>
-            <MenuButton as={Button} rightIcon={<TiArrowSortedDown />}>
-              Un Menú
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuItem>Attend a Workshop</MenuItem>
-            </MenuList>
-          </Menu>
-          {/* Popover */}
-          <Popover>
-            <PopoverTrigger>
-              <Button>Popver</Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Pop Over!</PopoverHeader>
-              <PopoverBody>Esto es un popover!</PopoverBody>
-            </PopoverContent>
-          </Popover>
-          <Popover
-            initialFocusRef={initialFocusRef}
-            placement="bottom"
-            closeOnBlur={false}
-          >
-            <PopoverTrigger>
-              <Button>Otro popover</Button>
-            </PopoverTrigger>
-            <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
-              <PopoverHeader pt={4} fontWeight="bold" border="0">
-                Este es otro popover
-              </PopoverHeader>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore.
-              </PopoverBody>
-              <PopoverFooter
-                border="0"
-                d="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                pb={4}
-              >
-                <Box fontSize="sm">Paso 2 de 4</Box>
-                <ButtonGroup size="sm">
-                  <Button colorScheme="green">Configurar Email</Button>
-                  <Button colorScheme="blue" ref={initialFocusRef}>
-                    Sig.
-                  </Button>
-                </ButtonGroup>
-              </PopoverFooter>
-            </PopoverContent>
-          </Popover>
-          {/* Accordion */}
-          <Container padding={4}>
-            <Accordion allowToggle>
-              <AccordionItem>
-                <h2>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      Esta es la sección 1 de un acordeón
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </AccordionPanel>
-              </AccordionItem>
 
-              <AccordionItem>
-                <h2>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      Y esta es la sección 2
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
+          <GenericMenu
+            buttonText={LABELS.DE_TODO.MENU.BUTTON_TEXT}
+            item1={LABELS.DE_TODO.MENU.ITEM_1}
+            item2={LABELS.DE_TODO.MENU.ITEM_2}
+            item3={LABELS.DE_TODO.MENU.ITEM_3}
+            item4={LABELS.DE_TODO.MENU.ITEM_4}
+            item5={LABELS.DE_TODO.MENU.ITEM_5}
+          />
+
+          <BasicPopover
+            buttonText={LABELS.DE_TODO.POPOVER_1.BUTTON_TEXT}
+            header={LABELS.DE_TODO.POPOVER_1.HEADER}
+            body={LABELS.DE_TODO.POPOVER_1.BODY}
+          />
+
+          <StyledPopover
+            buttonText={LABELS.DE_TODO.POPOVER_2.BUTTON_TEXT}
+            header={LABELS.DE_TODO.POPOVER_2.HEADER}
+            body={LABELS.DE_TODO.POPOVER_2.BODY}
+            footerContent={LABELS.DE_TODO.POPOVER_2.FOOTER.CONTENT}
+            footerButton1Text={LABELS.DE_TODO.POPOVER_2.FOOTER.BUTTON_1_TEXT}
+            footerButton2Text={LABELS.DE_TODO.POPOVER_2.FOOTER.BUTTON_2_TEXT}
+          />
+
+          <Container padding={4}>
+            <GenericAccordion
+              section1Title={LABELS.DE_TODO.ACCORDION.SECTION_1.TITLE}
+              section1Content={LABELS.DE_TODO.ACCORDION.SECTION_1.CONTENT}
+              section2Title={LABELS.DE_TODO.ACCORDION.SECTION_2.TITLE}
+              section2Content={LABELS.DE_TODO.ACCORDION.SECTION_2.CONTENT}
+            />
           </Container>
           {/* Tabs */}
           <Container>
-            <Tabs>
-              <TabList>
-                <Tab>Uno</Tab>
-                <Tab>Dos</Tab>
-                <Tab>Tres</Tab>
-              </TabList>
-
-              <TabPanels>
-                <TabPanel>
-                  <p>one!</p>
-                </TabPanel>
-                <TabPanel>
-                  <p>two!</p>
-                </TabPanel>
-                <TabPanel>
-                  <p>three!</p>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+            <GenericTabs
+              tab1Title={LABELS.DE_TODO.TABS.TAB_1.TITLE}
+              tab1Content={LABELS.DE_TODO.TABS.TAB_1.CONTENT}
+              tab2Title={LABELS.DE_TODO.TABS.TAB_2.TITLE}
+              tab2Content={LABELS.DE_TODO.TABS.TAB_2.CONTENT}
+              tab3Title={LABELS.DE_TODO.TABS.TAB_3.TITLE}
+              tab3Content={LABELS.DE_TODO.TABS.TAB_3.CONTENT}
+            />
           </Container>
         </Stack>
       </Stack>

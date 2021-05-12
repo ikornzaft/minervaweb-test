@@ -91,6 +91,56 @@ const LABELS = {
       },
     },
   },
+  DE_TODO: {
+    TITLE: 'De todo un poco', 
+    MENU: {
+      BUTTON_TEXT: 'Un menú',
+      ITEM_1: 'Download',
+      ITEM_2: 'Create a Copy',
+      ITEM_3: 'Mark as Draft',
+      ITEM_4: 'Delete',
+      ITEM_5: 'Attend a Workshop',
+    },
+    POPOVER_1: {
+      BUTTON_TEXT: 'Popover',
+      HEADER: 'Pop Over!',
+      BODY: 'Esto es un popover!'
+    },
+    POPOVER_2: {
+      BUTTON_TEXT: 'Otro popover',
+      HEADER: 'Este es otro popover',
+      BODY: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
+      FOOTER: {
+        CONTENT: 'Paso 2 de 4',
+        BUTTON_1_TEXT: 'Configurar Email',
+        BUTTON_2_TEXT: 'Sig.'
+      },
+    },
+    ACCORDION: {
+      SECTION_1: {
+        TITLE: 'Esta es la sección 1 de un acordeón',
+        CONTENT: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+      SECTION_2: {
+        TITLE: 'Y esta es la sección 2',
+        CONTENT: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      },
+    },
+    TABS: {
+      TAB_1: {
+        TITLE: 'Uno', 
+        CONTENT: 'one!',
+      },
+      TAB_2: {
+        TITLE: 'Dos', 
+        CONTENT: 'two!',
+      },
+      TAB_3: {
+        TITLE: 'Tres', 
+        CONTENT: 'three!',
+      },
+    }
+  }
 };
 
 export { LABELS };
