@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Stack, Heading, Box, Image, Text } from '@chakra-ui/react';
+import { LABELS } from '../locals/sp/labels';
 
 const Feed = () => {
   return (
@@ -10,9 +11,15 @@ const Feed = () => {
       padding="0px"
     >
       <Stack direction="column" textAlign="center">
-        <Stack backgroundColor="gray.50" alignItems="center" padding={2} paddingBottom={8} spacing={6} >
-          <Heading>Este es el feed</Heading>
-          <Box backgroundColor="white" width="80%" padding={4} >
+        <Stack
+          backgroundColor="gray.50"
+          alignItems="center"
+          padding={2}
+          paddingBottom={8}
+          spacing={6}
+        >
+          <Heading>{LABELS.FEED.TITLE}</Heading>
+          <Box backgroundColor="white" width="80%" padding={4}>
             <Stack alignItems="center" padding={2}>
               <Image
                 boxSize="500px"

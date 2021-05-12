@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 import {
   Container,
@@ -106,16 +106,14 @@ const MixedElements = () => {
               <Heading as="h4" size="md">
                 ¿A dónde querés ir?
               </Heading>
-              <Link to="/feed/">
-                <Button
-                  colorScheme="blue"
-                  mr="4"
-                  id="toFeedBtn"
-                  onClick={handleSubmit}
-                >
-                  Feed
-                </Button>
-              </Link>
+              <Button
+                colorScheme="blue"
+                mr="4"
+                id="toFeedBtn"
+                onClick={handleSubmit}
+              >
+                Feed
+              </Button>
               <Button
                 colorScheme="blue"
                 mr="4"

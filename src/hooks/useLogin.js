@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as emailValidator from 'email-validator';
+import { LABELS } from '../locals/sp/labels';
 
 // import { authService, localStorageService } from "../../services";
 
@@ -18,11 +19,11 @@ const useLogin = () => {
     setTryNumber(attempt);
 
     if (!email || !validateEmail(email) || email.length < 8) {
-      setError('No es un email válido');
+      setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_EMAIL);
       return;
     }
     if (!password || password.length < 8) {
-      setError('El password no es válido');
+      setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_PASS);
       return;
     }
 
@@ -40,19 +41,19 @@ const useLogin = () => {
     } catch (e) {
       switch (e.response.status) {
         case 401:
-          setError('El password es incorrecto');
+          setError(LABELS.LOGIN.MESSAGES.ERROR.WRONG_PASS);
           break;
         case 400:
-          setError('Por favor, completar la totalidad de los datos.');
+          setError(LABELS.LOGIN.MESSAGES.ERROR.INCOMPLETE_DATA);
           break;
         case 404:
-          setError(`${email} no está registrado.`);
+          setError(`${email} ${LABELS.LOGIN.MESSAGES.ERROR.UNREGISTED_EMAIL}`);
           break;
         case 500:
-          setError('Problemas técnicos. Por favor intentar nuevamente.');
+          setError(LABELS.LOGIN.MESSAGES.ERROR.TECHNICAL_ISSUES);
           break;
         default:
-          setError('Problemas con la conexión');
+          setError(LABELS.LOGIN.MESSAGES.ERROR.CONNECTION);
       }
     }
   };

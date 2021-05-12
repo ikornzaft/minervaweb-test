@@ -1,0 +1,289 @@
+{
+  "USER": {
+    "PERMISSION_DENIED": {
+      "TITLE": "Access denied!",
+      "DESCRIPTION": "Please sing in by clicking the button bellow.",
+      "LINK": "Sign in"
+    },
+    "LOGOUT_BUTTON": "Log out"
+  },
+  "REPORT": {
+    "LISTING_PAGE": {
+      "TAG": "Shop Researches",
+      "TITLE": "Ecommerce market reports"
+    },
+    "REPORT_HIGHLIGHTS": {
+      "PAGE": "Pages",
+      "LANGUAGE": "Languages",
+      "TYPE": "Type",
+      "PUBLISH": "Publish",
+      "FORMAT": "Format"
+    },
+    "THUMBNAIL_BUTTON": "View details",
+    "ACCORDION": {
+      "BRIEF": "Brief Description",
+      "CONTENT": "Table Of Content",
+      "SCOPE": "Primary Scope",
+      "REASON": "Reason To Purchase"
+    }
+  },
+  "NEWS": {
+    "LISTING_PAGE": {
+      "TAG": "Ecommerce information center",
+      "TITLE": "Monitorables - Ecommerce, Business News"
+    },
+    "SIDE_NEWS": {
+      "SECTION_TITLE": "editor's choice"
+    },
+    "RECENT_NEWS": {
+      "TITLE": "From Monitorables",
+      "DESCRIPTION": "Market Research and Consumer Trends",
+      "CTA_BUTTON": "View our articles"
+    }
+  },
+  "NAVIGATION": {
+    "LOGO": {
+      "ALT": "Monitorables company logo",
+      "LINK_TITLE_ATTRIBUTE": "Go to home page"
+    },
+    "MOBILE": {
+      "BURGER_ICON_ALT": "Show navigation menu",
+      "CLOSE_ICON_ALT": "Hide navigation menu"
+    },
+    "MENU": {
+      "LIST": {
+        "RESEARCHES": {
+          "TEXT": "Store",
+          "LINK_TITLE_ATTRIBUTE": "View latest market researches"
+        },
+        "SERVICES": {
+          "TEXT": "Services",
+          "LINK_TITLE_ATTRIBUTE": "Our market research services"
+        },
+        "CONTACT": {
+          "TEXT": "Contact us",
+          "LINK_TITLE_ATTRIBUTE": "Get in touch"
+        }
+      },
+      "BUTTONS": {
+        "AUTHENTICATED": {
+          "COLORED": {
+            "TEXT": "Dashboard",
+            "LINK_TITLE_ATTRIBUTE": "Go to dashboard"
+          },
+          "LOGOUT": "Log out"
+        },
+        "NON_AUTHENTICATED": {
+          "COLORED": {
+            "TEXT": "Sign up",
+            "LINK_TITLE_ATTRIBUTE": "Gain access"
+          },
+          "PLAIN": {
+            "TEXT": "Login",
+            "LINK_TITLE_ATTRIBUTE": "Sign in to your account"
+          }
+        }
+      }
+    }
+  },
+  "HEAD": {
+    "DEFAULT": {
+      "META_TITLE": "Monitorables",
+      "META_DESCRIPTION": "Market research about consumer products, commercial industries and demographics trends which includes data and analysis, tables, and charts.",
+      "META_KEYWORDS": "report, research, market research, business, analysis, industries"
+    }
+  },
+  "404": {
+    "TITLE": "Page Not Found",
+    "DESCRIPTION": "Sorry, but the page you were trying to view does not exist",
+    "HOME_BUTTON": "Back to Home",
+    "RESEARCH_SUGGESTION_LINK": "Researches",
+    "RESEARCH_SUGGESTION_TEXT": "Visit our online store?",
+    "NEWS_SUGGESTION_LINK": "News",
+    "NEWS_SUGGESTION_TEXT": "Business information and resources?"
+  },
+  "BANNER": {
+    "COVER_IMG_ALT": "Industry researches",
+    "CONTENT": {
+      "TITLE": "Discover your market in no time",
+      "DESCRIPTION": "Highly detailed ecommerce market reports, covering a good number of industries, across the globe."
+    },
+    "CTA": {
+      "TEXT": "Shop Market Research",
+      "OR": "or",
+      "OPTIONAL_TEXT": "Find out more"
+    },
+    "LOGO_ALT": "Monitorables company logo"
+  },
+  "FOOTER": {
+    "FOOTER_HEADER": {
+      "CTA_BUTTON": "Contact us",
+      "LOGO": {
+        "ALT": "Monitorables company logo",
+        "LINK_TITLE_ATTRIBUTE": "Go to home page"
+      }
+    },
+    "FOOTER_NAVIGATION": {
+      "SIDE_CONTENT": {
+        "TOP": "Our online store offers a range of ready-to-buy Ecommerce reports with detailed information on current and future industry insights, trends, market sales, as well as risk assessments on the global markets.",
+        "BOTTOM": "Our bespoke Ecommerce research and strategy services will benefit new and established businesses looking to break into the global markets."
+      },
+      "MENU": {
+        "LIST_1": {
+          "TITLE": "Legal",
+          "LINK_1": "Refund policy",
+          "LINK_2": "Terms and conditions",
+          "LINK_3": "Privacy policy",
+          "LINK_4": "Cookies policy"
+        },
+        "LIST_2": {
+          "TITLE": "Find us",
+          "LINK_1": "+44 734 275 9900",
+          "LINK_2": "info@monitorables.com",
+          "LINK_3": "Mon-Fri 9am-5pm"
+        },
+        "LIST_3": {
+          "TITLE": "Company",
+          "LINK_1": "About us",
+          "LINK_2": "Contact us"
+        },
+        "LIST_4": {
+          "TITLE": "Essentials",
+          "LINK_1": "Store",
+          "LINK_2": "Services",
+          "LINK_3": "News"
+        }
+      }
+    },
+    "FOOTER_FORM": {
+      "SIDE_CONTENT": {
+        "TITLE": "Stay up to date",
+        "TEXT": "Interested in more of market insights? Subscribe to our free newsletter content by submitting your email."
+      },
+      "FORM_BODY": {
+        "INPUT_PLACEHOLDER": "Enter your email",
+        "SUBMIT_BUTTON": "Stay up to date",
+        "DESCRIPTION": "Periodic newsletters to your email."
+      }
+    },
+    "FOOTER_BOTTOM": {
+      "COPYRIGHT": "All rights reserved."
+    }
+  },
+  "SERVICE_CTA": {
+    "TITLE": "All for free",
+    "DESCRIPTION": "Tons of Ecommerce market data out there, and organizing all of that information into something workable and useful is the hard part. That's why we've created our premium market research store Monitorables solely for online shops.",
+    "BUTTON_TEXT": "View our research services",
+    "BUTTON_TITLE": "Our services",
+    "MOBILE_IMG_AL": "Mobile Access",
+    "MOBILE_TITLE": "Mobile Access",
+    "MOBILE_DESCRIPTION": "Mobile access to manage your research library from anywhere.",
+    "CLOUD_IMG_AL": "Cloud Space",
+    "CLOUD_TITLE": "Cloud Space",
+    "CLOUD_DESCRIPTION": "Free pdf file storage for your existing reports.",
+    "WEBSITE_IMG_AL": "Website Dashboard",
+    "WEBSITE_TITLE": "Personal Dashboard",
+    "WEBSITE_DESCRIPTION": "Monitorables.com is the control center for your researches."
+  },
+  "LANGUAGE_WIDGET": {
+    "TITLE": "Language",
+    "LIST": {
+      "RUSSIAN": "Pусский",
+      "SPANISH": "Español",
+      "ENGLISH": "English",
+      "CHINESE": "中文"
+    }
+  },
+  "GLOBE": {
+    "TEXT_TOP": "Our online store aims specifically Ecommerce market and offers a range of ready-to-buy reports on current and future industry insights, trends as well as risk assessments on the global markets.",
+    "TEXT_BOTTOM": "From new startups, small companies to global enterprises, people everywhere use Monitorables to see and understand their target market. Our market research services will benefit new and established businesses looking to break into the global markets.",
+    "BUTTON": "Shop Ecommerce reports"
+  },
+  "SERVICES": {
+    "BANNER": {
+      "TITLE": "Ecommerce Services",
+      "DESCRIPTION": "Monitorables is a market research store which provides continuously updated Ecommerce data analysis and reports."
+    },
+    "HEADER": {
+      "TITLE": "Getting ready for the global Ecommerce market?",
+      "DESCRIPTION": "We know you expect the best quality for your market and industry reports. No worries, we have got you covered with industry insights, trends, market sales, as well as risk assessments."
+    },
+    "SERVICE": {
+      "CONTENT_RESEARCH": {
+        "TITLE": "Market Research Store",
+        "QUOTE": "Wide range of research solutions tailored to your needs. Our market research reports cover various services, consumer goods and companies.",
+        "DESCRIPTION": "At Monitorables, we provide highly detailed studies, covering a good number of industries across the globe. Our extensive industry knowledge mainly focuses on emerging industries and regions. We are a trustworthy and reliable provider of necessary market analysis and research."
+      },
+      "CONTENT_CLOUD": {
+        "TITLE": "Online document storage",
+        "QUOTE": "Store, organize and access your documents with ease. Get the right amount of storage space for your research files free of charge.",
+        "DESCRIPTION": "Monitorables document storage service helps you create a high-quality library of your market researches. It is designed to help you quickly and easily store your market research related documents, such as pdf and text files. Comes with many features to make your workflow a little smoother."
+      },
+      "CONTENT_MOBILE": {
+        "TITLE": "Mobile Access",
+        "QUOTE": "Monitorables dashboard and research file viewer is available across the web and mobile devices. Easy access your research files from multiple devices.",
+        "DESCRIPTION": "With Monitorables personal dashboard, organize anything anywhere! All-Platform synchronization: View and manage your market research documents wherever you are. Support seamless synchronization and feature sharing within iPhone, Mac, Android, Windows, iPad."
+      },
+      "CONTENT_DASHBOARD": {
+        "TITLE": "Personal Dashboard",
+        "QUOTE": "Monitorables dashboard helps research lovers get more done.",
+        "DESCRIPTION": "Put all your Ecommerce related research work at your fingertips with Monitorables dashboard. It ticks all the boxes and then some, easy to use, making it easier than ever to organize and access your researches. Utilize your Ecommerce market research reports in a fun and rewarding way with the Monitorables dashboard."
+      },
+      "CONTENT_SECURE": {
+        "TITLE": "Secure and Private",
+        "QUOTE": "Keep your Ecommerce research documents safe with our strong user-based security.",
+        "DESCRIPTION": "By storing your research documents in Monitorables, you will gain the control and confidence you need to securely store your confidential research reports. All customers benefit from our secure platform for their top-secret workloads free of charge."
+      }
+    }
+  },
+  "REGISTER_CTA": {
+    "TITLE": "Is market research important for your Ecommerce business?",
+    "DESCRIPTION": "Markets change, industries evolve. Are you going to be ready? Know the 'why' to recognize your following opportunity. Launch a service or product, enter an existing market or a new one, target existing customers or new ones, just stay prepared for the change.",
+    "LIST_ITEM_1": "Free and a better way to organize your researches.",
+    "LIST_ITEM_2": "No setup. Sign up and start working in one second.",
+    "LIST_ITEM_3": "Free storage, all your researches in one place.",
+    "LIST_ITEM_4": "Keep your Ecommerce researches private and secure with the highest standards.",
+    "BUTTON_TEXT": "Start using",
+    "BUTTON_TITLE": "Register to use all our services"
+  },
+  "STATICS": {
+    "ABOUT_PAGE": {
+      "TITLE": "We know the Ecommerce market. In fact, we create research on it.",
+      "TAG": "About us",
+      "PARAGRAPH_1": "At Monitorables, we provide highly detailed studies, covering a good number of industries, across the globe- as well as industry knowledge that is particularly interesting for the global markets. Monitorables.com is the world's most trustworthy and reliable provider of necessary Ecommerce market analysis and research. We create valuable in-depth reports on many Ecommerce services and products across the globe.",
+      "CTA_PARAGRAPH_1": "Our online store offers a range of ready-to-buy Ecommerce reports.",
+      "TITLE_1": "Ecommerce Market research solutions",
+      "PARAGRAPH_2": "Although quantitative and qualitative Ecommerce market research is now trending in the world, just a few years back, the practice was virtually unknown in many countries. As a result, companies, political institutions, and development cooperation organizations lacked reliable data to work with. At Monitorables, we aim to bridge that gap, thanks to our highly-skilled researchers.",
+      "PARAGRAPH_3": "We collect vital information using state-of-the-art survey systems that guarantee the efficient collection and the highest data quality. Predict future product demands, do not miss out global opportunities. Our market research solutions cover a full range of industries.",
+      "TITLE_2": "Local and global Ecommerce networks",
+      "PARAGRAPH_4": "We work with local market research institutes to include the country-specific characteristics of the market and the cultural background (religion, history, ethnicity).",
+      "PARAGRAPH_5": "More so, thanks to its many years of activity worldwide, we have a network of carefully selected partner institutes that meet our requirements for quality, reliability, and flexibility.",
+      "PARAGRAPH_6": "Here in Monitorables, we provide in-country analysts presents the depth of local business report needed in today's multicultural market. Our industry specialist crew guarantees the consistency of our analysis.",
+      "TITLE_3": "Ecommerce Market Trends",
+      "PARAGRAPH_7": "With a comprehensive network around the world, Ecommerce market research on each significant trend, we give you a powerful entrance to the real story behind consumer behavior.",
+      "PARAGRAPH_8": "Monitorables can identify your next opportunity. Find out about emerging countries and economies in no time.",
+      "CTA_PARAGRAPH_2": "View our award-winning Ecommerce market researches today"
+    },
+    "REFUND_PAGE": {
+      "TITLE": "Thank you for shopping at Monitorables.",
+      "TAG": "Refund policy"
+    },
+    "PRIVACY_POLICY_PAGE": {
+      "TITLE": "Our policies and procedures.",
+      "TAG": "Privacy policy"
+    },
+    "TERMS_CONDITIONS_PAGE": {
+      "TITLE": "Please read these terms and conditions before using our service.",
+      "TAG": "Terms & conditions"
+    },
+    "COOKIE_PAGE": {
+      "TITLE": "Cookies policy explains what cookies are and how we use them.",
+      "TAG": "Cookies Policy"
+    },
+    "404": {
+      "NOT_FOUND": "Page is not found"
+    },
+    "ERROR_PAGE": "Page error"
+  },
+  "HOMEPAGE_RESEARCH_CTA": "Shop market research"
+}

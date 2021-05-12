@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLogin } from '../hooks/useLogin';
 import { useHistory } from 'react-router-dom';
+import {LABELS} from '../locals/sp/labels';
 
 import {
   Stack,
@@ -66,11 +67,11 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         padding={5}
       >
         <Heading color="blue.400" padding={5}>
-          Nombre de la App
+          {LABELS.LOGIN.TITLE}
         </Heading>
         <FormControl>
           <FormLabel fontSize="sm" htmlFor="email">
-            Dirección de email
+            {LABELS.LOGIN.FORM.EMAIL_LABEL}
           </FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -83,7 +84,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
               fontSize="sm"
               type="email"
               id="email"
-              placeholder="mail@dominio.com"
+              placeholder={LABELS.LOGIN.FORM.EMAIL_PLACEHOLDER}
               errorBorderColor="red.300"
               value={emailAddress}
               onChange={({ target }) => setEmailAddress(target.value)}
@@ -92,7 +93,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         </FormControl>
         <FormControl>
           <FormLabel fontSize="sm" htmlFor="password">
-            Password
+            {LABELS.LOGIN.FORM.PASS_LABEL}
           </FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -109,7 +110,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
               autoComplete="off"
               errorBorderColor="red.300"
               id="password"
-              placeholder="********"
+              placeholder={LABELS.LOGIN.FORM.PASS_PLACEHOLDER}
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
@@ -131,7 +132,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             disabled={isInvalid}
             margin="5"
           >
-            Ingresar
+            {LABELS.LOGIN.BUTTON_TEXT}
           </Button>
         </FormControl>
       </Stack>

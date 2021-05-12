@@ -6,20 +6,20 @@ import {
   Box,
   Spacer,
   Button,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   useDisclosure,
-  Input
 } from '@chakra-ui/react';
+import { GenericDrawer } from './genericDrawer';
+import { LABELS } from '../locals/sp/labels';
 
 const TopMenu = () => {
   const history = useHistory();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Left drawer
+  const {
+    isOpen: isOpenLeft,
+    onOpen: onOpenLeft,
+    onClose: onCloseLeft,
+  } = useDisclosure();
+  // Right drawer
   const {
     isOpen: isOpenRight,
     onOpen: onOpenRight,
@@ -37,8 +37,8 @@ const TopMenu = () => {
     <Stack alignSelf="center" width="100%">
       <Flex backgroundColor="gray.200">
         <Box p="2" paddingLeft="6">
-          <Button ref={btnRef1} colorScheme="blue" onClick={onOpen}>
-            Open
+          <Button ref={btnRef1} colorScheme="blue" onClick={onOpenLeft}>
+            {LABELS.FEED.MENU.LEFT_DRAWER.BUTTON_TEXT}
           </Button>
         </Box>
         <Spacer />
@@ -60,62 +60,34 @@ const TopMenu = () => {
           >
             De todo un poco
           </Button>
-
         </Box>
         <Spacer />
         <Box p="2" paddingRight="6">
           <Button ref={btnRef2} colorScheme="blue" onClick={onOpenRight}>
-            Open
+            {LABELS.FEED.MENU.RIGHT_DRAWER.BUTTON_TEXT}
           </Button>
         </Box>
 
-        <Drawer
-          isOpen={isOpen}
+        <GenericDrawer
           placement="left"
-          onClose={onClose}
+          isOpen={isOpenLeft}
+          onClose={onCloseLeft}
           finalFocusRef={btnRef1}
-        >
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Otro drawer</DrawerHeader>
-
-            <DrawerBody>
-              <Input placeholder="Type here..." />
-            </DrawerBody>
-
-            <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="blue">Save</Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-
-        <Drawer
-          isOpen={isOpenRight}
+          title={LABELS.FEED.MENU.LEFT_DRAWER.TITLE}
+          inputPlaceholder={LABELS.FEED.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
+          firstButton={LABELS.FEED.MENU.LEFT_DRAWER.CANCEL_BUTTON}
+          secondButton={LABELS.FEED.MENU.LEFT_DRAWER.SAVE_BUTTON}
+        />
+        <GenericDrawer
           placement="right"
+          isOpen={isOpenRight}
           onClose={onCloseRight}
           finalFocusRef={btnRef2}
-        >
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Otro drawer</DrawerHeader>
-
-            <DrawerBody>
-              <Input placeholder="Type here..." />
-            </DrawerBody>
-
-            <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="blue">Save</Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+          title={LABELS.FEED.MENU.RIGHT_DRAWER.TITLE}
+          inputPlaceholder={LABELS.FEED.MENU.RIGHT_DRAWER.INPUT_PLACEHOLDER}
+          firstButton={LABELS.FEED.MENU.RIGHT_DRAWER.CANCEL_BUTTON}
+          secondButton={LABELS.FEED.MENU.RIGHT_DRAWER.SAVE_BUTTON}
+        />
       </Flex>
     </Stack>
   );
