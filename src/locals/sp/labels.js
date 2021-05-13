@@ -37,6 +37,12 @@ const LABELS = {
       },
     },
   },
+  ACTIVIDADES: {
+    TITLE: 'Actividades pendientes',
+    ACTIVIDAD: {
+      IMAGE_ALT: 'Imágen de la actividad',
+    }
+  },
   FEED: {
     TITLE: 'Bienvenido al feed',
   },

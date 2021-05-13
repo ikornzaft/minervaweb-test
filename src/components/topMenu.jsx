@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Stack,
   Flex,
   Button,
   useDisclosure,
@@ -30,13 +29,11 @@ const TopMenu = () => {
   };
   const [activeButton, setActiveButton] = useState(0);
   return (
-    <Stack width="100%" position={['relative', 'fixed']}>
       <Flex
         backgroundColor="white"
-        borderBottomWidth="1px"
-        borderBottomColor="blue.500"
         justifyContent="center"
         alignItems="center"
+        boxShadow="md"
       >
         <Button
           position="absolute"
@@ -86,7 +83,7 @@ const TopMenu = () => {
           secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
         />
       </Flex>
-    </Stack>
+
   );
 };
 
