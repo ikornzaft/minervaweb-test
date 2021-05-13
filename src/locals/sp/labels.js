@@ -23,21 +23,14 @@ const LABELS = {
   TOP_MENU: {
     MENU: {
       LEFT_DRAWER: {
-        BUTTON_TEXT: 'Un drawer',
+        BUTTON_TEXT: 'Menú',
         TITLE: 'Drawer izquierdo',
         INPUT_PLACEHOLDER: 'Ingresar algo...',
         CANCEL_BUTTON: 'Cancelar',
         SAVE_BUTTON: 'Guardar',
       },
-      RIGHT_DRAWER: {
-        BUTTON_TEXT: 'Otro drawer',
-        TITLE: 'Drawer derecho',
-        INPUT_PLACEHOLDER: 'Ingresar algo...',
-        CANCEL_BUTTON: 'Cancelar',
-        SAVE_BUTTON: 'Guardar',
-      },
       BUTTONS: {
-        BUTTON_1: 'Feed',
+        BUTTON_1: 'Actividades',
         BUTTON_2: 'Form cualquiera',
         BUTTON_3: 'Links y Botones',
         BUTTON_4: 'De todo un poco',

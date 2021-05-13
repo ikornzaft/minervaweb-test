@@ -13,9 +13,9 @@ const Layout = ({ children, isLoginOn }) => {
       bgGradient="linear(120deg, blue.50, teal.100, blue.200)"
       padding="0px"
     >
-    {!isLoginOn ? null : <TopMenu />}
-      <Stack maxHeight="100vh" overflow="auto" direction="column" alignItems="center" justifyContent="flex-start">
-        {children}
+      <Stack direction="column">
+        {!isLoginOn ? null : <TopMenu />}
+        <Stack height="90vh" alignItems="center" justifyContent="center">{children}</Stack>
       </Stack>
     </Container>
   );
