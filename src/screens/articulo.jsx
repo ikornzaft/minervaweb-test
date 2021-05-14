@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Stack, Image, Heading, Text, Container } from '@chakra-ui/react';
 import { ArticlesDb } from '../resources/articlesDb';
+import { ItemArticulo } from '../components/itemArticulo';
 import { LABELS } from '../locals/sp/labels';
 import fallBackImg from '../assets/images/Online-Tutor.svg';
 
@@ -9,14 +10,19 @@ const Articulo = () => {
   const param = useParams();
   const article =
     ArticlesDb[ArticlesDb.findIndex((el) => el.activId === param.id)];
+  // Esto después se va
+  const filtrarPorIndex = (el) => {
+    if (el.activId !== article.activId) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const otherArticlesIndex = ArticlesDb.filter(filtrarPorIndex);
+  //
   return (
-    <Stack marginTop={4} alignItems="center">
-      <Stack
-        maxWidth="80%"
-        paddingY={4}
-        alignItems="center" 
-        textAlign="left"
-      >
+    <Stack marginTop={4} alignItems="center" paddingBottom={6}>
+      <Stack maxWidth="80%" paddingY={4} alignItems="center" textAlign="left">
         <Image
           boxSize="400px"
           objectFit="cover"
@@ -35,26 +41,29 @@ const Articulo = () => {
         </Stack>
       </Stack>
       <Stack
-        backgroundColor="gray.50"
+        backgroundColor="gray.100"
         borderRadius="lg"
         maxWidth="80%"
-        paddingY={4}
+        width="80%"
+        padding={4}
       >
         <Heading as="h3" size="md" fontWeight="light">
           {LABELS.ARTICULO.SECCION.HEADING}
         </Heading>
-        <Stack>
-        <Image
-        boxSize="125px"
-        objectFit="cover"
-        src={fallBackImg}
-        alt={LABELS.ACTIVIDADES.ACTIVIDAD.IMAGE_ALT}
-        fallbackSrc={fallBackImg}
-      />
-        </Stack>
+        {otherArticlesIndex.map((el) => (
+          <ItemArticulo
+            articleId={el.activId}
+            title={el.activTitulo}
+            subtitle={el.activSubtitulo}
+            image={el.activImg}
+          />
+        ))}
       </Stack>
     </Stack>
   );
 };
 
 export { Articulo };
+
+/*
+ */
