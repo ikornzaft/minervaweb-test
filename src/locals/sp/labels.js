@@ -43,6 +43,11 @@ const LABELS = {
       IMAGE_ALT: 'Imágen de la actividad',
     }
   },
+  ARTICULO: {
+    SECCION: {
+      HEADING: 'Otros artículos',
+    },
+  },
   FEED: {
     TITLE: 'Bienvenido al feed',
   },
