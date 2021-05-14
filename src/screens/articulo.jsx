@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { Stack, Image, Heading, Text, Container } from '@chakra-ui/react';
 import { ArticlesDb } from '../resources/articlesDb';
 import { ItemArticulo } from '../components/itemArticulo';
@@ -8,8 +8,15 @@ import fallBackImg from '../assets/images/Online-Tutor.svg';
 
 const Articulo = () => {
   const param = useParams();
+  const imageRef = useRef();
   const article =
     ArticlesDb[ArticlesDb.findIndex((el) => el.activId === param.id)];
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    imageRef.current.scrollIntoView({ behavior: 'smooth' });
+    console.log('Hey!');
+  }, [pathname]);
   // Esto después se va
   const filtrarPorIndex = (el) => {
     if (el.activId !== article.activId) {
@@ -21,7 +28,7 @@ const Articulo = () => {
   const otherArticlesIndex = ArticlesDb.filter(filtrarPorIndex);
   //
   return (
-    <Stack marginTop={4} alignItems="center" paddingBottom={6}>
+    <Stack marginTop={4} alignItems="center" paddingBottom={6} ref={imageRef}>
       <Stack maxWidth="80%" paddingY={4} alignItems="center" textAlign="left">
         <Image
           boxSize="400px"
@@ -64,6 +71,3 @@ const Articulo = () => {
 };
 
 export { Articulo };
-
-/*
- */
