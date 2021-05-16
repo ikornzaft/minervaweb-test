@@ -17,6 +17,7 @@ function App() {
           <Login isLogin={isLoginOn} setLoginOn={setLoginOn} />
         </Route> 
         <Route exact path="/actividades/" component={Actividades} />
+        <Route path="/actividades/:id" component={Actividades} />
         <Route path="/articulo/:id" component={Articulo} />
         <Route exact path="/form/" component={Form} />
         <Route exact path="/mix/" component={MixedElements} />

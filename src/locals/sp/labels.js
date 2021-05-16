@@ -24,8 +24,10 @@ const LABELS = {
     MENU: {
       LEFT_DRAWER: {
         BUTTON_TEXT: 'Menú',
-        TITLE: 'Drawer izquierdo',
-        INPUT_PLACEHOLDER: 'Ingresar algo...',
+        MATERIAS: {
+          BUTTON_1: 'Matemáticas',
+          BUTTON_2: 'Castellano',
+        },
         CANCEL_BUTTON: 'Cancelar',
         SAVE_BUTTON: 'Guardar',
       },

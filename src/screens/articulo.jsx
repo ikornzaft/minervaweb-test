@@ -15,7 +15,6 @@ const Articulo = () => {
 
   useEffect(() => {
     imageRef.current.scrollIntoView({ behavior: 'smooth' });
-    console.log('Hey!');
   }, [pathname]);
   // Esto después se va
   const filtrarPorIndex = (el) => {

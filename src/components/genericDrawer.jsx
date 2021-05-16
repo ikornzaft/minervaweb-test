@@ -1,26 +1,27 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  DrawerHeader,
   DrawerBody,
-  DrawerFooter,
   Button,
-  Input,
+  Stack,
 } from '@chakra-ui/react';
+import { LABELS } from '../locals/sp/labels';
 
-const GenericDrawer = ({
-  placement,
-  isOpen,
-  onClose,
-  finalFocus,
-  title,
-  inputPlaceholder,
-  firstButton,
-  secondButton,
-}) => {
+const GenericDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
+  const history = useHistory();
+  const menuHandler = (e) => {
+    onClose();
+    if (e.target.id === 'button_1') {
+      history.push(`/actividades/matematicas`);
+    }
+    if (e.target.id === 'button_2') {
+      history.push(`/actividades/castellano`);
+    }
+  };
   return (
     <Drawer
       isOpen={isOpen}
@@ -31,18 +32,32 @@ const GenericDrawer = ({
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader>{title}</DrawerHeader>
-
-        <DrawerBody>
-          <Input placeholder={inputPlaceholder} />
+        <DrawerBody paddingX="0">
+          <Stack width="100%" direction="column" paddingTop={12}>
+            <Button
+              borderRadius="0"
+              width="100%"
+              paddingX="0"
+              size="lg"
+              variant="ghost"
+              id="button_1"
+              onClick={menuHandler}
+            >
+              {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_1}
+            </Button>
+            <Button
+              borderRadius="0"
+              width="100%"
+              paddingX="0"
+              size="lg"
+              variant="ghost"
+              id="button_2"
+              onClick={menuHandler}
+            >
+              {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_2}
+            </Button>
+          </Stack>
         </DrawerBody>
-
-        <DrawerFooter>
-          <Button variant="outline" mr={3} onClick={onClose}>
-            {firstButton}
-          </Button>
-          <Button colorScheme="blue">{secondButton}</Button>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
