@@ -8,17 +8,17 @@ import fallBackImg from '../assets/images/Online-Tutor.svg';
 
 const Articulo = () => {
   const param = useParams();
-  const imageRef = useRef();
+  const containerRef = useRef();
   const article =
-    ArticlesDb[ArticlesDb.findIndex((el) => el.activId === param.id)];
+    ArticlesDb[ArticlesDb.findIndex((el) => el.articleId === param.id)];
   const { pathname } = useLocation();
 
   useEffect(() => {
-    imageRef.current.scrollIntoView({ behavior: 'smooth' });
+    containerRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [pathname]);
   // Esto después se va
   const filtrarPorIndex = (el) => {
-    if (el.activId !== article.activId) {
+    if (el.articleId !== article.articleId) {
       return true;
     } else {
       return false;
@@ -27,22 +27,22 @@ const Articulo = () => {
   const otherArticlesIndex = ArticlesDb.filter(filtrarPorIndex);
   //
   return (
-    <Stack marginTop={4} alignItems="center" paddingBottom={6} ref={imageRef}>
+    <Stack marginTop={4} alignItems="center" paddingBottom={6} ref={containerRef}>
       <Stack maxWidth="80%" paddingY={4} alignItems="center" textAlign="left">
         <Image
           boxSize="400px"
           objectFit="cover"
-          src={article.activImg}
+          src={article.articleHeader.imageLink}
           alt={LABELS.ACTIVIDADES.ACTIVIDAD.IMAGE_ALT}
           fallbackSrc={fallBackImg}
         />
         <Stack textAlign="left">
-          <Heading paddingX={4}>{article.activTitulo}</Heading>
+          <Heading paddingX={4}>{article.articleHeader.articleTitle}</Heading>
           <Heading as="h4" paddingX={4} size="md">
-            {article.activSubtitulo}
+            {article.articleHeader.articleSubtitle}
           </Heading>
           <Container>
-            <Text>{article.activContenido}</Text>
+            {article.articleParagraph.map(el => <Text>{el.articleContent.document}</Text>)}
           </Container>
         </Stack>
       </Stack>
@@ -58,10 +58,10 @@ const Articulo = () => {
         </Heading>
         {otherArticlesIndex.map((el) => (
           <ItemArticulo
-            articleId={el.activId}
-            title={el.activTitulo}
-            subtitle={el.activSubtitulo}
-            image={el.activImg}
+            articleId={el.articleId}
+            title={el.articleHeader.articleTitle}
+            subtitle={el.articleHeader.articleSubtitle}
+            image={el.articleHeader.imageLink}
           />
         ))}
       </Stack>

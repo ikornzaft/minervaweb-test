@@ -1,33 +1,195 @@
 const ArticlesDb = [
   {
-    activId: '00001',
-    activTitulo: 'Esta es la primera tarea',
-    activSubtitulo:
-      'Y esta es la descripción de esa tarea, para tener una idea de qué se trata',
-    activMateria: 'Matematicas',
-    activGrupo: 'Grupo 1',
-    activFecha: 'Lunes, 3 de marzo de 2021',
-    activImg: 'https://source.unsplash.com/1600x900/?nature,water',
-    activContenido: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?'
+    articleId: '00001',
+    isPending: false,
+    articleHeader: {
+      imageLink: 'https://source.unsplash.com/1600x900/?nature,water',
+      articleTitle: 'Esta es la primera tarea',
+      articleSubtitle:
+        'Y esta es la descripción de esa tarea, para tener una idea de qué se trata',
+      articleSubject: 'Matematicas',
+      articleGroup: 'Grupo 1',
+      articleDate: 'Lunes, 3 de marzo de 2021',
+    },
+    articleParagraph: [
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+    ],
   },
   {
-    activId: '00002',
-    activTitulo: 'Esta es otra actividad más',
-    activSubtitulo: 'Más detalles de la actividad',
-    activMateria: 'Castellano',
-    activGrupo: 'Grupo 2',
-    activFecha: 'Lunes, 4 de abril de 2021',
-    activImg: 'https://source.unsplash.com/1600x900/?city,building',
-    activContenido: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?'
+    articleId: '00002',
+    isPending: true,
+    articleHeader: {
+      imageLink: 'https://source.unsplash.com/1600x900/?cars',
+      articleTitle: 'Esta es la segunda tarea',
+      articleSubtitle:
+        'Y esta es la descripción de la segunda tarea, de Comunicación',
+      articleSubject: 'Comunicacion',
+      articleGroup: 'Grupo 2',
+      articleDate: 'Lunes, 3 de marzo de 2021',
+    },
+    articleParagraph: [
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+    ],
   },
   {
-    activId: '00003',
-    activTitulo: 'Último ejemplo de tareas',
-    activSubtitulo: 'Esta es otra descripción de la actividad',
-    activMateria: 'Matematicas',
-    activGrupo: 'Grupo 3',
-    activFecha: 'Lunes, 5 de mayo de 2021',
-    activContenido: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?'
+    articleId: '00003',
+    isPending: true,
+    articleHeader: {
+      imageLink: 'https://source.unsplash.com/1600x900/?people',
+      articleTitle: 'Esta es la tercera tarea',
+      articleSubtitle:
+        'Y esta es la descripción de la tercera tarea, para tener una idea de qué se trata',
+      articleSubject: 'Ciencias_Naturales',
+      articleGroup: 'Grupo 1',
+      articleDate: 'Lunes, 3 de marzo de 2021',
+    },
+    articleParagraph: [
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+    ],
+  },
+  {
+    articleId: '00004',
+    isPending: true,
+    articleHeader: {
+      imageLink: 'https://source.unsplash.com/1600x900/?trees',
+      articleTitle: 'Esta es la cuarta tarea',
+      articleSubtitle:
+        'Y esta es la descripción de la cuarta tarea (Estudios Sociales), para tener una idea de qué se trata',
+      articleSubject: 'Estudios_Sociales',
+      articleGroup: 'Grupo 1',
+      articleDate: 'Lunes, 3 de marzo de 2021',
+    },
+    articleParagraph: [
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+      {
+        articleContent: {
+          videoLink: '',
+          audioLink: '',
+          document:
+            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
+          image: '',
+          quiz: '',
+          articleLink: '',
+        },
+      },
+    ],
   },
 ];
 

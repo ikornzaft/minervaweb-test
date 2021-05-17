@@ -8,7 +8,7 @@ import { ArticlesDb } from '../resources/articlesDb';
 const Actividades = () => {
   const param = useParams();
   const filterArticles = (el) => {
-    if (el.activMateria.toLowerCase() === param.id) {
+    if (el.articleHeader.articleSubject.toLowerCase() === param.id) {
       return true;
     } else {
       return false;
@@ -17,7 +17,7 @@ const Actividades = () => {
   let filteredArticles = [];
   param.id
     ? (filteredArticles = ArticlesDb.filter(filterArticles))
-    : (filteredArticles = ArticlesDb);
+    : (filteredArticles = ArticlesDb.filter(el => el.isPending));
   return (
     <Container maxWidth="container.lg" alignSelf="center" padding="0px">
       <Stack direction="column" textAlign="center">
@@ -30,12 +30,12 @@ const Actividades = () => {
         </Stack>
           {filteredArticles.map((actividad) => (
             <Actividad
-              articleId={actividad.activId}
-              title={actividad.activTitulo}
-              subtitle={actividad.activSubtitulo}
-              group={actividad.activGrupo}
-              date={actividad.activFecha}
-              image={actividad.activImg}
+              articleId={actividad.articleId}
+              title={actividad.articleHeader.articleTitle}
+              subtitle={actividad.articleHeader.articleSubtitle}
+              group={actividad.articleHeader.articleGroup}
+              date={actividad.articleHeader.articleDate}
+              image={actividad.articleHeader.imageLink}
             />
           ))}
         </Stack>

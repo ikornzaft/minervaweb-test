@@ -26,7 +26,9 @@ const LABELS = {
         BUTTON_TEXT: 'Menú',
         MATERIAS: {
           BUTTON_1: 'Matemáticas',
-          BUTTON_2: 'Castellano',
+          BUTTON_2: 'Comunicación',
+          BUTTON_3: 'Ciencias Naturales',
+          BUTTON_4: 'Estudios Sociales',
         },
         CANCEL_BUTTON: 'Cancelar',
         SAVE_BUTTON: 'Guardar',

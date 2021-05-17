@@ -19,7 +19,13 @@ const GenericDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
       history.push(`/actividades/matematicas`);
     }
     if (e.target.id === 'button_2') {
-      history.push(`/actividades/castellano`);
+      history.push(`/actividades/comunicacion`);
+    }
+    if (e.target.id === 'button_3') {
+      history.push(`/actividades/ciencias_naturales`);
+    }
+    if (e.target.id === 'button_4') {
+      history.push(`/actividades/estudios_sociales`);
     }
   };
   return (
@@ -55,6 +61,28 @@ const GenericDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
               onClick={menuHandler}
             >
               {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_2}
+            </Button>{' '}
+            <Button
+              borderRadius="0"
+              width="100%"
+              paddingX="0"
+              size="lg"
+              variant="ghost"
+              id="button_3"
+              onClick={menuHandler}
+            >
+              {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_3}
+            </Button>
+            <Button
+              borderRadius="0"
+              width="100%"
+              paddingX="0"
+              size="lg"
+              variant="ghost"
+              id="button_4"
+              onClick={menuHandler}
+            >
+              {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_4}
             </Button>
           </Stack>
         </DrawerBody>
