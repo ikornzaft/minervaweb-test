@@ -35,9 +35,9 @@ const LABELS = {
       },
       BUTTONS: {
         BUTTON_1: 'Actividades',
-        BUTTON_2: 'Form cualquiera',
-        BUTTON_3: 'Links y Botones',
-        BUTTON_4: 'De todo un poco',
+        BUTTON_2: 'Consultas',
+        BUTTON_3: 'Compartidos',
+        BUTTON_4: 'Entregas',
       },
     },
   },

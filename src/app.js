@@ -4,9 +4,9 @@ import { Login } from './screens/login';
 import { Actividades } from './screens/actividades'
 import { Articulo } from './screens/articulo'
 import { Layout } from './screens/layout';
-import { Form } from './screens/form';
-import { MixedElements } from './screens/mixedElements';
-import { DeTodo } from './screens/deTodo';
+import { Consultas } from './screens/consultas';
+import { Compartidos } from './screens/compartidos';
+import { Entregas } from './screens/entregas';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -19,9 +19,9 @@ function App() {
         <Route exact path="/actividades/" component={Actividades} />
         <Route path="/actividades/:id" component={Actividades} />
         <Route path="/articulo/:id" component={Articulo} />
-        <Route exact path="/form/" component={Form} />
-        <Route exact path="/mix/" component={MixedElements} />
-        <Route exact path="/detodo/" component={DeTodo} />
+        <Route exact path="/consultas/" component={Consultas} />
+        <Route exact path="/compartidos/" component={Compartidos} />
+        <Route exact path="/entregas/" component={Entregas} />
         <Redirect to="/" />
       </Switch>
     </Layout>
