@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Stack, Image, Heading, Text, Container } from '@chakra-ui/react';
 import { ArticlesDb } from '../resources/articlesDb';
 import { ItemArticulo } from '../components/itemArticulo';
+import { ParagraphPopover } from '../components/paragraphPopover';
 import { LABELS } from '../locals/sp/labels';
 import fallBackImg from '../assets/images/Online-Tutor.svg';
 
@@ -27,7 +28,12 @@ const Articulo = () => {
   const otherArticlesIndex = ArticlesDb.filter(filtrarPorIndex);
   //
   return (
-    <Stack marginTop={4} alignItems="center" paddingBottom={6} ref={containerRef}>
+    <Stack
+      marginTop={4}
+      alignItems="center"
+      paddingBottom={6}
+      ref={containerRef}
+    >
       <Stack maxWidth="80%" paddingY={4} alignItems="center" textAlign="left">
         <Image
           boxSize="400px"
@@ -36,14 +42,27 @@ const Articulo = () => {
           alt={LABELS.ACTIVIDADES.ACTIVIDAD.IMAGE_ALT}
           fallbackSrc={fallBackImg}
         />
-        <Stack textAlign="left">
+        <Stack textAlign="left" paddingLeft="5rem">
           <Heading paddingX={4}>{article.articleHeader.articleTitle}</Heading>
           <Heading as="h4" paddingX={4} size="md">
             {article.articleHeader.articleSubtitle}
           </Heading>
-          <Container>
-            {article.articleParagraph.map(el => <Text>{el.articleContent.document}</Text>)}
-          </Container>
+          <Stack alignItems="center">
+            {article.articleParagraph.map((el) => (
+              <Stack direction="row" role="group">
+                <Container maxWidth="75ch">
+                  <Text marginBottom={4}>{el.articleContent.document}</Text>
+                </Container>
+                <Stack width="5rem" justifyContent="center" alignItems="center" >
+                  <ParagraphPopover 
+                    buttonText="Text"
+                    header={LABELS.DE_TODO.POPOVER_1.HEADER}
+                    body={LABELS.DE_TODO.POPOVER_1.BODY}
+                  />
+                </Stack>
+              </Stack>
+            ))}
+          </Stack>
         </Stack>
       </Stack>
       <Stack

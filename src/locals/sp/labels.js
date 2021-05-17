@@ -42,10 +42,14 @@ const LABELS = {
     },
   },
   ACTIVIDADES: {
-    TITLE: 'Actividades pendientes',
+    TITLE: {
+      PENDENT: 'Actividades pendientes',
+      SUBJECT: 'Actividades de ',
+    },
+
     ACTIVIDAD: {
       IMAGE_ALT: 'Imágen de la actividad',
-    }
+    },
   },
   ARTICULO: {
     SECCION: {
@@ -100,7 +104,7 @@ const LABELS = {
     },
   },
   DE_TODO: {
-    TITLE: 'De todo un poco', 
+    TITLE: 'De todo un poco',
     MENU: {
       BUTTON_TEXT: 'Un menú',
       ITEM_1: 'Download',
@@ -112,7 +116,7 @@ const LABELS = {
     POPOVER_1: {
       BUTTON_TEXT: 'Popover',
       HEADER: 'Pop Over!',
-      BODY: 'Esto es un popover!'
+      BODY: 'Esto es un popover!',
     },
     POPOVER_2: {
       BUTTON_TEXT: 'Otro popover',
@@ -121,34 +125,36 @@ const LABELS = {
       FOOTER: {
         CONTENT: 'Paso 2 de 4',
         BUTTON_1_TEXT: 'Configurar Email',
-        BUTTON_2_TEXT: 'Sig.'
+        BUTTON_2_TEXT: 'Sig.',
       },
     },
     ACCORDION: {
       SECTION_1: {
         TITLE: 'Esta es la sección 1 de un acordeón',
-        CONTENT: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        CONTENT:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       },
       SECTION_2: {
         TITLE: 'Y esta es la sección 2',
-        CONTENT: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        CONTENT:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       },
     },
     TABS: {
       TAB_1: {
-        TITLE: 'Uno', 
+        TITLE: 'Uno',
         CONTENT: 'one!',
       },
       TAB_2: {
-        TITLE: 'Dos', 
+        TITLE: 'Dos',
         CONTENT: 'two!',
       },
       TAB_3: {
-        TITLE: 'Tres', 
+        TITLE: 'Tres',
         CONTENT: 'three!',
       },
-    }
-  }
+    },
+  },
 };
 
 export { LABELS };

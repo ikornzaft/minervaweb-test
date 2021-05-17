@@ -24,7 +24,7 @@ const Actividades = () => {
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
         <Stack direction="row">
         <Heading as="h3" fontSize="xl" fontWeight="100" color="gray.600">
-          {LABELS.ACTIVIDADES.TITLE}
+          {param.id ? LABELS.ACTIVIDADES.TITLE.SUBJECT : LABELS.ACTIVIDADES.TITLE.PENDENT}
         </Heading>
         {param.id ? <Heading as="h3" fontSize="xl" fontWeigth="100" color="blue.500"> {param.id} </Heading> : null}
         </Stack>
