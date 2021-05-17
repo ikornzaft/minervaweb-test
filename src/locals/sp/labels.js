@@ -30,14 +30,23 @@ const LABELS = {
           BUTTON_3: 'Ciencias Naturales',
           BUTTON_4: 'Estudios Sociales',
         },
-        CANCEL_BUTTON: 'Cancelar',
-        SAVE_BUTTON: 'Guardar',
       },
       BUTTONS: {
         BUTTON_1: 'Actividades',
         BUTTON_2: 'Consultas',
         BUTTON_3: 'Compartidos',
         BUTTON_4: 'Entregas',
+      },
+      RIGHT_DRAWER: {
+        BUTTON_TEXT: 'Edición',
+        OPCIONES: {
+          BUTTON_1: 'Nueva Actividad',
+        },
+        NEW_ACTIVITY_MODAL: {
+          TITLE: 'Crear una nueva actividad',
+          FORM_INPUT_1: 'Nombre de la actividad',
+          FORM_BUTTON: 'Crear actividad',
+        },
       },
     },
   },
