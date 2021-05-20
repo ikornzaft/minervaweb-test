@@ -34,7 +34,7 @@ const Articulo = () => {
       paddingBottom={6}
       ref={containerRef}
     >
-      <Stack maxWidth="80%" paddingY={4} alignItems="center" textAlign="left">
+      <Stack maxWidth="80%" paddingY={12} alignItems="center" textAlign="left">
         <Image
           boxSize="400px"
           objectFit="cover"

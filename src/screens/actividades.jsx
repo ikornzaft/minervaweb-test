@@ -19,7 +19,7 @@ const Actividades = () => {
     ? (filteredArticles = ArticlesDb.filter(filterArticles))
     : (filteredArticles = ArticlesDb.filter(el => el.isPending));
   return (
-    <Container maxWidth="container.lg" alignSelf="center" padding="0px">
+    <Container maxWidth="container.lg" alignSelf="center" pt={12}>
       <Stack direction="column" textAlign="center">
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
         <Stack direction="row">

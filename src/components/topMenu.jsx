@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Flex, Button, useDisclosure, ButtonGroup } from '@chakra-ui/react';
+import {
+  Stack,
+  Button,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
 import { LABELS } from '../locals/sp/labels';
@@ -39,82 +43,117 @@ const TopMenu = () => {
   };
   const [activeButton, setActiveButton] = useState(0);
   return (
-    <Flex
-      backgroundColor="white"
-      justifyContent="center"
+    <Stack
+      width="100vw"
+      position={["absolute", "fixed"]}
+      bgColor="white"
+      borderBottomWidth="1px"
+      borderBottomColor="gray.300"
+      direction="row"
+      justifyContent="space-between"
       alignItems="center"
-      boxShadow="md"
+      paddingX={6}
     >
       <Button
-        position="absolute"
-        left="0"
-        marginLeft={4}
+        margin="0"
+        paddingY={2}
         ref={btnRef1}
+        variant="ghost"
         colorScheme="blue"
         size="sm"
         width="8rem"
+        height="100%"
         borderRadius="0"
         onClick={onOpenLeft}
       >
         {LABELS.TOP_MENU.MENU.LEFT_DRAWER.BUTTON_TEXT}
       </Button>
+      <Stack direction={["column", "row"]} >
+          <Button
+          size="sm" variant="link" mr="4" p="1"
+            colorScheme="blue"
+            borderRadius="0"
+            width="8rem"
+            id="menu-button_1"
+            isActive={activeButton === 0 ? true : false}
+            borderBottomWidth="5px"
+            borderBottomColor="white"
+            borderTopWidth="5px"
+            borderTopColor="white"
+            onClick={menuHandler}
+            _hover={{ borderBottomColor: 'blue.500' }}
+            _active={{ borderBottomColor: 'blue.500' }}
+          >
+            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
+          </Button>
+          <Button
+          size="sm" variant="link" mr="4" p="1"
+            colorScheme="blue"
+            borderRadius="0"
+            width="8rem"
+            id="menu-button_2"
+            isActive={activeButton === 1 ? true : false}
+            borderBottomWidth="5px"
+            borderBottomColor="white"
+            borderTopWidth="5px"
+            borderTopColor="white"
+            onClick={menuHandler}
+            _hover={{ borderBottomColor: 'blue.500' }}
+            _active={{ borderBottomColor: 'blue.500' }}
 
-      <ButtonGroup size="sm" variant="outline" mr="4" p="2">
-        <Button
-          colorScheme="blue"
-          borderRadius="0"
-          width="8rem"
-          id="menu-button_1"
-          isActive={activeButton === 0 ? true : false}
-          onClick={menuHandler}
-        >
-          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
-        </Button>
-        <Button
-          colorScheme="blue"
-          borderRadius="0"
-          width="8rem"
-          id="menu-button_2"
-          isActive={activeButton === 1 ? true : false}
-          onClick={menuHandler}
-        >
-          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_2}
-        </Button>
-        <Button
+          >
+            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_2}
+          </Button>
+          <Button
+          size="sm" variant="link" mr="4" p="1"
           colorScheme="blue"
           borderRadius="0"
           width="8rem"
           id="menu-button_3"
           isActive={activeButton === 2 ? true : false}
+          borderBottomWidth="5px"
+          borderBottomColor="white"
+          borderTopWidth="5px"
+          borderTopColor="white"
           onClick={menuHandler}
-        >
-          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
-        </Button>
-        <Button
+          _hover={{ borderBottomColor: 'blue.500' }}
+          _active={{ borderBottomColor: 'blue.500' }}
+          >
+            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
+          </Button>
+          <Button
+          size="sm" variant="link" mr="4" p="1"
           colorScheme="blue"
           borderRadius="0"
           width="8rem"
           id="menu-button_4"
           isActive={activeButton === 3 ? true : false}
+          borderBottomWidth="5px"
+          borderBottomColor="white"
+          borderTopWidth="5px"
+          borderTopColor="white"
           onClick={menuHandler}
-        >
-          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
-        </Button>
-      </ButtonGroup>
+          _hover={{ borderBottomColor: 'blue.500' }}
+          _active={{ borderBottomColor: 'blue.500' }}
+          >
+            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
+          </Button>
+      </Stack>
+
       <Button
-      position="absolute"
-      left="100%"
-      transform="translateX(-115%)"
-      marginRight={4}
-      ref={btnRef2}
-      colorScheme="blue"
-      size="sm"
-      width="8rem"
-      borderRadius="0"
-      onClick={onOpenRight}
-    >
-      {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
-    </Button>
+        margin="0"
+        paddingY={2}
+        ref={btnRef2}
+        variant="ghost"
+        colorScheme="blue"
+        size="sm"
+        width="8rem"
+        height="100%"
+        borderRadius="0"
+        onClick={onOpenRight}
+      >
+        {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
+      </Button>
 
       <LeftDrawer
         placement="left"
@@ -128,16 +167,16 @@ const TopMenu = () => {
         setActiveButton={setActiveButton}
       />
       <RightDrawer
-      placement="right"
-      isOpen={isOpenRight}
-      onClose={onCloseRight}
-      finalFocusRef={btnRef2}
-      title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
-      inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
-      firstButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.CANCEL_BUTTON}
-      secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
-    />
-    </Flex>
+        placement="right"
+        isOpen={isOpenRight}
+        onClose={onCloseRight}
+        finalFocusRef={btnRef2}
+        title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
+        inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
+        firstButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.CANCEL_BUTTON}
+        secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
+      />
+    </Stack>
   );
 };
 
