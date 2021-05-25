@@ -40,12 +40,14 @@ const LABELS = {
       RIGHT_DRAWER: {
         BUTTON_TEXT: 'Edición',
         OPCIONES: {
-          BUTTON_1: 'Nueva Actividad',
+          BUTTON_1: 'Crear artículo',
         },
         NEW_ACTIVITY_MODAL: {
-          TITLE: 'Crear una nueva actividad',
-          FORM_INPUT_1: 'Nombre de la actividad',
-          FORM_BUTTON: 'Crear actividad',
+          TITLE: 'Crear un nuevo artículo',
+          FORM_INPUT_1: 'Título',
+          FORM_INPUT_2: 'Copete',
+          CONTENT_LABEL: 'Contenido',
+          FORM_BUTTON: 'Crear artículo',
         },
       },
     },

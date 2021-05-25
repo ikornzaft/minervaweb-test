@@ -1,13 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Stack, Image, Heading, Text, Container } from '@chakra-ui/react';
+import { Stack, Heading } from '@chakra-ui/react';
+import { useFetchArticle } from '../hooks/useFetchArticle';
 import { ArticlesDb } from '../resources/articlesDb';
 import { ItemArticulo } from '../components/itemArticulo';
-import { ParagraphPopover } from '../components/paragraphPopover';
+import { ArticleContent } from '../components/articleContent';
 import { LABELS } from '../locals/sp/labels';
-import fallBackImg from '../assets/images/Online-Tutor.svg';
 
 const Articulo = () => {
+  const res = useFetchArticle('msgid-1');
+
+  const [fetchedData, setFetchedData] = useState('');
+
   const param = useParams();
   const containerRef = useRef();
   const article =
@@ -34,37 +38,7 @@ const Articulo = () => {
       paddingBottom={6}
       ref={containerRef}
     >
-      <Stack maxWidth="80%" paddingY={12} alignItems="center" textAlign="left">
-        <Image
-          boxSize="400px"
-          objectFit="cover"
-          src={article.articleHeader.imageLink}
-          alt={LABELS.ACTIVIDADES.ACTIVIDAD.IMAGE_ALT}
-          fallbackSrc={fallBackImg}
-        />
-        <Stack textAlign="left" paddingLeft="5rem">
-          <Heading paddingX={4}>{article.articleHeader.articleTitle}</Heading>
-          <Heading as="h4" paddingX={4} size="md">
-            {article.articleHeader.articleSubtitle}
-          </Heading>
-          <Stack alignItems="center">
-            {article.articleParagraph.map((el) => (
-              <Stack direction="row" role="group">
-                <Container maxWidth="75ch">
-                  <Text marginBottom={4}>{el.articleContent.document}</Text>
-                </Container>
-                <Stack width="5rem" justifyContent="center" alignItems="center" >
-                  <ParagraphPopover 
-                    buttonText="Text"
-                    header={LABELS.DE_TODO.POPOVER_1.HEADER}
-                    body={LABELS.DE_TODO.POPOVER_1.BODY}
-                  />
-                </Stack>
-              </Stack>
-            ))}
-          </Stack>
-        </Stack>
-      </Stack>
+      {!res.loading ? <ArticleContent article={article} article2={res.articleContent}/> : <h1>LOADING...</h1>}
       <Stack
         backgroundColor="gray.100"
         borderRadius="lg"
@@ -89,3 +63,31 @@ const Articulo = () => {
 };
 
 export { Articulo };
+
+/*
+
+  useEffect(() => {
+    fetch('http://afatecha.com:8080/minerva-server-web/minerva/perform', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        'id': "msgid-1",
+        'target': "soa@service/minerva",
+        'method': "mods/articles/handlers/GetArticle",
+        'requester': "root:YWNhY2lhITIwMTc=",
+        'principal': "root:cm9vdA==",
+        'message': {
+      
+           'entityRef': { "publicId": "test/1" }
+      
+        }
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => setFetchedData(data.message.entity.resource));
+  }, []);
+
+
+  */

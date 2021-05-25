@@ -22,7 +22,7 @@ const useLogin = () => {
       setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_EMAIL);
       return;
     }
-    if (!password || password.length < 8) {
+    if (!password || password.length < 5) {
       setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_PASS);
       return;
     }
@@ -33,7 +33,7 @@ const useLogin = () => {
         localStorageService.AddUser({ email, token: res.data.token });
         history.push("/admin/dashboard");
       } */
-      if (email === 'ikornzaft@gmail.com' && password === '123456789') {
+      if (email === 'admin@admin.com' && password === 'admin') {
         setValidUser(true);
         setError('');
         return;

@@ -9,8 +9,7 @@ import {
   Stack,
   useDisclosure
 } from '@chakra-ui/react';
-import { GenericModal } from './genericModal';
-import { GenericForm } from './genericForm';
+import { MultipageFormModal } from './multipageFormModal';
 import { LABELS } from '../locals/sp/labels';
 
 const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
@@ -51,12 +50,11 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
         </DrawerBody>
       </DrawerContent>
     </Drawer>
-    <GenericModal
+    <MultipageFormModal
     isOpen={isOpenNewActivity}
     onClose={onCloseNewActivity}
     modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}
-    modalContent={<GenericForm firstFieldLabel={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.FORM_INPUT_1} firstFieldType='text' firstFieldId='nombre_actividad' buttonText={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.FORM_BUTTON}  />}
-  />
+    />
   </>
   );
 };
