@@ -38,7 +38,7 @@ const useFetchArticle = (id) => {
             }
         };
         fetchData();
-    }, []);
+    }, [jsonMessage]);
     return { articleContent, error, loading };
 };
 
