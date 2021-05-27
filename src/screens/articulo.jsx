@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Stack, Heading } from '@chakra-ui/react';
 import { useFetchArticle } from '../hooks/useFetchArticle';
@@ -9,8 +9,6 @@ import { LABELS } from '../locals/sp/labels';
 
 const Articulo = () => {
   const res = useFetchArticle('msgid-1');
-
-  const [fetchedData, setFetchedData] = useState('');
 
   const param = useParams();
   const containerRef = useRef();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Stack } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 
 import { TopMenu } from '../components/topMenu';
 

@@ -100,7 +100,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
               pointerEvents="none"
               fontSize="xl"
               children={
-                <TiLockClosedOutline verticalAlign="middle" color="gray" />
+                <TiLockClosedOutline color="gray" />
               }
             />
             <Input

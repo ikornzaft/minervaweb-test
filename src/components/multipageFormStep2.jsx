@@ -1,5 +1,12 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {
+  FormControl,
+  FormLabel,
+  Button,
+  Input,
+  Text,
+} from '@chakra-ui/react';
 import * as Yup from 'yup';
 
 const stepTwoValidationSchema = Yup.object({
@@ -17,20 +24,44 @@ const MultipageFormStep2 = (props) => {
       initialValues={props.data}
       onSubmit={handleSubmit}
     >
-      {({ values }) => (
+      {(formikProps) => (
         <Form>
-          <p>Párrafo</p>
-          <Field type="text" name="paragraph" />
-          <ErrorMessage name="paragraph" />
-
-          <button type="button" onClick={() => props.prev(values)}>
-            Atrás
-          </button>
-          <button type="submit">Crear</button>
+          <Field name="paragraph">
+            {({ field }) => (
+              <FormControl>
+                <FormLabel htmlFor="paragraph">Párrafo</FormLabel>
+                <Input {...field} id="paragraph" placeholder="Párrafo" />
+                <ErrorMessage name="paragraph">{msg => <Text color="red" fontSize="sm">{msg}</Text>}</ErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+          <Button
+          mt={4}
+          colorScheme="teal"
+          isLoading={formikProps.isSubmitting}
+          type="button"
+          onClick={() => props.prev(formikProps.values)}
+        >
+          Anterior
+        </Button>
+          <Button
+            mt={4}
+            colorScheme="teal"
+            isLoading={formikProps.isSubmitting}
+            type="submit"
+          >
+            Submit
+          </Button>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default MultipageFormStep2;
+export { MultipageFormStep2 };
+
+/*
+        <Field name="paragraph" />
+        <Input id="paragraph" placeholder="paragraph"/ >
+        <ErrorMessage name="paragraph">{msg => <Text color="red">{msg}</Text>}</ErrorMessage>
+        */
