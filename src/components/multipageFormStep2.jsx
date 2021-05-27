@@ -1,10 +1,10 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import {
   FormControl,
   FormLabel,
   Button,
-  Input,
+  Textarea,
   Text,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
@@ -15,43 +15,68 @@ const stepTwoValidationSchema = Yup.object({
 
 const MultipageFormStep2 = (props) => {
   const handleSubmit = (values) => {
+    console.log(values);
     props.next(values, true);
   };
 
   return (
     <Formik
-      validationSchema={stepTwoValidationSchema}
       initialValues={props.data}
       onSubmit={handleSubmit}
     >
-      {(formikProps) => (
+      {({ values }) => (
         <Form>
-          <Field name="paragraph">
-            {({ field }) => (
-              <FormControl>
-                <FormLabel htmlFor="paragraph">Párrafo</FormLabel>
-                <Input {...field} id="paragraph" placeholder="Párrafo" />
-                <ErrorMessage name="paragraph">{msg => <Text color="red" fontSize="sm">{msg}</Text>}</ErrorMessage>
-              </FormControl>
+          <FieldArray name="paragraphs">
+            {({ insert, remove, push }) => (
+              <div>
+                {values.paragraphs.length > 0 &&
+                  values.paragraphs.map((paragraph, index) => (
+                    <div className="row" key={index}>
+                      <div className="col">
+                        <FormLabel htmlFor={`paragraphs.${index}.paragraph`}>
+                          Párrafo {index + 1} 
+                        </FormLabel>
+                        <Field
+                          name={`paragraphs.${index}.paragraph`}
+                          type="text"
+                        />
+                        <ErrorMessage
+                          name={`paragraphs.${index}.paragraph`}
+                          component="div"
+                          className="field-error"
+                        />
+                      </div>
+                      <div className="col">
+                        <Button
+                          type="button"
+                          className="secondary"
+                          onClick={() => remove(index)}
+                        >
+                          X
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                <Button
+                mt={4}
+                colorScheme="teal"
+                  type="button"
+                  onClick={() => push({ paragraph:'' })}
+                >
+                  Agregar párrafo
+                </Button>
+              </div>
             )}
-          </Field>
+          </FieldArray>
           <Button
           mt={4}
           colorScheme="teal"
-          isLoading={formikProps.isSubmitting}
           type="button"
-          onClick={() => props.prev(formikProps.values)}
+          onClick={() => props.prev(values)}
         >
           Anterior
         </Button>
-          <Button
-            mt={4}
-            colorScheme="teal"
-            isLoading={formikProps.isSubmitting}
-            type="submit"
-          >
-            Submit
-          </Button>
+          <Button type="submit">Confirmar</Button>
         </Form>
       )}
     </Formik>
