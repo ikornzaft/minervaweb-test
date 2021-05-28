@@ -19,18 +19,8 @@ const MultipageFormStep1 = (props) => {
       initialValues={props.data}
       onSubmit={handleSubmit}
     >
-      {(formikProps) => (
+      {(props) => (
         <Form>
-
-        <Field name="articleImg">
-            {({ field }) => (
-              <FormControl>
-                <FormLabel htmlFor="articleImg">Imágen del artículo</FormLabel>
-                <Input type="file" id="articleImg" onChange={(event) => formikProps.setFieldValue('articleImg', event.target.files[0])} />
-              </FormControl>
-            )}
-          </Field>
-
           <Field name="title">
             {({ field }) => (
               <FormControl>
@@ -66,6 +56,7 @@ const MultipageFormStep1 = (props) => {
           <Button
             mt={4}
             colorScheme="teal"
+            isLoading={props.isSubmitting}
             type="submit"
           >
             Siguiente
