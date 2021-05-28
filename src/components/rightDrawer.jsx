@@ -9,7 +9,7 @@ import {
   Stack,
   useDisclosure
 } from '@chakra-ui/react';
-import { MultipageFormModal } from './multipageFormModal';
+import { ArticleForm } from './articleForm';
 import { LABELS } from '../locals/sp/labels';
 
 const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
@@ -32,7 +32,6 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton />
         <DrawerBody paddingX="0">
           <Stack width="100%" direction="column" paddingTop={12}>
             <Button
@@ -50,7 +49,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
         </DrawerBody>
       </DrawerContent>
     </Drawer>
-    <MultipageFormModal
+    <ArticleForm
     isOpen={isOpenNewActivity}
     onClose={onCloseNewActivity}
     modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}

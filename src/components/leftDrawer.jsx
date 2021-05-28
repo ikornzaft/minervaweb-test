@@ -38,7 +38,6 @@ const LeftDrawer = ({ placement, isOpen, onClose, finalFocus, setActiveButton })
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton />
         <DrawerBody paddingX="0">
           <Stack width="100%" direction="column" paddingTop={12}>
             <Button
