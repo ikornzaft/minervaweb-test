@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import {
   Modal,
@@ -19,12 +19,13 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Image,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
-const ArticleContentInputModal = ({ isOpen, onClose, modalTitle }) => {
+const ArticleContentInputModal = ({ isOpen, onClose, setData }) => {
   const [articleContent, setArticleContent] = useState({
-    textContent: '',
+    textContent: [],
     images: [],
   });
 
@@ -34,17 +35,33 @@ const ArticleContentInputModal = ({ isOpen, onClose, modalTitle }) => {
 
   const [newArticle, setNewArticle] = useState({});
 
+  const [image, setImage] = useState({});
+  const [preview, setPreview] = useState();
+
+  const [thumbnails, setThumbnails] = useState([]);
+
+  useEffect(() => {
+    console.log(thumbnails);
+  }, [thumbnails]);
+
   const handleSubmit = (values) => {
     setArticleContent((prev) => ({ ...prev, ...values }));
-
-    console.log(values);
+    //const paragraphsArray = values.textContent.split(/\r|\n/);
+    const paragraphsArray = values.textContent.split(/\n\s*\n/);
+    const paragraphsObject = {
+      paragraphs: paragraphsArray.concat(values.images),
+    };
+    setData((prev) => ({ ...prev, ...paragraphsObject }));
+    onClose();
   };
+
+  const fileInputRef = useRef();
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
-        <ModalHeader alignSelf="center">"Agregar contenido"</ModalHeader>
+        <ModalHeader alignSelf="center">Agregar contenido</ModalHeader>
         <ModalBody textAlign="center">
           <Formik
             validationSchema={articleContentValidationSchema}
@@ -97,15 +114,76 @@ const ArticleContentInputModal = ({ isOpen, onClose, modalTitle }) => {
                                         <Field name={`images.${index}.image`}>
                                           {({ field }) => (
                                             <FormControl>
-                                              <FormLabel
-                                                htmlFor={`images.${index}.image`}
-                                              >
-                                                Imágen {index + 1}
-                                              </FormLabel>
-                                              <Textarea
-                                                {...field}
+                                              {thumbnails[index] ? (
+                                                <Image
+                                                  src={thumbnails[index]}
+                                                  w="120px"
+                                                  h="120px"
+                                                  borderStyle="dashed"
+                                                  borderWidth="2px"
+                                                  borderColor="gray.400"
+                                                  objectFit="cover"
+                                                  onClick={() => {
+                                                    fileInputRef.current.click();
+                                                  }}
+                                                />
+                                              ) : (
+                                                <FormLabel
+                                                  htmlFor={`images.${index}.image`}
+                                                  bgColor="gray.200"
+                                                  w="120px"
+                                                  h="120px"
+                                                  borderStyle="dashed"
+                                                  borderWidth="2px"
+                                                  borderColor="gray.400"
+                                                  textAlign="center"
+                                                  p={6}
+                                                  fontSize="sm"
+                                                  onClick={(e) => {
+                                                    fileInputRef.current.click();
+                                                  }}
+                                                >
+                                                  Click para agregar imágen{' '}
+                                                  {index + 1}
+                                                </FormLabel>
+                                              )}
+
+                                              <Input
+                                                type="file"
                                                 id="image"
-                                                placeholder="Imágen"
+                                                display="none"
+                                                accept="image/*"
+                                                ref={fileInputRef}
+                                                onChange={(event) => {
+                                                  const file =
+                                                    event.target.files[0];
+                                                  if (
+                                                    file &&
+                                                    file.type.substring(
+                                                      0,
+                                                      5
+                                                    ) === 'image'
+                                                  ) {
+                                                    const reader =
+                                                      new FileReader();
+                                                    reader.onloadend = () => {
+                                                      const readerResult =
+                                                        reader.result;
+
+                                                      formikProps.setFieldValue(
+                                                        `images.${index}.image`,
+                                                        readerResult
+                                                      );
+                                                      setThumbnails((prev) => [
+                                                        ...prev,
+                                                        readerResult,
+                                                      ]);
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                  } else {
+                                                    setImage(null);
+                                                  }
+                                                }}
                                               />
                                             </FormControl>
                                           )}
@@ -115,7 +193,12 @@ const ArticleContentInputModal = ({ isOpen, onClose, modalTitle }) => {
                                         <Button
                                           type="button"
                                           className="secondary"
-                                          onClick={() => remove(index)}
+                                          onClick={() => {
+                                            remove(index);
+                                            const thumbArray = thumbnails;
+                                            thumbArray.splice(index, 1);
+                                            setThumbnails(thumbArray);
+                                          }}
                                         >
                                           X
                                         </Button>
@@ -156,3 +239,7 @@ const ArticleContentInputModal = ({ isOpen, onClose, modalTitle }) => {
 };
 
 export { ArticleContentInputModal };
+
+/*
+setThumbnails((prev) => ({ ...prev, readerResult }));
+*/

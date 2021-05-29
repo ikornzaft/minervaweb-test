@@ -17,10 +17,12 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  VStack,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
 import { ArticleContentInputModal } from './articleContentInputModal';
+import { ArticleContentList } from './articleContentList';
 import { MultipageFormStep1 } from './multipageFormStep1';
 import { MultipageFormStep2 } from './multipageFormStep2';
 
@@ -112,8 +114,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     return { serverResponse, error, loading };
   };
 
-  useEffect(() => {
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const handleNextStep = (newData, final = false) => {
     setData((prev) => ({ ...prev, ...newData }));
@@ -157,97 +158,104 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   return (
     <>
-    <Modal isOpen={isOpen} size="6xl" onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent padding={2}>
-        <ModalHeader alignSelf="center">{modalTitle}</ModalHeader>
-        <ModalBody textAlign="center">
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={data}
-            onSubmit={handleSubmit}
-          >
-            {(formikProps) => (
-              <Form>
-                <Field name="title">
-                  {({ field }) => (
-                    <FormControl>
-                      <FormLabel htmlFor="title">Título</FormLabel>
-                      <Input {...field} id="title" placeholder="Título" />
-                      <ErrorMessage name="title">
-                        {(msg) => (
-                          <Text color="red" fontSize="sm">
-                            {msg}
-                          </Text>
-                        )}
-                      </ErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
+      <Modal isOpen={isOpen} size="6xl" onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent padding={2}>
+          <ModalHeader alignSelf="center">{modalTitle}</ModalHeader>
+          <ModalBody textAlign="center">
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={data}
+              onSubmit={handleSubmit}
+            >
+              {(formikProps) => (
+                <Form>
+                  <Field name="title">
+                    {({ field }) => (
+                      <FormControl>
+                        <FormLabel htmlFor="title">Título</FormLabel>
+                        <Input {...field} id="title" placeholder="Título" />
+                        <ErrorMessage name="title">
+                          {(msg) => (
+                            <Text color="red" fontSize="sm">
+                              {msg}
+                            </Text>
+                          )}
+                        </ErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
 
-                <Field name="subtitle">
-                  {({ field }) => (
-                    <FormControl>
-                      <FormLabel marginTop={4} htmlFor="subtitle">
-                        Subtítulo
-                      </FormLabel>
-                      <Textarea
-                        {...field}
-                        id="subtitle"
-                        placeholder="El copete del artículo"
-                      />
-                      <ErrorMessage name="subtitle">
-                        {(msg) => (
-                          <Text color="red" fontSize="sm">
-                            {msg}
-                          </Text>
-                        )}
-                      </ErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
+                  <Field name="subtitle">
+                    {({ field }) => (
+                      <FormControl>
+                        <FormLabel marginTop={4} htmlFor="subtitle">
+                          Subtítulo
+                        </FormLabel>
+                        <Textarea
+                          {...field}
+                          id="subtitle"
+                          placeholder="El copete del artículo"
+                        />
+                        <ErrorMessage name="subtitle">
+                          {(msg) => (
+                            <Text color="red" fontSize="sm">
+                              {msg}
+                            </Text>
+                          )}
+                        </ErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
 
-                <Field name="articleImg">
-                  {({ field }) => (
-                    <FormControl>
-                      <FormLabel htmlFor="articleImg">
-                        Imágen del artículo
-                      </FormLabel>
-                      <Input
-                        type="file"
-                        id="articleImg"
-                        onChange={(event) =>
-                          formikProps.setFieldValue(
-                            'articleImg',
-                            event.target.files[0]
-                          )
-                        }
-                      />
-                    </FormControl>
-                  )}
-                </Field>
+                  <Field name="articleImg">
+                    {({ field }) => (
+                      <FormControl>
+                        <FormLabel htmlFor="articleImg">
+                          Imágen del artículo
+                        </FormLabel>
+                        <Input
+                          type="file"
+                          id="articleImg"
+                          onChange={(event) =>
+                            formikProps.setFieldValue(
+                              'articleImg',
+                              event.target.files[0]
+                            )
+                          }
+                        />
+                      </FormControl>
+                    )}
+                  </Field>
 
-                <Button mt={4} colorScheme="teal" type="button" onClick={modalHandler}>
-                Agregar contenido
-              </Button>
+                  <VStack>
+                    <Button
+                      mt={4}
+                      colorScheme="teal"
+                      type="button"
+                      onClick={modalHandler}
+                    >
+                      Agregar contenido
+                    </Button>
+                    <ArticleContentList data={data} setData={setData} />
+                  </VStack>
+                  <Button mt={4} colorScheme="teal" type="submit">
+                    Crear artículo
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </ModalBody>
 
-                <Button mt={4} colorScheme="teal" type="submit">
-                  Crear artículo
-                </Button>
-              </Form>
-            )}
-          </Formik>
-        </ModalBody>
-
-        <ModalCloseButton />
-        <ModalFooter />
-      </ModalContent>
-    </Modal>
-    <ArticleContentInputModal
-    isOpen={isOpenContentLoader}
-    onClose={onCloseContentLoader}
-    setData={setData}
-    />
+          <ModalCloseButton />
+          <ModalFooter />
+        </ModalContent>
+      </Modal>
+      <ArticleContentInputModal
+        isOpen={isOpenContentLoader}
+        onClose={onCloseContentLoader}
+        setData={setData}
+      />
     </>
   );
 };
