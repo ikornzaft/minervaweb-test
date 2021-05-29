@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import {
   Modal,
@@ -171,7 +171,7 @@ const ArticleContentInputModal = ({ isOpen, onClose, setData }) => {
                                                       ]);
                                                     };
                                                     reader.readAsDataURL(file);
-                                                  } 
+                                                  }
                                                 }}
                                               />
                                             </FormControl>
