@@ -23,8 +23,6 @@ import * as Yup from 'yup';
 
 import { ArticleContentInputModal } from './articleContentInputModal';
 import { ArticleContentList } from './articleContentList';
-import { MultipageFormStep1 } from './multipageFormStep1';
-import { MultipageFormStep2 } from './multipageFormStep2';
 
 const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const [data, setData] = useState({
@@ -51,8 +49,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const [newArticle, setNewArticle] = useState({});
-
-  const [currentStep, setCurrentStep] = useState(0);
 
   const createArticle = () => {
     console.log(newArticle);
@@ -114,47 +110,20 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     return { serverResponse, error, loading };
   };
 
-  useEffect(() => {}, [data]);
-
-  const handleNextStep = (newData, final = false) => {
-    setData((prev) => ({ ...prev, ...newData }));
-    if (final) {
-      setNewArticle(data);
-      setCurrentStep(0);
-      const toast = createStandaloneToast();
-      toast({
-        title: 'Artículo guardado.',
-        description: 'Se creó un nuevo artículo.',
-        status: 'success',
-        duration: 2500,
-        isClosable: true,
-      });
-      onClose();
-      return;
-    }
-
-    setCurrentStep((prev) => prev + 1);
-  };
-
-  const handlePrevStep = (newData) => {
-    setData((prev) => ({ ...prev, ...newData }));
-    setCurrentStep((prev) => prev - 1);
-  };
-
   const handleSubmit = (values) => {
     setData((prev) => ({ ...prev, ...values }));
-
-    console.log(values);
+    console.log(data);
+    const toast = createStandaloneToast();
+    toast({
+      title: 'Artículo guardado.',
+      description: 'Se creó un nuevo artículo.',
+      status: 'success',
+      duration: 2500,
+      isClosable: true,
+    });
+    onClose();
+    return;
   };
-
-  const steps = [
-    <MultipageFormStep1 next={handleNextStep} data={data} />,
-    <MultipageFormStep2
-      next={handleNextStep}
-      data={data}
-      prev={handlePrevStep}
-    />,
-  ];
 
   return (
     <>

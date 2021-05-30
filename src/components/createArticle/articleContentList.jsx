@@ -1,23 +1,31 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Text, Image, Button, HStack } from '@chakra-ui/react';
 
-const ArticleContentList = ({ data, setData }) => {
+const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
-
-  const paragraphsList = data.paragraphs;
 
   const moveUp = (el) => {
     const elementId = el.target.id.substr(el.target.id.length - 1);
-    const element = paragraphsList.splice(elementId, 1);
-    const removed = paragraphsList.splice((elementId - 1), 0, element[0]);
+    const element = paragraphList.splice(elementId, 1);
+    const removed = paragraphList.splice(elementId - 1, 0, element[0]);
     setForceRender(!forceRender);
   };
 
   const moveDown = (el) => {
     const elementId = el.target.id.substr(el.target.id.length - 1);
-    const element = paragraphsList.splice(elementId, 1);
-    const removed = paragraphsList.splice((+elementId + 1), 0, element[0]);
+    const element = paragraphList.splice(elementId, 1);
+    const removed = paragraphList.splice(+elementId + 1, 0, element[0]);
     setForceRender(!forceRender);
+    console.log(paragraphList);
+
+  };
+
+  const delItem = (el) => {
+    const elementId = el.target.id.substr(el.target.id.length - 1);
+    const removed = paragraphList.splice(elementId, 1);
+    setForceRender(!forceRender);
+    //setData(data => ({...data, paragraphs: [paragraphsList]}));
+
   };
 
   const listItems = (el, index) => {
@@ -31,6 +39,9 @@ const ArticleContentList = ({ data, setData }) => {
           <Button id={`btn-down-${index}`} type="button" onClick={moveDown}>
             Bajar
           </Button>
+          <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
+            Eliminar
+          </Button>
         </HStack>
       );
     }
@@ -41,8 +52,11 @@ const ArticleContentList = ({ data, setData }) => {
           Subir
         </Button>
         <Button id={`btn-down-${index}`} type="button" onClick={moveDown}>
-            Bajar
-          </Button>
+          Bajar
+        </Button>
+        <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
+          Eliminar
+        </Button>
       </HStack>
     );
   };
@@ -50,7 +64,7 @@ const ArticleContentList = ({ data, setData }) => {
   return (
     <div>
       <h1>Contenido</h1>
-      {paragraphsList.map((el, index) => listItems(el, index))}
+      {paragraphList.map((el, index) => listItems(el, index))}
     </div>
   );
 };

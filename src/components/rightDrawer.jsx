@@ -9,7 +9,7 @@ import {
   Stack,
   useDisclosure
 } from '@chakra-ui/react';
-import { ArticleForm } from './articleForm';
+import { ArticleForm } from './createArticle/articleForm';
 import { LABELS } from '../locals/sp/labels';
 
 const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
