@@ -41,8 +41,9 @@ const ArticleContentInputModal = ({
   const handleSubmit = (values) => {
     //const paragraphsArray = values.textContent.split(/\r|\n/);
     let paragraphsToSubmit = [];
-    console.log(values.images.image);
-    if (values.images.image == "") values.images = [];
+    if (values.images[0].image === "") {
+      values.images = [];
+    }
     if (values.textContent.length > 0) {
       const paragraphsArray = values.textContent.split(/\n\s*\n/);
       paragraphsToSubmit = paragraphsArray.concat(values.images);

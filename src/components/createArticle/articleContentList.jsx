@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Image, Button, HStack } from '@chakra-ui/react';
+import { EditElementPopover } from './editElementPopover';
 
 const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
@@ -42,6 +43,8 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
           <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
             Eliminar
           </Button>
+          <EditElementPopover id={`popover-${index}`} paragraphList={paragraphList} setParagraphList={setParagraphList} elementId={index}/>
+
         </HStack>
       );
     }
@@ -57,6 +60,7 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
         <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
           Eliminar
         </Button>
+        <EditElementPopover id={`popover-${index}`} paragraphList={paragraphList} setParagraphList={setParagraphList} elementId={index} />
       </HStack>
     );
   };
