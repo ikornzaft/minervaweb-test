@@ -20,8 +20,11 @@ import {
   TabPanels,
   TabPanel,
   Image,
+  Flex,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
+import { ImageInput } from '../common/imageInput';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const ArticleContentInputModal = ({
   isOpen,
@@ -31,7 +34,7 @@ const ArticleContentInputModal = ({
 }) => {
   const [articleContent, setArticleContent] = useState({
     textContent: [],
-    images: [],
+    images: [''],
   });
 
   const articleContentValidationSchema = Yup.object({});
@@ -39,17 +42,20 @@ const ArticleContentInputModal = ({
   const [thumbnails, setThumbnails] = useState([]);
 
   const handleSubmit = (values) => {
+    console.log("dos imagenes vacias: ", values.images)
     //const paragraphsArray = values.textContent.split(/\r|\n/);
     let paragraphsToSubmit = [];
-    if (values.images[0] && values.images[0].image === "") {
+    if (values.images[0] && values.images[0].image === '') {
       values.images = [];
     }
     if (values.textContent.length > 0) {
       const paragraphsArray = values.textContent.split(/\n\s*\n/);
       paragraphsToSubmit = paragraphsArray.concat(values.images);
     } else {
-      paragraphsToSubmit = values.images;      
+      paragraphsToSubmit = values.images;
     }
+
+    console.log("parrafos para enviar: ", paragraphsToSubmit);
 
     setParagraphList((paragraphList) => [
       ...paragraphList,
@@ -64,8 +70,10 @@ const ArticleContentInputModal = ({
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
-      <ModalContent padding={2}>
-        <ModalHeader alignSelf="center">Agregar contenido</ModalHeader>
+      <ModalContent>
+        <ModalHeader alignSelf="center" paddingBottom={2}>
+          Agregar contenido
+        </ModalHeader>
         <ModalBody textAlign="center">
           <Formik
             validationSchema={articleContentValidationSchema}
@@ -74,125 +82,83 @@ const ArticleContentInputModal = ({
           >
             {(formikProps) => (
               <>
-                <Tabs>
-                  <TabList>
-                    <Tab>Texto</Tab>
-                    <Tab>Imágenes</Tab>
-                  </TabList>
+                <Form>
+                  <Tabs>
+                    <TabList>
+                      <Tab fontSize="sm" paddingY={1}>
+                        Texto
+                      </Tab>
+                      <Tab fontSize="sm" paddingY={1}>
+                        Imágenes
+                      </Tab>
+                    </TabList>
 
-                  <TabPanels>
-                    <TabPanel>
-                      <Field name="textContent">
-                        {({ field }) => (
-                          <FormControl>
-                            <FormLabel marginTop={4} htmlFor="textContent">
-                              Texto
-                            </FormLabel>
-                            <Textarea
-                              {...field}
-                              id="textContent"
-                              placeholder="Ingresar el texto del artículo"
-                            />
-                            <ErrorMessage name="textContent">
-                              {(msg) => (
-                                <Text color="red" fontSize="sm">
-                                  {msg}
-                                </Text>
-                              )}
-                            </ErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </TabPanel>
+                    <TabPanels>
+                      <TabPanel>
+                        <Field name="textContent">
+                          {({ field }) => (
+                            <FormControl>
+                              <FormLabel
+                                fontSize="sm"
+                                marginTop={4}
+                                htmlFor="textContent"
+                              >
+                                Texto del artículo
+                              </FormLabel>
+                              <Textarea
+                                fontSize="sm"
+                                height={32}
+                                {...field}
+                                id="textContent"
+                                placeholder="Ingresar el texto del artículo"
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                      </TabPanel>
 
-                    <TabPanel>
-                      <Form>
+                      <TabPanel>
                         <FieldArray name="images">
                           {({ insert, remove, push }) => (
-                            <div>
-                              {formikProps.values.images.length > 0 &&
-                                formikProps.values.images.map(
-                                  (image, index) => (
-                                    <div className="row" key={index}>
-                                      <div className="col">
+                            <Flex
+                              direction="column"
+                              bgColor="gray.100"
+                              p={4}
+                              borderRadius="lg"
+                            >
+                              <Flex
+                                direction="row"
+                                flexWrap="wrap"
+                                width="100%"
+                                justifyContent="space-evenly"
+                              >
+                                {formikProps.values.images.length > 0 &&
+                                  formikProps.values.images.map(
+                                    (image, index) => (
+                                      <Flex
+                                        justifyContent="center"
+                                        alignItems="flex-end"
+                                        textAlign="center"
+                                        marginBottom={2}
+                                      >
                                         <Field name={`images.${index}.image`}>
-                                          {({ field }) => (
-                                            <FormControl>
-                                              {thumbnails[index] ? (
-                                                <Image
-                                                  src={thumbnails[index]}
-                                                  w="120px"
-                                                  h="120px"
-                                                  borderStyle="dashed"
-                                                  borderWidth="2px"
-                                                  borderColor="gray.400"
-                                                  objectFit="cover"
-                                                  onClick={() => {
-                                                    fileInputRef.current.click();
-                                                  }}
-                                                />
-                                              ) : (
-                                                <FormLabel
-                                                  htmlFor={`images.${index}.image`}
-                                                  bgColor="gray.200"
-                                                  w="120px"
-                                                  h="120px"
-                                                  borderStyle="dashed"
-                                                  borderWidth="2px"
-                                                  borderColor="gray.400"
-                                                  textAlign="center"
-                                                  p={6}
-                                                  fontSize="sm"
-                                                  onClick={(e) => {
-                                                    fileInputRef.current.click();
-                                                  }}
-                                                >
-                                                  Click para agregar imágen{' '}
-                                                  {index + 1}
-                                                </FormLabel>
-                                              )}
-
-                                              <Input
-                                                type="file"
-                                                id="image"
-                                                display="none"
-                                                accept="image/*"
-                                                ref={fileInputRef}
-                                                onChange={(event) => {
-                                                  const file =
-                                                    event.target.files[0];
-                                                  if (
-                                                    file &&
-                                                    file.type.substring(
-                                                      0,
-                                                      5
-                                                    ) === 'image'
-                                                  ) {
-                                                    const reader =
-                                                      new FileReader();
-                                                    reader.onloadend = () => {
-                                                      const readerResult =
-                                                        reader.result;
-
-                                                      formikProps.setFieldValue(
-                                                        `images.${index}.image`,
-                                                        readerResult
-                                                      );
-                                                      setThumbnails((prev) => [
-                                                        ...prev,
-                                                        readerResult,
-                                                      ]);
-                                                    };
-                                                    reader.readAsDataURL(file);
-                                                  }
-                                                }}
-                                              />
-                                            </FormControl>
+                                          {({ field, form }) => (
+                                            <ImageInput
+                                              fieldProps={field}
+                                              formProps={form}
+                                              thumbnails={thumbnails}
+                                              setThumbnails={setThumbnails}
+                                              index={index}
+                                              fileInputRef={fileInputRef}
+                                            />
                                           )}
                                         </Field>
-                                      </div>
-                                      <div className="col">
+
                                         <Button
+                                          fontSize="sm"
+                                          size="xs"
+                                          paddingY={2}
+                                          borderRadius="0"
                                           type="button"
                                           className="secondary"
                                           onClick={() => {
@@ -202,31 +168,35 @@ const ArticleContentInputModal = ({
                                             setThumbnails(thumbArray);
                                           }}
                                         >
-                                          X
+                                          {<FaTrashAlt />}
                                         </Button>
-                                      </div>
-                                    </div>
-                                  )
-                                )}
-                              <Button
-                                mt={4}
-                                colorScheme="teal"
-                                type="button"
-                                onClick={() => push({ image: '' })}
-                              >
-                                Agregar imágen
-                              </Button>
-                            </div>
+                                      </Flex>
+                                    )
+                                  )}
+                              </Flex>
+                              <Flex justifyContent="center">
+                                <Button
+                                  mt={4}
+                                  colorScheme="teal"
+                                  type="button"
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => push({ image: '' })}
+                                >
+                                  Agregar imágen
+                                </Button>
+                              </Flex>
+                            </Flex>
                           )}
                         </FieldArray>
-                      </Form>
-                    </TabPanel>
-                  </TabPanels>
-                </Tabs>
-                <Form>
-                  <Button mt={4} colorScheme="teal" type="submit">
-                    Confirmar contenido
-                  </Button>
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                  <Flex justifyContent="flex-end" paddingX={4}>
+                    <Button mt={4} colorScheme="teal" type="submit">
+                      Confirmar contenido
+                    </Button>
+                  </Flex>
                 </Form>
               </>
             )}

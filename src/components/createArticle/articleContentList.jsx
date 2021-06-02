@@ -26,7 +26,7 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   };
 
   const listItems = (el, index) => {
-    if (el.image) {
+    if (el.image && el.image !== "") {
       return (
         <HStack p={4}>
           <Image w="120px" h="120px" objectFit="cover" src={el.image} />
@@ -48,6 +48,7 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
         </HStack>
       );
     }
+    if (el=="" || el.image =="") return null;
     return (
       <HStack p={4}>
         <Text>{el}</Text>
