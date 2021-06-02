@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import {
   Modal,
@@ -41,7 +41,7 @@ const ArticleContentInputModal = ({
   const handleSubmit = (values) => {
     //const paragraphsArray = values.textContent.split(/\r|\n/);
     let paragraphsToSubmit = [];
-    if (values.images[0].image === "") {
+    if (values.images[0] && values.images[0].image === "") {
       values.images = [];
     }
     if (values.textContent.length > 0) {

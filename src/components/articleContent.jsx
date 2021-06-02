@@ -5,7 +5,7 @@ import fallBackImg from '../assets/images/Online-Tutor.svg';
 import { LABELS } from '../locals/sp/labels';
 
 const ArticleContent = ({ article, article2 }) => {
-  console.log(article2.paragraphs[0].descriptor.description);
+  //console.log(article2.paragraphs[0].descriptor.description);
   return (
     <Stack maxWidth="80%" paddingY={12} alignItems="center" textAlign="left">
       <Image

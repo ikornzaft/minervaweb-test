@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Popover,
   PopoverTrigger,
@@ -12,14 +12,13 @@ import {
   EditIcon,
 } from '@chakra-ui/react';
 
-
 import { FaEdit } from 'react-icons/fa';
 import { EditElementForm } from './editElementForm';
 
-const EditElementPopover = ({paragraphList, setParagraphList, elementId}) => {
+const EditElementPopover = ({ paragraphList, setParagraphList, elementId, forceRender, setForceRender }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
+
   const firstFieldRef = useRef(null);
-  console.log(paragraphList, elementId);
 
   return (
     <>
@@ -35,9 +34,16 @@ const EditElementPopover = ({paragraphList, setParagraphList, elementId}) => {
           <IconButton size="sm" icon={<FaEdit />} />
         </PopoverTrigger>
         <PopoverContent p={5}>
-        <PopoverArrow />
-        <PopoverCloseButton />
-        <EditElementForm prevValue={paragraphList[elementId]} firstFieldRef={firstFieldRef} onCancel={onClose} />
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <EditElementForm
+            paragraphList={paragraphList}
+            elementId={elementId}
+            setParagraphList={setParagraphList}
+            onCancel={onClose}
+            forceRender={forceRender} 
+            setForceRender={setForceRender}
+          />
         </PopoverContent>
       </Popover>
     </>

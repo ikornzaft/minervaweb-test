@@ -24,16 +24,28 @@ import * as Yup from 'yup';
 import { ArticleContentInputModal } from './articleContentInputModal';
 import { ArticleContentList } from './articleContentList';
 
+
 const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
+  
   const [data, setData] = useState({
     title: '',
     subtitle: '',
     articleImg: {},
     paragraphs: [],
   });
-
   const [paragraphList, setParagraphList] = useState([]);
+  const [newArticle, setNewArticle] = useState({});
 
+  useEffect(() => {
+    if (data.title) {
+      console.log('llegó la data');
+      console.log(data);
+      createArticle();
+    } else {
+      console.log('no hay data aun');
+    }
+  }, [data]);
+  
   const validationSchema = Yup.object({
     title: Yup.string().required('Es necesario incluir un título'),
     subtitle: Yup.string().required('Es necesario incluir un subtítulo'),
@@ -50,10 +62,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     onOpenContentLoader();
   };
 
-  const [newArticle, setNewArticle] = useState({});
-
   const createArticle = () => {
-    console.log(newArticle);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const randomId = uuidv4();
     const jsonMessage = {
@@ -62,28 +71,22 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         'Content-Type': 'application/json;charset=UTF-8',
       },
       body: JSON.stringify({
-        id: { randomId },
+        id: 'msgid-1',
         target: 'soa@service/minerva',
         method: 'mods/articles/handlers/InsertArticle',
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: 'root:cm9vdA==',
         message: {
           entity: {
-            header: { publicId: 'test/2' },
+            header: { publicId: randomId },
             resource: {
               articleHeader: {
                 descriptor: {
-                  title: newArticle.title,
-                  subtitle: newArticle.subtitle,
+                  title: data.title,
+                  subtitle: data.subtitle,
                 },
               },
-              paragraphs: [
-                {
-                  descriptor: {
-                    description: newArticle.paragraph,
-                  },
-                },
-              ],
+              paragraphs: data.paragraphs,
               sections: [],
             },
           },
@@ -103,8 +106,10 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         serverResponse = resJson;
       } catch (err) {
         error = err;
+        console.log(err);
       } finally {
         loading = false;
+        console.log(serverResponse);
       }
     };
     fetchData();
@@ -113,8 +118,16 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const handleSubmit = (values) => {
-    setData((prev) => ({ ...prev, ...values }));
-    console.log(data);
+    //setData((data) => ({ ...data, ...values }));
+    console.log(paragraphList);
+    const paragraphArray = [];
+    const paragraphObj = {paragraphs: paragraphArray};
+    paragraphList.forEach(el => {
+      const desc = {descriptor: {description: el}};
+      paragraphArray.push(desc);
+    })
+    console.log(paragraphObj);
+    setData((data) => ({...data, ...values, ...paragraphObj}));
     const toast = createStandaloneToast();
     toast({
       title: 'Artículo guardado.',
@@ -123,6 +136,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       duration: 2500,
       isClosable: true,
     });
+    
+    //createArticle();
     onClose();
     return;
   };
@@ -208,7 +223,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                     >
                       Agregar contenido
                     </Button>
-                    <ArticleContentList paragraphList={paragraphList} setParagraphList={setParagraphList} />
+                    <ArticleContentList paragraphList={paragraphList} setParagraphList={(value)=>setParagraphList(value)} />
                   </VStack>
                   <Button mt={4} colorScheme="teal" type="submit">
                     Crear artículo

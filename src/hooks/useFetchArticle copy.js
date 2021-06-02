@@ -16,7 +16,7 @@ const useFetchArticle = (id) => {
           'principal': "root:cm9vdA==",
           'message': {
         
-             'entityRef': { "publicId": "4e152299-ff58-4587-9f32-3cad524e378a" }
+             'entityRef': { "publicId": "test/1" }
         
           }
         }),
@@ -33,8 +33,8 @@ const useFetchArticle = (id) => {
                 setArticleContent(resJson.message.entity.resource);
             } catch(err) {
                 setError(err);
-            } finally {
                 console.log(error);
+            } finally {
                 setLoading(false);
             }
         };

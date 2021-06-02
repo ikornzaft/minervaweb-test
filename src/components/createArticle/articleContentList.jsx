@@ -17,16 +17,12 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
     const element = paragraphList.splice(elementId, 1);
     const removed = paragraphList.splice(+elementId + 1, 0, element[0]);
     setForceRender(!forceRender);
-    console.log(paragraphList);
-
   };
 
   const delItem = (el) => {
     const elementId = el.target.id.substr(el.target.id.length - 1);
     const removed = paragraphList.splice(elementId, 1);
     setForceRender(!forceRender);
-    //setData(data => ({...data, paragraphs: [paragraphsList]}));
-
   };
 
   const listItems = (el, index) => {
@@ -43,8 +39,12 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
           <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
             Eliminar
           </Button>
-          <EditElementPopover id={`popover-${index}`} paragraphList={paragraphList} setParagraphList={setParagraphList} elementId={index}/>
-
+          <EditElementPopover
+            id={`popover-${index}`}
+            paragraphList={paragraphList}
+            setParagraphList={setParagraphList}
+            elementId={index}
+          />
         </HStack>
       );
     }
@@ -60,7 +60,14 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
         <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
           Eliminar
         </Button>
-        <EditElementPopover id={`popover-${index}`} paragraphList={paragraphList} setParagraphList={setParagraphList} elementId={index} />
+        <EditElementPopover
+          id={`popover-${index}`}
+          paragraphList={paragraphList}
+          setParagraphList={setParagraphList}
+          elementId={index}
+          forceRender={forceRender}
+          setForceRender={setForceRender}
+        />
       </HStack>
     );
   };
