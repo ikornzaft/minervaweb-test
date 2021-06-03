@@ -6,7 +6,6 @@ import {
   Button,
   Textarea,
   Text,
-  Stack,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
@@ -21,7 +20,10 @@ const MultipageFormStep2 = (props) => {
   };
 
   return (
-    <Formik initialValues={props.data} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={props.data}
+      onSubmit={handleSubmit}
+    >
       {({ values }) => (
         <Form>
           <FieldArray name="paragraphs">
@@ -31,29 +33,13 @@ const MultipageFormStep2 = (props) => {
                   values.paragraphs.map((paragraph, index) => (
                     <div className="row" key={index}>
                       <div className="col">
-                        <Field name={`paragraphs.${index}.paragraph`}>
-                          {({ field }) => (
-                            <FormControl>
-                              <FormLabel
-                                htmlFor={`paragraphs.${index}.paragraph`}
-                              >
-                                Párrafo {index + 1}
-                              </FormLabel>
-                              <Textarea
-                                {...field}
-                                id="paragraph"
-                                placeholder="Párrafo"
-                              />
-                              <ErrorMessage name="paragraph">
-                                {(msg) => (
-                                  <Text color="red" fontSize="sm">
-                                    {msg}
-                                  </Text>
-                                )}
-                              </ErrorMessage>
-                            </FormControl>
-                          )}
-                        </Field>
+                        <FormLabel htmlFor={`paragraphs.${index}.paragraph`}>
+                          Párrafo {index + 1} 
+                        </FormLabel>
+                        <Field
+                          name={`paragraphs.${index}.paragraph`}
+                          type="text"
+                        />
                         <ErrorMessage
                           name={`paragraphs.${index}.paragraph`}
                           component="div"
@@ -72,26 +58,25 @@ const MultipageFormStep2 = (props) => {
                     </div>
                   ))}
                 <Button
-                  mt={4}
-                  colorScheme="teal"
+                mt={4}
+                colorScheme="teal"
                   type="button"
-                  onClick={() => push({ paragraph: '' })}
+                  onClick={() => push({ paragraph:'' })}
                 >
                   Agregar párrafo
                 </Button>
               </div>
             )}
           </FieldArray>
-          <Stack p={4} direction="row" alignItems="center" justifyContent="space-evenly">
-            <Button
-              colorScheme="teal"
-              type="button"
-              onClick={() => props.prev(values)}
-            >
-              Anterior
-            </Button>
-            <Button type="submit">Confirmar</Button>
-          </Stack>
+          <Button
+          mt={4}
+          colorScheme="teal"
+          type="button"
+          onClick={() => props.prev(values)}
+        >
+          Anterior
+        </Button>
+          <Button type="submit">Confirmar</Button>
         </Form>
       )}
     </Formik>

@@ -16,10 +16,9 @@ import {
 
 const MultipageFormModal = ({ isOpen, onClose, modalTitle }) => {
   const [data, setData] = useState({
-    articleImg: {},
     title: '',
     subtitle: '',
-    paragraphs: [],
+    paragraph: '',
   });
 
   const [newArticle, setNewArticle] = useState({});

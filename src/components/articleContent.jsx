@@ -5,7 +5,7 @@ import fallBackImg from '../assets/images/Online-Tutor.svg';
 import { LABELS } from '../locals/sp/labels';
 
 const ArticleContent = ({ article, article2 }) => {
-  console.log(article2.paragraphs[0].descriptor.description);
+  //console.log(article2.paragraphs[0].descriptor.description);
   return (
     <Stack maxWidth="80%" paddingY={12} alignItems="center" textAlign="left">
       <Image
@@ -24,7 +24,9 @@ const ArticleContent = ({ article, article2 }) => {
           {article2.paragraphs.map((el) => (
             <Stack direction="row" role="group">
               <Container maxWidth="75ch">
-                <Text marginBottom={4}>{el.descriptor.description}</Text>
+              {!el.descriptor.description.image ? <Text marginBottom={4}>{el.descriptor.description}</Text> : null}
+              {el.descriptor.description.image ? <Image height="150px"  src={el.descriptor.description.image} /> : null}
+
               </Container>
               <Stack width="5rem" justifyContent="center" alignItems="center">
                 <ParagraphPopover
