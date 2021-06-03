@@ -24,7 +24,9 @@ const ArticleContent = ({ article, article2 }) => {
           {article2.paragraphs.map((el) => (
             <Stack direction="row" role="group">
               <Container maxWidth="75ch">
-                <Text marginBottom={4}>{el.descriptor.description}</Text>
+              {!el.descriptor.description.image ? <Text marginBottom={4}>{el.descriptor.description}</Text> : null}
+              {el.descriptor.description.image ? <Image height="150px"  src={el.descriptor.description.image} /> : null}
+
               </Container>
               <Stack width="5rem" justifyContent="center" alignItems="center">
                 <ParagraphPopover

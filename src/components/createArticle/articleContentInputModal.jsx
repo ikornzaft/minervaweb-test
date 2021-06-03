@@ -23,7 +23,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
-import { ImageInput } from '../common/imageInput';
+import { ImageMultipleInput } from './imageMultipleInput';
 import { FaTrashAlt } from 'react-icons/fa';
 
 const ArticleContentInputModal = ({
@@ -143,7 +143,7 @@ const ArticleContentInputModal = ({
                                       >
                                         <Field name={`images.${index}.image`}>
                                           {({ field, form }) => (
-                                            <ImageInput
+                                            <ImageMultipleInput
                                               fieldProps={field}
                                               formProps={form}
                                               thumbnails={thumbnails}

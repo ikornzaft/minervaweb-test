@@ -31,7 +31,7 @@ const EditElementPopover = ({ paragraphList, setParagraphList, elementId, forceR
         closeOnBlur={false}
       >
         <PopoverTrigger>
-          <IconButton size="sm" icon={<FaEdit />} />
+          <IconButton size="xs" icon={<FaEdit />} />
         </PopoverTrigger>
         <PopoverContent p={5}>
           <PopoverArrow />

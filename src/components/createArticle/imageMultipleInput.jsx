@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, Image, FormLabel, Input } from '@chakra-ui/react';
 
-const ImageInput = ({fieldProps, formProps, thumbnails, setThumbnails, index, fileInputRef}) => {
+const ImageMultipleInput = ({fieldProps, formProps, thumbnails, setThumbnails, index, fileInputRef}) => {
   return (
     <FormControl
       display="flex"
@@ -70,4 +70,4 @@ const ImageInput = ({fieldProps, formProps, thumbnails, setThumbnails, index, fi
   );
 };
 
-export { ImageInput };
+export { ImageMultipleInput };

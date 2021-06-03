@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {
@@ -18,15 +18,16 @@ import {
   Textarea,
   useDisclosure,
   VStack,
+  Stack,
+  HStack,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
 import { ArticleContentInputModal } from './articleContentInputModal';
 import { ArticleContentList } from './articleContentList';
-
+import { ImageInput } from './imageInput';
 
 const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
-  
   const [data, setData] = useState({
     title: '',
     subtitle: '',
@@ -40,12 +41,21 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     if (data.title) {
       console.log('llegó la data');
       console.log(data);
-      createArticle();
+      //createArticle();
+      const toast = createStandaloneToast();
+      toast({
+        title: 'Artículo guardado.',
+        description: 'Se creó un nuevo artículo.',
+        status: 'success',
+        duration: 2500,
+        isClosable: true,
+      });
+      onClose();
     } else {
       console.log('no hay data aun');
     }
   }, [data]);
-  
+
   const validationSchema = Yup.object({
     title: Yup.string().required('Es necesario incluir un título'),
     subtitle: Yup.string().required('Es necesario incluir un subtítulo'),
@@ -121,24 +131,14 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     //setData((data) => ({ ...data, ...values }));
     console.log(paragraphList);
     const paragraphArray = [];
-    const paragraphObj = {paragraphs: paragraphArray};
-    paragraphList.forEach(el => {
-      const desc = {descriptor: {description: el}};
+    const paragraphObj = { paragraphs: paragraphArray };
+    paragraphList.forEach((el) => {
+      const desc = { descriptor: { description: el } };
       paragraphArray.push(desc);
-    })
-    console.log(paragraphObj);
-    setData((data) => ({...data, ...values, ...paragraphObj}));
-    const toast = createStandaloneToast();
-    toast({
-      title: 'Artículo guardado.',
-      description: 'Se creó un nuevo artículo.',
-      status: 'success',
-      duration: 2500,
-      isClosable: true,
     });
-    
-    //createArticle();
-    onClose();
+    console.log(paragraphObj);
+    setData((data) => ({ ...data, ...values, ...paragraphObj }));
+
     return;
   };
 
@@ -156,75 +156,96 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             >
               {(formikProps) => (
                 <Form>
-                  <Field name="title">
-                    {({ field }) => (
-                      <FormControl>
-                        <FormLabel htmlFor="title">Título</FormLabel>
-                        <Input {...field} id="title" placeholder="Título" />
-                        <ErrorMessage name="title">
-                          {(msg) => (
-                            <Text color="red" fontSize="sm">
-                              {msg}
-                            </Text>
-                          )}
-                        </ErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
+                  <Stack direction="row" w="full" justifyContent="space-evenly">
+                    <VStack as="section" paddingX={6} w="50%" paddingBottom={6}>
+                      <Field name="title">
+                        {({ field }) => (
+                          <FormControl h={24} overflow="hidden" padding="0">
+                            <FormLabel fontSize="sm" htmlFor="title">
+                              Título
+                            </FormLabel>
+                            <Input
+                              fontSize="sm"
+                              {...field}
+                              id="title"
+                              placeholder="Título"
+                            />
+                            <ErrorMessage name="title">
+                              {(msg) => (
+                                <Text color="red" fontSize="xs">
+                                  {msg}
+                                </Text>
+                              )}
+                            </ErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
 
-                  <Field name="subtitle">
-                    {({ field }) => (
-                      <FormControl>
-                        <FormLabel marginTop={4} htmlFor="subtitle">
-                          Subtítulo
-                        </FormLabel>
-                        <Textarea
-                          {...field}
-                          id="subtitle"
-                          placeholder="El copete del artículo"
-                        />
-                        <ErrorMessage name="subtitle">
-                          {(msg) => (
-                            <Text color="red" fontSize="sm">
-                              {msg}
-                            </Text>
-                          )}
-                        </ErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
+                      <Field name="subtitle">
+                        {({ field }) => (
+                          <FormControl h={36} overflow="hidden" padding="0">
+                            <FormLabel fontSize="sm" htmlFor="subtitle">
+                              Subtítulo
+                            </FormLabel>
+                            <Textarea
+                              fontSize="sm"
+                              {...field}
+                              id="subtitle"
+                              placeholder="El copete del artículo"
+                            />
+                            <ErrorMessage name="subtitle">
+                              {(msg) => (
+                                <Text color="red" fontSize="xs">
+                                  {msg}
+                                </Text>
+                              )}
+                            </ErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
 
-                  <Field name="articleImg">
-                    {({ field }) => (
-                      <FormControl>
-                        <FormLabel htmlFor="articleImg">
-                          Imágen del artículo
-                        </FormLabel>
-                        <Input
-                          type="file"
-                          id="articleImg"
-                          onChange={(event) =>
-                            formikProps.setFieldValue(
-                              'articleImg',
-                              event.target.files[0]
-                            )
-                          }
-                        />
-                      </FormControl>
-                    )}
-                  </Field>
+                      <Field name="articleImg">
+                        {({ field }) => (
+                          <ImageInput
+                            fieldProps={field}
+                            formProps={formikProps}
+                            index="0"
+                            size="big"
+                          />
+                        )}
+                      </Field>
+                    </VStack>
 
-                  <VStack>
-                    <Button
-                      mt={4}
-                      colorScheme="teal"
-                      type="button"
-                      onClick={modalHandler}
+                    <VStack
+                      w="50%"
+                      h="26rem"
+                      maxHeight="26rem"
+                      overflowY="scroll"
+                      borderWidth="1px"
+                      borderRadius="md"
+                      paddingLeft={6}
                     >
-                      Agregar contenido
-                    </Button>
-                    <ArticleContentList paragraphList={paragraphList} setParagraphList={(value)=>setParagraphList(value)} />
-                  </VStack>
+                      <HStack
+                        justifyContent="center"
+                        zIndex="999"
+                      >
+                        <Button
+                          mt={4}
+                          colorScheme="teal"
+                          type="button"
+                          variant="outline"
+                          bgColor="white"
+                          onClick={modalHandler}
+                        >
+                          Agregar contenido
+                        </Button>
+                      </HStack>
+                      <ArticleContentList
+                        paragraphList={paragraphList}
+                        setParagraphList={(value) => setParagraphList(value)}
+                      />
+                    </VStack>
+                  </Stack>
                   <Button mt={4} colorScheme="teal" type="submit">
                     Crear artículo
                   </Button>
@@ -234,7 +255,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           </ModalBody>
 
           <ModalCloseButton />
-          <ModalFooter />
         </ModalContent>
       </Modal>
       <ArticleContentInputModal

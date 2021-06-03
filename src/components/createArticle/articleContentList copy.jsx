@@ -1,36 +1,32 @@
 import React, { useState } from 'react';
 import { Text, Image, Button, HStack } from '@chakra-ui/react';
+import { EditElementPopover } from './editElementPopover';
 
-const ArticleContentList = ({ data, setData }) => {
+const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
-
-  const paragraphsList = data.paragraphs;
-
 
   const moveUp = (el) => {
     const elementId = el.target.id.substr(el.target.id.length - 1);
-    const element = paragraphsList.splice(elementId, 1);
-    const removed = paragraphsList.splice(elementId - 1, 0, element[0]);
+    const element = paragraphList.splice(elementId, 1);
+    const removed = paragraphList.splice(elementId - 1, 0, element[0]);
     setForceRender(!forceRender);
   };
 
   const moveDown = (el) => {
     const elementId = el.target.id.substr(el.target.id.length - 1);
-    const element = paragraphsList.splice(elementId, 1);
-    const removed = paragraphsList.splice(+elementId + 1, 0, element[0]);
+    const element = paragraphList.splice(elementId, 1);
+    const removed = paragraphList.splice(+elementId + 1, 0, element[0]);
     setForceRender(!forceRender);
   };
 
   const delItem = (el) => {
     const elementId = el.target.id.substr(el.target.id.length - 1);
-    const removed = paragraphsList.splice(elementId, 1);
-    //setData(data => ({...data, paragraphs: [paragraphsList]}));
-
-    console.log(data.paragraphs, paragraphsList);
+    const removed = paragraphList.splice(elementId, 1);
+    setForceRender(!forceRender);
   };
 
   const listItems = (el, index) => {
-    if (el.image) {
+    if (el.image && el.image !== "") {
       return (
         <HStack p={4}>
           <Image w="120px" h="120px" objectFit="cover" src={el.image} />
@@ -43,9 +39,16 @@ const ArticleContentList = ({ data, setData }) => {
           <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
             Eliminar
           </Button>
+          <EditElementPopover
+            id={`popover-${index}`}
+            paragraphList={paragraphList}
+            setParagraphList={setParagraphList}
+            elementId={index}
+          />
         </HStack>
       );
     }
+    if (el=="" || el.image =="") return null;
     return (
       <HStack p={4}>
         <Text>{el}</Text>
@@ -58,14 +61,21 @@ const ArticleContentList = ({ data, setData }) => {
         <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
           Eliminar
         </Button>
+        <EditElementPopover
+          id={`popover-${index}`}
+          paragraphList={paragraphList}
+          setParagraphList={setParagraphList}
+          elementId={index}
+          forceRender={forceRender}
+          setForceRender={setForceRender}
+        />
       </HStack>
     );
   };
 
   return (
     <div>
-      <h1>Contenido</h1>
-      {paragraphsList.map((el, index) => listItems(el, index))}
+      {paragraphList.map((el, index) => listItems(el, index))}
     </div>
   );
 };
