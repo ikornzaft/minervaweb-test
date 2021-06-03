@@ -24,18 +24,29 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
     const removed = paragraphList.splice(elementId, 1);
   };
 
+  const cutParagraph = (el) => {
+    const paragArray = el.split(' ');
+    const smallParag = paragArray.splice(0, 25).join(' ');
+    console.log(smallParag);
+    return smallParag + ' (...)';
+  }
+
   const listItems = (el, index) => {
     if (el.image && el.image !== '') {
       return (
-        <HStack p={3} bgColor="gray.100" borderRadius="md" marginBottom={2}>
-          <Image
-            w="80px"
-            h="80px"
+        <HStack width="98%" p={3} bgColor="gray.100" borderRadius="md" marginBottom={2} justifyContent="space-between">
+        <HStack width="100%" justifyContent="center">
+        <Image
+            w="110px"
+            h="110px"
+            borderWidth="1px"
+            borderStyle="solid"
+            borderColor="gray.400"
             objectFit="cover"
             borderRadius="md"
             src={el.image}
           />
-          <p>{index}</p>
+        </HStack>  
           <ArticleContentElementMenu
             index={index}
             paragraphList={paragraphList}
@@ -48,22 +59,14 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
     }
     if (el == '' || el.image == '') return null;
     return (
-      <HStack p={4}>
-        <Text>{el}</Text>
-        <Button id={`btn-up-${index}`} type="button" onClick={moveUp}>
-          Subir
-        </Button>
-        <Button id={`btn-down-${index}`} type="button" onClick={moveDown}>
-          Bajar
-        </Button>
-        <Button id={`btn-delete-${index}`} type="button" onClick={delItem}>
-          Eliminar
-        </Button>
-        <EditElementPopover
-          id={`popover-${index}`}
+      <HStack width="98%" p={3} bgColor="gray.100" borderRadius="md" marginBottom={2} justifyContent="space-between">
+        <Text textAlign="left">{cutParagraph(el)}</Text>
+        <ArticleContentElementMenu
+          index={index}
           paragraphList={paragraphList}
           setParagraphList={setParagraphList}
-          elementId={index}
+          forceRender={forceRender}
+          setForceRender={setForceRender}
         />
       </HStack>
     );

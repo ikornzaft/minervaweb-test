@@ -227,7 +227,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                     >
                       <HStack
                         justifyContent="center"
-                        zIndex="999"
                       >
                         <Button
                           mt={4}
@@ -236,6 +235,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                           variant="outline"
                           bgColor="white"
                           onClick={modalHandler}
+                          size="sm"
                         >
                           Agregar contenido
                         </Button>
@@ -246,7 +246,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       />
                     </VStack>
                   </Stack>
-                  <Button mt={4} colorScheme="teal" type="submit">
+                  <Button marginY={3} colorScheme="teal" type="submit">
                     Crear artículo
                   </Button>
                 </Form>

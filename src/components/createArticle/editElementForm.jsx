@@ -5,7 +5,7 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Input,
+  Textarea,
 } from '@chakra-ui/react';
 
 import { EditElementTextInput } from './editElementTextInput';
@@ -37,7 +37,7 @@ const EditElementForm = ({
       <form method="GET" onSubmit={handleSubmit}>
       <FormControl>
           <FormLabel htmlFor="elementInput">Contenido</FormLabel>
-          <Input
+          <Textarea
             id="elementInput"
             name="elementInput"
             type="text"

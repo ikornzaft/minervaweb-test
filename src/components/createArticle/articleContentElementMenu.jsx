@@ -31,7 +31,7 @@ const ArticleContentElementMenu = ({
     setForceRender(!forceRender);
   };
   return (
-    <VStack>
+    <VStack heigth="100%">
       <Button
         size="xs"
         type="button"
@@ -44,6 +44,8 @@ const ArticleContentElementMenu = ({
         paragraphList={paragraphList}
         setParagraphList={setParagraphList}
         elementId={index}
+        forceRender={forceRender}
+        setForceRender={setForceRender}
       />
       <Button
         size="xs"
