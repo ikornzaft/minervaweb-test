@@ -27,7 +27,7 @@ const ImageInput = ({fieldProps, formProps, index }) => {
       />
     ) : (
       <FormLabel
-        htmlFor={`images.${index}.image`}
+        htmlFor={'articleImg'}
         bgColor="gray.200"
         boxSize="150px"
         borderStyle="dashed"

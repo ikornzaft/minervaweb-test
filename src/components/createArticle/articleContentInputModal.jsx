@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
+import { Formik, Form, Field, FieldArray } from 'formik';
 import {
   Modal,
   ModalContent,
@@ -11,15 +11,12 @@ import {
   FormLabel,
   FormControl,
   Button,
-  Input,
-  Text,
   Textarea,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
-  Image,
   Flex,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';

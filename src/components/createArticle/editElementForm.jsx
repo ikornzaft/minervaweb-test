@@ -6,9 +6,8 @@ import {
   FormControl,
   FormLabel,
   Textarea,
+  Input
 } from '@chakra-ui/react';
-
-import { EditElementTextInput } from './editElementTextInput';
 
 const EditElementForm = ({
   paragraphList,
@@ -16,13 +15,13 @@ const EditElementForm = ({
   elementId,
   onCancel,
   forceRender,
-  setForceRender
+  setForceRender,
+  isImage,
 }) => {
-
   const [currentValue, setCurrentValue] = useState(paragraphList[elementId]);
   useEffect(() => {
-    setCurrentValue(paragraphList[elementId])  
-  }, [paragraphList])
+    setCurrentValue(paragraphList[elementId]);
+  }, [paragraphList]);
   const handleChange = (e) => {
     setCurrentValue(e.target.value);
   };
@@ -35,16 +34,37 @@ const EditElementForm = ({
   return (
     <Stack spacing={4}>
       <form method="GET" onSubmit={handleSubmit}>
-      <FormControl>
+        <FormControl>
           <FormLabel htmlFor="elementInput">Contenido</FormLabel>
-          <Textarea
-            id="elementInput"
-            name="elementInput"
-            type="text"
-            value={currentValue}
-            onChange={handleChange}
-      />
-      </FormControl>
+          {isImage === 'true' ? (
+            <Input
+              id="elementInput"
+              name="elementInput"
+              type="file"
+              onChange={(event) => {
+                const file = event.target.files[0];
+                if (file && file.type.substring(0, 5) === 'image') {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    const readerResult = reader.result;
+                    const result = {image: readerResult}
+                    setCurrentValue(result);
+                    
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+          ) : (
+            <Textarea
+              id="elementInput"
+              name="elementInput"
+              type="text"
+              value={currentValue}
+              onChange={handleChange}
+            />
+          )}
+        </FormControl>
         <ButtonGroup d="flex" justifyContent="flex-end">
           <Button variant="outline" onClick={onCancel}>
             Cancelar

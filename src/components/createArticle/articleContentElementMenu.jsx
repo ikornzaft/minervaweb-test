@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { VStack, Button } from '@chakra-ui/react';
 import { FaTrashAlt, FaSortUp, FaSortDown } from 'react-icons/fa';
 
@@ -9,7 +9,8 @@ const ArticleContentElementMenu = ({
   paragraphList,
   setParagraphList,
   forceRender,
-  setForceRender
+  setForceRender,
+  isImage,
 }) => {
   const moveUp = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
@@ -46,6 +47,7 @@ const ArticleContentElementMenu = ({
         elementId={index}
         forceRender={forceRender}
         setForceRender={setForceRender}
+        isImage={isImage}
       />
       <Button
         size="xs"

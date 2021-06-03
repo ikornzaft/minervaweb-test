@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {
@@ -8,7 +8,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  ModalFooter,
   createStandaloneToast,
   FormLabel,
   FormControl,
@@ -35,13 +34,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     paragraphs: [],
   });
   const [paragraphList, setParagraphList] = useState([]);
-  const [newArticle, setNewArticle] = useState({});
 
   useEffect(() => {
     if (data.title) {
       console.log('llegó la data');
       console.log(data);
-      //createArticle();
+      createArticle();
       const toast = createStandaloneToast();
       toast({
         title: 'Artículo guardado.',
@@ -210,7 +208,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             fieldProps={field}
                             formProps={formikProps}
                             index="0"
-                            size="big"
                           />
                         )}
                       </Field>
