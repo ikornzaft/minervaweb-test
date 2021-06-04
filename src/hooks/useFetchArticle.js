@@ -16,7 +16,7 @@ const useFetchArticle = (id) => {
           'principal': "root:cm9vdA==",
           'message': {
         
-             'entityRef': { "publicId": "4e306d31-bdc7-47fe-8c80-ea2c41ca05e7" }
+             'entityRef': { "publicId": "f0795703-431d-4642-8764-229c1fa54b4f" }
         
           }
         }),
