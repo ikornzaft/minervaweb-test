@@ -1,17 +1,16 @@
 import React from 'react';
 
-const FilteredContentsList = ({contents}) => {
-  console.log(contents);
+const FilteredContentsList = ({ contents }) => {
   return (
     <>
-    {contents.map(el => (
+      {contents.map((el) => (
         <div>
-        <p>Título: {el.contentHeader.descriptor.title}</p> 
-        <p>Subtítulo: {el.contentHeader.descriptor.subtitle}</p> 
+          <p>Título: {el.contentHeader.descriptor.title}</p>
+          <p>Subtítulo: {el.contentHeader.descriptor.subtitle}</p>
         </div>
-  ))}
-  </>
-  )
-}
+      ))}
+    </>
+  );
+};
 
-export { FilteredContentsList }
+export { FilteredContentsList };
