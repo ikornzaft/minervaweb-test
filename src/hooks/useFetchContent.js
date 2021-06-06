@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const useFetchContent = (filter) => {
-  console.log(filter.contentTypes);
   const [content, setContent] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
@@ -29,6 +28,7 @@ const useFetchContent = (filter) => {
   };
 
   useEffect(() => {
+
     async function fetchData() {
       try {
         const res = await fetch(url, jsonMessage);
@@ -43,7 +43,7 @@ const useFetchContent = (filter) => {
       }
     }
     fetchData();
-  }, []);
+  }, [filter]);
 
   return [content, isLoading, errors];
 };
