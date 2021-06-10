@@ -1,11 +1,23 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Stack, Heading } from '@chakra-ui/react';
+import { Stack, Heading, Box, Spinner } from '@chakra-ui/react';
 import { useFetchArticle } from '../hooks/useFetchArticle';
 import { ArticlesDb } from '../resources/articlesDb';
 import { ItemArticulo } from '../components/itemArticulo';
 import { ArticleContent } from '../components/articleContent';
 import { LABELS } from '../locals/sp/labels';
+
+const Loader = () => (
+  <Box paddingTop={24} height="50vh">
+    <Spinner
+      thickness="4px"
+      speed="0.65s"
+      emptyColor="gray.200"
+      color="blue.500"
+      size="xl"
+    />
+  </Box>
+);
 
 const Articulo = () => {
   const res = useFetchArticle('msgid-1');
@@ -36,7 +48,11 @@ const Articulo = () => {
       paddingBottom={6}
       ref={containerRef}
     >
-      {!res.loading ? <ArticleContent article={article} article2={res.articleContent}/> : <h1>LOADING...</h1>}
+      {!res.loading ? (
+        <ArticleContent article={article} article2={res.articleContent} />
+      ) : (
+        <Loader />
+      )}
       <Stack
         backgroundColor="gray.100"
         borderRadius="lg"
