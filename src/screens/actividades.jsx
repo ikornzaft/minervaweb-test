@@ -47,7 +47,8 @@ const Actividades = () => {
             {param.id === 'matematicas' ? (
               <Heading
                 as="h3"
-                paddingX={4}
+                paddingRight={8}
+                paddingTop={2}
                 textAlign="left"
                 fontSize="lg"
                 fontWeight="400"
@@ -62,7 +63,40 @@ const Actividades = () => {
             {param.id === 'comunicacion' ? (
               <Heading
                 as="h3"
-                paddingX={4}
+                paddingRight={8}
+                paddingTop={2}
+                textAlign="left"
+                fontSize="lg"
+                fontWeight="400"
+                color="gray.600"
+                fontFamily="Poppins"
+                borderBottomColor="red.400"
+                borderBottomWidth="3px"
+              >
+                COMUNICACIÓN
+              </Heading>
+            ) : null}
+            {param.id === 'ciencias_naturales' ? (
+              <Heading
+                as="h3"
+                paddingRight={8}
+                paddingTop={2}
+                textAlign="left"
+                fontSize="lg"
+                fontWeight="400"
+                color="gray.600"
+                fontFamily="Poppins"
+                borderBottomColor="green.400"
+                borderBottomWidth="3px"
+              >
+                CIENCIAS NATURALES
+              </Heading>
+            ) : null}
+            {param.id === 'estudios_sociales' ? (
+              <Heading
+                as="h3"
+                paddingRight={8}
+                paddingTop={2}
                 textAlign="left"
                 fontSize="lg"
                 fontWeight="400"
@@ -71,7 +105,7 @@ const Actividades = () => {
                 borderBottomColor="orange.400"
                 borderBottomWidth="3px"
               >
-                COMUNICACIÓN
+                ESTUDIOS SOCIALES
               </Heading>
             ) : null}
           </Stack>

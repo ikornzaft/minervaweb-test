@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stack, Image, Heading, Container, Text, Box, Badge } from '@chakra-ui/react';
-import { ParagraphPopover } from '../paragraphPopover';
+import { ParagraphPopover } from './paragraphPopover';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 import { LABELS } from '../../locals/sp/labels';
@@ -56,8 +56,7 @@ const ArticleContent = ({ article }) => {
             <Stack width="1rem" justifyContent="center" alignItems="center">
               <ParagraphPopover
                 buttonText="Text"
-                header={LABELS.DE_TODO.POPOVER_1.HEADER}
-                body={LABELS.DE_TODO.POPOVER_1.BODY}
+                header="¿Tienes alguna duda sobre este contenido?"
               />
             </Stack>
           </Stack>

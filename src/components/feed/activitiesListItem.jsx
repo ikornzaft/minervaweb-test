@@ -10,7 +10,11 @@ const ActivitiesListItem = ({ article }) => {
   // Esto después se va
 
   const area = article.workArea;
-  const date = article.logs.inserted.timestamp;
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+  const date = new Date(
+    article.logs.inserted.timestamp
+  ).toLocaleDateString('es-Es', options);
   const image = article.resource.articleHeader.imageLink;
 
   const badge = useCreateAreaBadge(area);

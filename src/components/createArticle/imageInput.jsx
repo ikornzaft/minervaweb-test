@@ -40,11 +40,12 @@ const ImageInput = ({fieldProps, formProps, index }) => {
         marginBottom={0}
         marginRight={0}
         fontSize="sm"
+        cursor="pointer"
         onClick={(e) => {
           imgInputRef.current.click();
         }}
       >
-        Click para agregar portada
+        Agregar imágen principal
       </FormLabel>
     )}
       <Input
