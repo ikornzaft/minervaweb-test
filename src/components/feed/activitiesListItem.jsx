@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Stack,
-  Badge,
-  Text,
-  Image,
-  Heading,
-  Box,
-} from '@chakra-ui/react';
+import { Stack, Badge, Text, Image, Heading, Box } from '@chakra-ui/react';
 import { LABELS } from '../../locals/sp/labels';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { useParagraphReducer } from '../../hooks/useParagraphReducer';
+import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
 const ActivitiesListItem = ({ article }) => {
-  const [badge, setBadge] = useState({});
 
   // Esto después se va
 
@@ -20,15 +13,12 @@ const ActivitiesListItem = ({ article }) => {
   const date = article.logs.inserted.timestamp;
   const image = article.resource.articleHeader.imageLink;
 
-  useEffect(() => {
-    if (area === 'matematicas') setBadge({color: "blue", content: "MATEMÁTICAS"});
-    if (area === 'comunicacion') setBadge({color: "red", content: "COMUNICACIÓN"});
-    if (area === 'ciencias_naturales') setBadge({color: "green", content: "CIENCIAS NATURALES"});
-    if (area === 'estudios_sociales') setBadge({color: "orange", content: "ESTUDIOS SOCIALES"});
-  }, [area]);
+  const badge = useCreateAreaBadge(area);
+
   return (
     <Stack
       width="50rem"
+      bgColor="gray.50"
       borderRadius="lg"
       justifyContent="flex-start"
       alignItems="flex-start"
@@ -62,18 +52,28 @@ const ActivitiesListItem = ({ article }) => {
           </Badge>
           <Text fontSize="sm">{date}</Text>
         </Stack>
-        <Stack
-          width="100%"
-          direction="row"
-          alignItems="center"
-          paddingX={8}
-        >
+        <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
           <Stack alignItems="flex-start">
-            <Heading as="h3" size="sm" marginLeft={0} lineHeight="0.7rem" fontFamily="Open Sans">
+            <Heading
+              as="h3"
+              size="sm"
+              marginLeft={0}
+              lineHeight="0.7rem"
+              fontFamily="Open Sans"
+            >
               {article.resource.articleHeader.descriptor.title}
             </Heading>
             <Box textAlign="left" marginTop="0" paddingLeft={0}>
-              <Text as="h5" fontSize="sm" fontFamily="Open Sans" fontWeight="400">{useParagraphReducer(article.resource.articleHeader.descriptor.subtitle)}</Text>
+              <Text
+                as="h5"
+                fontSize="sm"
+                fontFamily="Open Sans"
+                fontWeight="400"
+              >
+                {useParagraphReducer(
+                  article.resource.articleHeader.descriptor.subtitle
+                )}
+              </Text>
             </Box>
           </Stack>
         </Stack>

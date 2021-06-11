@@ -72,7 +72,7 @@ const TopMenu = () => {
         <Button
           size="sm"
           variant="link"
-          mr="4"
+          mr="0"
           p="1"
           colorScheme="blue"
           borderRadius="0"
@@ -164,6 +164,30 @@ const TopMenu = () => {
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
         </Button>
+        <Button
+        size="sm"
+        variant="link"
+        mr="4"
+        p="1"
+        colorScheme="blue"
+        borderRadius="0"
+        width="8rem"
+        id="menu-button_4"
+        isActive={activeButton === 3 ? true : false}
+        borderBottomWidth="5px"
+        borderBottomColor="white"
+        borderTopWidth="5px"
+        borderTopColor="white"
+        onClick={menuHandler}
+        fontFamily="Poppins"
+        fontWeight="400"
+        color="gray.600"
+
+        _hover={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+        _active={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+      >
+        {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
+      </Button>
       </Stack>
 
       <Button

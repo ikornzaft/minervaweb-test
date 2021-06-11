@@ -4,7 +4,7 @@ import { Stack, Heading, Box, Spinner } from '@chakra-ui/react';
 import { useFetchArticle } from '../hooks/useFetchArticle';
 import { ArticlesDb } from '../resources/articlesDb';
 import { ItemArticulo } from '../components/itemArticulo';
-import { ArticleContent } from '../components/articleContent';
+import { ArticleContent } from '../components/article/articleContent';
 import { LABELS } from '../locals/sp/labels';
 
 const Loader = () => (
@@ -20,26 +20,25 @@ const Loader = () => (
 );
 
 const Articulo = () => {
-  const res = useFetchArticle('msgid-1');
+  // const res = useFetchArticle('msgid-1');
+
+  //ESTO DESPUÉS SE VA
+  const res = {
+    "loading": false,
+  }
+
 
   const param = useParams();
   const containerRef = useRef();
   const article =
-    ArticlesDb[ArticlesDb.findIndex((el) => el.articleId === param.id)];
+    ArticlesDb[ArticlesDb.findIndex((el) => el.header.publicId === param.id)];
   const { pathname } = useLocation();
 
   useEffect(() => {
     containerRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [pathname]);
   // Esto después se va
-  const filtrarPorIndex = (el) => {
-    if (el.articleId !== article.articleId) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  const otherArticlesIndex = ArticlesDb.filter(filtrarPorIndex);
+  
   //
   return (
     <Stack
@@ -49,7 +48,7 @@ const Articulo = () => {
       ref={containerRef}
     >
       {!res.loading ? (
-        <ArticleContent article={article} article2={res.articleContent} />
+        <ArticleContent article={article} />
       ) : (
         <Loader />
       )}
@@ -63,14 +62,7 @@ const Articulo = () => {
         <Heading as="h3" size="md" fontWeight="light">
           {LABELS.ARTICULO.SECCION.HEADING}
         </Heading>
-        {otherArticlesIndex.map((el) => (
-          <ItemArticulo
-            articleId={el.articleId}
-            title={el.articleHeader.articleTitle}
-            subtitle={el.articleHeader.articleSubtitle}
-            image={el.articleHeader.imageLink}
-          />
-        ))}
+
       </Stack>
     </Stack>
   );

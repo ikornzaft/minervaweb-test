@@ -1,8 +1,8 @@
 import React from 'react';
 import { Stack, Image, Heading, Container, Text } from '@chakra-ui/react';
-import { ParagraphPopover } from './paragraphPopover';
-import fallBackImg from '../assets/images/Online-Tutor.svg';
-import { LABELS } from '../locals/sp/labels';
+import { ParagraphPopover } from '../paragraphPopover';
+import fallBackImg from '../../assets/images/Online-Tutor.svg';
+import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article, article2 }) => {
   //console.log(article2.paragraphs[0].descriptor.description);

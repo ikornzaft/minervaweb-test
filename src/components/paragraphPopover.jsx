@@ -15,7 +15,7 @@ const ParagraphPopover = ({buttonText, header, body}) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <IconButton colorScheme="gray" visibility="hidden" _groupHover={{visibility: "visible"}} isRound={true} icon={<FaQuestion />} />
+        <IconButton size="sm" colorScheme="blue" visibility="hidden" _groupHover={{visibility: "visible"}} isRound={true} icon={<FaQuestion />} />
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
