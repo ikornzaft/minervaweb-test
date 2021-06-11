@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner, Image } from '@chakra-ui/react';
 import { LABELS } from '../locals/sp/labels';
 import { useFetchContent } from '../hooks/useFetchContent';
-import { ActivitiesList } from '../components/activitiesList';
+import { ActivitiesList } from '../components/feed/activitiesList';
+import { ArticlesDb } from '../resources/articlesDb';
 
 const Actividades = () => {
   const param = useParams();
@@ -18,10 +19,15 @@ const Actividades = () => {
   useEffect(() => {
     param.id
       ? setFilters({ ...filters, workarea: param.id })
-      : setFilters({ ...filters, workarea: 'all' });
+      : setFilters({ ...filters, workarea: null });
   }, [param.id]);
 
-  const [content, isLoading, errors] = useFetchContent(filters);
+  //const [content, isLoading, errors] = useFetchContent(filters);
+  // ESTO DESPUÉS SE VA
+  const content = filters.workarea ? ArticlesDb.filter((e) => e.workArea === filters.workarea) : ArticlesDb;
+  const errors = "";
+  const isLoading = false;
+  // HASTA ACÁ
 
   const renderList = () => {
     if (!errors) {

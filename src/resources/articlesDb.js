@@ -1,195 +1,131 @@
 const ArticlesDb = [
   {
-    articleId: '00001',
-    isPending: false,
-    articleHeader: {
-      imageLink: 'https://source.unsplash.com/1600x900/?nature,water',
-      articleTitle: 'Esta es la primera tarea',
-      articleSubtitle:
-        'Y esta es la descripción de esa tarea, para tener una idea de qué se trata',
-      articleSubject: 'Matematicas',
-      articleGroup: 'Grupo 1',
-      articleDate: 'Lunes, 3 de marzo de 2021',
+    "_id": "m:article/test/1",
+    "_rev": "3-bd716f0ffaf2f0b75861bc6113534c74",
+    "workArea": "matematicas",
+    "resource": {
+      "paragraphs": [
+        {
+          "descriptor": {
+            "description": "Veremos cómo los números reales surgen de la necesidad de ampliar el campo numérico, especialmente a la hora de incluir a los números irracionales, los cuales no están contemplados en ninguno de los conjuntos que vimos anteriormente."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "Muchos de los conceptos y propiedades de estos números ya están explicadas en otras clases (números enteros, fracciones, números decimales), con lo que esta clase servirá de repaso de estos conjuntos y se completará con otros muchos conceptos, como son los intervalos, los errores y los entornos, para finalmente poder llegar al concepto de recta real completa en donde se podrán representar todos los números reales. Introduciremos aquí el concepto de infinito."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "Una vez comprendo el funcionamiento de estos números, podremos ver más adelante las sucesiones de números (progresiones aritméticas y geométricas), los límites de sucesiones y los logaritmos."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "En esta clase vamos a ver por qué son necesarias las sucesivas ampliaciones del campo numérico, es decir, cuál es el motivo de la aparición de los distintos tipos de números hasta los racionales, y recordaremos algunas propiedades importantes. Ya conocemos algunas clases de números, así que en esta clase haremos sólo un repaso de los conjuntos que ya conocemos, que son los números enteros, los números racionales y los números decimales."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "Los números naturales. El conjunto ℕ. Para comenzar a ver las ampliaciones del campo numérico empezaremos viendo el conjunto de los números naturales. El conjunto de los números naturales se representa con la letra ℕ y el es el siguiente: ℕ = {0, 1, 2, 3, …} Los números naturales surgen de la necesidad de contar colecciones o conjuntos de objetos. Por ejemplo, para contar las ovejas de un rebaño, un pastor necesita utilizar números naturales."
+          }
+        }
+      ],
+      "articleHeader": {
+        "descriptor": {
+          "subtitle": "En esta lección vamos a ver los números reales de una forma global. Estos números engloban a los números naturales, enteros, decimales, racionales e irracionales.",
+          "title": "Los números reales"
+        },
+        "imageLink": "https://source.unsplash.com/1600x900/?math,number"
+      },
+      "sections": []
     },
-    articleParagraph: [
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
+    "subscribers": [
+      "test/1"
     ],
+    "keys": [],
+    "header": {
+      "schema": "m:article",
+      "privateId": "test/1",
+      "scope": "PUBLIC",
+      "publicId": "test/1"
+    },
+    "logs": {
+      "inserted": {
+        "principal": "root",
+        "millis": 1621891372496,
+        "timestamp": "2021-05-24 17:22:52"
+      },
+      "modified": {
+        "principal": "root",
+        "millis": 1621891372496,
+        "timestamp": "2021-05-24 17:22:52"
+      }
+    }
   },
   {
-    articleId: '00002',
-    isPending: true,
-    articleHeader: {
-      imageLink: 'https://source.unsplash.com/1600x900/?cars',
-      articleTitle: 'Esta es la segunda tarea',
-      articleSubtitle:
-        'Y esta es la descripción de la segunda tarea, de Comunicación',
-      articleSubject: 'Comunicacion',
-      articleGroup: 'Grupo 2',
-      articleDate: 'Lunes, 3 de marzo de 2021',
+    "_id": "m:article/test/1",
+    "_rev": "3-bd716f0ffaf2f0b75861bc6113534c74",
+    "workArea": "comunicacion",
+    "resource": {
+      "paragraphs": [
+        {
+          "descriptor": {
+            "description": "Veremos cómo los números reales surgen de la necesidad de ampliar el campo numérico, especialmente a la hora de incluir a los números irracionales, los cuales no están contemplados en ninguno de los conjuntos que vimos anteriormente."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "Muchos de los conceptos y propiedades de estos números ya están explicadas en otras clases (números enteros, fracciones, números decimales), con lo que esta clase servirá de repaso de estos conjuntos y se completará con otros muchos conceptos, como son los intervalos, los errores y los entornos, para finalmente poder llegar al concepto de recta real completa en donde se podrán representar todos los números reales. Introduciremos aquí el concepto de infinito."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "Una vez comprendo el funcionamiento de estos números, podremos ver más adelante las sucesiones de números (progresiones aritméticas y geométricas), los límites de sucesiones y los logaritmos."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "En esta clase vamos a ver por qué son necesarias las sucesivas ampliaciones del campo numérico, es decir, cuál es el motivo de la aparición de los distintos tipos de números hasta los racionales, y recordaremos algunas propiedades importantes. Ya conocemos algunas clases de números, así que en esta clase haremos sólo un repaso de los conjuntos que ya conocemos, que son los números enteros, los números racionales y los números decimales."
+          }
+        },
+        {
+          "descriptor": {
+            "description": "Los números naturales. El conjunto ℕ. Para comenzar a ver las ampliaciones del campo numérico empezaremos viendo el conjunto de los números naturales. El conjunto de los números naturales se representa con la letra ℕ y el es el siguiente: ℕ = {0, 1, 2, 3, …} Los números naturales surgen de la necesidad de contar colecciones o conjuntos de objetos. Por ejemplo, para contar las ovejas de un rebaño, un pastor necesita utilizar números naturales."
+          }
+        }
+      ],
+      "articleHeader": {
+        "descriptor": {
+          "subtitle": "Estrenada en 1635, constituye una de las obras más importantes del Barroco. Su protagonista, el príncipe Segismundo, se encuentra preso por su padre, el rey Basilio, a quien los astros le han profetizado que su hijo le destronará, estando destinado a ser un líder despótico y cruel. Con el miedo de Basilio y la sed de venganza de Segismundo da comienzo este drama filosófico en el que, a través de las peripecias de sus personajes, Calderón interroga al lector sobre temas tan complejos como los límites de la libertad, el destino o la distinción entre sueño y realidad. En esta edición se ofrecen todas las claves para comprender el texto, con el fin de que los lectores más jóvenes puedan disfrutar sin dificultades de esta obra y dar así sus propias respuestas a las preguntas que propone el autor.",
+          "title": "La vida es sueño"
+        },
+        "imageLink": "https://source.unsplash.com/1600x900/?book,handwritting"
+      },
+      "sections": []
     },
-    articleParagraph: [
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
+    "subscribers": [
+      "test/1"
     ],
-  },
-  {
-    articleId: '00003',
-    isPending: true,
-    articleHeader: {
-      imageLink: 'https://source.unsplash.com/1600x900/?people',
-      articleTitle: 'Esta es la tercera tarea',
-      articleSubtitle:
-        'Y esta es la descripción de la tercera tarea, para tener una idea de qué se trata',
-      articleSubject: 'Ciencias_Naturales',
-      articleGroup: 'Grupo 1',
-      articleDate: 'Lunes, 3 de marzo de 2021',
+    "keys": [],
+    "header": {
+      "schema": "m:article",
+      "privateId": "0002",
+      "scope": "PUBLIC",
+      "publicId": "0002"
     },
-    articleParagraph: [
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
+    "logs": {
+      "inserted": {
+        "principal": "root",
+        "millis": 1621891372496,
+        "timestamp": "2021-05-24 17:22:52"
       },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-    ],
-  },
-  {
-    articleId: '00004',
-    isPending: true,
-    articleHeader: {
-      imageLink: 'https://source.unsplash.com/1600x900/?trees',
-      articleTitle: 'Esta es la cuarta tarea',
-      articleSubtitle:
-        'Y esta es la descripción de la cuarta tarea (Estudios Sociales), para tener una idea de qué se trata',
-      articleSubject: 'Estudios_Sociales',
-      articleGroup: 'Grupo 1',
-      articleDate: 'Lunes, 3 de marzo de 2021',
-    },
-    articleParagraph: [
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-      {
-        articleContent: {
-          videoLink: '',
-          audioLink: '',
-          document:
-            'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia repellat dicta odit rerum accusantium repellendus, porro laborum corrupti assumenda maxime nostrum sunt harum temporibus repudiandae facere culpa laudantium veritatis aspernatur laboriosam possimus quasi saepe quaerat. Doloremque numquam esse dolorem animi iure, dolor reiciendis itaque, nisi inventore ut aperiam, aspernatur tempore?',
-          image: '',
-          quiz: '',
-          articleLink: '',
-        },
-      },
-    ],
+      "modified": {
+        "principal": "root",
+        "millis": 1621891372496,
+        "timestamp": "2021-05-24 17:22:52"
+      }
+    }
   },
 ];
 
