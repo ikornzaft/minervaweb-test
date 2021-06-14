@@ -1,17 +1,36 @@
 import { extendTheme } from '@chakra-ui/react';
-import { ButtonStyles as Button } from './buttonStyles';
+import { theme as chakraTheme } from '@chakra-ui/react';
+import { createBreakPoints } from '@chakra-ui/theme-tools';
+import { mode } from '@chakra-ui/theme-tools';
+import { ButtonStyles as Button } from './components/buttonStyles';
 
-const theme = extendTheme({
-  colors: {
-    primary: "#16DCFF",
-    secondary: "#888AE3",
-    highlight: "#64FDFF",
-    warning: "#AB59AA",
-  },
-  components: { 
-    Button,
-  },
+const colors = {
+  ...chakraTheme.colors,
+  primary: '#1EA5FC',
+  secondary: '#FF6F91',
+  highlight: '#00C9A7',
+  warning: '#FFC75F',
+  danger: '#C34A36',
+};
 
-});
+const fonts = {
+  ...chakraTheme.fonts,
+  body: 'Open Sans',
+  heading: 'Poppins',
+};
 
-export default theme;
+const components = {
+  ...chakraTheme.components,
+  Button,
+}
+
+const overrides = {
+  ...chakraTheme,
+  fonts,
+  colors,
+  components,
+};
+
+const customTheme = extendTheme(overrides);
+
+export default customTheme;

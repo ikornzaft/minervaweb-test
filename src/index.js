@@ -10,12 +10,12 @@ import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/700.css";
 
 import App from './app';
-import theme from './styles/theme';
+import customTheme from './styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter basename={'/novoa/minerva-test'}>
-      <ChakraProvider>
+      <ChakraProvider theme={customTheme}>
         <App />
       </ChakraProvider>
     </BrowserRouter>

@@ -66,7 +66,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         marginBottom={16}
         padding={5}
       >
-        <Heading color="blue.400" padding={5}>
+        <Heading color="primary" padding={5}>
           {LABELS.LOGIN.TITLE}
         </Heading>
         <FormControl>
@@ -129,6 +129,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             fontSize="sm"
             colorScheme="blue"
             type="submit"
+            variant="solid"
             disabled={isInvalid}
             margin="5"
           >
