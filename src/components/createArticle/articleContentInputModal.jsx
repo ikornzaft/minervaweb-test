@@ -18,10 +18,13 @@ import {
   TabPanels,
   TabPanel,
   Flex,
+  Stack,
+  Tooltip,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 import { ImageMultipleInput } from './imageMultipleInput';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { GrTextAlignCenter } from 'react-icons/gr';
 
 const ArticleContentInputModal = ({
   isOpen,
@@ -39,7 +42,7 @@ const ArticleContentInputModal = ({
   const [thumbnails, setThumbnails] = useState([]);
 
   const handleSubmit = (values) => {
-    console.log("dos imagenes vacias: ", values.images)
+    console.log('dos imagenes vacias: ', values.images);
     //const paragraphsArray = values.textContent.split(/\r|\n/);
     let paragraphsToSubmit = [];
     if (values.images[0] && values.images[0].image === '') {
@@ -52,7 +55,7 @@ const ArticleContentInputModal = ({
       paragraphsToSubmit = values.images;
     }
 
-    console.log("parrafos para enviar: ", paragraphsToSubmit);
+    console.log('parrafos para enviar: ', paragraphsToSubmit);
 
     setParagraphList((paragraphList) => [
       ...paragraphList,
@@ -68,7 +71,13 @@ const ArticleContentInputModal = ({
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader alignSelf="center" paddingBottom={2}>
+        <ModalHeader
+          alignSelf="center"
+          paddingBottom={2}
+          color="gray.700"
+          fontFamily="Poppins"
+          fontWeight="300"
+        >
           Agregar contenido
         </ModalHeader>
         <ModalBody textAlign="center">
@@ -82,11 +91,20 @@ const ArticleContentInputModal = ({
                 <Form>
                   <Tabs>
                     <TabList>
-                      <Tab fontSize="sm" paddingY={1}>
+                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
                         Texto
                       </Tab>
-                      <Tab fontSize="sm" paddingY={1}>
+                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
                         Imágenes
+                      </Tab>
+                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
+                        Audios
+                      </Tab>
+                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
+                        Videos
+                      </Tab>
+                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
+                        Links
                       </Tab>
                     </TabList>
 
@@ -99,6 +117,7 @@ const ArticleContentInputModal = ({
                                 fontSize="sm"
                                 marginTop={4}
                                 htmlFor="textContent"
+                                fontFamily="Open Sans"
                               >
                                 Texto del artículo
                               </FormLabel>
@@ -150,23 +169,61 @@ const ArticleContentInputModal = ({
                                             />
                                           )}
                                         </Field>
-
-                                        <Button
-                                          fontSize="sm"
-                                          size="xs"
-                                          paddingY={2}
-                                          borderRadius="0"
-                                          type="button"
-                                          className="secondary"
-                                          onClick={() => {
-                                            remove(index);
-                                            const thumbArray = thumbnails;
-                                            thumbArray.splice(index, 1);
-                                            setThumbnails(thumbArray);
-                                          }}
+                                        <Stack
+                                          justifyContent="flex-end"
+                                          height="100%"
+                                          paddingBottom={1}
                                         >
-                                          {<FaTrashAlt />}
-                                        </Button>
+                                          <Tooltip
+                                            hasArrow
+                                            borderRadius="lg"
+                                            fontFamily="Open Sans"
+                                            fontSize="xs"
+                                            label="Agregar pié de imágen"
+                                            bg="white"
+                                            color="gray.700"
+                                          >
+                                            <Button
+                                              fontSize="sm"
+                                              size="xs"
+                                              paddingY={2}
+                                              type="button"
+                                              className="secondary"
+                                              bgColor="gray.200"
+                                              borderRightRadius="md"
+                                              borderLeftRadius="0"
+                                              _hover={{ bgColor: 'gray.300' }}
+                                              onClick={() => {
+                                                remove(index);
+                                                const thumbArray = thumbnails;
+                                                thumbArray.splice(index, 1);
+                                                setThumbnails(thumbArray);
+                                              }}
+                                            >
+                                              {<GrTextAlignCenter />}
+                                            </Button>
+                                          </Tooltip>
+                                          <Button
+                                            fontSize="sm"
+                                            size="xs"
+                                            paddingY={2}
+                                            borderRadius="0"
+                                            type="button"
+                                            className="secondary"
+                                            bgColor="gray.200"
+                                            borderRightRadius="md"
+                                            borderLeftRadius="0"
+                                            _hover={{ bgColor: 'gray.300' }}
+                                            onClick={() => {
+                                              remove(index);
+                                              const thumbArray = thumbnails;
+                                              thumbArray.splice(index, 1);
+                                              setThumbnails(thumbArray);
+                                            }}
+                                          >
+                                            {<FaRegTrashAlt />}
+                                          </Button>
+                                        </Stack>
                                       </Flex>
                                     )
                                   )}
@@ -174,10 +231,13 @@ const ArticleContentInputModal = ({
                               <Flex justifyContent="center">
                                 <Button
                                   mt={4}
-                                  colorScheme="teal"
+                                  colorScheme="blue"
                                   type="button"
-                                  size="sm"
+                                  size="xs"
+                                  fontFamily="Poppins"
+                                  fontWeight="400"
                                   variant="outline"
+                                  bgColor="white"
                                   onClick={() => push({ image: '' })}
                                 >
                                   Agregar imágen
@@ -189,8 +249,14 @@ const ArticleContentInputModal = ({
                       </TabPanel>
                     </TabPanels>
                   </Tabs>
-                  <Flex justifyContent="flex-end" paddingX={4}>
-                    <Button mt={4} colorScheme="teal" type="submit">
+                  <Flex justifyContent="center" paddingX={4}>
+                    <Button
+                      mt={4}
+                      fontFamily="Poppins"
+                      fontWeight="400"
+                      colorScheme="blue"
+                      type="submit"
+                    >
                       Confirmar contenido
                     </Button>
                   </Flex>

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Stack,
-  Button,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Stack, Button, useDisclosure } from '@chakra-ui/react';
 import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
 import { LABELS } from '../locals/sp/labels';
@@ -45,7 +41,7 @@ const TopMenu = () => {
   return (
     <Stack
       width="100vw"
-      position={["absolute", "fixed"]}
+      position={['absolute', 'fixed']}
       bgColor="white"
       borderBottomWidth="1px"
       borderBottomColor="gray.300"
@@ -53,59 +49,78 @@ const TopMenu = () => {
       justifyContent="space-between"
       alignItems="center"
       paddingX={6}
+
     >
       <Button
         margin="0"
         paddingY={2}
         ref={btnRef1}
-        variant="ghost"
+        variant="solid"
         colorScheme="blue"
         size="sm"
         width="8rem"
         height="100%"
-        borderRadius="0"
+        borderRadius="lg"
+        bgColor="blue.400"
+        fontFamily="Poppins"
+        fontWeight="400"
         onClick={onOpenLeft}
       >
         {LABELS.TOP_MENU.MENU.LEFT_DRAWER.BUTTON_TEXT}
       </Button>
-      <Stack direction={["column", "row"]} >
-          <Button
-          size="sm" variant="link" mr="4" p="1"
-            colorScheme="blue"
-            borderRadius="0"
-            width="8rem"
-            id="menu-button_1"
-            isActive={activeButton === 0 ? true : false}
-            borderBottomWidth="5px"
-            borderBottomColor="white"
-            borderTopWidth="5px"
-            borderTopColor="white"
-            onClick={menuHandler}
-            _hover={{ borderBottomColor: 'blue.500' }}
-            _active={{ borderBottomColor: 'blue.500' }}
-          >
-            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
-          </Button>
-          <Button
-          size="sm" variant="link" mr="4" p="1"
-            colorScheme="blue"
-            borderRadius="0"
-            width="8rem"
-            id="menu-button_2"
-            isActive={activeButton === 1 ? true : false}
-            borderBottomWidth="5px"
-            borderBottomColor="white"
-            borderTopWidth="5px"
-            borderTopColor="white"
-            onClick={menuHandler}
-            _hover={{ borderBottomColor: 'blue.500' }}
-            _active={{ borderBottomColor: 'blue.500' }}
+      <Stack direction={['column', 'row']}>
+        <Button
+          size="sm"
+          variant="link"
+          mr="0"
+          p="1"
+          colorScheme="blue"
+          borderRadius="0"
+          width="8rem"
+          id="menu-button_1"
+          isActive={activeButton === 0 ? true : false}
+          borderBottomWidth="5px"
+          borderBottomColor="white"
+          borderTopWidth="5px"
+          borderTopColor="white"
+          onClick={menuHandler}
+          fontFamily="Poppins"
+          fontWeight="400"
+          color="gray.600"
+          _hover={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+          _active={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+        >
+          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
+        </Button>
+        <Button
+          size="sm"
+          variant="link"
+          mr="4"
+          p="1"
+          colorScheme="blue"
+          borderRadius="0"
+          width="8rem"
+          id="menu-button_2"
+          isActive={activeButton === 1 ? true : false}
+          borderBottomWidth="5px"
+          borderBottomColor="white"
+          borderTopWidth="5px"
+          borderTopColor="white"
+          onClick={menuHandler}
+          fontFamily="Poppins"
+          fontWeight="400"
+          color="gray.600"
 
-          >
-            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_2}
-          </Button>
-          <Button
-          size="sm" variant="link" mr="4" p="1"
+          _hover={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+          _active={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+        >
+          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_2}
+        </Button>
+        <Button
+          size="sm"
+          variant="link"
+          mr="4"
+          p="1"
           colorScheme="blue"
           borderRadius="0"
           width="8rem"
@@ -116,13 +131,20 @@ const TopMenu = () => {
           borderTopWidth="5px"
           borderTopColor="white"
           onClick={menuHandler}
-          _hover={{ borderBottomColor: 'blue.500' }}
-          _active={{ borderBottomColor: 'blue.500' }}
-          >
-            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
-          </Button>
-          <Button
-          size="sm" variant="link" mr="4" p="1"
+          fontFamily="Poppins"
+          fontWeight="400"
+          color="gray.600"
+
+          _hover={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+          _active={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+        >
+          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
+        </Button>
+        <Button
+          size="sm"
+          variant="link"
+          mr="4"
+          p="1"
           colorScheme="blue"
           borderRadius="0"
           width="8rem"
@@ -133,23 +155,54 @@ const TopMenu = () => {
           borderTopWidth="5px"
           borderTopColor="white"
           onClick={menuHandler}
-          _hover={{ borderBottomColor: 'blue.500' }}
-          _active={{ borderBottomColor: 'blue.500' }}
-          >
-            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
-          </Button>
+          fontFamily="Poppins"
+          fontWeight="400"
+          color="gray.600"
+
+          _hover={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+          _active={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+        >
+          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
+        </Button>
+        <Button
+        size="sm"
+        variant="link"
+        mr="4"
+        p="1"
+        colorScheme="blue"
+        borderRadius="0"
+        width="8rem"
+        id="menu-button_4"
+        isActive={activeButton === 3 ? true : false}
+        borderBottomWidth="5px"
+        borderBottomColor="white"
+        borderTopWidth="5px"
+        borderTopColor="white"
+        onClick={menuHandler}
+        fontFamily="Poppins"
+        fontWeight="400"
+        color="gray.600"
+
+        _hover={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+        _active={{ borderBottomColor: 'blue.500', color: 'blue.500' }}
+      >
+        {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
+      </Button>
       </Stack>
 
       <Button
         margin="0"
         paddingY={2}
         ref={btnRef2}
-        variant="ghost"
+        variant="solid"
         colorScheme="blue"
         size="sm"
         width="8rem"
         height="100%"
-        borderRadius="0"
+        borderRadius="lg"
+        bgColor="blue.400"
+        fontFamily="Poppins"
+        fontWeight="400"
         onClick={onOpenRight}
       >
         {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}

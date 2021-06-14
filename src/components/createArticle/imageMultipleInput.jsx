@@ -34,15 +34,18 @@ const ImageMultipleInput = ({fieldProps, formProps, thumbnails, setThumbnails, i
           borderRadius="lg"
           borderColor="gray.400"
           textAlign="center"
-          p={6}
+          paddingTop={10}
           marginBottom={0}
           marginRight={0}
           fontSize="sm"
+          cursor="pointer"
+          _hover={{ bgColor: 'gray.300' }}
+
           onClick={(e) => {
             fileInputRef.current.click();
           }}
         >
-          Click para agregar imágen {index + 1}
+          Imágen {index + 1}
         </FormLabel>
       )}
 

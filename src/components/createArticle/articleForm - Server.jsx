@@ -19,7 +19,6 @@ import {
   VStack,
   Stack,
   HStack,
-  Box,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
@@ -146,14 +145,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       <Modal isOpen={isOpen} size="6xl" onClose={onClose}>
         <ModalOverlay />
         <ModalContent padding={2}>
-          <ModalHeader
-            alignSelf="center"
-            color="gray.700"
-            fontFamily="Poppins"
-            fontWeight="300"
-          >
-            {modalTitle}
-          </ModalHeader>
+          <ModalHeader alignSelf="center">{modalTitle}</ModalHeader>
           <ModalBody textAlign="center">
             <Formik
               validationSchema={validationSchema}
@@ -162,32 +154,23 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             >
               {(formikProps) => (
                 <Form>
-                  <Stack
-                    direction="row"
-                    w="full"
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                  >
+                  <Stack direction="row" w="full" justifyContent="space-evenly">
                     <VStack as="section" paddingX={6} w="50%" paddingBottom={6}>
                       <Field name="title">
                         {({ field }) => (
                           <FormControl h={24} overflow="hidden" padding="0">
-                            <FormLabel
-                              fontSize="sm"
-                              fontFamily="Open Sans"
-                              htmlFor="title"
-                              marginBottom="0"
-                            >
+                            <FormLabel fontSize="sm" htmlFor="title">
                               Título
                             </FormLabel>
-                            <Input fontSize="sm" {...field} id="title" />
+                            <Input
+                              fontSize="sm"
+                              {...field}
+                              id="title"
+                              placeholder="Título"
+                            />
                             <ErrorMessage name="title">
                               {(msg) => (
-                                <Text
-                                  color="red"
-                                  fontSize="xs"
-                                  fontFamily="Open Sans"
-                                >
+                                <Text color="red" fontSize="xs">
                                   {msg}
                                 </Text>
                               )}
@@ -198,28 +181,19 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
                       <Field name="subtitle">
                         {({ field }) => (
-                          <FormControl h={32} overflow="hidden" padding="0">
-                            <FormLabel
-                              fontSize="sm"
-                              fontFamily="Open Sans"
-                              htmlFor="subtitle"
-                              marginBottom="0"
-                            >
+                          <FormControl h={36} overflow="hidden" padding="0">
+                            <FormLabel fontSize="sm" htmlFor="subtitle">
                               Subtítulo
                             </FormLabel>
                             <Textarea
                               fontSize="sm"
                               {...field}
                               id="subtitle"
-                              placeholder="Descripción del artículo"
+                              placeholder="El copete del artículo"
                             />
                             <ErrorMessage name="subtitle">
                               {(msg) => (
-                                <Text
-                                  color="red"
-                                  fontFamily="Open Sans"
-                                  fontSize="xs"
-                                >
+                                <Text color="red" fontSize="xs">
                                   {msg}
                                 </Text>
                               )}
@@ -228,75 +202,37 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                         )}
                       </Field>
 
-                      <Stack direction="row">
-                        <HStack
-                          marginTop={4}
-                          padding={2}
-                          bgColor="gray.50"
-                          borderRadius="md"
-                          alignItems="flex-end"
-                          borderStyle="solid"
-                          borderWidth="1px"
-                        >
-                          <Field name="articleImg">
-                            {({ field }) => (
-                              <ImageInput
-                                fieldProps={field}
-                                formProps={formikProps}
-                                index="0"
-                              />
-                            )}
-                          </Field>
-                          <Field name="articleImgFooter">
-                            {({ field }) => (
-                              <Textarea
-                                fontSize="sm"
-                                backgroundColor="white"
-                                {...field}
-                                id="articleImgFooter"
-                                placeholder="Descripción de la imágen"
-                              />
-                            )}
-                          </Field>
-                        </HStack>
-                      </Stack>
-                      <Box paddingTop={4}>
-                        <Button
-                          mt={4}
-                          colorScheme="blue"
-                          type="button"
-                          variant="outline"
-                          bgColor="white"
-                          onClick={modalHandler}
-                          size="sm"
-                          fontFamily="Poppins"
-                          fontWeight="400"
-                        >
-                          Agregar Secciones
-                        </Button>
-                      </Box>
+                      <Field name="articleImg">
+                        {({ field }) => (
+                          <ImageInput
+                            fieldProps={field}
+                            formProps={formikProps}
+                            index="0"
+                          />
+                        )}
+                      </Field>
                     </VStack>
 
                     <VStack
                       w="50%"
-                      h="30rem"
-                      maxHeight="30rem"
+                      h="26rem"
+                      maxHeight="26rem"
                       overflowY="scroll"
                       borderWidth="1px"
                       borderRadius="md"
                       paddingLeft={6}
                     >
-                      <HStack justifyContent="center">
+                      <HStack
+                        justifyContent="center"
+                      >
                         <Button
                           mt={4}
-                          colorScheme="blue"
+                          colorScheme="teal"
                           type="button"
                           variant="outline"
                           bgColor="white"
                           onClick={modalHandler}
                           size="sm"
-                          fontFamily="Poppins"
-                          fontWeight="400"
                         >
                           Agregar contenido
                         </Button>
@@ -307,13 +243,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       />
                     </VStack>
                   </Stack>
-                  <Button
-                    marginY={3}
-                    fontFamily="Poppins"
-                    fontWeight="400"
-                    colorScheme="blue"
-                    type="submit"
-                  >
+                  <Button marginY={3} colorScheme="teal" type="submit">
                     Crear artículo
                   </Button>
                 </Form>

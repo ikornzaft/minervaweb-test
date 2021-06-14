@@ -9,9 +9,9 @@ import {
   Badge,
   Divider,
 } from '@chakra-ui/react';
-import { LABELS } from '../locals/sp/labels';
-import { ArticlesDb } from '../resources/articlesDb';
-import fallBackImg from '../assets/images/Online-Tutor.svg';
+import { LABELS } from '../../locals/sp/labels';
+import { ArticlesDb } from '../../resources/articlesDb';
+import fallBackImg from '../../assets/images/Online-Tutor.svg';
 
 const ActivitiesList = ({ contents }) => {
   const [badgeColor, setBadgeColor] = useState('');

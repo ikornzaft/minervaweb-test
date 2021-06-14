@@ -1,33 +1,44 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Stack, Heading } from '@chakra-ui/react';
+import { Stack, Heading, Box, Spinner } from '@chakra-ui/react';
 import { useFetchArticle } from '../hooks/useFetchArticle';
 import { ArticlesDb } from '../resources/articlesDb';
 import { ItemArticulo } from '../components/itemArticulo';
-import { ArticleContent } from '../components/articleContent';
+import { ArticleContent } from '../components/article/articleContent';
 import { LABELS } from '../locals/sp/labels';
 
+const Loader = () => (
+  <Box paddingTop={24} height="50vh">
+    <Spinner
+      thickness="4px"
+      speed="0.65s"
+      emptyColor="gray.200"
+      color="blue.500"
+      size="xl"
+    />
+  </Box>
+);
+
 const Articulo = () => {
-  const res = useFetchArticle('msgid-1');
+  // const res = useFetchArticle('msgid-1');
+
+  //ESTO DESPUÉS SE VA
+  const res = {
+    "loading": false,
+  }
+
 
   const param = useParams();
   const containerRef = useRef();
   const article =
-    ArticlesDb[ArticlesDb.findIndex((el) => el.articleId === param.id)];
+    ArticlesDb[ArticlesDb.findIndex((el) => el.header.publicId === param.id)];
   const { pathname } = useLocation();
 
   useEffect(() => {
     containerRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [pathname]);
   // Esto después se va
-  const filtrarPorIndex = (el) => {
-    if (el.articleId !== article.articleId) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  const otherArticlesIndex = ArticlesDb.filter(filtrarPorIndex);
+  
   //
   return (
     <Stack
@@ -36,26 +47,12 @@ const Articulo = () => {
       paddingBottom={6}
       ref={containerRef}
     >
-      {!res.loading ? <ArticleContent article={article} article2={res.articleContent}/> : <h1>LOADING...</h1>}
-      <Stack
-        backgroundColor="gray.100"
-        borderRadius="lg"
-        maxWidth="80%"
-        width="80%"
-        padding={4}
-      >
-        <Heading as="h3" size="md" fontWeight="light">
-          {LABELS.ARTICULO.SECCION.HEADING}
-        </Heading>
-        {otherArticlesIndex.map((el) => (
-          <ItemArticulo
-            articleId={el.articleId}
-            title={el.articleHeader.articleTitle}
-            subtitle={el.articleHeader.articleSubtitle}
-            image={el.articleHeader.imageLink}
-          />
-        ))}
-      </Stack>
+      {!res.loading ? (
+        <ArticleContent article={article} />
+      ) : (
+        <Loader />
+      )}
+
     </Stack>
   );
 };

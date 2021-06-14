@@ -34,13 +34,17 @@ const LABELS = {
       BUTTONS: {
         BUTTON_1: 'Actividades',
         BUTTON_2: 'Consultas',
-        BUTTON_3: 'Compartidos',
-        BUTTON_4: 'Entregas',
+        BUTTON_3: 'Tareas',
+        BUTTON_4: 'Exámenes',
+        BUTTON_5: 'Muro',
       },
       RIGHT_DRAWER: {
         BUTTON_TEXT: 'Edición',
         OPCIONES: {
           BUTTON_1: 'Crear artículo',
+          BUTTON_2: 'Crear tarea',
+          BUTTON_3: 'Crear exámen',
+          BUTTON_4: 'Crear autoevaluación',
         },
         NEW_ACTIVITY_MODAL: {
           TITLE: 'Crear un nuevo artículo',

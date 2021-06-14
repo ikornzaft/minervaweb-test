@@ -34,12 +34,12 @@ const useFetchArticle = (id) => {
             } catch(err) {
                 setError(err);
             } finally {
-                console.log(error);
                 setLoading(false);
             }
         };
         fetchData();
     }, []);
+    console.log(loading);
     return { articleContent, error, loading };
 };
 
