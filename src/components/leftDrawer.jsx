@@ -7,6 +7,9 @@ import {
   DrawerBody,
   Button,
   Stack,
+  HStack,
+  Divider,
+  Heading
 } from '@chakra-ui/react';
 import { AiOutlineCalculator } from 'react-icons/ai';
 import { FiPenTool } from 'react-icons/fi';
@@ -52,9 +55,14 @@ const LeftDrawer = ({
           <Stack
             width="100%"
             direction="column"
-            paddingTop={8}
+            paddingTop={4}
             paddingRight={4}
           >
+          <HStack justifyContent="center">
+          <Heading as="h2" marginBottom={2} fontSize="lg" fontWeight="400" fontFamily="Poppins" color="gray.600" >Materias</Heading> 
+
+          </HStack>
+          <Divider />
             <Button
               colorScheme="blue"
               leftIcon={<AiOutlineCalculator size="30px" />}

@@ -19,6 +19,7 @@ import {
   VStack,
   Stack,
   HStack,
+  Box,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 
@@ -161,7 +162,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             >
               {(formikProps) => (
                 <Form>
-                  <Stack direction="row" w="full" justifyContent="space-evenly" alignItems="center">
+                  <Stack
+                    direction="row"
+                    w="full"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                  >
                     <VStack as="section" paddingX={6} w="50%" paddingBottom={6}>
                       <Field name="title">
                         {({ field }) => (
@@ -223,7 +229,15 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       </Field>
 
                       <Stack direction="row">
-                        <HStack marginTop={4} padding={2} bgColor="gray.50" borderRadius="md" alignItems="flex-end" borderStyle="solid" borderWidth="1px">
+                        <HStack
+                          marginTop={4}
+                          padding={2}
+                          bgColor="gray.50"
+                          borderRadius="md"
+                          alignItems="flex-end"
+                          borderStyle="solid"
+                          borderWidth="1px"
+                        >
                           <Field name="articleImg">
                             {({ field }) => (
                               <ImageInput
@@ -246,12 +260,27 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                           </Field>
                         </HStack>
                       </Stack>
+                      <Box paddingTop={4}>
+                        <Button
+                          mt={4}
+                          colorScheme="blue"
+                          type="button"
+                          variant="outline"
+                          bgColor="white"
+                          onClick={modalHandler}
+                          size="sm"
+                          fontFamily="Poppins"
+                          fontWeight="400"
+                        >
+                          Agregar Secciones
+                        </Button>
+                      </Box>
                     </VStack>
 
                     <VStack
                       w="50%"
-                      h="26rem"
-                      maxHeight="26rem"
+                      h="30rem"
+                      maxHeight="30rem"
                       overflowY="scroll"
                       borderWidth="1px"
                       borderRadius="md"
@@ -278,7 +307,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       />
                     </VStack>
                   </Stack>
-                  <Button marginY={3} fontFamily="Poppins" fontWeight="400" colorScheme="blue" type="submit">
+                  <Button
+                    marginY={3}
+                    fontFamily="Poppins"
+                    fontWeight="400"
+                    colorScheme="blue"
+                    type="submit"
+                  >
                     Crear artículo
                   </Button>
                 </Form>

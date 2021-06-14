@@ -40,6 +40,8 @@ const ImageInput = ({fieldProps, formProps, index }) => {
         marginBottom={0}
         marginRight={0}
         fontSize="sm"
+        _hover={{ bgColor: 'gray.300' }}
+
         cursor="pointer"
         onClick={(e) => {
           imgInputRef.current.click();

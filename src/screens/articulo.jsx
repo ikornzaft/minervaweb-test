@@ -52,18 +52,7 @@ const Articulo = () => {
       ) : (
         <Loader />
       )}
-      <Stack
-        backgroundColor="gray.100"
-        borderRadius="lg"
-        maxWidth="80%"
-        width="80%"
-        padding={4}
-      >
-        <Heading as="h3" size="md" fontWeight="light">
-          {LABELS.ARTICULO.SECCION.HEADING}
-        </Heading>
 
-      </Stack>
     </Stack>
   );
 };

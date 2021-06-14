@@ -1,8 +1,9 @@
 import React from 'react';
-import { Stack, Image, Heading, Container, Text, Box, Badge } from '@chakra-ui/react';
+import { Stack, Image, Heading, Container, Text, Box, Badge, HStack } from '@chakra-ui/react';
 import { ParagraphPopover } from './paragraphPopover';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
+import { SectionsList } from '../article/sectionsList';
 import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article }) => {
@@ -40,6 +41,11 @@ const ArticleContent = ({ article }) => {
         alt={LABELS.ACTIVIDADES.ACTIVIDAD.IMAGE_ALT}
         fallbackSrc={fallBackImg}
       />
+      <HStack justifyContent="flex-end" w="42rem">
+      <Text fontFamily="Open Sans" fontSize="xs" color="gray.500">
+        Imágen: {article.resource.articleHeader.imageFoot}
+      </Text>
+    </HStack>
 
       </Stack>
       <Stack alignItems="center">
@@ -62,6 +68,7 @@ const ArticleContent = ({ article }) => {
           </Stack>
         ))}
       </Stack>
+      <SectionsList sections={article.resource.sections} />
       </>
   );
 };

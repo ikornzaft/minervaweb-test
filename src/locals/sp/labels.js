@@ -42,6 +42,9 @@ const LABELS = {
         BUTTON_TEXT: 'Edición',
         OPCIONES: {
           BUTTON_1: 'Crear artículo',
+          BUTTON_2: 'Crear tarea',
+          BUTTON_3: 'Crear exámen',
+          BUTTON_4: 'Crear autoevaluación',
         },
         NEW_ACTIVITY_MODAL: {
           TITLE: 'Crear un nuevo artículo',

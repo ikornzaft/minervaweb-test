@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Text, Image, HStack, Box } from '@chakra-ui/react';
+import { useParagraphReducer } from '../../hooks/useParagraphReducer';
 
 import { ArticleContentElementMenu } from './articleContentElementMenu';
 
 const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
 
-  const cutParagraph = (el) => {
-    const paragArray = el.split(' ');
-    const smallParag = paragArray.splice(0, 25).join(' ');
-    console.log(smallParag);
-    return smallParag + ' (...)';
+  const cutParagraph = (p) => {
+    if (p.length > 240) {
+      const parag = p.split("").splice(0,220).join('').split(' ');
+      parag.pop();
+      return parag.join(' ') + ' (...)';
+    }
+    return p;
   };
 
   const listItems = (el, index) => {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { VStack, Button } from '@chakra-ui/react';
-import { FaTrashAlt, FaSortUp, FaSortDown } from 'react-icons/fa';
+import { FaSortUp, FaSortDown } from 'react-icons/fa';
+import { FaRegTrashAlt } from 'react-icons/fa';
+
 
 import { EditElementPopover } from './editElementPopover';
 
@@ -54,7 +56,7 @@ const ArticleContentElementMenu = ({
         type="button"
         id={`btn-delete-${index}`}
         onClick={delItem}
-      >{<FaTrashAlt />}</Button>
+      >{<FaRegTrashAlt />}</Button>
       <Button
         size="xs"
         type="button"
