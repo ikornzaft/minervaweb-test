@@ -17,7 +17,7 @@ const Loader = () => (
   </Box>
 );
 
-const Article = () => {
+const Article = ({requests, setRequests}) => {
   // const res = useFetchArticle('msgid-1');
 
   //ESTO DESPUÉS SE VA
@@ -44,7 +44,7 @@ const Article = () => {
       paddingBottom={6}
       ref={containerRef}
     >
-      {!res.loading ? <ArticleContent article={article} /> : <Loader />}
+      {!res.loading ? <ArticleContent article={article} requests={requests} setRequests={setRequests} /> : <Loader />}
     </Stack>
   );
 };

@@ -26,7 +26,7 @@ const TopMenu = () => {
     }
     if (e.target.id === 'menu-button_2') {
       setActiveButton(1);
-      history.push('/consultas/');
+      history.push('/requests-board/');
     }
     if (e.target.id === 'menu-button_3') {
       setActiveButton(2);
