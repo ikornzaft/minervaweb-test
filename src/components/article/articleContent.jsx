@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Stack,
   Image,
@@ -8,6 +8,7 @@ import {
   Box,
   Badge,
   HStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { ParagraphPopover } from './paragraphPopover';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
@@ -15,7 +16,7 @@ import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 import { SectionsList } from '../article/sectionsList';
 import { LABELS } from '../../locals/sp/labels';
 
-const ArticleContent = ({ article }) => {
+const ArticleContent = ({ article, requests, setRequests }) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const articleDate = new Date(
     article.logs.inserted.timestamp
@@ -63,7 +64,7 @@ const ArticleContent = ({ article }) => {
         </HStack>
       </Stack>
       <Stack alignItems="center">
-        {article.resource.paragraphs.map((el) => (
+        {article.resource.paragraphs.map((el, id) => (
           <Stack width="50rem" paddingLeft={6} direction="row" role="group">
             <Container maxWidth="90ch">
               {!el.descriptor.description.image ? (
@@ -77,7 +78,10 @@ const ArticleContent = ({ article }) => {
             </Container>
             <Stack width="1rem" justifyContent="center" alignItems="center">
               <ParagraphPopover
-                buttonText="Text"
+                requests={requests}
+                paragraphId={id}
+                articleId={article.header.publicId}
+                setRequests={setRequests}
                 header={LABELS.ARTICLE.POPOVER.TITLE}
               />
             </Stack>
