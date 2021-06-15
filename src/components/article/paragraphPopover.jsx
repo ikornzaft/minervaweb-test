@@ -9,10 +9,11 @@ import {
   PopoverBody,
   Textarea,
   Button,
+  createStandaloneToast,
 } from '@chakra-ui/react';
 import { LABELS } from '../../locals/sp/labels';
 import { FaQuestion } from 'react-icons/fa';
-const ParagraphPopover = ({ header, paragraphId, articleId, requests, setRequests }) => {
+const ParagraphPopover = ({ header, paragraphId, articleId, area, requests, setRequests }) => {
   const [question, setQuestion] = useState({});
   const initialFocusRef = useRef();
 
@@ -21,6 +22,8 @@ const ParagraphPopover = ({ header, paragraphId, articleId, requests, setRequest
       'request': e.target.value,
       'paragraph': paragraphId,
       'article': articleId,
+      'area': area,
+      'date': new Date(),
     }
     setQuestion(newRequest);
   }
@@ -29,6 +32,13 @@ const ParagraphPopover = ({ header, paragraphId, articleId, requests, setRequest
     e.preventDefault();
     console.log(question);
     setRequests((requests) => [...requests, question]);
+    const toast = createStandaloneToast();
+    toast({
+      title: LABELS.ARTICLE.POPOVER.TOASTER.TOASTER_TITLE,
+      status: 'success',
+      duration: 2500,
+      isClosable: true,
+    });
   }
 
   const questionForm = ({onClose}) => (

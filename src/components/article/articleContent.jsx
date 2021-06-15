@@ -81,6 +81,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                 requests={requests}
                 paragraphId={id}
                 articleId={article.header.publicId}
+                area={article.workArea}
                 setRequests={setRequests}
                 header={LABELS.ARTICLE.POPOVER.TITLE}
               />

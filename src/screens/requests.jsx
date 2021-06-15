@@ -3,8 +3,9 @@ import { Container } from '@chakra-ui/react';
 
 import { useFetchContent } from '../hooks/useFetchContent';
 import { FilteredContentsList } from '../components/searchContents/filteredContentsList';
+import { RequestItem } from '../components/requests/requestItem';
 
-const RequestsBoard = ({requests, setRequests}) => {
+const RequestsBoard = ({ requests, setRequests }) => {
   const filters = {
     workarea: null,
     workgroup: null,
@@ -12,12 +13,10 @@ const RequestsBoard = ({requests, setRequests}) => {
     contentTypes: ['article'],
     state: null,
   };
-  
-  useEffect(() => {
 
+  useEffect(() => {
     console.log(requests);
-    
-  }, [])
+  }, []);
 
   const [content, isLoading, errors] = useFetchContent(filters);
 
@@ -31,7 +30,16 @@ const RequestsBoard = ({requests, setRequests}) => {
   return (
     <Container maxWidth="container.lg" alignSelf="center" pt={12}>
       {isLoading ? <p>Loading...</p> : renderList()}
-      <h1>{requests.length > 0 ? requests.map(el => el.request) : null}</h1>
+      {requests.length > 0
+        ? requests.map((el) => (
+            <RequestItem
+              request={el.request}
+              title={el.article}
+              area={el.area}
+              date={el.date}
+            />
+          ))
+        : null}
     </Container>
   );
 };

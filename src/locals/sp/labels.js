@@ -79,6 +79,9 @@ const LABELS = {
       TITLE: '¿Tienes alguna duda sobre este contenido?',
       PLACEHOLDER: 'Ingresa tu consulta',
       BUTON_CONTENT: 'Enviar consulta',
+      TOASTER: {
+        TOASTER_TITLE: 'Se envió tu consulta'
+      }
     },
     SECCION: {
       HEADING: 'Otros artículos',
