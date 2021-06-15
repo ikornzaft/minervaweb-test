@@ -8,7 +8,7 @@ const ActivitiesList = ({ contents }) => {
   return (
     <>
       {contents.map((el) => (
-        <Link to={`/articulo/${el.header.publicId}`}>
+        <Link to={`/article/${el.header.publicId}`}>
           <ActivitiesListItem article={el} />
         </Link>
       ))}

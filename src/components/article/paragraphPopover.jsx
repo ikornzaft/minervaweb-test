@@ -10,27 +10,21 @@ import {
   Textarea,
   Button,
 } from '@chakra-ui/react';
+import { LABELS } from '../../locals/sp/labels';
 import { FaQuestion } from 'react-icons/fa';
 
-const ParagraphPopover = ({ buttonText, header, body }) => {
+const ParagraphPopover = ({ header }) => {
   const questionForm = () => (
-    <form >
+    <form>
       <Textarea
         fontFamily="Open Sans"
         fontSize="sm"
         backgroundColor="white"
         id="question"
-        placeholder="Ingresa tu consulta"
+        placeholder={LABELS.ARTICLE.POPOVER.PLACEHOLDER}
       />
-      <Button
-        marginY={3}
-        size="sm"
-        fontFamily="Poppins"
-        fontWeight="400"
-        colorScheme="blue"
-        type="submit"
-      >
-        Enviar consulta
+      <Button marginY={3} size="sm" variant="primary" type="submit">
+        {LABELS.ARTICLE.POPOVER.BUTON_CONTENT}
       </Button>
     </form>
   );
@@ -40,7 +34,8 @@ const ParagraphPopover = ({ buttonText, header, body }) => {
       <PopoverTrigger>
         <IconButton
           size="sm"
-          colorScheme="blue"
+          bg="primary"
+          color="white"
           visibility="hidden"
           _groupHover={{ visibility: 'visible' }}
           isRound={true}
@@ -49,7 +44,7 @@ const ParagraphPopover = ({ buttonText, header, body }) => {
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
-        <PopoverHeader paddingX={4} fontFamily="Open Sans" fontSize="sm">
+        <PopoverHeader paddingX={4} fontSize="sm">
           {header}
         </PopoverHeader>
         <PopoverBody textAlign="center">{questionForm()}</PopoverBody>

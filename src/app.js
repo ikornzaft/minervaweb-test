@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { Login } from './screens/login';
 import { Activities } from './screens/activities'
-import { Articulo } from './screens/articulo'
+import { Article } from './screens/article'
 import { Layout } from './screens/layout';
 import { Consultas } from './screens/consultas';
 import { Compartidos } from './screens/compartidos';
@@ -18,7 +18,7 @@ function App() {
         </Route> 
         <Route exact path="/activities/" component={Activities} />
         <Route path="/activities/:id" component={Activities} />
-        <Route path="/articulo/:id" component={Articulo} />
+        <Route path="/article/:id" component={Article} />
         <Route exact path="/consultas/" component={Consultas} />
         <Route exact path="/compartidos/" component={Compartidos} />
         <Route exact path="/entregas/" component={Entregas} />

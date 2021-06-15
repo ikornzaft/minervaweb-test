@@ -71,10 +71,15 @@ const LABELS = {
         AREA_2: 'COMUNICACIÓN',
         AREA_3: 'CIENCIAS NATURALES',
         AREA_4: 'ESTUDIOS SOCIALES',
-      }
+      },
     },
   },
-  ARTICULO: {
+  ARTICLE: {
+    POPOVER: {
+      TITLE: '¿Tienes alguna duda sobre este contenido?',
+      PLACEHOLDER: 'Ingresa tu consulta',
+      BUTON_CONTENT: 'Enviar consulta',
+    },
     SECCION: {
       HEADING: 'Otros artículos',
     },

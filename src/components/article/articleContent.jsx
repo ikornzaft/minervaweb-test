@@ -32,20 +32,14 @@ const ArticleContent = ({ article }) => {
       >
         <Stack textAlign="left" paddingBottom={2}>
           <Box paddingTop={8}>
-            <Text fontFamily="Open Sans" fontSize="xs" color="gray.500">
+            <Text fontSize="xs" color="gray.500">
               Publicado: {articleDate}
             </Text>
           </Box>
-          <Heading as="h1" fontSize="4xl" fontFamily="Poppins">
+          <Heading as="h1" fontSize="4xl">
             {article.resource.articleHeader.descriptor.title}
           </Heading>
-          <Heading
-            as="h4"
-            fontFamily="Poppins"
-            size="sm"
-            fontWeight="100"
-            lineHeight="1.5rem"
-          >
+          <Heading as="h4" size="sm" fontWeight="100" lineHeight="1.5rem">
             {article.resource.articleHeader.descriptor.subtitle}
           </Heading>
           <Box>
@@ -63,7 +57,7 @@ const ArticleContent = ({ article }) => {
           fallbackSrc={fallBackImg}
         />
         <HStack justifyContent="flex-end" w="42rem">
-          <Text fontFamily="Open Sans" fontSize="xs" color="gray.500">
+          <Text fontSize="xs" color="gray.500">
             Imágen: {article.resource.articleHeader.imageFoot}
           </Text>
         </HStack>
@@ -84,7 +78,7 @@ const ArticleContent = ({ article }) => {
             <Stack width="1rem" justifyContent="center" alignItems="center">
               <ParagraphPopover
                 buttonText="Text"
-                header="¿Tienes alguna duda sobre este contenido?"
+                header={LABELS.ARTICLE.POPOVER.TITLE}
               />
             </Stack>
           </Stack>
