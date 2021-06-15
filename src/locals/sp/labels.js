@@ -56,14 +56,22 @@ const LABELS = {
       },
     },
   },
-  ACTIVIDADES: {
+  ACTIVITIES: {
     TITLE: {
-      PENDENT: 'Actividades pendientes',
-      SUBJECT: 'Actividades de ',
+      AREA_1: 'Matemáticas',
+      AREA_2: 'Comunicación',
+      AREA_3: 'Ciencias Naturales',
+      AREA_4: 'Estudios Sociales',
     },
 
-    ACTIVIDAD: {
+    ACTIVITY: {
       IMAGE_ALT: 'Imágen de la actividad',
+      BADGES: {
+        AREA_1: 'MATEMÁTICAS',
+        AREA_2: 'COMUNICACIÓN',
+        AREA_3: 'CIENCIAS NATURALES',
+        AREA_4: 'ESTUDIOS SOCIALES',
+      }
     },
   },
   ARTICULO: {

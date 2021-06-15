@@ -15,7 +15,7 @@ import { AiOutlineCalculator } from 'react-icons/ai';
 import { FiPenTool } from 'react-icons/fi';
 import { RiLeafLine } from 'react-icons/ri';
 import { BiWorld } from 'react-icons/bi';
-import { LABELS } from '../locals/sp/labels';
+import { LABELS } from '../../locals/sp/labels';
 
 const LeftDrawer = ({
   placement,
@@ -29,16 +29,16 @@ const LeftDrawer = ({
     onClose();
     setActiveButton(0);
     if (e.target.id === 'button_1') {
-      history.push(`/actividades/matematicas`);
+      history.push(`/activities/matematicas`);
     }
     if (e.target.id === 'button_2') {
-      history.push(`/actividades/comunicacion`);
+      history.push(`/activities/comunicacion`);
     }
     if (e.target.id === 'button_3') {
-      history.push(`/actividades/ciencias_naturales`);
+      history.push(`/activities/ciencias_naturales`);
     }
     if (e.target.id === 'button_4') {
-      history.push(`/actividades/estudios_sociales`);
+      history.push(`/activities/estudios_sociales`);
     }
   };
   return (

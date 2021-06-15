@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Stack, Badge, Text, Image, Heading, Box } from '@chakra-ui/react';
 import { LABELS } from '../../locals/sp/labels';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
-import { useParagraphReducer } from '../../hooks/useParagraphReducer';
+import { ParagraphReducer } from '../common/paragraphReducer';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
 const ActivitiesListItem = ({ article }) => {
-
   // Esto después se va
 
   const area = article.workArea;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-  const date = new Date(
-    article.logs.inserted.timestamp
-  ).toLocaleDateString('es-Es', options);
+  const date = new Date(article.logs.inserted.timestamp).toLocaleDateString(
+    'es-Es',
+    options
+  );
   const image = article.resource.articleHeader.imageLink;
 
   const badge = useCreateAreaBadge(area);
@@ -37,7 +37,7 @@ const ActivitiesListItem = ({ article }) => {
         boxSize="125px"
         objectFit="cover"
         src={image}
-        alt={LABELS.ACTIVIDADES.ACTIVIDAD.IMAGE_ALT}
+        alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
         fallbackSrc={fallBackImg}
       />
       <Stack width="100%" justifyContent="flex-start">
@@ -71,10 +71,9 @@ const ActivitiesListItem = ({ article }) => {
               <Text
                 as="h5"
                 fontSize="sm"
-                fontFamily="Open Sans"
                 fontWeight="400"
               >
-                {useParagraphReducer(
+                {ParagraphReducer(
                   article.resource.articleHeader.descriptor.subtitle
                 )}
               </Text>

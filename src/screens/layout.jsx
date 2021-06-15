@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack } from '@chakra-ui/react';
 
-import { TopMenu } from '../components/topMenu';
+import { TopMenu } from '../components/navigation/topMenu';
 
 const Layout = ({ children, isLoginOn }) => {
   return (

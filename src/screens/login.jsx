@@ -47,7 +47,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
   useEffect(() => {
     if (validUser) {
       setLoginOn(!isLoginOn);
-      history.push('/actividades/');
+      history.push('/activities/');
     }
   }, [validUser, history, isLoginOn, setLoginOn]);
 

@@ -7,10 +7,10 @@ import { ButtonStyles as Button } from './components/buttonStyles';
 const colors = {
   ...chakraTheme.colors,
   primary: '#1EA5FC',
-  secondary: '#FF6F91',
-  highlight: '#00C9A7',
-  warning: '#FFC75F',
-  danger: '#C34A36',
+  area1: '#005BFF',
+  area2: '#FF3152',
+  area3: '#05CE91',
+  area4: '#8F00FF',
 };
 
 const fonts = {

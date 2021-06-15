@@ -8,9 +8,9 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ArticleForm } from './createArticle/articleForm';
+import { ArticleForm } from '../createArticle/articleForm';
 import { BiPlusCircle } from 'react-icons/bi';
-import { LABELS } from '../locals/sp/labels';
+import { LABELS } from '../../locals/sp/labels';
 
 const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
   const {

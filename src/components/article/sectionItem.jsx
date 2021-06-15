@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Stack, Badge, Text, Image, Heading, Box } from '@chakra-ui/react';
 import { LABELS } from '../../locals/sp/labels';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
-import { useParagraphReducer } from '../../hooks/useParagraphReducer';
+import { ParagraphReducer } from '../common/paragraphReducer';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
 const SectionItem = ({ article }) => {
@@ -74,7 +74,7 @@ const SectionItem = ({ article }) => {
                 fontFamily="Open Sans"
                 fontWeight="400"
               >
-                {useParagraphReducer(
+                {ParagraphReducer(
                   article.resource.articleHeader.descriptor.subtitle
                 )}
               </Text>

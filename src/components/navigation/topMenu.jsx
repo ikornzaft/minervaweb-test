@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Stack, Button, useDisclosure } from '@chakra-ui/react';
 import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
-import { LABELS } from '../locals/sp/labels';
+import { LABELS } from '../../locals/sp/labels';
 
 const TopMenu = () => {
   const history = useHistory();
@@ -22,7 +22,7 @@ const TopMenu = () => {
   const menuHandler = (e) => {
     if (e.target.id === 'menu-button_1') {
       setActiveButton(0);
-      history.push('/actividades/');
+      history.push('/activities/');
     }
     if (e.target.id === 'menu-button_2') {
       setActiveButton(1);

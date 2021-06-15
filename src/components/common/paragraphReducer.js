@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-const useParagraphReducer = (p) => {
+const ParagraphReducer = (p) => {
   if (p.length > 220) {
     const parag = p.split("").splice(0,220).join('').split(' ');
     parag.pop();
@@ -9,4 +7,4 @@ const useParagraphReducer = (p) => {
   return p;
 };
 
-export { useParagraphReducer };
+export { ParagraphReducer };
