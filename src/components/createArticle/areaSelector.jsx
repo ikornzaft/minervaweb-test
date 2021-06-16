@@ -8,7 +8,7 @@ const AreaSelector = (props) => {
     <HStack className="form-control">
     <Field name={name} {...rest}>
       {({ field }) => (
-        <Select size="sm" placeholder={label} id={name} {...field}>
+        <Select borderRadius="md" size="sm" placeholder={label} id={name} {...field}>
           {options.map((option) => {
             return (
               <option key={option.value} value={option.value}>

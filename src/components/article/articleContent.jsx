@@ -59,7 +59,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
         />
         <HStack justifyContent="flex-end" w="42rem">
           <Text fontSize="xs" color="gray.500">
-            Imágen: {article.resource.articleHeader.imageFoot}
+            Imágen: {article.resource.articleHeader.imageFooter}
           </Text>
         </HStack>
       </Stack>
@@ -73,7 +73,9 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                 </Text>
               ) : null}
               {el.descriptor.description.image ? (
-                <Image height="150px" src={el.descriptor.description.image} />
+                <Stack width="100%" direction="row" justifyContent="center">
+                <Image width="37rem" borderStyle="solid" borderWidth="1px" borderColor="gray.400" src={el.descriptor.description.image} />
+                </Stack>
               ) : null}
             </Container>
             <Stack width="1rem" justifyContent="center" alignItems="center">

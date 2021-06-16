@@ -5,6 +5,9 @@ import { ParagraphReducer } from '../common/paragraphReducer';
 import { ArticleContentElementMenu } from './articleContentElementMenu';
 
 const ArticleContentList = ({ paragraphList, setParagraphList }) => {
+
+  console.log(paragraphList);
+
   const [forceRender, setForceRender] = useState(true);
 
   const listItems = (el, index) => {

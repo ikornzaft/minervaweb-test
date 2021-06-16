@@ -35,7 +35,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     title: '',
     subtitle: '',
     articleImg: {},
-    articleImgDesc: '',
+    articleImgFooter: '',
     paragraphs: [],
     workArea: '',
   });
@@ -67,7 +67,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
               title: data.title,
             },
             imageLink:
-              'https://images.theconversation.com/files/370339/original/file-20201119-23-1p9uy8f.jpg?ixlib=rb-1.1.0&rect=0%2C19%2C6621%2C3310&q=45&auto=format&w=668&h=324&fit=crop',
+              data.articleImg,
+            imageFooter: data.articleImgFooter,
           },
           sections: [
             {
@@ -109,6 +110,16 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         duration: 2500,
         isClosable: true,
       });
+      setData({
+        title: '',
+        subtitle: '',
+        articleImg: {},
+        articleImgFooter: '',
+        paragraphs: [],
+        workArea: '',
+      });
+      setParagraphList([]);
+
       onClose();
     } else {
       console.log('no hay data aun');
