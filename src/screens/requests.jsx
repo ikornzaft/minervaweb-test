@@ -29,7 +29,6 @@ const RequestsBoard = ({ requests, setRequests }) => {
 
   return (
     <Container maxWidth="container.lg" alignSelf="center" pt={12}>
-      {isLoading ? <p>Loading...</p> : renderList()}
       {requests.length > 0
         ? requests.map((el) => (
             <RequestItem

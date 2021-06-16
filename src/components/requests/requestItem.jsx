@@ -2,12 +2,17 @@ import React from 'react';
 import { Stack, Badge, Text, Heading, Box } from '@chakra-ui/react';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 import { ParagraphReducer} from '../common/paragraphReducer';
+import { ArticlesDb } from '../../resources/articlesDb';
 
 
 const RequestItem = ({ area, title, request, date }) => {
   const badge = useCreateAreaBadge(area);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const requestDate = date.toLocaleDateString('es-Es', options);
+  const getArticleTitle = (id) => {
+    const articleIndex = ArticlesDb.findIndex(el => el.header.publicId === id);
+    return ArticlesDb[articleIndex].resource.articleHeader.descriptor.title;
+  }
   return (
     <Stack
     width="50rem"
@@ -25,9 +30,9 @@ const RequestItem = ({ area, title, request, date }) => {
     <Stack width="100%" justifyContent="flex-start">
       <Stack
         direction="row"
-        justifyContent="flex-start"
+        justifyContent="space-between"
         alignItems="center"
-        paddingX={2}
+        paddingX={6}
         marginX={2}
         paddingY="2px"
         borderBottomWidth="1px"
@@ -38,8 +43,8 @@ const RequestItem = ({ area, title, request, date }) => {
         </Badge>
         <Text fontSize="sm">{requestDate}</Text>
       </Stack>
-      <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
-        <Stack alignItems="flex-start">
+      <Stack width="100%" direction="row" alignItems="center" padding={4}>
+        <Stack alignItems="center" width="100%">
           <Heading
             as="h3"
             size="sm"
@@ -47,7 +52,7 @@ const RequestItem = ({ area, title, request, date }) => {
             lineHeight="0.7rem"
             fontFamily="Open Sans"
           >
-            {title}
+            {getArticleTitle(title)}
           </Heading>
           <Box textAlign="left" marginTop="0" paddingLeft={0}>
             <Text
