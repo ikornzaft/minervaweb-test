@@ -30,11 +30,15 @@ const TopMenu = () => {
     }
     if (e.target.id === 'menu-button_3') {
       setActiveButton(2);
-      history.push('/compartidos/');
+      history.push('/tasks/');
     }
     if (e.target.id === 'menu-button_4') {
       setActiveButton(3);
-      history.push('/entregas/');
+      history.push('/exams/');
+    }
+    if (e.target.id === 'menu-button_5') {
+      setActiveButton(4);
+      history.push('/feed/');
     }
   };
   const [activeButton, setActiveButton] = useState(0);
@@ -96,13 +100,7 @@ const TopMenu = () => {
         </Button>
       </Stack>
 
-      <Button
-
-        ref={btnRef2}
-        variant="primary"
-
-        onClick={onOpenRight}
-      >
+      <Button ref={btnRef2} variant="primary" onClick={onOpenRight}>
         {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
       </Button>
 

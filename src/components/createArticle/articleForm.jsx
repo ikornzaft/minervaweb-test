@@ -22,21 +22,100 @@ import {
   Box,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
+import { AREAS } from '../../locals/sp/areas';
 
 import { ArticleContentInputModal } from './articleContentInputModal';
 import { ArticleContentList } from './articleContentList';
+import { ArticlesDb } from '../../resources/articlesDb';
 import { ImageInput } from './imageInput';
+import { AreaSelector } from './areaSelector';
 
 const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const [data, setData] = useState({
     title: '',
     subtitle: '',
     articleImg: {},
+    articleImgDesc: '',
     paragraphs: [],
+    workArea: '',
   });
+
   const [paragraphList, setParagraphList] = useState([]);
 
+  const dropsDownOptions = [
+    { key: AREAS.area_1.tag, value: AREAS.area_1.route },
+    { key: AREAS.area_2.tag, value: AREAS.area_2.route },
+    { key: AREAS.area_3.tag, value: AREAS.area_3.route },
+    { key: AREAS.area_4.tag, value: AREAS.area_4.route },
+  ];
+
+  const randomId = uuidv4();
+  const date = new Date();
+
   useEffect(() => {
+    if (data.title) {
+      console.log(data);
+      const newEntry = {
+        _id: 'm:article/test/1',
+        _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
+        workArea: data.workArea,
+        resource: {
+          paragraphs: data.paragraphs,
+          articleHeader: {
+            descriptor: {
+              subtitle: data.subtitle,
+              title: data.title,
+            },
+            imageLink:
+              'https://images.theconversation.com/files/370339/original/file-20201119-23-1p9uy8f.jpg?ixlib=rb-1.1.0&rect=0%2C19%2C6621%2C3310&q=45&auto=format&w=668&h=324&fit=crop',
+          },
+          sections: [
+            {
+              descriptor: {
+                type: 'article',
+                articleId: '0002',
+                link: '',
+              },
+            },
+          ],
+        },
+        subscribers: ['test/1'],
+        keys: [],
+        header: {
+          schema: 'm:article',
+          privateId: 'test/1',
+          scope: 'PUBLIC',
+          publicId: randomId,
+        },
+        logs: {
+          inserted: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: '2021-05-24 17:22:52',
+          },
+          modified: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: date,
+          },
+        },
+      };
+      ArticlesDb.push(newEntry);
+      const toast = createStandaloneToast();
+      toast({
+        title: 'Artículo guardado.',
+        description: 'Se creó un nuevo artículo.',
+        status: 'success',
+        duration: 2500,
+        isClosable: true,
+      });
+      onClose();
+    } else {
+      console.log('no hay data aun');
+    }
+  }, [data]);
+
+  /*   useEffect(() => {
     if (data.title) {
       console.log('llegó la data');
       console.log(data);
@@ -53,25 +132,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     } else {
       console.log('no hay data aun');
     }
-  }, [data]);
+  }, [data]); */
 
-  const validationSchema = Yup.object({
-    title: Yup.string().required('Es necesario incluir un título'),
-    subtitle: Yup.string().required('Es necesario incluir un subtítulo'),
-  });
-
-  const {
-    isOpen: isOpenContentLoader,
-    onOpen: onOpenContentLoader,
-    onClose: onCloseContentLoader,
-  } = useDisclosure();
-
-  const modalHandler = (e) => {
-    onCloseContentLoader();
-    onOpenContentLoader();
-  };
-
-  const createArticle = () => {
+  /*   const createArticle = () => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const randomId = uuidv4();
     const jsonMessage = {
@@ -105,12 +168,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     let serverResponse = {};
     let loading = true;
     let error = '';
-
+    
     const fetchData = async () => {
       try {
         const response = await fetch(url, jsonMessage);
         if (response.status >= 400 && response.status < 600)
-          error = 'Bad response from server';
+        error = 'Bad response from server';
         const resJson = await response.json();
         serverResponse = resJson;
       } catch (err) {
@@ -122,22 +185,36 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       }
     };
     fetchData();
-
+    
     return { serverResponse, error, loading };
+  }; */
+
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Es necesario incluir un título'),
+    subtitle: Yup.string().required('Es necesario incluir un subtítulo'),
+    workArea: Yup.string().required('Es necesaria una materia'),
+  });
+
+  const {
+    isOpen: isOpenContentLoader,
+    onOpen: onOpenContentLoader,
+    onClose: onCloseContentLoader,
+  } = useDisclosure();
+
+  const modalHandler = (e) => {
+    onCloseContentLoader();
+    onOpenContentLoader();
   };
 
   const handleSubmit = (values) => {
     //setData((data) => ({ ...data, ...values }));
-    console.log(paragraphList);
     const paragraphArray = [];
     const paragraphObj = { paragraphs: paragraphArray };
     paragraphList.forEach((el) => {
       const desc = { descriptor: { description: el } };
       paragraphArray.push(desc);
     });
-    console.log(paragraphObj);
     setData((data) => ({ ...data, ...values, ...paragraphObj }));
-
     return;
   };
 
@@ -169,6 +246,11 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                     alignItems="center"
                   >
                     <VStack as="section" paddingX={6} w="50%" paddingBottom={6}>
+                      <AreaSelector
+                        label="Elegir la materia"
+                        name="workArea"
+                        options={dropsDownOptions}
+                      />
                       <Field name="title">
                         {({ field }) => (
                           <FormControl h={24} overflow="hidden" padding="0">

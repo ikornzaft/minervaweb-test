@@ -5,7 +5,7 @@ import { useFetchContent } from '../hooks/useFetchContent';
 import { FilteredContentsList } from '../components/searchContents/filteredContentsList';
 import { RequestItem } from '../components/requests/requestItem';
 
-const Feed = ({ requests, setRequests }) => {
+const Exams = ({ requests, setRequests }) => {
   const filters = {
     workarea: null,
     workgroup: null,
@@ -43,4 +43,4 @@ const Feed = ({ requests, setRequests }) => {
   );
 };
 
-export { Feed };
+export { Exams };

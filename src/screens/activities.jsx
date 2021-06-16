@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner } from '@chakra-ui/react';
 import { LABELS } from '../locals/sp/labels';
 import { useFetchContent } from '../hooks/useFetchContent';
-import { ActivitiesList } from '../components/feed/activitiesList';
+import { ActivitiesList } from '../components/activities/activitiesList';
 import { ArticlesDb } from '../resources/articlesDb';
 
 const Activities = () => {

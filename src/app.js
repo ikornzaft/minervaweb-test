@@ -5,8 +5,9 @@ import { Activities } from './screens/activities';
 import { Article } from './screens/article';
 import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
-import { Compartidos } from './screens/compartidos';
-import { Entregas } from './screens/entregas';
+import { Tasks } from './screens/tasks';
+import { Exams } from './screens/exams';
+import { Feed } from './screens/feed';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -25,8 +26,9 @@ function App() {
         <Route exact path="/requests-board/">
           <RequestsBoard requests={requests} setRequests={setRequests} />
         </Route>
-        <Route exact path="/compartidos/" component={Compartidos} />
-        <Route exact path="/entregas/" component={Entregas} />
+        <Route exact path="/tasks/" component={Tasks} />
+        <Route exact path="/exams/" component={Exams} />
+        <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />
       </Switch>
     </Layout>
