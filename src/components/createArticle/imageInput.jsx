@@ -43,7 +43,7 @@ const ImageInput = ({fieldProps, formProps, index }) => {
         _hover={{ bgColor: 'gray.300' }}
 
         cursor="pointer"
-        onClick={(e) => {
+        onChange={(e) => {
           imgInputRef.current.click();
         }}
       >
@@ -57,6 +57,7 @@ const ImageInput = ({fieldProps, formProps, index }) => {
         accept="image/*"
         ref={imgInputRef}
         onChange={(event) => {
+          console.log('Cambio archivo')
           const file = event.target.files[0];
           if (file && file.type.substring(0, 5) === 'image') {
             const reader = new FileReader();

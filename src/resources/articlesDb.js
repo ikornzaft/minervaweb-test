@@ -194,7 +194,15 @@ const ArticlesDb = [
           'https://10celula.com/wp-content/uploads/2018/08/Divisi%C3%B3n-celular-1280x720.jpg',
         imageFooter: 'División celular.',
       },
-      sections: [],
+      sections: [
+        {
+          descriptor: {
+            type: 'article',
+            articleId: '0002',
+            link: '',
+          },
+        },
+      ],
     },
     subscribers: ['test/1'],
     keys: [],
