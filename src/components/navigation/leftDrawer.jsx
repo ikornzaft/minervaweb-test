@@ -9,7 +9,7 @@ import {
   Stack,
   HStack,
   Divider,
-  Heading
+  Heading,
 } from '@chakra-ui/react';
 import { AiOutlineCalculator } from 'react-icons/ai';
 import { FiPenTool } from 'react-icons/fi';
@@ -58,92 +58,48 @@ const LeftDrawer = ({
             paddingTop={4}
             paddingRight={4}
           >
-          <HStack justifyContent="center">
-          <Heading as="h2" marginBottom={2} fontSize="lg" fontWeight="400" fontFamily="Poppins" color="gray.600" >Materias</Heading> 
-
-          </HStack>
-          <Divider />
+            <HStack justifyContent="center">
+              <Heading
+                as="h2"
+                marginBottom={2}
+                fontSize="lg"
+                fontWeight="400"
+                fontFamily="Poppins"
+                color="gray.600"
+              >
+                Materias
+              </Heading>
+            </HStack>
+            <Divider />
             <Button
-              colorScheme="blue"
+              variant="drawerLeft"
               leftIcon={<AiOutlineCalculator size="30px" />}
-              borderRightRadius="full"
-              borderLeftRadius="none"
-              width="100%"
-              paddingX="0"
-              paddingY={6}
-              size="sm"
-              variant="ghost"
               id="button_1"
               onClick={menuHandler}
-              justifyContent="flex-start"
-              paddingLeft={6}
-              fontFamily="Poppins"
-              fontWeight="400"
-              color="gray.600"
-              _hover={{ bgColor: 'blue.400', color: 'white' }}
             >
               {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_1}
             </Button>
             <Button
-              colorScheme="blue"
+              variant="drawerLeft"
               leftIcon={<FiPenTool size="30px" />}
-              borderRightRadius="full"
-              borderLeftRadius="none"
-              width="100%"
-              paddingX="0"
-              paddingY={6}
-              variant="ghost"
-              size="sm"
               id="button_2"
               onClick={menuHandler}
-              justifyContent="flex-start"
-              paddingLeft={6}
-              fontFamily="Poppins"
-              fontWeight="400"
-              color="gray.600"
-              _hover={{ bgColor: 'blue.400', color: 'white' }}
             >
               {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_2}
             </Button>{' '}
             <Button
+              variant="drawerLeft"
               leftIcon={<RiLeafLine size="30px" />}
-              v
-              borderRightRadius="full"
-              borderLeftRadius="none"
-              width="100%"
-              paddingX="0"
-              paddingY={6}
-              variant="ghost"
-              size="sm"
               id="button_3"
               onClick={menuHandler}
-              justifyContent="flex-start"
-              paddingLeft={6}
-              fontFamily="Poppins"
-              fontWeight="400"
-              color="gray.600"
-              _hover={{ bgColor: 'blue.400', color: 'white' }}
             >
               {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_3}
             </Button>
             <Button
+              variant="drawerLeft"
               leftIcon={<BiWorld size="30px" />}
-              colorScheme="blue"
-              borderRightRadius="full"
-              borderLeftRadius="none"
-              width="100%"
-              paddingX="0"
-              paddingY={6}
-              variant="ghost"
-              size="sm"
               id="button_4"
               onClick={menuHandler}
-              justifyContent="flex-start"
-              paddingLeft={6}
-              fontFamily="Poppins"
-              fontWeight="400"
-              color="gray.600"
-              _hover={{ bgColor: 'blue.400', color: 'white' }}
             >
               {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_4}
             </Button>

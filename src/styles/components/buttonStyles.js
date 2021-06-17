@@ -1,4 +1,4 @@
-import { darken } from "@chakra-ui/theme-tools";
+import { darken } from '@chakra-ui/theme-tools';
 
 const ButtonStyles = {
   baseStyle: {},
@@ -24,6 +24,46 @@ const ButtonStyles = {
       _active: {
         borderBottomColor: 'primary',
         color: 'primary',
+      },
+    },
+    drawerLeft: {
+      colorScheme: 'blue',
+      borderRightRadius: 'full',
+      borderLeftRadius: 'none',
+      width: '100%',
+      paddingX: '0',
+      paddingY: '6',
+      size: 'sm',
+      variant: 'ghost',
+      justifyContent: 'flex-start',
+      paddingLeft: '6',
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      color: 'gray.600',
+      fontSize: 'sm',
+      _hover: {
+        bgColor: 'blue.400',
+        color: 'white',
+      },
+    },
+    drawerRight: {
+      colorScheme: 'blue',
+      borderLeftRadius: 'full',
+      borderRightRadius: 'none',
+      width: '100%',
+      paddingX: '0',
+      paddingY: '6',
+      paddingRight: '6',
+      size: 'sm',
+      variant: 'ghost',
+      justifyContent: 'flex-end',
+      fontFamily: 'Poppins',
+      fontWeight: '400',
+      color: 'gray.600',
+      fontSize: 'sm',
+      _hover: {
+        bgColor: 'blue.400',
+        color: 'white',
       },
     },
     primary: {
