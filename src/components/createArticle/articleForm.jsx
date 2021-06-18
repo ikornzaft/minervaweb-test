@@ -26,6 +26,7 @@ import { AREAS } from '../../locals/sp/areas';
 
 import { ArticleContentInputModal } from './articleContentInputModal';
 import { ArticleContentList } from './articleContentList';
+import { SectionsInputModal } from './sectionsInputModal';
 import { ArticlesDb } from '../../resources/articlesDb';
 import { ImageInput } from './imageInput';
 import { AreaSelector } from './areaSelector';
@@ -38,9 +39,14 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     articleImgFooter: '',
     paragraphs: [],
     workArea: '',
+    sections: [],
   });
 
   const [paragraphList, setParagraphList] = useState([]);
+
+  const [sectionsList, setSectionsList] = useState({relatedArticles: [], knowMore: [], toDo: []});
+
+  const [area, setArea] = useState(null);
 
   const dropsDownOptions = [
     { key: AREAS.area_1.tag, value: AREAS.area_1.route },
@@ -212,9 +218,20 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     onClose: onCloseContentLoader,
   } = useDisclosure();
 
+  const {
+    isOpen: isOpenSections,
+    onOpen: onOpenSections,
+    onClose: onCloseSections,
+  } = useDisclosure();
+
   const modalHandler = (e) => {
     onCloseContentLoader();
     onOpenContentLoader();
+  };
+
+  const sectionsModalHandler = (e) => {
+    onCloseSections();
+    onOpenSections();
   };
 
   const handleSubmit = (values) => {
@@ -261,6 +278,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                         label="Elegir la materia"
                         name="workArea"
                         options={dropsDownOptions}
+                        area={area}
+                        setArea={setArea}
                       />
                       <Field name="title">
                         {({ field }) => (
@@ -360,12 +379,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                           type="button"
                           variant="outline"
                           bgColor="white"
-                          onClick={modalHandler}
+                          onClick={sectionsModalHandler}
                           size="sm"
                           fontFamily="Poppins"
                           fontWeight="400"
                         >
-                          Agregar Secciones
+                          Agregar a Secciones
                         </Button>
                       </Box>
                     </VStack>
@@ -423,6 +442,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         paragraphList={paragraphList}
         setParagraphList={setParagraphList}
       />
+      <SectionsInputModal
+      isOpen={isOpenSections}
+      onClose={onCloseSections}
+      sectionsList={sectionsList}
+      setSectionsList={setSectionsList}
+      area={area}
+    />
     </>
   );
 };

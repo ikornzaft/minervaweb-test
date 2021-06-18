@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { HStack, Select, Text } from '@chakra-ui/react';
 
 const AreaSelector = (props) => {
-  const { label, name, options, ...rest } = props;
+  const { label, name, options, area, setArea, ...rest } = props;
   return (
     <HStack className="form-control">
     <Field name={name} {...rest}>
-      {({ field }) => (
-        <Select borderRadius="md" size="sm" placeholder={label} id={name} {...field}>
+      {({ field }) => {
+        setArea(field.value);
+        console.log(area);
+        return (
+        <Select borderRadius="md" size="sm" placeholder={label} onChange={e => {console.log(e.target.value)}} id={name} {...field}>
           {options.map((option) => {
             return (
               <option key={option.value} value={option.value}>
@@ -18,6 +21,7 @@ const AreaSelector = (props) => {
           })}
         </Select>
       )}
+    }
     </Field>
     <ErrorMessage name={name}>
       {(msg) => (
