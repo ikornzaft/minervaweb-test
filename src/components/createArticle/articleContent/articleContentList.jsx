@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Image, HStack, Box } from '@chakra-ui/react';
-import { ParagraphReducer } from '../common/paragraphReducer';
+import { ParagraphReducer } from '../../common/paragraphReducer';
 
 import { ArticleContentElementMenu } from './articleContentElementMenu';
 

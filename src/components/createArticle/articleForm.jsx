@@ -24,9 +24,9 @@ import {
 import * as Yup from 'yup';
 import { AREAS } from '../../locals/sp/areas';
 
-import { ArticleContentInputModal } from './articleContentInputModal';
-import { ArticleContentList } from './articleContentList';
-import { SectionsInputModal } from './sectionsInputModal';
+import { ArticleContentInputModal } from './articleContent/articleContentInputModal';
+import { ArticleContentList } from './articleContent/articleContentList';
+import { SectionsInputModal } from './sections/sectionsInputModal';
 import { ArticlesDb } from '../../resources/articlesDb';
 import { ImageInput } from './imageInput';
 import { AreaSelector } from './areaSelector';

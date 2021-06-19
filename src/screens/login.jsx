@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 
 import {
-  TiMail,
+  TiUserOutline,
   TiLockClosedOutline,
   TiEyeOutline,
   TiEye,
@@ -27,10 +27,10 @@ import {
 const Login = ({ isLoginOn, setLoginOn }) => {
   const history = useHistory();
   const { handleSubmit, validUser, tryNumber, error } = useLogin();
-  const [emailAddress, setEmailAddress] = useState("");
+  const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const isInvalid = password === "" || emailAddress === "";
+  const isInvalid = password === "" || user === "";
   const toast = useToast();
 
   useEffect(() => {
@@ -66,28 +66,28 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         marginBottom={16}
         padding={5}
       >
-        <Heading color="primary" padding={5}>
+        <Heading color="primary" padding={5} fontWeight="400">
           {LABELS.LOGIN.TITLE}
         </Heading>
         <FormControl>
-          <FormLabel fontSize="sm" htmlFor="email">
-            {LABELS.LOGIN.FORM.EMAIL_LABEL}
+          <FormLabel fontSize="sm" htmlFor="user">
+            {LABELS.LOGIN.FORM.USER_LABEL}
           </FormLabel>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
               fontSize="xl"
-              children={<TiMail color="gray" />}
+              children={<TiUserOutline color="gray" />}
             />
             <Input
               isRequired
               fontSize="sm"
-              type="email"
-              id="email"
-              placeholder={LABELS.LOGIN.FORM.EMAIL_PLACEHOLDER}
+              type="text"
+              id="user"
+              placeholder={LABELS.LOGIN.FORM.USER_PLACEHOLDER}
               errorBorderColor="red.300"
-              value={emailAddress}
-              onChange={({ target }) => setEmailAddress(target.value)}
+              value={user}
+              onChange={({ target }) => setUser(target.value)}
             />
           </InputGroup>
         </FormControl>
@@ -129,7 +129,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             fontSize="sm"
             colorScheme="blue"
             type="submit"
-            variant="solid"
+            variant="primary"
             disabled={isInvalid}
             margin="5"
           >

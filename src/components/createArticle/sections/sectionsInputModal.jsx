@@ -6,7 +6,6 @@ import {
   ModalOverlay,
   ModalHeader,
   ModalBody,
-  ModalCloseButton,
   ModalFooter,
   FormLabel,
   FormControl,
@@ -22,12 +21,9 @@ import {
   Tooltip,
   Select,
 } from '@chakra-ui/react';
-import * as Yup from 'yup';
-import { ImageMultipleInput } from './imageMultipleInput';
 import { RelatedArticleSelector } from './relatedArticleSelector';
-import { ArticlesDb } from '../../resources/articlesDb';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { GrTextAlignCenter } from 'react-icons/gr';
+import { ArticlesDb } from '../../../resources/articlesDb';
+
 
 const SectionsInputModal = ({
   isOpen,

@@ -1,10 +1,7 @@
 import * as React from 'react';
-import * as emailValidator from 'email-validator';
 import { LABELS } from '../locals/sp/labels';
 
 // import { authService, localStorageService } from "../../services";
-
-const validateEmail = emailValidator.validate;
 
 const useLogin = () => {
   const [error, setError] = React.useState('');
@@ -13,13 +10,13 @@ const useLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
+    const user = e.target.user.value;
     const password = e.target.password.value;
     const attempt = tryNumber + 1;
     setTryNumber(attempt);
 
-    if (!email || !validateEmail(email) || email.length < 8) {
-      setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_EMAIL);
+    if (!user) {
+      setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_USER);
       return;
     }
     if (!password || password.length < 5) {
@@ -33,7 +30,7 @@ const useLogin = () => {
         localStorageService.AddUser({ email, token: res.data.token });
         history.push("/admin/dashboard");
       } */
-      if (email === 'admin@admin.com' && password === 'admin') {
+      if (user === 'afatecha' && password === 'afatecha') {
         setValidUser(true);
         setError('');
         return;
@@ -47,7 +44,7 @@ const useLogin = () => {
           setError(LABELS.LOGIN.MESSAGES.ERROR.INCOMPLETE_DATA);
           break;
         case 404:
-          setError(`${email} ${LABELS.LOGIN.MESSAGES.ERROR.UNREGISTED_EMAIL}`);
+          setError(`${user} ${LABELS.LOGIN.MESSAGES.ERROR.UNREGISTED_USER}`);
           break;
         case 500:
           setError(LABELS.LOGIN.MESSAGES.ERROR.TECHNICAL_ISSUES);

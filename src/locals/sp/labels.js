@@ -1,20 +1,20 @@
 const LABELS = {
   LOGIN: {
-    TITLE: 'Esta App',
+    TITLE: 'Aprender en Red',
     FORM: {
-      EMAIL_LABEL: 'Dirección de email',
-      EMAIL_PLACEHOLDER: 'mail@dominio.com',
+      USER_LABEL: 'Nombre de usuario',
+      USER_PLACEHOLDER: 'tu usuario',
       PASS_LABEL: 'Password',
       PASS_PLACEHOLDER: 'tu clave',
     },
     BUTTON_TEXT: 'Ingresar',
     MESSAGES: {
       ERROR: {
-        INVALID_EMAIL: 'No es un email válido.',
+        INVALID_USER: 'No es un usuario válido.',
         INVALID_PASS: 'El password no es válido.',
         WRONG_PASS: 'El password es incorrecto.',
         ICOMPLETE_DATA: 'Por favor, completar la totalidad de los datos.',
-        UNREGISTED_EMAIL: 'no está registrado.',
+        UNREGISTED_USER: 'no está registrado.',
         TECHNICAL_ISSUES: 'Problemas técnicos. Por favor intentar nuevamente.',
         CONNECTION: 'Problemas con la conexión.',
       },

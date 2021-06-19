@@ -7,7 +7,7 @@ import {
   Button,
   Tooltip,
 } from '@chakra-ui/react';
-import { ParagraphReducer } from '../common/paragraphReducer';
+import { ParagraphReducer } from '../../common/paragraphReducer';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
 const DisplayRelatedArticle = ({
