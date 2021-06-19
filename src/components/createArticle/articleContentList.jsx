@@ -5,9 +5,6 @@ import { ParagraphReducer } from '../common/paragraphReducer';
 import { ArticleContentElementMenu } from './articleContentElementMenu';
 
 const ArticleContentList = ({ paragraphList, setParagraphList }) => {
-
-  console.log(paragraphList);
-
   const [forceRender, setForceRender] = useState(true);
 
   const listItems = (el, index) => {
@@ -49,9 +46,9 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
     if (el === '' || el.image === '') return null;
     return (
       <HStack
-      width="30rem"
-      maxWidth="30rem"
-      minWidth="30rem"
+        width="30rem"
+        maxWidth="30rem"
+        minWidth="30rem"
         p={3}
         bgColor="gray.100"
         borderRadius="md"

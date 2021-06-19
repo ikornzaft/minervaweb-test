@@ -9,7 +9,6 @@ const AreaSelector = (props) => {
     <Field name={name} {...rest}>
       {({ field }) => {
         setArea(field.value);
-        console.log(area);
         return (
         <Select borderRadius="md" size="sm" placeholder={label} onChange={e => {console.log(e.target.value)}} id={name} {...field}>
           {options.map((option) => {

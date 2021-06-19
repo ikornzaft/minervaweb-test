@@ -36,11 +36,13 @@ const SectionsInputModal = ({
   setSectionsList,
   area,
 }) => {
-
   // Array vacío
-  const [selectedArticles, setSelectedArticles] = useState(sectionsList.relatedArticles);
-  
+  const [selectedArticles, setSelectedArticles] = useState(
+    sectionsList.relatedArticles
+  );
+
   const [knowMore, setKnowMore] = useState([]);
+
   const [toDo, setToDo] = useState([]);
 
   // ???
@@ -48,6 +50,10 @@ const SectionsInputModal = ({
 
   // Las opciones para el input selector
   const [selectorOptions, setSelectorOptions] = useState([]);
+
+  /*   useEffect(() => {
+    setSelectedArticles(sectionsList.relatedArticles)
+  }, [sectionsList]) */
 
   useEffect(() => {
     const articles = ArticlesDb.filter((e) => e.workArea === area);
@@ -73,8 +79,11 @@ const SectionsInputModal = ({
   }, [area]);
 
   const handleSubmit = (values) => {
-    console.log(selectedArticles);
-
+    setSectionsList((sectionsList) => ({
+      ...sectionsList,
+      relatedArticles: [selectedArticles],
+    }));
+    setSelectedArticles([]);
     onClose();
   };
 
@@ -96,10 +105,7 @@ const SectionsInputModal = ({
           Agregar a Secciones
         </ModalHeader>
         <ModalBody textAlign="center">
-          <Formik
-            initialValues={sectionsList}
-            onSubmit={handleSubmit}
-          >
+          <Formik initialValues={sectionsList} onSubmit={handleSubmit}>
             {(formikProps) => (
               <>
                 <Form>
@@ -133,8 +139,11 @@ const SectionsInputModal = ({
 
                     <TabPanels>
                       <TabPanel>
-                        <RelatedArticleSelector options={selectorOptions} selectedArticles={selectedArticles} setSelectedArticles={setSelectedArticles} />
-
+                        <RelatedArticleSelector
+                          options={selectorOptions}
+                          selectedArticles={selectedArticles}
+                          setSelectedArticles={setSelectedArticles}
+                        />
                       </TabPanel>
 
                       <TabPanel></TabPanel>
@@ -157,7 +166,6 @@ const SectionsInputModal = ({
           </Formik>
         </ModalBody>
 
-        <ModalCloseButton />
         <ModalFooter />
       </ModalContent>
     </Modal>

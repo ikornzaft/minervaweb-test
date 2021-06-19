@@ -125,6 +125,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         workArea: '',
       });
       setParagraphList([]);
+      setSectionsList({relatedArticles: [], knowMore: [], toDo: []});
 
       onClose();
     } else {
@@ -242,7 +243,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       const desc = { descriptor: { description: el } };
       paragraphArray.push(desc);
     });
-    setData((data) => ({ ...data, ...values, ...paragraphObj }));
+    setData((data) => ({ ...data, ...values, ...paragraphObj, ...sectionsList }));
     return;
   };
 

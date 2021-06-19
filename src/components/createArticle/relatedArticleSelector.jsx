@@ -9,26 +9,24 @@ const RelatedArticleSelector = ({
   selectedArticles,
   setSelectedArticles,
 }) => {
-  console.log(options);
-
-  const [optionValue, setOptionValue] = useState(null);
+  const [optionValue, setOptionValue] = useState(
+    selectedArticles.relatedArticles
+  );
 
   const addArticle = () => {
     if (optionValue && optionValue !== '')
       setSelectedArticles([...selectedArticles, optionValue]);
     setOptionValue(null);
-    console.log('Agregar ', selectedArticles);
   };
 
   return (
     <VStack>
-      <HStack className="form-control">
+      <HStack className="form-control" paddingY={6}>
         <Select
           borderRadius="md"
           size="sm"
           placeholder="Seleccionar un artículo"
           onChange={(e) => {
-            console.log(e.target.value);
             setOptionValue(e.target.value);
           }}
         >
@@ -41,14 +39,30 @@ const RelatedArticleSelector = ({
               );
           })}
         </Select>
-        <Button type="button" variant="primary" onClick={addArticle}>
+        <Button
+          type="button"
+          w="15rem"
+          variant="outline"
+          fontFamily="Poppins"
+          fontWeight="400"
+          bgColor="white"
+          colorScheme="blue"
+          size="sm"
+          onClick={addArticle}
+        >
           Agregar artículo
         </Button>
       </HStack>
       {selectedArticles.map((article) => {
-        console.log(article);
         if (article !== '')
-          return <DisplayRelatedArticle options={options} article={article} />;
+          return (
+            <DisplayRelatedArticle
+              options={options}
+              selectedArticles={selectedArticles}
+              setSelectedArticles={setSelectedArticles}
+              article={article}
+            />
+          );
       })}
     </VStack>
   );
