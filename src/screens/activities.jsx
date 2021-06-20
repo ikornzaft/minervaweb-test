@@ -62,6 +62,7 @@ const Activities = () => {
             {areaTitle.title ? (
               <Heading
                 as="h3"
+                width="100%"
                 paddingRight={8}
                 paddingTop={2}
                 textAlign="left"

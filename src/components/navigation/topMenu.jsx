@@ -79,6 +79,7 @@ const TopMenu = () => {
           id="menu-button_3"
           isActive={activeButton === 2 ? true : false}
           onClick={menuHandler}
+          disabled="true"
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
         </Button>
@@ -87,6 +88,7 @@ const TopMenu = () => {
           id="menu-button_4"
           isActive={activeButton === 3 ? true : false}
           onClick={menuHandler}
+          disabled="true"
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
         </Button>
@@ -95,6 +97,7 @@ const TopMenu = () => {
           id="menu-button_4"
           isActive={activeButton === 3 ? true : false}
           onClick={menuHandler}
+          disabled="true"
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
         </Button>
