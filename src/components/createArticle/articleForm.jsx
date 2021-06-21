@@ -75,7 +75,23 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             descriptor: { 
               type: 'article', 
               articleId: el, 
-              link: '' 
+              link: '',
+            },
+          };
+          createdSections.push(articleToPush);
+        });
+      }
+
+      if (sectionsList.knowMore.length > 0) {
+        sectionsList.knowMore.forEach((el) => {
+          const articleToPush = {
+            descriptor: { 
+              type: el.type, 
+              articleId: '', 
+              link: '',
+              file: el.id,
+              name: el.name,
+              description: el.description,
             },
           };
           createdSections.push(articleToPush);

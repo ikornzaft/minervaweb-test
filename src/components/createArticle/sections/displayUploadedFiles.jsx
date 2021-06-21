@@ -27,7 +27,7 @@ const DisplayUploadedFiles = ({ file, index, uploadedFiles, setUploadedFiles }) 
         <Heading as="h4" fontSize="md">
           {file.name}
         </Heading>
-        <Text fontSize="xs">{file.type}</Text>
+        <Text fontSize="xs">{file.description}</Text>
       </VStack>
       <Tooltip label="Eliminar archivo" bg="white" color="gray.700">
         <Button id={file.id} margin="0" size="xs" onClick={deleteItem}>

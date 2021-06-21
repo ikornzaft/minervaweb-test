@@ -1,11 +1,22 @@
 import React, { useState, useRef } from 'react';
-import { FormControl, Button, VStack, Box, Stack, Text, Input, FormLabel } from '@chakra-ui/react';
+import {
+  FormControl,
+  Button,
+  VStack,
+  Box,
+  Stack,
+  Text,
+  Input,
+  Textarea,
+  FormLabel,
+} from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { FiUpload } from 'react-icons/fi';
 import { DisplayUploadedFiles } from './displayUploadedFiles';
 
 const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileDescription, setSelectedFileDescription] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const knowMoreInputRef = useRef();
   const randomId = uuidv4();
@@ -47,6 +58,11 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     setSelectedFile(e.target.files[0]);
   };
 
+  const onDescriptionChange = (e) => {
+    console.log(e.target.value);
+    setSelectedFileDescription(e.target.value);
+  };
+
   const onFileUpload = async (e) => {
     const formData = new FormData();
 
@@ -68,70 +84,101 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     const newUploadedFile = {
       name: selectedFile.name,
       type: selectedFile.type,
+      description: selectedFileDescription,
       id: fileName,
     };
 
+    setKnowMore([...knowMore, newUploadedFile]);
+
     setUploadedFiles((uploadedFiles) => [...uploadedFiles, newUploadedFile]);
     setSelectedFile(null);
+    setSelectedFileDescription(null);
   };
 
   return (
     <div>
-      <VStack w="45%" p={4} bg="gray.50" borderRadius="md" borderStyle="solid" borderWidth="1px" marginBottom={4}>
-        <Text fontSize="sm" color="gray.700">Subir un documento, imagen, video o audio</Text>
+      <VStack
+        w="45%"
+        p={4}
+        bg="gray.50"
+        borderRadius="md"
+        borderStyle="solid"
+        borderWidth="1px"
+        marginBottom={4}
+      >
+        <Text fontSize="sm" color="gray.700">
+          Subir un documento, imagen, video o audio
+        </Text>
         <FormControl>
-        <Stack w="100%" alignItems="center" justifyContent="flex-start">
-        
-        <FormLabel
-          htmlFor="knowmore-input"
-          bgColor="gray.200"
-          cursor="pointer"
-          w="120px"
-          h="120px"
-          fontSize="sm"
-          borderStyle="dashed"
-          borderWidth="2px"
-          borderRadius="lg"
-          borderColor="gray.400"
-          marginBottom={0}
-          marginRight={0}
-          _hover={{ bgColor: 'gray.300' }}
-          onChange={(e) => {
-            knowMoreInputRef.current.click();
-          }}
-        >
-          <Stack
-            w="100%"
-            h="100%"
-            alignItems="center"
-            justifyContent="center"
-            wordBreak="break-all"
-            wordWrap="break-word"
-            textAlign="center"
-            p={2}
-          >
+          <Stack w="100%" alignItems="center" justifyContent="flex-start">
+            <FormLabel
+              htmlFor="knowmore-input"
+              bgColor="gray.200"
+              cursor="pointer"
+              w="120px"
+              h="120px"
+              fontSize="sm"
+              borderStyle="dashed"
+              borderWidth="2px"
+              borderRadius="lg"
+              borderColor="gray.400"
+              marginBottom={0}
+              marginRight={0}
+              _hover={{ bgColor: 'gray.300' }}
+              onChange={(e) => {
+                knowMoreInputRef.current.click();
+              }}
+            >
+              <Stack
+                w="100%"
+                h="100%"
+                alignItems="center"
+                justifyContent="center"
+                wordBreak="break-all"
+                wordWrap="break-word"
+                textAlign="center"
+                p={2}
+              >
+                {selectedFile ? (
+                  <Text fontSize="xs">{selectedFile.name}</Text>
+                ) : (
+                  <Box as={FiUpload} size="40px" color="gray.600" />
+                )}
+              </Stack>
+            </FormLabel>
+            <Input
+              id="knowmore-input"
+              type="file"
+              display="none"
+              ref={knowMoreInputRef}
+              onChange={onFileChange}
+              placeholder="Selecciona un archivo"
+            />
             {selectedFile ? (
-              <Text fontSize="xs">{selectedFile.name}</Text>
-            ) : (
-              <Box as={FiUpload} size="40px" color="gray.600" />
-            )}
+              <Textarea
+                size="xs"
+                type="text"
+                id="elementDescription"
+                name="elementDescription"
+                onChange={onDescriptionChange}
+                placeholder="Escribe una descripción"
+              />
+            ) : null}
+            {selectedFile ? (
+              <Button
+                type="button"
+                colorScheme="blue"
+                fontFamily="Poppins"
+                fontWeight="400"
+                size="xs"
+                variant="outline"
+                onClick={onFileUpload}
+              >
+                {' '}
+                Subir archivo
+              </Button>
+            ) : null}
           </Stack>
-        </FormLabel>
-        <Input
-          id="knowmore-input"
-          type="file"
-          display="none"
-          ref={knowMoreInputRef}
-          onChange={onFileChange}
-          placeholder="Selecciona un archivo"
-        />
-        {selectedFile ? (
-          <Button type="button" colorScheme="blue" fontFamily="Poppins" fontWeight="400" size="xs" variant="outline" onClick={onFileUpload}>
-            {' '}
-            Subir archivo
-          </Button>
-        ) : null}
-        </Stack>
         </FormControl>
       </VStack>
       {uploadedFiles.map((file, index) => {

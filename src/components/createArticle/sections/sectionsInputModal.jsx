@@ -79,8 +79,11 @@ const SectionsInputModal = ({
     setSectionsList((sectionsList) => ({
       ...sectionsList,
       relatedArticles: selectedArticles,
+      knowMore: knowMore,
     }));
+    console.log(knowMore)
     setSelectedArticles([]);
+    setKnowMore([]);
     onClose();
   };
 
