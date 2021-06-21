@@ -86,7 +86,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         sectionsList.knowMore.forEach((el) => {
           const articleToPush = {
             descriptor: { 
-              type: el.type, 
+              type: 'file', 
               articleId: '', 
               link: '',
               file: el.id,
