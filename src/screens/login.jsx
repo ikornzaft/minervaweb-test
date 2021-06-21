@@ -81,6 +81,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             />
             <Input
               isRequired
+              autofocus="true"
               fontSize="sm"
               type="text"
               id="user"
