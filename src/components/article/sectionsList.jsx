@@ -10,12 +10,91 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { SectionItem } from './sectionItem';
+import { ParagraphReducer } from '../common/paragraphReducer';
+import { ArticlesDb} from '../../resources/articlesDb';
 import articleIcon from '../../assets/images/application.svg';
 import linkIcon from '../../assets/images/www.svg';
 import quizIcon from '../../assets/images/quiz.svg';
 
 const SectionsList = ({ sections }) => {
-  console.log(sections);
+
+  const displayRelatedArticles = (articles) => {
+    let articlesHeading = null;
+    let articlesForDisplay = null;
+    if (articles.length > 0) {
+      const getRelatedArticleData = (article) => {
+        const relatedArticleId = ArticlesDb.findIndex(el => el.header.publicId === article.descriptor.articleId);
+        const title = ArticlesDb[relatedArticleId].resource.articleHeader.descriptor.title;
+        const subtitle = ArticlesDb[relatedArticleId].resource.articleHeader.descriptor.subtitle;
+        const publicId = ArticlesDb[relatedArticleId].header.publicId;
+        return {title, subtitle, publicId};
+      };
+      articlesHeading = 
+        <HStack textAlign="left" justifyContent="flex-start" w="40rem">
+          <Heading
+            fontFamily="Poppins"
+            fontSize="sm"
+            color="gray.600"
+            fontWeight="400"
+          >
+            ARTÍCULOS RELACIONADOS
+          </Heading>
+        </HStack>
+      
+      articlesForDisplay = articles.map((el) => (
+        <Link to={`/article/${getRelatedArticleData(el).publicId}`}>
+          <Stack
+            width="40rem"
+            bgColor="white"
+            borderRadius="lg"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            direction="row"
+            overflow="hidden"
+            borderStyle="solid"
+            borderWidth="1px"
+            maxHeight="100px"
+            _hover={{ bg: 'gray.100' }}
+          >
+            <Box w="90px" h="90px" p={2}>
+              <Image src={articleIcon}></Image>
+            </Box>
+            <Stack width="100%" justifyContent="flex-start">
+              <Stack
+                width="100%"
+                direction="row"
+                alignItems="center"
+                paddingX={4}
+              >
+                <Stack paddingTop={3} alignItems="flex-start" spacing="1">
+                  <Heading
+                    as="h3"
+                    size="sm"
+                    marginLeft={0}
+                    lineHeight="0.7rem"
+                    fontFamily="Open Sans"
+                  >
+                    {getRelatedArticleData(el).title}
+                  </Heading>
+                  <Box textAlign="left" marginTop="0" paddingLeft={0}>
+                    <Text
+                      as="h5"
+                      fontSize="xs"
+                      fontFamily="Open Sans"
+                      fontWeight="400"
+                    >
+                    {ParagraphReducer(getRelatedArticleData(el).subtitle)}
+                    </Text>
+                  </Box>
+                </Stack>
+              </Stack>
+            </Stack>
+          </Stack>
+        </ Link>
+      ));
+    }
+    return [articlesHeading, articlesForDisplay];
+  };
 
   return (
     <VStack
@@ -25,14 +104,23 @@ const SectionsList = ({ sections }) => {
       paddingY={4}
       paddingX={8}
     >
-      <HStack textAlign="left" justifyContent="flex-start" w="40rem">
+      {displayRelatedArticles(
+        sections.filter((el) => el.descriptor.type === 'article')
+      )}
+
+      <HStack
+        textAlign="left"
+        justifyContent="flex-start"
+        w="40rem"
+        paddingTop={2}
+      >
         <Heading
           fontFamily="Poppins"
           fontSize="sm"
           color="gray.600"
           fontWeight="400"
         >
-          ARTÍCULOS RELACIONADOS
+          PARA CONOCER MÁS
         </Heading>
       </HStack>
       <Stack
@@ -49,7 +137,7 @@ const SectionsList = ({ sections }) => {
         _hover={{ bg: 'gray.100' }}
       >
         <Box w="90px" h="90px" p={2}>
-          <Image src={articleIcon}></Image>
+          <Image src={linkIcon}></Image>
         </Box>
         <Stack width="100%" justifyContent="flex-start">
           <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
@@ -61,7 +149,7 @@ const SectionsList = ({ sections }) => {
                 lineHeight="0.7rem"
                 fontFamily="Open Sans"
               >
-                ¿Qué es la genética?
+                La mitosis: ¿cómo se dividen tus células?
               </Heading>
               <Box textAlign="left" marginTop="0" paddingLeft={0}>
                 <Text
@@ -70,9 +158,7 @@ const SectionsList = ({ sections }) => {
                   fontFamily="Open Sans"
                   fontWeight="400"
                 >
-                  La genética es el área de estudio de la biología que busca
-                  comprender y explicar cómo se transmite la herencia biológica
-                  de generación en generación mediante el ADN.
+                  https://genotipia.com/mitosis/
                 </Text>
               </Box>
             </Stack>
@@ -80,114 +166,61 @@ const SectionsList = ({ sections }) => {
         </Stack>
       </Stack>
 
-      <HStack textAlign="left" justifyContent="flex-start" w="40rem" paddingTop={2}>
-      <Heading
-        fontFamily="Poppins"
-        fontSize="sm"
-        color="gray.600"
-        fontWeight="400"
-
+      <HStack
+        textAlign="left"
+        justifyContent="flex-start"
+        w="40rem"
+        paddingTop={2}
       >
-        PARA CONOCER MÁS
-      </Heading>
-    </HStack>
-    <Stack
-      width="40rem"
-      bgColor="white"
-      borderRadius="lg"
-      justifyContent="flex-start"
-      alignItems="flex-start"
-      direction="row"
-      overflow="hidden"
-      borderStyle="solid"
-      borderWidth="1px"
-      maxHeight="100px"
-      _hover={{ bg: 'gray.100' }}
-    >
-      <Box w="90px" h="90px" p={2}>
-        <Image src={linkIcon}></Image>
-      </Box>
-      <Stack width="100%" justifyContent="flex-start">
-        <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
-          <Stack paddingTop={4} alignItems="flex-start">
-            <Heading
-              as="h3"
-              size="sm"
-              marginLeft={0}
-              lineHeight="0.7rem"
-              fontFamily="Open Sans"
-            >
-            La mitosis: ¿cómo se dividen tus células?
-            </Heading>
-            <Box textAlign="left" marginTop="0" paddingLeft={0}>
-              <Text
-                as="h5"
-                fontSize="xs"
+        <Heading
+          fontFamily="Poppins"
+          fontSize="sm"
+          color="gray.600"
+          fontWeight="400"
+        >
+          PARA HACER
+        </Heading>
+      </HStack>
+      <Stack
+        width="40rem"
+        bgColor="white"
+        borderRadius="lg"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        direction="row"
+        overflow="hidden"
+        borderStyle="solid"
+        borderWidth="1px"
+        maxHeight="100px"
+        _hover={{ bg: 'gray.100' }}
+      >
+        <Box w="90px" h="90px" p={2}>
+          <Image src={quizIcon}></Image>
+        </Box>
+        <Stack width="100%" justifyContent="flex-start">
+          <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
+            <Stack paddingTop={4} alignItems="flex-start">
+              <Heading
+                as="h3"
+                size="sm"
+                marginLeft={0}
+                lineHeight="0.7rem"
                 fontFamily="Open Sans"
-                fontWeight="400"
               >
-              https://genotipia.com/mitosis/
-              </Text>
-            </Box>
+                Autoevaluación: División celular
+              </Heading>
+              <Box textAlign="left" marginTop="0" paddingLeft={0}>
+                <Text
+                  as="h5"
+                  fontSize="xs"
+                  fontFamily="Open Sans"
+                  fontWeight="400"
+                ></Text>
+              </Box>
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
-    </Stack>
-
-    <HStack textAlign="left" justifyContent="flex-start" w="40rem" paddingTop={2}>
-    <Heading
-      fontFamily="Poppins"
-      fontSize="sm"
-      color="gray.600"
-      fontWeight="400"
-
-    >
-      PARA HACER
-    </Heading>
-  </HStack>
-  <Stack
-    width="40rem"
-    bgColor="white"
-    borderRadius="lg"
-    justifyContent="flex-start"
-    alignItems="flex-start"
-    direction="row"
-    overflow="hidden"
-    borderStyle="solid"
-    borderWidth="1px"
-    maxHeight="100px"
-    _hover={{ bg: 'gray.100' }}
-  >
-    <Box w="90px" h="90px" p={2}>
-      <Image src={quizIcon}></Image>
-    </Box>
-    <Stack width="100%" justifyContent="flex-start">
-      <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
-        <Stack paddingTop={4} alignItems="flex-start">
-          <Heading
-            as="h3"
-            size="sm"
-            marginLeft={0}
-            lineHeight="0.7rem"
-            fontFamily="Open Sans"
-          >
-            Autoevaluación: División celular
-          </Heading>
-          <Box textAlign="left" marginTop="0" paddingLeft={0}>
-            <Text
-              as="h5"
-              fontSize="xs"
-              fontFamily="Open Sans"
-              fontWeight="400"
-            >
-              
-            </Text>
-          </Box>
-        </Stack>
-      </Stack>
-    </Stack>
-  </Stack>
-
     </VStack>
   );
 };

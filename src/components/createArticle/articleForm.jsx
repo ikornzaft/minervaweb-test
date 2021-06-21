@@ -44,7 +44,11 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const [paragraphList, setParagraphList] = useState([]);
 
-  const [sectionsList, setSectionsList] = useState({relatedArticles: [], knowMore: [], toDo: []});
+  const [sectionsList, setSectionsList] = useState({
+    relatedArticles: [],
+    knowMore: [],
+    toDo: [],
+  });
 
   const [area, setArea] = useState(null);
 
@@ -61,6 +65,25 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   useEffect(() => {
     if (data.title) {
       console.log(data);
+      console.log(sectionsList);
+
+      const createdSections = [];
+
+      if (sectionsList.relatedArticles.length > 0) {
+        sectionsList.relatedArticles.forEach((el) => {
+          const articleToPush = {
+            descriptor: { 
+              type: 'article', 
+              articleId: el, 
+              link: '' 
+            },
+          };
+          createdSections.push(articleToPush);
+        });
+      }
+
+      console.log(createdSections);
+
       const newEntry = {
         _id: 'm:article/test/1',
         _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
@@ -72,19 +95,10 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
               subtitle: data.subtitle,
               title: data.title,
             },
-            imageLink:
-              data.articleImg,
+            imageLink: data.articleImg,
             imageFooter: data.articleImgFooter,
           },
-          sections: [
-            {
-              descriptor: {
-                type: 'article',
-                articleId: '0002',
-                link: '',
-              },
-            },
-          ],
+          sections: createdSections,
         },
         subscribers: ['test/1'],
         keys: [],
@@ -125,7 +139,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         workArea: '',
       });
       setParagraphList([]);
-      setSectionsList({relatedArticles: [], knowMore: [], toDo: []});
+      setSectionsList({ relatedArticles: [], knowMore: [], toDo: [] });
 
       onClose();
     } else {
@@ -243,7 +257,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       const desc = { descriptor: { description: el } };
       paragraphArray.push(desc);
     });
-    setData((data) => ({ ...data, ...values, ...paragraphObj, ...sectionsList }));
+    setData((data) => ({ ...data, ...values, ...paragraphObj }));
     return;
   };
 
@@ -444,12 +458,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         setParagraphList={setParagraphList}
       />
       <SectionsInputModal
-      isOpen={isOpenSections}
-      onClose={onCloseSections}
-      sectionsList={sectionsList}
-      setSectionsList={setSectionsList}
-      area={area}
-    />
+        isOpen={isOpenSections}
+        onClose={onCloseSections}
+        sectionsList={sectionsList}
+        setSectionsList={setSectionsList}
+        area={area}
+      />
     </>
   );
 };

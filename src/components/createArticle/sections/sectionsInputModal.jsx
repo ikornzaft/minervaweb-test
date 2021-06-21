@@ -78,7 +78,7 @@ const SectionsInputModal = ({
   const handleSubmit = (values) => {
     setSectionsList((sectionsList) => ({
       ...sectionsList,
-      relatedArticles: [selectedArticles],
+      relatedArticles: selectedArticles,
     }));
     setSelectedArticles([]);
     onClose();
