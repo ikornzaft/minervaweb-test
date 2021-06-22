@@ -16,7 +16,7 @@ const DisplayRelatedArticle = ({
   selectedArticles,
   setSelectedArticles,
 }) => {
-  const index = options.findIndex((option) => option.key === article);
+  const index = options.findIndex((option) => option.key === article.article.entity.publicId);
   const titleString = options[index].value;
   const subtitleString = options[index].subtitle;
 

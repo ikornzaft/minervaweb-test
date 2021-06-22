@@ -19,6 +19,7 @@ import {
   VStack,
   Stack,
   HStack,
+  Flex,
   Box,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
@@ -27,6 +28,7 @@ import { AREAS } from '../../locals/sp/areas';
 import { ArticleContentInputModal } from './articleContent/articleContentInputModal';
 import { ArticleContentList } from './articleContent/articleContentList';
 import { SectionsInputModal } from './sections/sectionsInputModal';
+import { KnowMoreInputModal } from './sections/knowMoreInputModal';
 import { ArticlesDb } from '../../resources/articlesDb';
 import { ImageInput } from './imageInput';
 import { AreaSelector } from './areaSelector';
@@ -44,11 +46,24 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const [paragraphList, setParagraphList] = useState([]);
 
-  const [sectionsList, setSectionsList] = useState({
-    relatedArticles: [],
-    knowMore: [],
-    toDo: [],
-  });
+
+  // Creamos el estado sectionList
+  // Sections es un array con dos objetos (section1 y section2)
+  // Cada sección tiene un array de objetos "contents"
+  // Las propiedades de esos objetos cambian, de acuerdo al tipo de recurso (ej: article)
+  // Por eso acá no defino nada dentro de contents
+  
+  // Le vamos a pasar sectionsList y su setter al modal KnowMoreInputModal
+  const [sectionsList, setSectionsList] = useState([
+    {
+      section: { publicId: '1' },
+      contents: [],
+    },
+    {
+      section: { publicId: '2' },
+      contents: [],
+    },
+  ]);
 
   const [area, setArea] = useState(null);
 
@@ -72,9 +87,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       if (sectionsList.relatedArticles.length > 0) {
         sectionsList.relatedArticles.forEach((el) => {
           const articleToPush = {
-            descriptor: { 
-              type: 'article', 
-              articleId: el, 
+            descriptor: {
+              type: 'article',
+              articleId: el,
               link: '',
             },
           };
@@ -85,9 +100,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       if (sectionsList.knowMore.length > 0) {
         sectionsList.knowMore.forEach((el) => {
           const articleToPush = {
-            descriptor: { 
-              type: 'file', 
-              articleId: '', 
+            descriptor: {
+              type: 'file',
+              articleId: '',
               link: '',
               file: el.id,
               name: el.name,
@@ -255,9 +270,20 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     onClose: onCloseSections,
   } = useDisclosure();
 
+  const {
+    isOpen: isOpenKnowMore,
+    onOpen: onOpenKnowMore,
+    onClose: onCloseKnowMore,
+  } = useDisclosure();
+
   const modalHandler = (e) => {
     onCloseContentLoader();
     onOpenContentLoader();
+  };
+
+  const knowMoreModalHandler = (e) => {
+    onCloseKnowMore();
+    onOpenKnowMore();
   };
 
   const sectionsModalHandler = (e) => {
@@ -403,21 +429,59 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                           </Field>
                         </HStack>
                       </Stack>
-                      <Box paddingTop={4}>
-                        <Button
-                          mt={4}
-                          colorScheme="blue"
-                          type="button"
-                          variant="outline"
-                          bgColor="white"
-                          onClick={sectionsModalHandler}
-                          size="sm"
-                          fontFamily="Poppins"
-                          fontWeight="400"
+                      <VStack w="100%" paddingTop={6}>
+                        <Stack
+                          w="100%"
+                          direction="row"
+                          justifyContent="flex-start"
                         >
-                          Agregar a Secciones
-                        </Button>
-                      </Box>
+                          <Text
+                            fontSize="sm"
+                            fontFamily="Open Sans"
+                            htmlFor="subtitle"
+                            marginBottom="0"
+                          >
+                            Agregar a Secciones
+                          </Text>
+                        </Stack>
+                        <Flex
+                          direction="row"
+                          width="100%"
+                          marginTop="1px !important"
+                          borderWidth="1px"
+                          borderRadius="md"
+                          padding={2}
+                          justifyContent="space-evenly"
+                          alignItems="center"
+                        >
+                          <Button
+                            colorScheme="blue"
+                            type="button"
+                            variant="outline"
+                            w="9rem"
+                            bgColor="white"
+                            onClick={knowMoreModalHandler}
+                            size="sm"
+                            fontFamily="Poppins"
+                            fontWeight="400"
+                          >
+                            Para saber más
+                          </Button>
+                          <Button
+                            colorScheme="blue"
+                            type="button"
+                            variant="outline"
+                            w="9rem"
+                            bgColor="white"
+                            onClick={sectionsModalHandler}
+                            size="sm"
+                            fontFamily="Poppins"
+                            fontWeight="400"
+                          >
+                            Para hacer
+                          </Button>
+                        </Flex>
+                      </VStack>
                     </VStack>
 
                     <VStack
@@ -476,6 +540,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       <SectionsInputModal
         isOpen={isOpenSections}
         onClose={onCloseSections}
+        sectionsList={sectionsList}
+        setSectionsList={setSectionsList}
+        area={area}
+      />
+      <KnowMoreInputModal
+        isOpen={isOpenKnowMore}
+        onClose={onCloseKnowMore}
         sectionsList={sectionsList}
         setSectionsList={setSectionsList}
         area={area}

@@ -266,7 +266,6 @@ const ArticleContentInputModal = ({
           </Formik>
         </ModalBody>
 
-        <ModalCloseButton />
         <ModalFooter />
       </ModalContent>
     </Modal>

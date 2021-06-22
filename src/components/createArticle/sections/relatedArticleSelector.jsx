@@ -9,13 +9,44 @@ const RelatedArticleSelector = ({
   selectedArticles,
   setSelectedArticles,
 }) => {
+  console.log(options);
+  // Creamos el estado optionValue
+  // ¿es un array? No vamos a encontrar una propiedad relatedArticles
   const [optionValue, setOptionValue] = useState(
     selectedArticles.relatedArticles
   );
 
+  // Chequeamos si una determinada opción ya fue elegida
+  const checkSelectedArticles = (option) => {
+    console.log(selectedArticles);
+    if (selectedArticles.length > 0) {
+      const checked = selectedArticles.find((article) => article.article.entity.publicId === option.key);
+      if (checked) return true;
+      console.log('WTF');
+    }
+    return false;
+  };
+
+  // Agregamos el artículo a selectedArticles
   const addArticle = () => {
-    if (optionValue && optionValue !== '')
-      setSelectedArticles([...selectedArticles, optionValue]);
+    const articleIndex = options.findIndex(
+      (option) => option.key === optionValue
+    );
+    if (articleIndex !== -1) {
+      const articleObj = {
+        descriptor: {
+          title: options[articleIndex].value,
+          subtitle: options[articleIndex].subtitle,
+        },
+        article: {
+          type: 'article',
+          entity: {
+            publicId: options[articleIndex].key,
+          },
+        },
+      };
+      setSelectedArticles([...selectedArticles, articleObj]);
+    }
     setOptionValue(null);
   };
 
@@ -31,7 +62,7 @@ const RelatedArticleSelector = ({
           }}
         >
           {options.map((option) => {
-            if (!selectedArticles.find((article) => article === option.key))
+            if (!checkSelectedArticles(option))
               return (
                 <option key={option.key} value={option.key}>
                   {option.value}
