@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Stack, HStack, Heading, Text } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
+import { AudioPlayer } from '../common/players/audioPlayer';
 import { ParagraphReducer } from '../common/paragraphReducer';
-import { RiBook2Line, RiImageLine } from 'react-icons/ri';
-import { VscFilePdf } from 'react-icons/vsc';
+import { RiBook2Line, RiImageLine, RiVideoLine } from 'react-icons/ri';
+import { VscFilePdf, VscFile } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
+import { FiSpeaker } from 'react-icons/fi';
 
 const DisplayKnowMore = ({ sections }) => {
   const clasifySection = (section) => {
@@ -32,6 +34,7 @@ const DisplayKnowMore = ({ sections }) => {
   // Si es otro recurso
   const determineTypeOfResource = (section) => {
     let icon;
+    let type;
     // Document
     if (section.document.type === 'document') {
       const fileName = section.descriptor.subtitle;
@@ -39,25 +42,43 @@ const DisplayKnowMore = ({ sections }) => {
       const extension = splittedNameArray[splittedNameArray.length - 1];
       if (extension === 'pdf') {
         icon = VscFilePdf;
-      }
-      if (extension === 'doc' || extension === 'docx' || extension === 'rtf' || extension == 'txt') {
+      } else if (
+        extension === 'doc' ||
+        extension === 'docx' ||
+        extension === 'rtf' ||
+        extension == 'txt'
+      ) {
         icon = SiMicrosoftword;
+      } else {
+        icon = VscFile;
       }
     }
     // Image
     if (section.document.type === 'image') {
       icon = RiImageLine;
     }
-
-    return { icon };
+    // Audio
+    if (section.document.type === 'audio') {
+      icon = FiSpeaker;
+      type = "audio";
+    }
+    // Video
+    if (section.document.type === 'video') {
+      icon = RiVideoLine;
+    }
+    return { icon, type };
   };
+
+  const choosePlayer = (type, section) => {
+    if (type === "audio") AudioPlayer(section);
+  }
 
   const log = () => console.log('CLICK');
 
   const displayResource = (section) => {
-    const { icon } = determineTypeOfResource(section);
+    const { icon, type } = determineTypeOfResource(section);
     return (
-      <Stack onClick={log} cursor="pointer">
+      <Stack onClick={() => choosePlayer(type, section)} cursor="pointer">
         <SectionElement
           icon={icon}
           title={section.descriptor.title}

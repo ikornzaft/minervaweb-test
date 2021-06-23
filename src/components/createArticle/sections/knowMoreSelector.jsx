@@ -13,6 +13,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { FiUpload } from 'react-icons/fi';
 import { DisplayUploadedFiles } from './displayUploadedFiles';
+import { FaTemperatureHigh } from 'react-icons/fa';
 
 const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -54,8 +55,18 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     return { fileName, fileRoute };
   };
 
+  const defineFileType = (type) => {
+    // Image
+    if (type.substring(0, 5) === 'image') return "image";
+    if (type.substring(0, 5) === 'video') return "video";
+    if (type.substring(0, 5) === 'audio') return "audio";
+    if (type.substring(0,4) === 'text' || type.substring(0,11) === 'application') return "document";
+    return "document";
+  }
+
   const onFileChange = (e) => {
     console.log(e)
+    defineFileType(e.target.files[0].type)
     setSelectedFile(e.target.files[0]);
   };
 
@@ -87,7 +98,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
         subtitle: selectedFile.name,
       },
       document: {
-        type: "document",
+        type: defineFileType(selectedFile.type),
         locationType: "relative",
         "location": fileName
       }
