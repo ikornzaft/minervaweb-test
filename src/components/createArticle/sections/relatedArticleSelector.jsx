@@ -9,7 +9,6 @@ const RelatedArticleSelector = ({
   selectedArticles,
   setSelectedArticles,
 }) => {
-  console.log(options);
   // Creamos el estado optionValue
   // ¿es un array? No vamos a encontrar una propiedad relatedArticles
   const [optionValue, setOptionValue] = useState(
@@ -18,11 +17,9 @@ const RelatedArticleSelector = ({
 
   // Chequeamos si una determinada opción ya fue elegida
   const checkSelectedArticles = (option) => {
-    console.log(selectedArticles);
     if (selectedArticles.length > 0) {
       const checked = selectedArticles.find((article) => article.article.entity.publicId === option.key);
       if (checked) return true;
-      console.log('WTF');
     }
     return false;
   };

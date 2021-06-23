@@ -196,12 +196,25 @@ const ArticlesDb = [
       },
       sections: [
         {
-          descriptor: {
-            type: 'article',
-            articleId: '0002',
-            link: '',
+          section: {
+            publicId: '1',
           },
+          contents: [
+            {
+              descriptor: {
+                title: 'Artículo relacionado',
+                subtitle: 'Este es el copete',
+              },
+              article: {
+                type: 'article',
+                entity: {
+                  publicId: '0002',
+                },
+              },
+            },
+          ],
         },
+        {},
       ],
     },
     subscribers: ['test/1'],

@@ -76,12 +76,12 @@ const SectionsInputModal = ({
   }, [area]);
 
   const handleSubmit = (values) => {
-    setSectionsList((sectionsList) => ({
-      ...sectionsList,
-      relatedArticles: selectedArticles,
-      knowMore: knowMore,
-    }));
-    console.log(knowMore)
+    console.log("HOOOOOLA")
+    console.log(...sectionsList[0].contents)
+    setSectionsList((sectionsList) => ([
+      ...sectionsList[0].contents,
+      selectedArticles
+    ]));
     setSelectedArticles([]);
     setKnowMore([]);
     onClose();

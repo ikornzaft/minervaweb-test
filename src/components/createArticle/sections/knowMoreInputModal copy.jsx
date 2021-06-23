@@ -62,7 +62,7 @@ const KnowMoreInputModal = ({
     relatedArticlesArray
   );
 
-  const [knowMore, setKnowMore] = useState([]);
+  const [knowMore, setKnowMore] = useState([sectionsList.knowMore]);
 
   // ???
   const [areaArticles, setAreaArticles] = useState([]);
@@ -71,6 +71,10 @@ const KnowMoreInputModal = ({
   // Es un array por ahora vacío
   // Después tendrá objetos con propiedades: key, value(título), subtitle
   const [selectorOptions, setSelectorOptions] = useState([]);
+
+  /*   useEffect(() => {
+    setSelectedArticles(sectionsList.relatedArticles)
+  }, [sectionsList]) */
 
   // Cada vez que seleccionamos una nueva workarea, este código se ejecuta
   // Nos trae todo los artículos (si existen) de esa área
@@ -100,25 +104,30 @@ const KnowMoreInputModal = ({
 
   // Al enviar añadimos a sectionsList el contenido de selectedArticles
   const handleSubmit = (values) => {
-    console.log(knowMore)
-    console.log(sectionsList)
-
-    const newList = [...sectionsList];
-    if (selectedArticles.length > 0) selectedArticles.map(resource => {newList[0].contents.push(resource)});
-    
-    if (knowMore.length > 0) knowMore.map(resource => {newList[0].contents.push(resource)});
-    
-    setSectionsList(newList);
+    console.log(selectedArticles)
     console.log(sectionsList);
 
-    setSelectedArticles(relatedArticlesArray);
+    const newArr = sectionsList.map((section, index) => {
+      if (index === 0) {
+        return {
+          section: section.section,
+          contents: selectedArticles.map((article) => section.contents.push(article))          
+        };
+      } else {
+        return section;
+      }
+    })
+    //setSectionsList(newArr);
+    console.log(sectionsList);
 
+    console.log(selectedArticles)
+    //setSelectedArticles([]);
     setKnowMore([]);
     onClose();
-
   };
 
   const handleOptionChange = (e) => {
+    console.log(e.target.value);
   };
 
   // Acá le vamos a pasar al componente RelatedArticleSelector las propiedades:

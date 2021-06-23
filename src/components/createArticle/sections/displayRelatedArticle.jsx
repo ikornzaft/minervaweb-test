@@ -25,7 +25,7 @@ const DisplayRelatedArticle = ({
   const deleteItem = (e) => {
     const elementToDelete = options[index].key;
     const filteredArticles = selectedArticles.filter(
-      (index) => index !== elementToDelete
+      (article) => article.article.entity.publicId !== elementToDelete
     );
     setSelectedArticles(filteredArticles);
   };

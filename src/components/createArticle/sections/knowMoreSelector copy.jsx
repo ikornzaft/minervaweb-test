@@ -55,11 +55,11 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   };
 
   const onFileChange = (e) => {
-    console.log(e)
     setSelectedFile(e.target.files[0]);
   };
 
   const onDescriptionChange = (e) => {
+    console.log(e.target.value);
     setSelectedFileDescription(e.target.value);
   };
 
@@ -82,29 +82,23 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     alert('The file upload with Ajax and Java was a success!');
 
     const newUploadedFile = {
-      descriptor: {
-        title: selectedFileDescription,
-        subtitle: selectedFile.name,
-      },
-      document: {
-        type: "document",
-        locationType: "relative",
-        "location": fileName
-      }
+      name: selectedFile.name,
+      type: selectedFile.type,
+      description: selectedFileDescription,
+      id: fileName,
     };
-
 
     setKnowMore([...knowMore, newUploadedFile]);
 
-    setUploadedFiles([...uploadedFiles, newUploadedFile]);
+    setUploadedFiles((uploadedFiles) => [...uploadedFiles, newUploadedFile]);
     setSelectedFile(null);
     setSelectedFileDescription(null);
   };
 
   return (
-    <VStack justifyContent="center" paddingTop={4}>
+    <div>
       <VStack
-        w="60%"
+        w="45%"
         p={4}
         bg="gray.50"
         borderRadius="md"
@@ -198,7 +192,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
             />
           );
       })}
-    </VStack>
+    </div>
   );
 };
 

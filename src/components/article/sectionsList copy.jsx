@@ -10,7 +10,6 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { SectionItem } from './sectionItem';
-import { DisplayKnowMore } from './displayKnowMore';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { ArticlesDb} from '../../resources/articlesDb';
 import { FaRegLightbulb } from 'react-icons/fa';
@@ -181,7 +180,13 @@ const SectionsList = ({ sections }) => {
       paddingY={4}
       paddingX={8}
     >
-      {sections.length > 0 ? <DisplayKnowMore sections={sections[0].contents} /> : null}
+      {sections.length > 0 ? displayRelatedArticles(
+        sections[0].contents.filter((el) => el.article.type === 'article')
+      ) : null}
+
+      {sections.length > 0 ? displayKnowMore(
+        sections[0].contents.filter((el) => el.document.type === 'document')
+      ) : null}
 
       
 

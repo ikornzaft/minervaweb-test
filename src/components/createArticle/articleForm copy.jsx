@@ -46,12 +46,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const [paragraphList, setParagraphList] = useState([]);
 
+
   // Creamos el estado sectionList
   // Sections es un array con dos objetos (section1 y section2)
   // Cada sección tiene un array de objetos "contents"
   // Las propiedades de esos objetos cambian, de acuerdo al tipo de recurso (ej: article)
   // Por eso acá no defino nada dentro de contents
-
+  
   // Le vamos a pasar sectionsList y su setter al modal KnowMoreInputModal
   const [sectionsList, setSectionsList] = useState([
     {
@@ -77,39 +78,42 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const date = new Date();
 
   useEffect(() => {
+    console.log("HOLA")
     if (data.title) {
+      console.log(sectionsList);
 
-      /*       const createdSections = [];
-      
-            if (sectionsList.relatedArticles.length > 0) {
-              sectionsList.relatedArticles.forEach((el) => {
-                const articleToPush = {
-                  descriptor: {
-                    type: 'article',
-                    articleId: el,
-                    link: '',
-                  },
-                };
-                createdSections.push(articleToPush);
-              });
-            }
-       */
+/*       const createdSections = [];
 
-      /*       if (sectionsList.knowMore.length > 0) {
-              sectionsList.knowMore.forEach((el) => {
-                const articleToPush = {
-                  descriptor: {
-                    type: 'file',
-                    articleId: '',
-                    link: '',
-                    file: el.id,
-                    name: el.name,
-                    description: el.description,
-                  },
-                };
-                createdSections.push(articleToPush);
-              });
-            } */
+      if (sectionsList.relatedArticles.length > 0) {
+        sectionsList.relatedArticles.forEach((el) => {
+          const articleToPush = {
+            descriptor: {
+              type: 'article',
+              articleId: el,
+              link: '',
+            },
+          };
+          createdSections.push(articleToPush);
+        });
+      }
+ */
+
+
+/*       if (sectionsList.knowMore.length > 0) {
+        sectionsList.knowMore.forEach((el) => {
+          const articleToPush = {
+            descriptor: {
+              type: 'file',
+              articleId: '',
+              link: '',
+              file: el.id,
+              name: el.name,
+              description: el.description,
+            },
+          };
+          createdSections.push(articleToPush);
+        });
+      } */
 
       const newEntry = {
         _id: 'm:article/test/1',
@@ -166,16 +170,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         workArea: '',
       });
       setParagraphList([]);
-      setSectionsList([
-        {
-          section: { publicId: '1' },
-          contents: [],
-        },
-        {
-          section: { publicId: '2' },
-          contents: [],
-        },
-      ]);
+      //setSectionsList({ relatedArticles: [], knowMore: [], toDo: [] });
 
       onClose();
     } else {
@@ -297,6 +292,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const handleSubmit = (values) => {
+    console.log(sectionsList)
     //setData((data) => ({ ...data, ...values }));
     const paragraphArray = [];
     const paragraphObj = { paragraphs: paragraphArray };
