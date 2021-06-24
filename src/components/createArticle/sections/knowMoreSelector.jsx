@@ -10,63 +10,52 @@ import {
   Textarea,
   FormLabel,
 } from '@chakra-ui/react';
-import { v4 as uuidv4 } from 'uuid';
+import { CreateFileName } from '../../common/createFileName';
 import { FiUpload } from 'react-icons/fi';
 import { DisplayUploadedFiles } from './displayUploadedFiles';
-import { FaTemperatureHigh } from 'react-icons/fa';
 
 const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileDescription, setSelectedFileDescription] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const knowMoreInputRef = useRef();
-  const randomId = uuidv4();
-  const today = new Date();
-
-  const createFileName = (type, name) => {
-    let fileName = '';
-    let fileRoute = '';
-    const year = today.getFullYear().toString();
-    const month = today.getMonth() + 1;
-    const date = year + month.toString().padStart(2, '0');
-    if (type === 'application/pdf') {
-      fileName = date + '/' + randomId + '.pdf';
-      fileRoute = 'documentupload';
-    }
-    if (type.substring(0, 5) === 'image') {
-      const splitedName = name.toLowerCase().split('.');
-      const extension = splitedName[splitedName.length - 1];
-      fileName = date + '/' + randomId + '.' + extension;
-      fileRoute = 'imageupload';
-    }
-    if (type.substring(0, 5) === 'video') {
-      const splitedName = name.toLowerCase().split('.');
-      const extension = splitedName[splitedName.length - 1];
-      fileName = date + '/' + randomId + '.' + extension;
-      fileRoute = 'videoupload';
-    }
-    if (type.substring(0, 5) === 'audio') {
-      const splitedName = name.toLowerCase().split('.');
-      const extension = splitedName[splitedName.length - 1];
-      fileName = date + '/' + randomId + '.' + extension;
-      fileRoute = 'audioupload';
-    }
-
-    return { fileName, fileRoute };
-  };
 
   const defineFileType = (type) => {
-    // Image
-    if (type.substring(0, 5) === 'image') return "image";
-    if (type.substring(0, 5) === 'video') return "video";
-    if (type.substring(0, 5) === 'audio') return "audio";
-    if (type.substring(0,4) === 'text' || type.substring(0,11) === 'application') return "document";
-    return "document";
-  }
+    if (type.substring(0, 5) === 'image') return 'image';
+    if (type.substring(0, 5) === 'video') return 'video';
+    if (type.substring(0, 5) === 'audio') return 'audio';
+    if (
+      type.substring(0, 4) === 'text' ||
+      type.substring(0, 11) === 'application'
+    )
+      return 'document';
+    return 'document';
+  };
+
+  const uploadFile = async (route, data, newUploadedFile) => {
+    setLoading(true);
+    try {
+      await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
+        method: 'POST',
+        mode: 'cors',
+        body: data,
+      });
+      setKnowMore([...knowMore, newUploadedFile]);
+      setUploadedFiles([...uploadedFiles, newUploadedFile]);
+      setSelectedFile(null);
+      setSelectedFileDescription(null);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const onFileChange = (e) => {
-    console.log(e)
-    defineFileType(e.target.files[0].type)
+    defineFileType(e.target.files[0].type);
     setSelectedFile(e.target.files[0]);
   };
 
@@ -77,20 +66,13 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const onFileUpload = async (e) => {
     const formData = new FormData();
 
-    const { fileName, fileRoute } = createFileName(
+    const { fileName, fileRoute } = CreateFileName(
       selectedFile.type,
       selectedFile.name
     );
 
     formData.append('fn', fileName);
     formData.append('file', selectedFile);
-
-    await fetch(`http://afatecha.com:8080/minerva-server-web/${fileRoute}`, {
-      method: 'POST',
-      mode: 'cors',
-      body: formData,
-    });
-    alert('The file upload with Ajax and Java was a success!');
 
     const newUploadedFile = {
       descriptor: {
@@ -99,17 +81,12 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
       },
       document: {
         type: defineFileType(selectedFile.type),
-        locationType: "relative",
-        "location": fileName
-      }
+        locationType: 'relative',
+        location: fileName,
+      },
     };
 
-
-    setKnowMore([...knowMore, newUploadedFile]);
-
-    setUploadedFiles([...uploadedFiles, newUploadedFile]);
-    setSelectedFile(null);
-    setSelectedFileDescription(null);
+    uploadFile(fileRoute, formData, newUploadedFile);
   };
 
   return (
@@ -145,18 +122,20 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
               onChange={(e) => {
                 knowMoreInputRef.current.click();
               }}
-            >
-              <Stack
-                w="100%"
-                h="100%"
-                alignItems="center"
-                justifyContent="center"
-                wordBreak="break-all"
-                wordWrap="break-word"
-                textAlign="center"
-                p={2}
               >
-                {selectedFile ? (
+              <Stack
+              w="100%"
+              h="100%"
+              alignItems="center"
+              justifyContent="center"
+              wordBreak="break-all"
+              wordWrap="break-word"
+              textAlign="center"
+              p={2}
+              >
+              
+              {loading ? <p>Subiendo...</p> : null}
+              {selectedFile ? (
                   <Text fontSize="xs">{selectedFile.name}</Text>
                 ) : (
                   <Box as={FiUpload} size="40px" color="gray.600" />
@@ -195,6 +174,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
                 Subir archivo
               </Button>
             ) : null}
+              {error? <p>Error al subir el archivo</p> : null}
           </Stack>
         </FormControl>
       </VStack>

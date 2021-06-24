@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactPlayer from 'react-player';
 
 const AudioPlayer = (resource) => {
 
@@ -9,7 +10,8 @@ const AudioPlayer = (resource) => {
   return (
     <div className="audio-player">
       <div className="track-info">
-        <p></p>
+      <ReactPlayer url={`http://www.afatecha.com/id/files/audio/${resource.document.location}`} playing /> 
+
       </div>
       audio player
     </div>

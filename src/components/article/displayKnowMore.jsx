@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import { Box, Stack, HStack, Heading, Text } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
@@ -71,31 +72,32 @@ const DisplayKnowMore = ({ sections }) => {
 
   const choosePlayer = (type, section) => {
     if (type === "audio") AudioPlayer(section);
+    console.log("Player")
   }
-
+  
   const log = () => console.log('CLICK');
-
+  
   const displayResource = (section) => {
     const { icon, type } = determineTypeOfResource(section);
     return (
       <Stack onClick={() => choosePlayer(type, section)} cursor="pointer">
-        <SectionElement
-          icon={icon}
-          title={section.descriptor.title}
-          subtitle={ParagraphReducer(section.descriptor.subtitle)}
-        />
+      <SectionElement
+      icon={icon}
+      title={section.descriptor.title}
+      subtitle={ParagraphReducer(section.descriptor.subtitle)}
+      />
       </Stack>
-    );
-  };
-
-  return (
-    <>
+      );
+    };
+    
+    return (
+      <>
       <HStack textAlign="left" justifyContent="flex-start" w="40rem">
-        <Heading fontSize="sm" color="gray.600" fontWeight="400">
-          PARA SABER MÁS
-        </Heading>
+      <Heading fontSize="sm" color="gray.600" fontWeight="400">
+      PARA SABER MÁS
+      </Heading>
       </HStack>
-
+      
       {sections.map((section) => clasifySection(section))}
     </>
   );
