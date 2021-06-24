@@ -9,6 +9,7 @@ import {
   Input,
   Textarea,
   FormLabel,
+  createStandaloneToast,
 } from '@chakra-ui/react';
 import { CreateFileName } from '../../common/createFileName';
 import { FiUpload } from 'react-icons/fi';
@@ -36,6 +37,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
 
   const uploadFile = async (route, data, newUploadedFile) => {
     setLoading(true);
+    const toast = createStandaloneToast();
     try {
       await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
         method: 'POST',
@@ -44,11 +46,22 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
       });
       setKnowMore([...knowMore, newUploadedFile]);
       setUploadedFiles([...uploadedFiles, newUploadedFile]);
+      toast({
+        title: "El archivo se subió correctamente",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      })
       setSelectedFile(null);
       setSelectedFileDescription(null);
     } catch (err) {
-      console.log(err);
       setError(err);
+      toast({
+        title: "Ocurrió un error al subir el archivo",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      })
     } finally {
       setLoading(false);
     }
@@ -174,7 +187,6 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
                 Subir archivo
               </Button>
             ) : null}
-              {error? <p>Error al subir el archivo</p> : null}
           </Stack>
         </FormControl>
       </VStack>
