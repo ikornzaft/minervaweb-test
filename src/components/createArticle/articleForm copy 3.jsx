@@ -64,7 +64,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     },
   ]);
 
-  const [coverImage, setCoverImage] = useState(null);
   const [area, setArea] = useState(null);
 
   const dropsDownOptions = [
@@ -122,7 +121,14 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
               subtitle: data.subtitle,
               title: data.title,
             },
-            ...coverImage,
+            image: {
+              descriptor: {
+                subtitle: '',
+                title: data.articleImgFooter,
+              },
+              locationType: 'relative',
+              location: data.articleImg,
+            },
           },
           sections: sectionsList,
         },
@@ -176,6 +182,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         },
       ]);
 
+      console.log(newEntry)
 
       onClose();
     } else {
@@ -297,6 +304,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const handleSubmit = (values) => {
+    console.log(values)
     //setData((data) => ({ ...data, ...values }));
     const paragraphArray = [];
     const paragraphObj = { paragraphs: paragraphArray };
@@ -403,17 +411,36 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       </Field>
 
                       <Stack direction="row">
-
-                          <ImageInput
-                            coverImage={coverImage}
-                            setCoverImage={setCoverImage}
-                          />
-
-
-
-
-
-
+                        <HStack
+                          marginTop={4}
+                          padding={2}
+                          bgColor="gray.50"
+                          borderRadius="md"
+                          alignItems="flex-end"
+                          borderStyle="solid"
+                          borderWidth="1px"
+                        >
+                          <Field name="articleImg">
+                            {({ field }) => (
+                              <ImageInput
+                                fieldProps={field}
+                                formProps={formikProps}
+                                index="0"
+                              />
+                            )}
+                          </Field>
+                          <Field name="articleImgFooter">
+                            {({ field }) => (
+                              <Textarea
+                                fontSize="sm"
+                                backgroundColor="white"
+                                {...field}
+                                id="articleImgFooter"
+                                placeholder="Descripción de la imágen"
+                              />
+                            )}
+                          </Field>
+                        </HStack>
                       </Stack>
                       <VStack w="100%" paddingTop={6}>
                         <Stack

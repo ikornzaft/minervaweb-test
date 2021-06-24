@@ -17,6 +17,7 @@ import { SectionsList } from '../article/sectionsList';
 import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article, requests, setRequests }) => {
+  console.log(article);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const articleDate = new Date(
     article.logs.inserted.timestamp
@@ -53,7 +54,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
           width="100%"
           objectFit="cover"
           borderRadius="lg"
-          src={article.resource.articleHeader.imageLink}
+          src={`http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}`}
           alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
           fallbackSrc={fallBackImg}
         />
@@ -74,7 +75,13 @@ const ArticleContent = ({ article, requests, setRequests }) => {
               ) : null}
               {el.descriptor.description.image ? (
                 <Stack width="100%" direction="row" justifyContent="center">
-                <Image width="37rem" borderStyle="solid" borderWidth="1px" borderColor="gray.400" src={el.descriptor.description.image} />
+                  <Image
+                    width="37rem"
+                    borderStyle="solid"
+                    borderWidth="1px"
+                    borderColor="gray.400"
+                    src={el.descriptor.description.image}
+                  />
                 </Stack>
               ) : null}
             </Container>

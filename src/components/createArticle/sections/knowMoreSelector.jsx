@@ -76,7 +76,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     setSelectedFileDescription(e.target.value);
   };
 
-  const onFileUpload = async (e) => {
+  const onFileUpload = () => {
     const formData = new FormData();
 
     const { fileName, fileRoute } = CreateFileName(
