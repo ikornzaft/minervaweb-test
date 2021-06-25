@@ -115,38 +115,48 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             } */
 
       const newEntry = {
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/articles/handlers/InsertArticle',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'root:cm9vdA==',
-        message: {
-          entity: {
-            resource: {
-              paragraphs: paragraphList,
-              articleHeader: {
-                descriptor: {
-                  subtitle: data.subtitle,
-                  title: data.title,
-                },
-                ...coverImage,
-              },
-              sections: sectionsList,
+        _id: 'm:article/test/1',
+        _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
+
+        workArea: data.workArea,
+        resource: {
+          paragraphs: paragraphList,
+          articleHeader: {
+            descriptor: {
+              subtitle: data.subtitle,
+              title: data.title,
             },
-            header: {
-              schema: 'm:article',
-              privateId: 'test/1',
-              scope: 'PUBLIC',
-              publicId: randomId,
-            },
+            ...coverImage,
+          },
+          sections: sectionsList,
+        },
+        subscribers: ['test/1'],
+        keys: [],
+        header: {
+          schema: 'm:article',
+          privateId: 'test/1',
+          scope: 'PUBLIC',
+          publicId: randomId,
+        },
+        logs: {
+          inserted: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: date,
+          },
+          modified: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: date,
           },
         },
       };
       ArticlesDb.push(newEntry);
 
+
       const fetchData = async () => {
-        const url =
-          'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+
+        const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
 
         const jsonMessage = {
           method: 'POST',
@@ -157,12 +167,11 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         };
 
         const toast = createStandaloneToast();
-
+        
         try {
           setLoading(true);
           const response = await fetch(url, jsonMessage);
-          if (response.status >= 400 && response.status < 600)
-            setError('Bad response from server');
+          if (response.status >= 400 && response.status < 600) setError('Bad response from server');
           const resJson = await response.json();
           console.log(resJson);
           setServerResponse(resJson);
@@ -193,7 +202,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             },
           ]);
           setCoverImage(null);
-
+    
           onClose();
         } catch (err) {
           error = err;
@@ -211,7 +220,10 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       };
       fetchData();
 
-      console.log(newEntry);
+
+
+      console.log(newEntry)
+      
     } else {
       console.log('no hay data aun');
     }
@@ -437,10 +449,17 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       </Field>
 
                       <Stack direction="row">
-                        <ImageInput
-                          coverImage={coverImage}
-                          setCoverImage={setCoverImage}
-                        />
+
+                          <ImageInput
+                            coverImage={coverImage}
+                            setCoverImage={setCoverImage}
+                          />
+
+
+
+
+
+
                       </Stack>
                       <VStack w="100%" paddingTop={6}>
                         <Stack

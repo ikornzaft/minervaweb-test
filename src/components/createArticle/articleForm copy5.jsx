@@ -44,9 +44,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     sections: [],
   });
 
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [serverResponse, setServerResponse] = useState(null);
   const [paragraphList, setParagraphList] = useState([]);
 
   // Creamos el estado sectionList
@@ -115,103 +112,73 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             } */
 
       const newEntry = {
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/articles/handlers/InsertArticle',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'root:cm9vdA==',
-        message: {
-          entity: {
-            resource: {
-              paragraphs: paragraphList,
-              articleHeader: {
-                descriptor: {
-                  subtitle: data.subtitle,
-                  title: data.title,
-                },
-                ...coverImage,
-              },
-              sections: sectionsList,
+        _id: 'm:article/test/1',
+        _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
+        workArea: data.workArea,
+        resource: {
+          paragraphs: paragraphList,
+          articleHeader: {
+            descriptor: {
+              subtitle: data.subtitle,
+              title: data.title,
             },
-            header: {
-              schema: 'm:article',
-              privateId: 'test/1',
-              scope: 'PUBLIC',
-              publicId: randomId,
-            },
+            ...coverImage,
+          },
+          sections: sectionsList,
+        },
+        subscribers: ['test/1'],
+        keys: [],
+        header: {
+          schema: 'm:article',
+          privateId: 'test/1',
+          scope: 'PUBLIC',
+          publicId: randomId,
+        },
+        logs: {
+          inserted: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: '2021-05-24 17:22:52',
+          },
+          modified: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: date,
           },
         },
       };
       ArticlesDb.push(newEntry);
+      console.log(newEntry)
+      const toast = createStandaloneToast();
+      toast({
+        title: 'Artículo guardado.',
+        description: 'Se creó un nuevo artículo.',
+        status: 'success',
+        duration: 2500,
+        isClosable: true,
+      });
+      setData({
+        title: '',
+        subtitle: '',
+        articleImg: {},
+        articleImgFooter: '',
+        paragraphs: [],
+        workArea: '',
+      });
+      setParagraphList([]);
+      setSectionsList([
+        {
+          section: { publicId: '1' },
+          contents: [],
+        },
+        {
+          section: { publicId: '2' },
+          contents: [],
+        },
+      ]);
+      setCoverImage(null);
 
-      const fetchData = async () => {
-        const url =
-          'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-
-        const jsonMessage = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-          },
-          body: JSON.stringify(newEntry),
-        };
-
-        const toast = createStandaloneToast();
-
-        try {
-          setLoading(true);
-          const response = await fetch(url, jsonMessage);
-          if (response.status >= 400 && response.status < 600)
-            setError('Bad response from server');
-          const resJson = await response.json();
-          console.log(resJson);
-          setServerResponse(resJson);
-          toast({
-            title: 'Artículo guardado.',
-            description: 'Se creó un nuevo artículo.',
-            status: 'success',
-            duration: 2500,
-            isClosable: true,
-          });
-          setData({
-            title: '',
-            subtitle: '',
-            articleImg: {},
-            articleImgFooter: '',
-            paragraphs: [],
-            workArea: '',
-          });
-          setParagraphList([]);
-          setSectionsList([
-            {
-              section: { publicId: '1' },
-              contents: [],
-            },
-            {
-              section: { publicId: '2' },
-              contents: [],
-            },
-          ]);
-          setCoverImage(null);
-
-          onClose();
-        } catch (err) {
-          error = err;
-          toast({
-            title: 'Se produjo un error al crear el artículo',
-            description: error,
-            status: 'error',
-            duration: 2500,
-            isClosable: true,
-          });
-          console.log(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-
-      console.log(newEntry);
+      onClose();
     } else {
       console.log('no hay data aun');
     }
@@ -437,10 +404,17 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       </Field>
 
                       <Stack direction="row">
-                        <ImageInput
-                          coverImage={coverImage}
-                          setCoverImage={setCoverImage}
-                        />
+
+                          <ImageInput
+                            coverImage={coverImage}
+                            setCoverImage={setCoverImage}
+                          />
+
+
+
+
+
+
                       </Stack>
                       <VStack w="100%" paddingTop={6}>
                         <Stack
