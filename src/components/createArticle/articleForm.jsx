@@ -497,7 +497,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       </HStack>
                       <ArticleContentList
                         paragraphList={paragraphList}
-                        setParagraphList={(value) => setParagraphList(value)}
+                        setParagraphList={setParagraphList}
                       />
                     </VStack>
                   </Stack>

@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Text, Image, HStack, Box } from '@chakra-ui/react';
 import { ParagraphReducer } from '../../common/paragraphReducer';
 
+import { ArticleContentItem } from './articleContentItem';
 import { ArticleContentElementMenu } from './articleContentElementMenu';
 
 const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
 
   const listItems = (el, index) => {
-    console.log(el.descriptor.description)
-    if (el.image && el.image !== '') {
+    el.content ? console.log(el.content.type) : console.log(el)
+    /* if (el.image && el.image !== '') {
       return (
         <HStack
           width="30rem"
@@ -43,20 +44,24 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
           />
         </HStack>
       );
-    }
+    } */
     if (el === '' || el.image === '') return null;
+    const descriptor = el.descriptor;
+    let content;
+    el.content ? content = el.content : content = null; 
     return (
       <HStack
         width="30rem"
         maxWidth="30rem"
         minWidth="30rem"
-        p={3}
+        paddingY={2}
+        paddingX={6}
         bgColor="gray.100"
         borderRadius="md"
         marginBottom={2}
         justifyContent="space-between"
       >
-        <Text textAlign="left">{ParagraphReducer(el.descriptor.description)}</Text>
+        <ArticleContentItem descriptor={descriptor} content={content} />
         <ArticleContentElementMenu
           index={index}
           paragraphList={paragraphList}

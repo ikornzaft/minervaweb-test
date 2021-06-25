@@ -14,6 +14,7 @@ import { ParagraphPopover } from './paragraphPopover';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 import { SectionsList } from '../article/sectionsList';
+import { ParagraphItemDisplay } from './paragraphItemDisplay';
 import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article, requests, setRequests }) => {
@@ -22,6 +23,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
   let footer;
   if (article.resource.articleHeader.image) {
     cover = `http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}`;
+    console.log(cover)
     footer = article.resource.articleHeader.image.descriptor.title;
   } else {
     cover = fallBackImg;
@@ -83,7 +85,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                 <Text fontFamily="Open Sans" fontSize="sm" marginBottom={4}>
                   {el.descriptor.description}
                 </Text>
-              ) : null}
+              ) : <HStack w="100%" justifyContent="center"><ParagraphItemDisplay item={el} /></HStack> }
               {/*el.descriptor.description.image ? (
                 <Stack width="100%" direction="row" justifyContent="center">
                   <Image

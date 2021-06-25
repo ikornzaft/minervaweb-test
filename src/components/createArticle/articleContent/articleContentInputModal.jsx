@@ -45,7 +45,7 @@ const ArticleContentInputModal = ({
     //const paragraphsArray = values.textContent.split(/\r|\n/);
     let paragraphsToSubmit = [];
 
-    if (values.textContent.length > 0) {
+    if (values.textContent) {
       const paragraphs = values.textContent.split(/\n\s*\n/);
       paragraphsToSubmit = paragraphs.map((el) => {
         const obj = {
@@ -55,6 +55,8 @@ const ArticleContentInputModal = ({
         };
         return obj;
       });
+    } else {
+      paragraphsToSubmit = [];
     }
 
     /*     setParagraphList((paragraphList) => [
@@ -63,7 +65,15 @@ const ArticleContentInputModal = ({
       ...uploadedFiles
     ]); */
 
-    uploadedFiles ? setParagraphList(paragraphsToSubmit.concat(uploadedFiles)) : setParagraphList(paragraphsToSubmit);
+    uploadedFiles.length > 0
+      ? setParagraphList((paragraphList) => [
+          ...paragraphList,
+          ...paragraphsToSubmit.concat(uploadedFiles),
+        ])
+      : setParagraphList((paragraphList) => [
+          ...paragraphList,
+          ...paragraphsToSubmit,
+        ]);
 
     setThumbnails([]);
     setUploadedFiles([]);
