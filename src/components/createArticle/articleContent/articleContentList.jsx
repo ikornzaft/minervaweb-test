@@ -8,6 +8,7 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
 
   const listItems = (el, index) => {
+    console.log(el.descriptor.description)
     if (el.image && el.image !== '') {
       return (
         <HStack
@@ -55,7 +56,7 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
         marginBottom={2}
         justifyContent="space-between"
       >
-        <Text textAlign="left">{ParagraphReducer(el)}</Text>
+        <Text textAlign="left">{ParagraphReducer(el.descriptor.description)}</Text>
         <ArticleContentElementMenu
           index={index}
           paragraphList={paragraphList}
@@ -70,7 +71,8 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
 
   return (
     <Box paddingTop={2}>
-      {paragraphList.map((el, index) => listItems(el, index))}
+       {paragraphList.map((el, index) => listItems(el, index))}
+
     </Box>
   );
 };

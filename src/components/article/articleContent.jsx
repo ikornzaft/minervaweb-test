@@ -18,6 +18,15 @@ import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article, requests, setRequests }) => {
   console.log(article);
+  let cover;
+  let footer;
+  if (article.resource.articleHeader.image) {
+    cover = `http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}`;
+    footer = article.resource.articleHeader.image.descriptor.title;
+  } else {
+    cover = fallBackImg;
+    footer = null;
+  }
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const articleDate = new Date(
     article.logs.inserted.timestamp
@@ -54,26 +63,28 @@ const ArticleContent = ({ article, requests, setRequests }) => {
           width="100%"
           objectFit="cover"
           borderRadius="lg"
-          src={`http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}`}
+          src={cover}
           alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
           fallbackSrc={fallBackImg}
         />
+
         <HStack justifyContent="flex-end" w="42rem">
-          <Text fontSize="xs" color="gray.500">
-            Imágen: {article.resource.articleHeader.imageFooter}
-          </Text>
+          {footer ? <Text fontSize="xs" color="gray.500">
+          Imágen: {footer}
+        </Text> : null}
+          
         </HStack>
       </Stack>
       <Stack alignItems="center">
         {article.resource.paragraphs.map((el, id) => (
           <Stack width="50rem" paddingLeft={6} direction="row" role="group">
             <Container maxWidth="90ch">
-              {!el.descriptor.description.image ? (
+              {el.descriptor.description ? (
                 <Text fontFamily="Open Sans" fontSize="sm" marginBottom={4}>
                   {el.descriptor.description}
                 </Text>
               ) : null}
-              {el.descriptor.description.image ? (
+              {/*el.descriptor.description.image ? (
                 <Stack width="100%" direction="row" justifyContent="center">
                   <Image
                     width="37rem"
@@ -83,7 +94,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                     src={el.descriptor.description.image}
                   />
                 </Stack>
-              ) : null}
+              ) : null*/}
             </Container>
             <Stack width="1rem" justifyContent="center" alignItems="center">
               <ParagraphPopover

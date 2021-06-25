@@ -116,7 +116,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
         workArea: data.workArea,
         resource: {
-          paragraphs: data.paragraphs,
+          paragraphs: paragraphList,
           articleHeader: {
             descriptor: {
               subtitle: data.subtitle,
@@ -148,6 +148,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         },
       };
       ArticlesDb.push(newEntry);
+      console.log(newEntry)
       const toast = createStandaloneToast();
       toast({
         title: 'Artículo guardado.',
@@ -175,7 +176,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           contents: [],
         },
       ]);
-
+      setCoverImage(null);
 
       onClose();
     } else {
