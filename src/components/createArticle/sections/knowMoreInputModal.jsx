@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import { RelatedArticleSelector } from './relatedArticleSelector';
 import { KnowMoreSelector } from './knowMoreSelector';
+import { KnowMoreLinkSelector } from './knowMoreLinkSelector';
 import { ArticlesDb } from '../../../resources/articlesDb';
 
 
@@ -61,8 +62,8 @@ const KnowMoreInputModal = ({
   const [selectedArticles, setSelectedArticles] = useState(
     relatedArticlesArray
   );
-
   const [knowMore, setKnowMore] = useState([]);
+  const [knowMoreLinks, setKnowMoreLinks] = useState([]);
 
   // ???
   const [areaArticles, setAreaArticles] = useState([]);
@@ -183,6 +184,9 @@ const KnowMoreInputModal = ({
                       <TabPanel>
                         <KnowMoreSelector knowMore={knowMore} setKnowMore={setKnowMore} />
                       </TabPanel>
+                      <TabPanel>
+                      <KnowMoreLinkSelector knowMoreLinks={knowMoreLinks} setKnowMoreLinks={setKnowMoreLinks} />
+                    </TabPanel>
                     </TabPanels>
                   </Tabs>
                   <Flex justifyContent="center" paddingX={4}>
