@@ -9,6 +9,7 @@ import {
   Button,
   Field,
   Textarea,
+  Text,
   createStandaloneToast,
 } from '@chakra-ui/react';
 import { CreateFileName } from '../common/createFileName';
@@ -18,42 +19,52 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageDescription, setSelectedImageDescription] =
     useState(null);
+  const [missingImageDescription, setMissingImageDescription] = useState(false)
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [thumbnails, setThumbnails] = useState(null);
 
   const uploadFile = async (route, data, newUploadedImage) => {
-    setLoading(true);
-    const toast = createStandaloneToast();
-    try {
-      await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
-        method: 'POST',
-        mode: 'cors',
-        body: data,
-      });
-      setCoverImage(newUploadedImage);
-      toast({
-        title: 'El archivo se subió correctamente',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      });
-      setSelectedImage(null);
-      setSelectedImageDescription(null);
-    } catch (err) {
-      setError(err);
-      toast({
-        title: 'Ocurrió un error al subir el archivo',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      });
-    } finally {
-      setLoading(false);
+    if (selectedImageDescription) {
+      setLoading(true);
+      const toast = createStandaloneToast();
+      try {
+        await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
+          method: 'POST',
+          mode: 'cors',
+          body: data,
+        });
+        setCoverImage(newUploadedImage);
+        toast({
+          title: 'El archivo se subió correctamente',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        setSelectedImage(null);
+        setSelectedImageDescription(null);
+      } catch (err) {
+        setError(err);
+        toast({
+          title: 'Ocurrió un error al subir el archivo',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setMissingImageDescription(true);
     }
   };
 
   const onDescriptionChange = (e) => {
+    if (e.target.value !== "") {
+      setMissingImageDescription(false);
+    } else {
+      setMissingImageDescription(true);
+    }
     setSelectedImageDescription(e.target.value);
   };
 
@@ -158,27 +169,28 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           }}
         />
         <VStack h="100%" justifyContent="space-evenly">
-          <Button
-            type="button"
-            colorScheme="blue"
-            fontFamily="Poppins"
-            fontWeight="400"
-            size="xs"
-            disabled={selectedImage ? false : true}
-            variant="outline"
-            onClick={onFileUpload}
-          >
-            {' '}
-            Subir imágen
-          </Button>
-          <Textarea
-            fontSize="sm"
-            backgroundColor="white"
-            id="articleImgFooter"
-            w="12rem"
-            placeholder="Descripción de la imágen"
-            onChange={onDescriptionChange}
-          />
+        <Textarea
+        fontSize="sm"
+        backgroundColor="white"
+        id="articleImgFooter"
+        w="12rem"
+        placeholder="Descripción de la imágen"
+        onChange={onDescriptionChange}
+        />
+        {missingImageDescription ? <Text position="absolute" fontSize="xs" color="red">Ingresa una descripción</Text> : null}
+        <Button
+          type="button"
+          colorScheme="blue"
+          fontFamily="Poppins"
+          fontWeight="400"
+          size="xs"
+          disabled={selectedImage ? false : true}
+          variant="outline"
+          onClick={onFileUpload}
+        >
+          {' '}
+          Subir imágen
+        </Button>
         </VStack>
       </FormControl>
     </HStack>
