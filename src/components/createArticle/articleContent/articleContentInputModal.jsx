@@ -24,6 +24,7 @@ import {
 import * as Yup from 'yup';
 import { ImageMultipleInput } from './imageMultipleInput';
 import { FilesSelector } from './filesSelector';
+import { ArticleContentLinkSelector } from './articleContentLinkSelector';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { GrTextAlignCenter } from 'react-icons/gr';
 
@@ -35,6 +36,7 @@ const ArticleContentInputModal = ({
 }) => {
   const [articleContent, setArticleContent] = useState([]);
 
+  const [articleContentLinks, setArticleContentLinks] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const articleContentValidationSchema = Yup.object({});
@@ -75,8 +77,19 @@ const ArticleContentInputModal = ({
           ...paragraphsToSubmit,
         ]);
 
+    articleContentLinks.length > 0
+    ? setParagraphList((paragraphList) => [
+        ...paragraphList,
+        ...paragraphsToSubmit.concat(articleContentLinks),
+      ])
+    : setParagraphList((paragraphList) => [
+        ...paragraphList,
+        ...paragraphsToSubmit,
+      ]);
+
     setThumbnails([]);
     setUploadedFiles([]);
+    setArticleContentLinks([]);
     onClose();
   };
 
@@ -113,12 +126,6 @@ const ArticleContentInputModal = ({
                         Archivos
                       </Tab>
                       <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
-                        Audios
-                      </Tab>
-                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
-                        Videos
-                      </Tab>
-                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
                         Links
                       </Tab>
                     </TabList>
@@ -152,6 +159,13 @@ const ArticleContentInputModal = ({
                         <FilesSelector
                           uploadedFiles={uploadedFiles}
                           setUploadedFiles={setUploadedFiles}
+                        />
+                      </TabPanel>
+
+                      <TabPanel>
+                        <ArticleContentLinkSelector
+                          articleContentLinks={articleContentLinks}
+                          setArticleContentLinks={setArticleContentLinks}
                         />
                       </TabPanel>
                     </TabPanels>

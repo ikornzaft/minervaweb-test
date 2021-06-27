@@ -49,6 +49,7 @@ const Activities = () => {
 
   const renderList = () => {
     if (!errors) {
+      console.log(content)
       return <ActivitiesList contents={content} />;
     }
     <p>error</p>;

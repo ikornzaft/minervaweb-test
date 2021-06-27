@@ -108,6 +108,8 @@ const KnowMoreInputModal = ({
     if (selectedArticles.length > 0) selectedArticles.map(resource => {newList[0].contents.push(resource)});
     
     if (knowMore.length > 0) knowMore.map(resource => {newList[0].contents.push(resource)});
+
+    if (knowMoreLinks.length > 0) knowMoreLinks.map(resource => {newList[0].contents.push(resource)});
     
     setSectionsList(newList);
     console.log(sectionsList);
@@ -115,6 +117,7 @@ const KnowMoreInputModal = ({
     setSelectedArticles(relatedArticlesArray);
 
     setKnowMore([]);
+    setKnowMoreLinks([]);
     onClose();
 
   };

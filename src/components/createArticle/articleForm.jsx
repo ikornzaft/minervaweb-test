@@ -142,7 +142,45 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           },
         },
       };
-      ArticlesDb.push(newEntry);
+
+      const newEntryLocal = {
+        _id: 'm:article/test/1',
+        _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
+        workArea: data.workArea,
+        resource: {
+          paragraphs: paragraphList,
+          articleHeader: {
+            descriptor: {
+              subtitle: data.subtitle,
+              title: data.title,
+            },
+            ...coverImage,
+          },
+          sections: sectionsList,
+        },
+        subscribers: ['test/1'],
+        keys: [],
+        header: {
+          schema: 'm:article',
+          privateId: 'test/1',
+          scope: 'PUBLIC',
+          publicId: randomId,
+        },
+        logs: {
+          inserted: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: '2021-05-24 17:22:52',
+          },
+          modified: {
+            principal: 'root',
+            millis: 1621891372496,
+            timestamp: date,
+          },
+        },
+      };
+
+      ArticlesDb.push(newEntryLocal);
 
       const fetchData = async () => {
         const url =

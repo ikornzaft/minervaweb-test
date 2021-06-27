@@ -10,9 +10,9 @@ import {
 
 } from '@chakra-ui/react';
 
-import { DisplayKnowMoreLinks } from './displayKnowMoreLinks';
+import { DisplayArticleContentLinks } from './displayArticleContentLinks';
 
-const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
+const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLinks }) => {
   const [addedLink, setAddedLink] = useState(null);
   const [addedLinkTitle, setAddedLinkTitle] = useState(null);
   const [addedLinkDescription, setAddedLinkDescription] = useState(null);
@@ -35,14 +35,14 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
         title: addedLinkTitle,
         subtitle: addedLinkDescription,
       },
-      document: {
+      content: {
         type: 'link',
         locationType: 'absolute',
         location: addedLink,
       },
     };
 
-    setKnowMoreLinks((knowMoreLinks) => [...knowMoreLinks, newLink]);
+    setArticleContentLinks((articleContentLinks) => [...articleContentLinks, newLink]);
     setAddedLink("");
     setAddedLinkDescription("");
     setAddedLinkTitle("");
@@ -116,13 +116,13 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
           </Stack>
         </FormControl>
       </VStack>
-      {knowMoreLinks.map((link, index) => {
-        if (link.document.location && link.document.location !== '')
+      {articleContentLinks.map((link, index) => {
+        if (link.content.location && link.content.location !== '')
           return (
-            <DisplayKnowMoreLinks
+            <DisplayArticleContentLinks
               link={link}
-              knowMoreLinks={knowMoreLinks}
-              setKnowMoreLinks={setKnowMoreLinks}
+              articleContentLinks={articleContentLinks}
+              setArticleContentLinks={setArticleContentLinks}
               index={index}
             />
           );
@@ -131,4 +131,4 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
   );
 };
 
-export { KnowMoreLinkSelector };
+export { ArticleContentLinkSelector };

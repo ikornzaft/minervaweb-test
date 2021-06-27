@@ -1,8 +1,9 @@
 import React from 'react';
 import { Image, Heading, HStack, Text, VStack, Box } from '@chakra-ui/react';
+import ReactPlayer from 'react-player/youtube';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { RiVideoLine } from 'react-icons/ri';
-import { VscFile } from 'react-icons/vsc';
+import { VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { FiSpeaker } from 'react-icons/fi';
 
 const ParagraphItemDisplay = ({ item }) => {
@@ -28,6 +29,27 @@ const ParagraphItemDisplay = ({ item }) => {
       </VStack>
     );
   }
+
+  if (item.content.location.toLowerCase().split('.')[1] === 'youtube') {
+    return (
+      <VStack p={2} borderRadius="lg" borderWidth="1px">
+        <ReactPlayer url={item.content.location} />
+        <Heading
+            as="h3"
+            size="xs"
+            marginLeft={0}
+            lineHeight="0.7rem"
+            fontFamily="Open Sans"
+          >
+            {item.descriptor.title}
+          </Heading>
+          <Text as="h5" fontSize="xs" fontFamily="Open Sans" fontWeight="400">
+            {ParagraphReducer(item.descriptor.subtitle)}
+          </Text>
+      </VStack>
+    );
+  }
+
   let icon;
   if (item.content.type === 'document') {
     icon = VscFile;
@@ -35,6 +57,8 @@ const ParagraphItemDisplay = ({ item }) => {
     icon = FiSpeaker;
   } else if (item.content.type === 'video') {
     icon = RiVideoLine;
+  } else if (item.content.type === 'link') {
+    icon = VscLinkExternal;
   }
   return (
     <VStack w="100%" p={6}>

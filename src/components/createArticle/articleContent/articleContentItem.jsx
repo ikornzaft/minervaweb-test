@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, Box, Image, VStack } from '@chakra-ui/react';
 import { ParagraphReducer } from '../../common/paragraphReducer';
 import { RiVideoLine } from 'react-icons/ri';
-import { VscFile } from 'react-icons/vsc';
+import { VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { FiSpeaker } from 'react-icons/fi';
 
 const ArticleContentItem = ({ descriptor, content }) => {
@@ -20,6 +20,8 @@ const ArticleContentItem = ({ descriptor, content }) => {
       icon = FiSpeaker;
     } else if (content.type === 'video') {
       icon = RiVideoLine;
+    } else if (content.type === 'link') {
+      icon = VscLinkExternal;
     }
 
     console.log(descriptor, content);
