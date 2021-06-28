@@ -1,12 +1,73 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { LABELS } from '../locals/sp/labels';
 
 // import { authService, localStorageService } from "../../services";
 
 const useLogin = () => {
-  const [error, setError] = React.useState('');
-  const [validUser, setValidUser] = React.useState(false);
-  const [tryNumber, setTryNumber] = React.useState(0);
+  const [error, setError] = useState('');
+  const [validUser, setValidUser] = useState(false);
+  const [tryNumber, setTryNumber] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+  const Message = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body: JSON.stringify({
+      id: 'msgid-1',
+      target: 'soa@service/minerva',
+      method: 'mods/articles/handlers/FindArticles',
+      requester: 'root:YWNhY2lhITIwMTc=',
+      principal: 'afatecha:YWZhdGVjaGExMjM=',
+      message: {
+        workarea: {publicId: 'sociales'},
+        workgroups: [{publicId: ''}]
+      },
+    }),
+  };
+
+  const jsonMessage = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body: JSON.stringify({
+      id: 'msgid-1',
+      target: 'soa@service/minerva',
+      method: 'mods/articles/handlers/FindArticles',
+      requester: 'root:YWNhY2lhITIwMTc=',
+      principal: 'afatecha:YWZhdGVjaGExMjM=',
+      message: {
+        workarea: {publicId: "naturales"},
+        workgroups: [{publicId: ''}]
+      },
+    }),
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch(url, jsonMessage);
+        if (res.status >= 400 && res.status < 600)
+          setError('Bad response from server');
+        const resJson = await res.json();
+        console.log(resJson);
+        // save user data to localstorage
+        localStorage.setItem('userWorkgroups', 'test');
+        localStorage.setItem('userName', 'afatecha');
+        localStorage.setItem('isStudent', 'false');
+        localStorage.setItem('isEditor', 'true');
+        localStorage.setItem('isResearcher', 'false');
+
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +75,7 @@ const useLogin = () => {
     const password = e.target.password.value;
     const attempt = tryNumber + 1;
     setTryNumber(attempt);
+
 
     if (!user) {
       setError(LABELS.LOGIN.MESSAGES.ERROR.INVALID_USER);

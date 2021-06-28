@@ -132,7 +132,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                 ...coverImage,
               },
               sections: sectionsList,
-              workarea: 'naturales',
             },
             header: {
               schema: 'm:article',
@@ -141,6 +140,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
               publicId: randomId,
             },
           },
+          
         },
       };
 
