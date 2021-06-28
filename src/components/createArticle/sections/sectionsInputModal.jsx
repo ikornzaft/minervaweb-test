@@ -21,10 +21,7 @@ import {
   Tooltip,
   Select,
 } from '@chakra-ui/react';
-import { RelatedArticleSelector } from './relatedArticleSelector';
-import { KnowMoreSelector } from './knowMoreSelector';
-import { ArticlesDb } from '../../../resources/articlesDb';
-
+import { ContentSelector } from './contentSelector';
 
 const SectionsInputModal = ({
   isOpen,
@@ -33,38 +30,22 @@ const SectionsInputModal = ({
   setSectionsList,
   area,
 }) => {
-  // Array vacío
-  const [selectedArticles, setSelectedArticles] = useState(
-    sectionsList.relatedArticles
-  );
+  const [selectedHomeworks, setSelectedHomeworks] = useState([]);
+  console.log(sectionsList);
 
-  const [knowMore, setKnowMore] = useState([sectionsList.knowMore]);
-
-  const [toDo, setToDo] = useState([]);
-
-  // ???
-  const [areaArticles, setAreaArticles] = useState([]);
-
-  // Las opciones para el input selector
+  const [selectedHomework, setSelectedHomework] = useState([]);
   const [selectorOptions, setSelectorOptions] = useState([]);
 
-  /*   useEffect(() => {
-    setSelectedArticles(sectionsList.relatedArticles)
-  }, [sectionsList]) */
-
-  useEffect(() => {
-    const articles = ArticlesDb.filter((e) => e.workArea === area);
+  /* useEffect(() => {
+    const homeworks = HomeworksDb;
     setSelectorOptions([]);
 
-    // Para qué?
-    setAreaArticles(articles);
-
-    if (articles.length > 0) {
-      articles.forEach((el) => {
+    if (homeworks.length > 0) {
+      homework.forEach((el) => {
         // Falta filtrar si ese artículo ya fue elegido
         const newOption = {
-          key: el.header.publicId,
-          value: el.resource.articleHeader.descriptor.title,
+          key: el.article.publicId,
+          value: el.descriptor.articleHeader.descriptor.title,
           subtitle: el.resource.articleHeader.descriptor.subtitle,
         };
         setSelectorOptions((selectorOptions) => [
@@ -73,23 +54,7 @@ const SectionsInputModal = ({
         ]);
       });
     }
-  }, [area]);
-
-  const handleSubmit = (values) => {
-    console.log("HOOOOOLA")
-    console.log(...sectionsList[0].contents)
-    setSectionsList((sectionsList) => ([
-      ...sectionsList[0].contents,
-      selectedArticles
-    ]));
-    setSelectedArticles([]);
-    setKnowMore([]);
-    onClose();
-  };
-
-  const handleOptionChange = (e) => {
-    console.log(e.target.value);
-  };
+  }, []); */
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -105,67 +70,44 @@ const SectionsInputModal = ({
           Agregar a Secciones
         </ModalHeader>
         <ModalBody textAlign="center">
-          <Formik initialValues={sectionsList} onSubmit={handleSubmit}>
-            {(formikProps) => (
-              <>
-                <Form>
-                  <Tabs>
-                    <TabList justifyContent="center">
-                      <Tab
-                        fontSize="sm"
-                        width="12rem"
-                        fontFamily="Open Sans"
-                        paddingY={1}
-                      >
-                        Articulos relacionados
-                      </Tab>
-                      <Tab
-                        fontSize="sm"
-                        width="12rem"
-                        fontFamily="Open Sans"
-                        paddingY={1}
-                      >
-                        Para saber más
-                      </Tab>
-                      <Tab
-                        fontSize="sm"
-                        width="12rem"
-                        fontFamily="Open Sans"
-                        paddingY={1}
-                      >
-                        Para hacer
-                      </Tab>
-                    </TabList>
+          <Tabs>
+            <TabList justifyContent="center">
+              <Tab
+                fontSize="sm"
+                width="12rem"
+                fontFamily="Open Sans"
+                paddingY={1}
+              >
+                Tareas
+              </Tab>
+              <Tab
+                fontSize="sm"
+                width="12rem"
+                fontFamily="Open Sans"
+                paddingY={1}
+              >
+                Autoevaluaciones
+              </Tab>
+              <Tab
+                fontSize="sm"
+                width="12rem"
+                fontFamily="Open Sans"
+                paddingY={1}
+              >
+                Pruebas
+              </Tab>
+            </TabList>
 
-                    <TabPanels>
-                      <TabPanel>
-                        <RelatedArticleSelector
-                          options={selectorOptions}
-                          selectedArticles={selectedArticles}
-                          setSelectedArticles={setSelectedArticles}
-                        />
-                      </TabPanel>
+            <TabPanels>
+              <TabPanel></TabPanel>
 
-                      <TabPanel>
-                        <KnowMoreSelector knowMore={knowMore} setKnowMore={setKnowMore} />
-                      </TabPanel>
-                    </TabPanels>
-                  </Tabs>
-                  <Flex justifyContent="center" paddingX={4}>
-                    <Button
-                      mt={4}
-                      fontFamily="Poppins"
-                      fontWeight="400"
-                      colorScheme="blue"
-                      type="submit"
-                    >
-                      Confirmar contenido
-                    </Button>
-                  </Flex>
-                </Form>
-              </>
-            )}
-          </Formik>
+              <TabPanel>
+
+              </TabPanel>
+
+              <TabPanel></TabPanel>
+            </TabPanels>
+          </Tabs>
         </ModalBody>
 
         <ModalFooter />

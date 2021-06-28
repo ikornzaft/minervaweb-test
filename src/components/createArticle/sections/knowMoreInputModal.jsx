@@ -26,7 +26,6 @@ import { KnowMoreSelector } from './knowMoreSelector';
 import { KnowMoreLinkSelector } from './knowMoreLinkSelector';
 import { ArticlesDb } from '../../../resources/articlesDb';
 
-
 const KnowMoreInputModal = ({
   isOpen,
   onClose,
@@ -34,16 +33,14 @@ const KnowMoreInputModal = ({
   setSectionsList,
   area,
 }) => {
-
-  console.log(sectionsList)
-
+  console.log(sectionsList);
 
   // Recibimos sectionsList y su setter
   // Verificamos si ya existen artículos dentro de sectionsList[0].contents
   // Si hay, los agregamos a relatedArticlesArray
   let relatedArticlesArray;
 
-/*   if (sectionsList[0].contents.length > 0) {
+  /*   if (sectionsList[0].contents.length > 0) {
     console.log("ya hay articulos")
     const filteredContent = sectionsList[0].contents.filter(el => el.article);
     relatedArticlesArray = filteredContent;
@@ -53,15 +50,10 @@ const KnowMoreInputModal = ({
   } */
   relatedArticlesArray = [];
 
-
-
-
-
   // Creamos el estado selectedArticles
   // Es un array que va a contener los objetos que creemos como artículos relacionados
-  const [selectedArticles, setSelectedArticles] = useState(
-    relatedArticlesArray
-  );
+  const [selectedArticles, setSelectedArticles] =
+    useState(relatedArticlesArray);
   const [knowMore, setKnowMore] = useState([]);
   const [knowMoreLinks, setKnowMoreLinks] = useState([]);
 
@@ -101,16 +93,25 @@ const KnowMoreInputModal = ({
 
   // Al enviar añadimos a sectionsList el contenido de selectedArticles
   const handleSubmit = (values) => {
-    console.log(knowMore)
-    console.log(sectionsList)
+    console.log(knowMore);
+    console.log(sectionsList);
 
     const newList = [...sectionsList];
-    if (selectedArticles.length > 0) selectedArticles.map(resource => {newList[0].contents.push(resource)});
-    
-    if (knowMore.length > 0) knowMore.map(resource => {newList[0].contents.push(resource)});
+    if (selectedArticles.length > 0)
+      selectedArticles.map((resource) => {
+        newList[0].contents.push(resource);
+      });
 
-    if (knowMoreLinks.length > 0) knowMoreLinks.map(resource => {newList[0].contents.push(resource)});
-    
+    if (knowMore.length > 0)
+      knowMore.map((resource) => {
+        newList[0].contents.push(resource);
+      });
+
+    if (knowMoreLinks.length > 0)
+      knowMoreLinks.map((resource) => {
+        newList[0].contents.push(resource);
+      });
+
     setSectionsList(newList);
     console.log(sectionsList);
 
@@ -119,11 +120,9 @@ const KnowMoreInputModal = ({
     setKnowMore([]);
     setKnowMoreLinks([]);
     onClose();
-
   };
 
-  const handleOptionChange = (e) => {
-  };
+  const handleOptionChange = (e) => {};
 
   // Acá le vamos a pasar al componente RelatedArticleSelector las propiedades:
   // selectorOptions
@@ -185,11 +184,18 @@ const KnowMoreInputModal = ({
                       </TabPanel>
 
                       <TabPanel>
-                        <KnowMoreSelector knowMore={knowMore} setKnowMore={setKnowMore} />
+                        <KnowMoreSelector
+                          knowMore={knowMore}
+                          setKnowMore={setKnowMore}
+                        />
                       </TabPanel>
+
                       <TabPanel>
-                      <KnowMoreLinkSelector knowMoreLinks={knowMoreLinks} setKnowMoreLinks={setKnowMoreLinks} />
-                    </TabPanel>
+                        <KnowMoreLinkSelector
+                          knowMoreLinks={knowMoreLinks}
+                          setKnowMoreLinks={setKnowMoreLinks}
+                        />
+                      </TabPanel>
                     </TabPanels>
                   </Tabs>
                   <Flex justifyContent="center" paddingX={4}>
