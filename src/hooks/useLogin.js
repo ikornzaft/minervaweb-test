@@ -35,12 +35,11 @@ const useLogin = () => {
     body: JSON.stringify({
       id: 'msgid-1',
       target: 'soa@service/minerva',
-      method: 'mods/articles/handlers/FindArticles',
+      method: 'mods/quizzes/handlers/GetQuiz',
       requester: 'root:YWNhY2lhITIwMTc=',
       principal: 'afatecha:YWZhdGVjaGExMjM=',
       message: {
-        workarea: {publicId: "naturales"},
-        workgroups: [{publicId: ''}]
+        entityRef: { "publicId": "10eee37e-e3f1-48d2-9cc7-d89c507adc33" }
       },
     }),
   };

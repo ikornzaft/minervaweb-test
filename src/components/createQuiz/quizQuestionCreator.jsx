@@ -9,7 +9,8 @@ const QuizQuestionCreator = ({
   createRightAnswer,
   wrongAnswers,
   createWrongAnswers,
-  addNewQuestionToArray
+  addNewQuestionToArray,
+  onClose
 }) => {
 
   const [currentWrongAnswer, setCurrentWrongAnswer] = useState("");
@@ -20,12 +21,12 @@ const QuizQuestionCreator = ({
   }
 
   const handleNewQuestion = (el) => {
-
     addNewQuestionToArray();
     createQuestion("");
     createRightAnswer("");
     createWrongAnswers([]);
     setCurrentWrongAnswer("");
+    onClose();
   }
 
   return (
