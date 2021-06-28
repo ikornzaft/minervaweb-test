@@ -119,7 +119,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         target: 'soa@service/minerva',
         method: 'mods/articles/handlers/InsertArticle',
         requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'root:cm9vdA==',
+        principal: 'afatecha:YWZhdGVjaGExMjM=',
         message: {
           entity: {
             resource: {
@@ -132,12 +132,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                 ...coverImage,
               },
               sections: sectionsList,
-              workarea: 'naturales',
+              workarea: {publicId: "naturales"},
             },
             header: {
-              schema: 'm:article',
-              privateId: 'test/1',
-              scope: 'PUBLIC',
               publicId: randomId,
             },
           },

@@ -54,31 +54,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
     } else {
       const randomId = uuidv4();
       const newQuizToSubmit = {
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/quizzes/handlers/InsertQuiz',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'root:cm9vdA==',
-        message: {
-          entity: {
-            resource: {
-              paragraphs: newQuizQuestionsArray,
-              articleHeader: {
-                descriptor: {
-                  subtitle: '',
-                  title: newQuizTitle,
-                },
-              },
-              workarea: newQuizWorkarea,
-            },
-            header: {
-              schema: 'm:quiz',
-              privateId: 'test/1',
-              scope: 'PUBLIC',
-              publicId: randomId,
-            },
-          },
-        },
+        
       };
 
       const fetchData = async () => {
@@ -196,3 +172,58 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
 };
 
 export { QuizForm };
+
+
+/*
+
+
+id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/quizzes/handlers/InsertQuiz',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: 'afatecha:YWZhdGVjaGExMjM=',
+        message: {
+          entity: {
+            resource: {
+              paragraphs: newQuizQuestionsArray,
+              // [
+                { 
+                  resourceId: "", -> asignarlo para identificar correctamente
+                  descriptor: {
+                    title: ""
+                    subtitle: ""
+                  },
+                 content: {
+                   type: "text / choice" PARA EXAMS
+                  link: (artículo: objeto link)
+                  options: [
+                    {
+                      descriptor: {
+                        title: 
+                      },
+                      answer: (boolean)
+                    }
+                  ]
+                  
+                }
+                  
+
+                }
+                }
+              ]
+              articleHeader: {
+                descriptor: {
+                  subtitle: '',
+                  title: newQuizTitle,
+                },
+              },
+              workarea: newQuizWorkarea,
+            },
+            header: {
+              publicId: randomId,
+            },
+          },
+        },
+
+
+        */

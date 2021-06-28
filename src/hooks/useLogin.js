@@ -17,12 +17,46 @@ const useLogin = () => {
     body: JSON.stringify({
       id: 'msgid-1',
       target: 'soa@service/minerva',
+      method: 'mods/workgroups/handlers/Login',
+      requester: 'root:YWNhY2lhITIwMTc=',
+      principal: 'afatecha:YWZhdGVjaGExMjM=',
+      message: {
+
+      },
+    }),
+  };
+
+  const MessageFindArticle = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body: JSON.stringify({
+      id: 'msgid-1',
+      target: 'soa@service/minerva',
       method: 'mods/articles/handlers/FindArticles',
       requester: 'root:YWNhY2lhITIwMTc=',
       principal: 'afatecha:YWZhdGVjaGExMjM=',
       message: {
-        workarea: {publicId: 'sociales'},
-        workgroups: [{publicId: ''}]
+        workarea: {"publicId": "mate"},
+        workgroups: [{publicId: "priv/afatecha"}],
+      },
+    }),
+  };
+
+  const getQuiz = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body: JSON.stringify({
+      id: 'msgid-1',
+      target: 'soa@service/minerva',
+      method: 'mods/quizzes/handlers/GetQuiz',
+      requester: 'root:YWNhY2lhITIwMTc=',
+      principal: 'afatecha:YWZhdGVjaGExMjM=',
+      message: {
+        entityRef: { "publicId": "10eee37e-e3f1-48d2-9cc7-d89c507adc33" }
       },
     }),
   };
@@ -47,7 +81,7 @@ const useLogin = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(url, jsonMessage);
+        const res = await fetch(url, MessageFindArticle);
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();

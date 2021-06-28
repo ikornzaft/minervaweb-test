@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useLogin } from '../hooks/useLogin';
 import { useHistory } from 'react-router-dom';
-import { LABELS } from '../locals/sp/labels';
+import {LABELS} from '../locals/sp/labels';
 
 import {
   Stack,
@@ -25,14 +26,11 @@ import {
 
 const Login = ({ isLoginOn, setLoginOn }) => {
   const history = useHistory();
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+  const { handleSubmit, validUser, tryNumber, error } = useLogin();
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const isInvalid = password === '' || user === '';
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [validUser, setValidUser] = useState(false);
-  const [tryNumber, setTryNumber] = useState(0);
+  const isInvalid = password === "" || user === "";
   const toast = useToast();
 
   useEffect(() => {
@@ -44,7 +42,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         isClosable: true,
       });
     }
-  }, [error, tryNumber, toast]);
+  }, [error, tryNumber, toast]); 
 
   useEffect(() => {
     if (validUser) {
@@ -52,53 +50,6 @@ const Login = ({ isLoginOn, setLoginOn }) => {
       history.push('/activities/');
     }
   }, [validUser, history, isLoginOn, setLoginOn]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = user + ':' + btoa(password);
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/workgroups/handlers/Login',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {},
-      }),
-    };
-
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
-        const resJson = await res.json();
-        console.log(resJson);
-        if (resJson.response === 0) {
-          setValidUser(true);
-          localStorage.setItem('userWorkgroups', JSON.stringify(resJson.message.workgroups));
-          localStorage.setItem('userName', resJson.message.descriptor.username);
-          localStorage.setItem('isStudent', resJson.message.descriptor.student);
-          localStorage.setItem('isEditor', resJson.message.descriptor.editor);
-          localStorage.setItem('isResearcher', resJson.message.descriptor.researcher);
-        } else {
-          setError(resJson.error.text)
-        };
-        // save user data to localstorage
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  };
 
   return (
     <form method="POST" onSubmit={handleSubmit}>
@@ -149,12 +100,14 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             <InputLeftElement
               pointerEvents="none"
               fontSize="xl"
-              children={<TiLockClosedOutline color="gray" />}
+              children={
+                <TiLockClosedOutline color="gray" />
+              }
             />
             <Input
               isRequired
               fontSize="sm"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               autoComplete="off"
               errorBorderColor="red.300"
               id="password"
