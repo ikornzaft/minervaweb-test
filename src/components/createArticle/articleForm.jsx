@@ -147,8 +147,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       const newEntryLocal = {
         _id: 'm:article/test/1',
         _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
-        workArea: data.workArea,
         resource: {
+          workArea: data.workArea,
           paragraphs: paragraphList,
           articleHeader: {
             descriptor: {

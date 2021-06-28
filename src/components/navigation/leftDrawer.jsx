@@ -29,16 +29,16 @@ const LeftDrawer = ({
     onClose();
     setActiveButton(0);
     if (e.target.id === 'button_1') {
-      history.push(`/activities/matematicas`);
+      history.push(`/activities/mate`);
     }
     if (e.target.id === 'button_2') {
       history.push(`/activities/comunicacion`);
     }
     if (e.target.id === 'button_3') {
-      history.push(`/activities/ciencias_naturales`);
+      history.push(`/activities/naturales`);
     }
     if (e.target.id === 'button_4') {
-      history.push(`/activities/estudios_sociales`);
+      history.push(`/activities/sociales`);
     }
   };
   return (

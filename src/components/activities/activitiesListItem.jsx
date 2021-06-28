@@ -15,7 +15,8 @@ const ActivitiesListItem = ({ article }) => {
     'es-Es',
     options
   );
-  const image = article.resource.articleHeader.imageLink;
+  let image;
+  article.resource.articleHeader.image ? image = `http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}` : image = null;
 
   const badge = useCreateAreaBadge(area);
 
@@ -32,14 +33,15 @@ const ActivitiesListItem = ({ article }) => {
       borderWidth="1px"
       maxHeight="125px"
       _hover={{ bg: 'gray.100' }}
-    >
-      <Image
-        boxSize="125px"
-        objectFit="cover"
-        src={image}
-        alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
-        fallbackSrc={fallBackImg}
-      />
+  ><Box w="150px" h="125px">
+    <Image
+      boxSize="125px"
+      objectFit="cover"
+      src={image}
+      alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
+      fallbackSrc={fallBackImg}
+    />
+    </Box>
       <Stack width="100%" justifyContent="flex-start">
         <Stack
           direction="row"

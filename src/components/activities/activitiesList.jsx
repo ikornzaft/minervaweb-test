@@ -1,9 +1,16 @@
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ActivitiesListItem } from './activitiesListItem';
 
 const ActivitiesList = ({ contents }) => {
 
+  const [numberOfActivities, setNumberOfActivities] = useState(null)
+
+  useEffect(() => {
+    console.log("useeffect")
+    setNumberOfActivities(contents.length);
+  }, [contents])
 
   return (
     <>

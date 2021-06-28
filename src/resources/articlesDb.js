@@ -2,7 +2,7 @@ const ArticlesDb = [
   {
     _id: 'm:article/test/1',
     _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
-    workArea: 'matematicas',
+    workArea: 'mate',
     resource: {
       paragraphs: [
         {
@@ -42,9 +42,14 @@ const ArticlesDb = [
             'En esta lección vamos a ver los números reales de una forma global. Estos números engloban a los números naturales, enteros, decimales, racionales e irracionales.',
           title: 'Los números reales',
         },
-        imageLink:
-          'https://images.theconversation.com/files/370339/original/file-20201119-23-1p9uy8f.jpg?ixlib=rb-1.1.0&rect=0%2C19%2C6621%2C3310&q=45&auto=format&w=668&h=324&fit=crop',
-        imageFooter: '',
+        image: {
+          descriptor: {
+            title: 'Descripción de la imágen',
+            subtitle: 'file-20201119-23-1p9uy8f.jpg',
+          },
+          locationType: 'relative',
+          location: "202106/b1a4020d-8b16-4053-9230-ad64de8173e3.jpg",
+        }
       },
       sections: [
         {
@@ -120,9 +125,14 @@ const ArticlesDb = [
             'Estrenada en 1635, constituye una de las obras más importantes del Barroco. Su protagonista, el príncipe Segismundo, se encuentra preso por su padre, el rey Basilio, a quien los astros le han profetizado que su hijo le destronará, estando destinado a ser un líder despótico y cruel. Con el miedo de Basilio y la sed de venganza de Segismundo da comienzo este drama filosófico en el que, a través de las peripecias de sus personajes, Calderón interroga al lector sobre temas tan complejos como los límites de la libertad, el destino o la distinción entre sueño y realidad. En esta edición se ofrecen todas las claves para comprender el texto, con el fin de que los lectores más jóvenes puedan disfrutar sin dificultades de esta obra y dar así sus propias respuestas a las preguntas que propone el autor.',
           title: 'La vida es sueño',
         },
-        imageLink:
-          'https://media-exp1.licdn.com/dms/image/C511BAQESMts2_-Kzow/company-background_10000/0/1526996466943?e=2159024400&v=beta&t=i70et-r4er1nnU6tWgyQGyCAqkyyX_48-8pJM2WXnm0',
-        imageFooter: '',
+        image: {
+          descriptor: {
+            title: 'Descripción de la imágen',
+            subtitle: 'file-20201119-23-1p9uy8f.jpg',
+          },
+          locationType: 'relative',
+          location: "202106/54f6007a-6e95-4fae-923c-4d94b78f7ff8.jpeg",
+        },
       },
       sections: [],
     },
@@ -150,7 +160,7 @@ const ArticlesDb = [
   {
     _id: 'm:article/test/1',
     _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
-    workArea: 'ciencias_naturales',
+    workArea: 'naturales',
     resource: {
       paragraphs: [
         {
@@ -190,9 +200,14 @@ const ArticlesDb = [
             'La división celular es una parte muy importante del ciclo celular en la que una célula inicial se divide para formar células hijas. Debido a la división celular se produce el crecimiento de los seres vivos. En los organismos pluricelulares este crecimiento se produce gracias al desarrollo de los tejidos y en los seres unicelulares mediante la reproducción asexual.',
           title: 'División Celular',
         },
-        imageLink:
-          'https://10celula.com/wp-content/uploads/2018/08/Divisi%C3%B3n-celular-1280x720.jpg',
-        imageFooter: 'División celular.',
+        image: {
+          descriptor: {
+            title: 'Descripción de la imágen',
+            subtitle: 'file-20201119-23-1p9uy8f.jpg',
+          },
+          locationType: 'relative',
+          location: "202106/3af7ff94-99b3-40b8-9480-24d828cd0143.jpg",
+        },
       },
       sections: [
         {
@@ -238,6 +253,7 @@ const ArticlesDb = [
       },
     },
   },
+
 ];
 
 export { ArticlesDb };
