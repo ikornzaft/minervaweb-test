@@ -30,9 +30,6 @@ const QuizQuestionsForm = ({
     setNewQuizQuestionsArray(newEntry);
   }
 
-  useEffect(() => {
-    console.log(wrongAnswers);
-  }, [wrongAnswers]);
 
   return (
     <div>
