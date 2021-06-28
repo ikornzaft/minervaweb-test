@@ -9,6 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ArticleForm } from '../createArticle/articleForm';
+import { QuizForm } from '../createQuiz/quizForm';
 import { BiPlusCircle } from 'react-icons/bi';
 import { LABELS } from '../../locals/sp/labels';
 
@@ -18,9 +19,18 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
     onOpen: onOpenNewActivity,
     onClose: onCloseNewActivity,
   } = useDisclosure();
-  const menuHandler = (e) => {
+  const {
+    isOpen: isOpenNewQuiz,
+    onOpen: onOpenNewQuiz,
+    onClose: onCloseNewQuiz,
+  } = useDisclosure();
+  const menuHandlerActivity = (e) => {
     onClose();
     onOpenNewActivity();
+  };
+  const menuHandlerQuiz = (e) => {
+    onClose();
+    onOpenNewQuiz();
   };
   return (
     <>
@@ -43,7 +53,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
                 variant="drawerRight"
                 rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_1"
-                onClick={menuHandler}
+                onClick={menuHandlerActivity}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_1}
               </Button>
@@ -51,7 +61,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
                 variant="drawerRight"
                 rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_2"
-                onClick={menuHandler}
+                onClick={menuHandlerActivity}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_2}
               </Button>
@@ -59,7 +69,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
                 variant="drawerRight"
                 rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_3"
-                onClick={menuHandler}
+                onClick={menuHandlerActivity}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_3}
               </Button>
@@ -67,7 +77,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
                 variant="drawerRight"
                 rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_4"
-                onClick={menuHandler}
+                onClick={menuHandlerQuiz}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_4}
               </Button>
@@ -79,6 +89,11 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
         isOpen={isOpenNewActivity}
         onClose={onCloseNewActivity}
         modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}
+      />
+      <QuizForm
+        isOpen={isOpenNewQuiz}
+        onClose={onCloseNewQuiz}
+        modalTitle="Nueva autoevaluación"
       />
     </>
   );
