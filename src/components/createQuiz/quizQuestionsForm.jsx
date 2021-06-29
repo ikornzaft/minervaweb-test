@@ -15,28 +15,21 @@ const QuizQuestionsForm = ({
   onClose,
   modalTitle,
 }) => {
-  const [question, setQuestion] = useState('');
-  const [rightAnswer, setRightAnswer] = useState('');
-  const [wrongAnswers, setWrongAnswers] = useState([]);
 
-  const createQuestion = (e) => {
-    setQuestion(e);
-  };
+  const addNewQuestionToArray = (question, answersArray) => {
 
-  const createRightAnswer = (e) => {
-    setRightAnswer(e);
-  };
-
-  const createWrongAnswers = (e) => {
-    setWrongAnswers(e);
-  };
-
-  const addNewQuestionToArray = () => {
     const newEntry = {
-      question: question,
-      rightAnswer: rightAnswer,
-      wrongAnswers: wrongAnswers,
+      descriptor: {
+        title: question,
+        subtitle: '',
+      },
+      content: {
+        options: answersArray,
+      }
     };
+
+    console.log(newEntry)
+
     setNewQuizQuestionsArray(newEntry);
   };
 
@@ -55,12 +48,6 @@ const QuizQuestionsForm = ({
           </ModalHeader>
           <ModalBody textAlign="center">
             <QuizQuestionCreator
-              question={question}
-              createQuestion={createQuestion}
-              rightAnswer={rightAnswer}
-              createRightAnswer={createRightAnswer}
-              wrongAnswers={wrongAnswers}
-              createWrongAnswers={createWrongAnswers}
               addNewQuestionToArray={addNewQuestionToArray}
               onClose={onClose}
             />

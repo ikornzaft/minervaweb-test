@@ -86,7 +86,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           subtitle: selectedImage.name,
         },
         locationType: 'relative',
-        location: fileName,
+        link: fileName,
       },
     };
 

@@ -81,6 +81,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const date = new Date();
 
   useEffect(() => {
+    const principal = localStorage.getItem('credentials');
+    console.log(principal)
     if (data.title) {
       /*       const createdSections = [];
       
@@ -119,7 +121,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         target: 'soa@service/minerva',
         method: 'mods/articles/handlers/InsertArticle',
         requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'afatecha:YWZhdGVjaGExMjM=',
+        principal: principal,
         message: {
           entity: {
             resource: {
@@ -132,7 +134,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                 ...coverImage,
               },
               sections: sectionsList,
-              workarea: {publicId: "naturales"},
+              workarea: {publicId: data.workArea},
             },
             header: {
               publicId: randomId,

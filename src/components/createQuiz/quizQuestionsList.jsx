@@ -12,10 +12,8 @@ const QuizQuestionsList = ({
       {newQuizQuestionsArray.map((question, index) => {
         console.log(question);
         return (
-          <VStack bg="gray.200" marginBottom={2}>
-            <Text>Pregunta {index + 1}: {question.question}</Text>
-            <Text>Respuesta correcta: {question.rightAnswer}</Text>
-            <Text>Respuestas inorrectas: {question.wrongAnswers.map((wrongAnswer, index) => (<Text>{index + 1}: {wrongAnswer}</Text>))}</Text>
+          <VStack key={index} bg="gray.200" marginBottom={2}>
+            <Text>Pregunta {index + 1}: {question.descriptor.title}</Text>
           </VStack>
         );
       })}

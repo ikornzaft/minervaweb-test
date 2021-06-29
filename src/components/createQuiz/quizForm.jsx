@@ -53,9 +53,32 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
       setWorkareaError(true);
     } else {
       const randomId = uuidv4();
+      const principal = localStorage.getItem('credentials');
       const newQuizToSubmit = {
-        
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/quizzes/handlers/InsertQuiz',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: principal,
+        message: {
+          entity: {
+            resource: {
+              paragraphs: newQuizQuestionsArray,
+              articleHeader: {
+                descriptor: {
+                  subtitle: '',
+                  title: newQuizTitle,
+                },
+              },
+              workarea: newQuizWorkarea,
+            },
+            header: {
+              publicId: randomId,
+            },
+          },
+        },
       };
+      console.log(newQuizToSubmit)
 
       const fetchData = async () => {
         const url =

@@ -30,7 +30,7 @@ const ParagraphItemDisplay = ({ item }) => {
           borderStyle="solid"
           borderRadius="lg"
           borderWidth="1px"
-          src={`http://www.afatecha.com/id/files/image/${item.content.location}`}
+          src={`http://www.afatecha.com/id/files/image/${item.content.link}`}
         />
         <HStack justifyContent="center" w="400px">
           {item.descriptor.title ? (
@@ -43,10 +43,10 @@ const ParagraphItemDisplay = ({ item }) => {
     );
   }
 
-  if (item.content.location.toLowerCase().split('.')[1] === 'youtube') {
+  if (item.content.link.toLowerCase().split('.')[1] === 'youtube') {
     return (
       <VStack p={2} borderRadius="lg" borderWidth="1px">
-        <ReactPlayer url={item.content.location} />
+        <ReactPlayer url={item.content.link} />
         <Heading
           as="h3"
           size="xs"

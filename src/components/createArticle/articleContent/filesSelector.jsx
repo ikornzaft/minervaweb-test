@@ -91,12 +91,11 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
       descriptor: {
         title: selectedFileDescription,
         subtitle: selectedFile.name,
-        description: null,
       },
       content: {
         type: defineFileType(selectedFile.type),
         locationType: 'relative',
-        location: fileName,
+        link: fileName,
       },
     };
 

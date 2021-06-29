@@ -82,6 +82,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         console.log(resJson);
         if (resJson.response === 0) {
           setValidUser(true);
+          localStorage.setItem('credentials', credentials);
           localStorage.setItem('userWorkgroups', JSON.stringify(resJson.message.workgroups));
           localStorage.setItem('userName', resJson.message.descriptor.username);
           localStorage.setItem('isStudent', resJson.message.descriptor.student);

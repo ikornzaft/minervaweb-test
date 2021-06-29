@@ -38,7 +38,7 @@ const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLink
       content: {
         type: 'link',
         locationType: 'absolute',
-        location: addedLink,
+        link: addedLink,
       },
     };
 
