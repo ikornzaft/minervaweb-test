@@ -87,15 +87,19 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     formData.append('fn', fileName);
     formData.append('file', selectedFile);
 
+    const uploadedFileLink = `http://www.afatecha.com/id/files/${defineFileType(selectedFile.type)}/${fileName}`
+
     const newUploadedFile = {
       descriptor: {
         title: selectedFileDescription,
         subtitle: selectedFile.name,
       },
-      document: {
-        type: defineFileType(selectedFile.type),
-        locationType: 'relative',
-        location: fileName,
+      content: {
+        link: {
+          type: defineFileType(selectedFile.type),
+          locationType: 'relative',
+          location: uploadedFileLink,
+        }
       },
     };
 

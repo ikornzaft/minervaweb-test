@@ -71,11 +71,14 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
   const onFileUpload = () => {
     const formData = new FormData();
 
+    
     const { fileName, fileRoute } = CreateFileName(
       selectedImage.type,
       selectedImage.name
-    );
-
+      );
+      
+    const imageLink = `http://www.afatecha.com/id/files/image/${fileName}`
+    
     formData.append('fn', fileName);
     formData.append('file', selectedImage);
 
@@ -86,7 +89,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           subtitle: selectedImage.name,
         },
         locationType: 'relative',
-        link: fileName,
+        location: imageLink,
       },
     };
 

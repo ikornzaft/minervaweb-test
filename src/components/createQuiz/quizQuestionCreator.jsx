@@ -1,47 +1,43 @@
 import React, { useState } from 'react';
-import { Input, Textarea, FormControl, FormLabel, Button } from '@chakra-ui/react';
+import {
+  Input,
+  Textarea,
+  FormControl,
+  FormLabel,
+  Button,
+} from '@chakra-ui/react';
 import { WrongAnswersList } from './wrongAnswersList';
 
-const QuizQuestionCreator = ({
-  addNewQuestionToArray,
-  onClose
-}) => {
-
+const QuizQuestionCreator = ({ addNewQuestionToArray, onClose }) => {
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState([]);
   const [rightAnswer, setRightAnswer] = useState('');
   const [wrongAnswers, setWrongAnswers] = useState([]);
-  const [currentWrongAnswer, setCurrentWrongAnswer] = useState("");
+  const [currentWrongAnswer, setCurrentWrongAnswer] = useState('');
 
   const addNewWrongAnswer = () => {
     setWrongAnswers([...wrongAnswers, currentWrongAnswer]);
-    setCurrentWrongAnswer("");
-  }
+    setCurrentWrongAnswer('');
+  };
 
   const handleNewQuestion = () => {
-    const answersArray = wrongAnswers.map(answer => {
+    const answersArray = wrongAnswers.map((answer) => {
       return {
-        options: {
-          descriptor: {
-            title: answer,
-          },
-          answer: false,
-        }
+        descriptor: {
+          title: answer,
+        },
+        answer: false,
       };
     });
 
     const rightAnswerObj = {
-      options: {
-        descriptor: {
-          title: rightAnswer,
-        },
-        answer: true,
-      }
-    }
+      descriptor: {
+        title: rightAnswer,
+      },
+      answer: true,
+    };
 
     answersArray.push(rightAnswerObj);
-
-    console.log(answersArray);
 
     addNewQuestionToArray(question, answersArray);
     setQuestion('');
@@ -49,24 +45,37 @@ const QuizQuestionCreator = ({
     setWrongAnswers([]);
     setCurrentWrongAnswer('');
     onClose();
-  }
+  };
 
   return (
     <>
-    <FormControl>
-      <FormLabel>Nueva pregunta</FormLabel>
-      <Textarea value={question} onChange={e => setQuestion(e.target.value)} />
-      <FormLabel>Respuesta correcta</FormLabel>
-      <Input type="text" value={rightAnswer} onChange={e => setRightAnswer(e.target.value)} />
-      <FormLabel>Opción incorrecta {wrongAnswers.length + 1}</FormLabel>
-      <Input type="text" value={currentWrongAnswer} onChange={e => setCurrentWrongAnswer(e.target.value)} />
-      <Button onClick={addNewWrongAnswer}>Ingresar nueva opción incorrecta</Button>
+      <FormControl>
+        <FormLabel>Nueva pregunta</FormLabel>
+        <Textarea
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+        />
+        <FormLabel>Respuesta correcta</FormLabel>
+        <Input
+          type="text"
+          value={rightAnswer}
+          onChange={(e) => setRightAnswer(e.target.value)}
+        />
+        <FormLabel>Opción incorrecta {wrongAnswers.length + 1}</FormLabel>
+        <Input
+          type="text"
+          value={currentWrongAnswer}
+          onChange={(e) => setCurrentWrongAnswer(e.target.value)}
+        />
+        <Button onClick={addNewWrongAnswer}>
+          Ingresar nueva opción incorrecta
+        </Button>
       </FormControl>
       <WrongAnswersList wrongAnswers={wrongAnswers} />
 
       <Button onClick={handleNewQuestion}>Crear pregunta</Button>
-</>
-  )
-}
+    </>
+  );
+};
 
-export { QuizQuestionCreator } 
+export { QuizQuestionCreator };

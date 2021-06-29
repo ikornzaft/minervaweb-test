@@ -23,8 +23,8 @@ const ContentSelector = ({
     return false;
   };
 
-  
 
+  
   const addContent = () => {
     const contentIndex = options.findIndex(
       (option) => option.key === optionValue

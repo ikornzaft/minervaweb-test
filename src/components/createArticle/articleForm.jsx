@@ -82,7 +82,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   useEffect(() => {
     const principal = localStorage.getItem('credentials');
-    console.log(principal)
     if (data.title) {
       /*       const createdSections = [];
       
@@ -143,11 +142,15 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         },
       };
 
+      console.log(newEntry)
+
       const newEntryLocal = {
         _id: 'm:article/test/1',
         _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
         resource: {
-          workArea: data.workArea,
+          workarea: {
+            publicId: data.workArea
+          },
           paragraphs: paragraphList,
           articleHeader: {
             descriptor: {
@@ -251,7 +254,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
       console.log(newEntry);
     } else {
-      console.log('no hay data aun');
     }
   }, [data]);
 

@@ -30,7 +30,7 @@ const ParagraphItemDisplay = ({ item }) => {
           borderStyle="solid"
           borderRadius="lg"
           borderWidth="1px"
-          src={`http://www.afatecha.com/id/files/image/${item.content.link}`}
+          src={item.content.location}
         />
         <HStack justifyContent="center" w="400px">
           {item.descriptor.title ? (

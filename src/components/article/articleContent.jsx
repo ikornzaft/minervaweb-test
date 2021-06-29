@@ -18,22 +18,22 @@ import { ParagraphItemDisplay } from './paragraphItemDisplay';
 import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article, requests, setRequests }) => {
-  console.log(article);
   let cover;
   let footer;
-  if (article.resource.articleHeader.image) {
-    cover = `http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}`;
-    console.log(cover)
+  console.log(article)
+  /*if (article.resource.articleHeader.image) {
+    cover = article.resource.articleHeader.image.location;
     footer = article.resource.articleHeader.image.descriptor.title;
   } else {
     cover = fallBackImg;
     footer = null;
-  }
+  }*/
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const articleDate = new Date(
     article.logs.inserted.timestamp
   ).toLocaleDateString('es-Es', options);
-  const badge = useCreateAreaBadge(article.workArea);
+  const badge = useCreateAreaBadge(article.resource.workarea);
+  console.log(badge);
   return (
     <>
       <Stack
@@ -71,10 +71,11 @@ const ArticleContent = ({ article, requests, setRequests }) => {
         />
 
         <HStack justifyContent="flex-end" w="42rem">
-          {footer ? <Text fontSize="xs" color="gray.500">
-          Imágen: {footer}
-        </Text> : null}
-          
+          {footer ? (
+            <Text fontSize="xs" color="gray.500">
+              Imágen: {footer}
+            </Text>
+          ) : null}
         </HStack>
       </Stack>
       <Stack alignItems="center">
@@ -85,7 +86,11 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                 <Text fontFamily="Open Sans" fontSize="sm" marginBottom={4}>
                   {el.descriptor.description}
                 </Text>
-              ) : <HStack w="100%" justifyContent="center"><ParagraphItemDisplay item={el} /></HStack> }
+              ) : (
+                <HStack w="100%" justifyContent="center">
+                  <ParagraphItemDisplay item={el} />
+                </HStack>
+              )}
               {/*el.descriptor.description.image ? (
                 <Stack width="100%" direction="row" justifyContent="center">
                   <Image

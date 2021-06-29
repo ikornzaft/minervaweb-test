@@ -16,11 +16,11 @@ const ArticleContentItem = ({ descriptor, content }) => {
     let icon;
     if (content.type === 'document') {
       icon = VscFile;
-    } else if (content.type === 'audio') {
+    } else if (content.link.type === 'audio') {
       icon = FiSpeaker;
-    } else if (content.type === 'video') {
+    } else if (content.link.type === 'video') {
       icon = RiVideoLine;
-    } else if (content.type === 'link') {
+    } else if (content.link.type === 'link') {
       icon = VscLinkExternal;
     }
 
@@ -29,14 +29,14 @@ const ArticleContentItem = ({ descriptor, content }) => {
     return (
       <>
         <Box>
-          {content.type === 'image' ? (
+          {content.link.type === 'image' ? (
             <Image
               boxSize="100px"
               objectFit="cover"
               borderColor="gray.400"
               borderRadius="lg"
               borderWidth="2px"
-              src={`http://www.afatecha.com/id/files/image/${content.location}`}
+              src={content.link.location}
             />
           ) : (
             <Box

@@ -5,14 +5,21 @@ import { ActivitiesListItem } from './activitiesListItem';
 
 const ActivitiesList = ({ contents }) => {
 
-  const [articles, setArticles] = useState([]);
+  const [numberOfActivities, setNumberOfActivities] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    setNumberOfActivities(contents.length);
+  }, [contents])
 
   useEffect(() => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
+    console.log(workgroups)
+    console.log(localStorage.getItem('userWorkgroups'));
     const jsonMessage = {
       method: 'POST',
       headers: {
@@ -42,7 +49,7 @@ const ActivitiesList = ({ contents }) => {
           setError('Bad response from server');
         const resJson = await res.json();
         console.log(resJson);
-        setArticles(resJson.message.resources);
+        // save user data to localstorage
       } catch (err) {
         setError(err);
       } finally {
@@ -55,8 +62,8 @@ const ActivitiesList = ({ contents }) => {
 
   return (
     <>
-      {articles.map((el) => (
-        <Link to={`/article/${el.entity.publicId}`}>
+      {contents.map((el) => (
+        <Link to={`/article/${el.header.publicId}`}>
           <ActivitiesListItem article={el} />
         </Link>
       ))}

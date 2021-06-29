@@ -8,11 +8,15 @@ import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 const ActivitiesListItem = ({ article }) => {
   // Esto después se va
 
-  const area = article.workarea.publicId;
+  const area = article.workArea;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-  const date = article.inserted.timestamp;
-  const image = article.contentHeader.image.location;
+  const date = new Date(article.logs.inserted.timestamp).toLocaleDateString(
+    'es-Es',
+    options
+  );
+  let image;
+  article.resource.articleHeader.image ? image = `http://www.afatecha.com/id/files/image/${article.resource.articleHeader.image.location}` : image = null;
 
   const badge = useCreateAreaBadge(area);
 
@@ -63,7 +67,7 @@ const ActivitiesListItem = ({ article }) => {
               lineHeight="0.7rem"
               fontFamily="Open Sans"
             >
-              {article.contentHeader.descriptor.title}
+              {article.resource.articleHeader.descriptor.title}
             </Heading>
             <Box textAlign="left" marginTop="0" paddingLeft={0}>
               <Text
@@ -72,7 +76,7 @@ const ActivitiesListItem = ({ article }) => {
                 fontWeight="400"
               >
                 {ParagraphReducer(
-                  article.contentHeader.descriptor.subtitle
+                  article.resource.articleHeader.descriptor.subtitle
                 )}
               </Text>
             </Box>

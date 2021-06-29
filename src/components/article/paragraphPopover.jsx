@@ -31,6 +31,26 @@ const ParagraphPopover = ({ header, paragraphId, articleId, area, requests, setR
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(question);
+
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/questions/handlers/InsertQuestion',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+        message: {
+          
+        },
+      }),
+    };
+
     setRequests((requests) => [...requests, question]);
     const toast = createStandaloneToast();
     toast({

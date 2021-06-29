@@ -29,16 +29,16 @@ const LeftDrawer = ({
     onClose();
     setActiveButton(0);
     if (e.target.id === 'button_1') {
-      history.push(`/activities/mate`);
+      history.push(`/articles/mate`);
     }
     if (e.target.id === 'button_2') {
-      history.push(`/activities/comunicacion`);
+      history.push(`/articles/comunicacion`);
     }
     if (e.target.id === 'button_3') {
-      history.push(`/activities/naturales`);
+      history.push(`/articles/naturales`);
     }
     if (e.target.id === 'button_4') {
-      history.push(`/activities/sociales`);
+      history.push(`/articles/sociales`);
     }
   };
   return (

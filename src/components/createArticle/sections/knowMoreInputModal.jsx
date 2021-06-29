@@ -33,7 +33,6 @@ const KnowMoreInputModal = ({
   setSectionsList,
   area,
 }) => {
-  console.log(sectionsList);
 
   // Recibimos sectionsList y su setter
   // Verificamos si ya existen artículos dentro de sectionsList[0].contents
@@ -93,8 +92,6 @@ const KnowMoreInputModal = ({
 
   // Al enviar añadimos a sectionsList el contenido de selectedArticles
   const handleSubmit = (values) => {
-    console.log(knowMore);
-    console.log(sectionsList);
 
     const newList = [...sectionsList];
     if (selectedArticles.length > 0)
@@ -113,7 +110,6 @@ const KnowMoreInputModal = ({
       });
 
     setSectionsList(newList);
-    console.log(sectionsList);
 
     setSelectedArticles(relatedArticlesArray);
 

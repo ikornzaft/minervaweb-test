@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { Login } from './screens/login';
 import { Activities } from './screens/activities';
+import { Articles } from './screens/articles';
 import { Article } from './screens/article';
 import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
@@ -20,6 +21,8 @@ function App() {
         </Route>
         <Route exact path="/activities/" component={Activities} />
         <Route path="/activities/:id" component={Activities} />
+        <Route exact path="/articles/" component={Articles} />
+        <Route path="/articles/:id" component={Articles} />
         <Route path="/article/:id">
           <Article requests={requests} setRequests={setRequests} />
         </Route>

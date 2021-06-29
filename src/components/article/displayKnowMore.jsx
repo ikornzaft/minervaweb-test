@@ -37,7 +37,7 @@ const DisplayKnowMore = ({ sections }) => {
     let icon;
     let type;
     // Document
-    if (section.document.type === 'document') {
+    if (section.content.type === 'document') {
       const fileName = section.descriptor.subtitle;
       const splittedNameArray = fileName.split('.');
       const extension = splittedNameArray[splittedNameArray.length - 1];
@@ -55,16 +55,16 @@ const DisplayKnowMore = ({ sections }) => {
       }
     }
     // Image
-    if (section.document.type === 'image') {
+    if (section.content.type === 'image') {
       icon = RiImageLine;
     }
     // Audio
-    if (section.document.type === 'audio') {
+    if (section.content.type === 'audio') {
       icon = FiSpeaker;
       type = "audio";
     }
     // Video
-    if (section.document.type === 'video') {
+    if (section.content.type === 'video') {
       icon = RiVideoLine;
     }
     return { icon, type };

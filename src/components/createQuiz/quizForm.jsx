@@ -70,7 +70,9 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                   title: newQuizTitle,
                 },
               },
-              workarea: newQuizWorkarea,
+              workarea: {
+                publicId: newQuizWorkarea
+              }
             },
             header: {
               publicId: randomId,
@@ -120,7 +122,6 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
             duration: 2500,
             isClosable: true,
           });
-          console.log(err);
         } finally {
           setLoading(false);
         }

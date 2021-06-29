@@ -5,7 +5,7 @@ import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
-const ActivitiesListItem = ({ article }) => {
+const ArticlesListItem   = ({ article }) => {
   // Esto después se va
 
   const area = article.workarea.publicId;
@@ -83,4 +83,4 @@ const ActivitiesListItem = ({ article }) => {
   );
 };
 
-export { ActivitiesListItem };
+export { ArticlesListItem  };

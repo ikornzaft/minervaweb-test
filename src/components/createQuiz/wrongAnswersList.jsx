@@ -2,7 +2,6 @@ import React from 'react';
 import { HStack, Text } from "@chakra-ui/react"
 
 const WrongAnswersList = ({wrongAnswers}) => {
-  console.log(wrongAnswers)
   return (
     <div>
       {wrongAnswers.map((wrongAnswer, index) => {

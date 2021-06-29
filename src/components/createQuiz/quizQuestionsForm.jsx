@@ -28,8 +28,6 @@ const QuizQuestionsForm = ({
       }
     };
 
-    console.log(newEntry)
-
     setNewQuizQuestionsArray(newEntry);
   };
 

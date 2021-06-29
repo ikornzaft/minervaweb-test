@@ -36,7 +36,7 @@ const DisplayUploadedFiles = ({
       </VStack>
       <Tooltip label="Eliminar archivo" bg="white" color="gray.700">
         <Button
-          id={file.document.location}
+          id={file.content.location}
           margin="0"
           size="xs"
           onClick={deleteItem}

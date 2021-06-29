@@ -31,7 +31,6 @@ const SectionsInputModal = ({
   area,
 }) => {
   const [selectedHomeworks, setSelectedHomeworks] = useState([]);
-  console.log(sectionsList);
 
   const [selectedHomework, setSelectedHomework] = useState([]);
   const [selectorOptions, setSelectorOptions] = useState([]);
