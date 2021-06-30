@@ -14,7 +14,13 @@ const ArticlesListItem = ({ article, key }) => {
     options
   );
 
-  const image = `http://www.afatecha.com/id/files/image/${article.contentHeader.image.location}`;
+  let image;
+  if (article.contentHeader.image) {
+    image = `http://www.afatecha.com/id/files/image/${article.contentHeader.image.location}`;
+  } else {
+    image = fallBackImg;
+  }
+    
   const badge = CreateAreaBadge(area);
 
   return (

@@ -31,7 +31,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
       try {
         await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
           method: 'POST',
-          mode: 'cors',
+          mode: 'no-cors',
           body: data,
         });
         setCoverImage(newUploadedImage);
@@ -77,7 +77,6 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
       selectedImage.name
       );
       
-    const imageLink = `http://www.afatecha.com/id/files/image/${fileName}`
     
     formData.append('fn', fileName);
     formData.append('file', selectedImage);
@@ -89,7 +88,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           subtitle: selectedImage.name,
         },
         locationType: 'relative',
-        location: imageLink,
+        location: fileName,
       },
     };
 

@@ -77,15 +77,11 @@ const ArticleContentInputModal = ({
           ...paragraphsToSubmit,
         ]);
 
-    articleContentLinks.length > 0
-    ? setParagraphList((paragraphList) => [
+    if (articleContentLinks.length > 0) setParagraphList((paragraphList) => [
         ...paragraphList,
-        ...paragraphsToSubmit.concat(articleContentLinks),
+        ...articleContentLinks,
       ])
-    : setParagraphList((paragraphList) => [
-        ...paragraphList,
-        ...paragraphsToSubmit,
-      ]);
+    
 
     setThumbnails([]);
     setUploadedFiles([]);

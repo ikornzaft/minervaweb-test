@@ -530,6 +530,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             size="sm"
                             fontFamily="Poppins"
                             fontWeight="400"
+                            disabled="true"
+
                           >
                             Para hacer
                           </Button>

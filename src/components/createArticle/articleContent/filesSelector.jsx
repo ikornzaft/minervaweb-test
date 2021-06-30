@@ -44,7 +44,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
     try {
       await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
         method: 'POST',
-        mode: 'cors',
+        mode: 'no-cors',
         body: data,
       });
       setUploadedFiles([...uploadedFiles, newUploadedFile]);
@@ -90,9 +90,6 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
     formData.append('fn', fileName);
     formData.append('file', selectedFile);
 
-    const uploadedFileLink = `http://www.afatecha.com/id/files/${defineFileType(selectedFile.type)}/${fileName}`
-
-
     const newUploadedFile = {
       descriptor: {
         title: selectedFileDescription,
@@ -102,7 +99,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
         link: {
           type: defineFileType(selectedFile.type),
           locationType: 'relative',
-          location: uploadedFileLink,
+          location: fileName,
         }
       },
     };

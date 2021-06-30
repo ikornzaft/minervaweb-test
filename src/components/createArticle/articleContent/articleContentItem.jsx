@@ -6,6 +6,7 @@ import { VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { FiSpeaker } from 'react-icons/fi';
 
 const ArticleContentItem = ({ descriptor, content }) => {
+  console.log(content)
   const displayText = () => {
     return (
       <Text textAlign="left">{ParagraphReducer(descriptor.description)}</Text>
@@ -36,7 +37,7 @@ const ArticleContentItem = ({ descriptor, content }) => {
               borderColor="gray.400"
               borderRadius="lg"
               borderWidth="2px"
-              src={content.link.location}
+              src={`http://www.afatecha.com/id/files/image/${content.link.location}`}
             />
           ) : (
             <Box

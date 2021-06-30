@@ -87,7 +87,6 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     formData.append('fn', fileName);
     formData.append('file', selectedFile);
 
-    const uploadedFileLink = `http://www.afatecha.com/id/files/${defineFileType(selectedFile.type)}/${fileName}`
 
     const newUploadedFile = {
       descriptor: {
@@ -98,7 +97,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
         link: {
           type: defineFileType(selectedFile.type),
           locationType: 'relative',
-          location: uploadedFileLink,
+          location: fileName,
         }
       },
     };
