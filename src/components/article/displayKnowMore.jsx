@@ -1,16 +1,15 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
-import { Box, Stack, HStack, Heading, Text } from '@chakra-ui/react';
+import { Stack, HStack, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
-import { AudioPlayer } from '../common/players/audioPlayer';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { RiBook2Line, RiImageLine, RiVideoLine } from 'react-icons/ri';
-import { VscFilePdf, VscFile } from 'react-icons/vsc';
+import { VscFilePdf, VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
 
 const DisplayKnowMore = ({ sections }) => {
+
   const clasifySection = (section) => {
     let toRender;
     section.article
@@ -37,7 +36,7 @@ const DisplayKnowMore = ({ sections }) => {
     let icon;
     let type;
     // Document
-    if (section.content.type === 'document') {
+    if (section.content.link.type === 'document') {
       const fileName = section.descriptor.subtitle;
       const splittedNameArray = fileName.split('.');
       const extension = splittedNameArray[splittedNameArray.length - 1];
@@ -55,49 +54,57 @@ const DisplayKnowMore = ({ sections }) => {
       }
     }
     // Image
-    if (section.content.type === 'image') {
+    if (section.content.link.type === 'image') {
       icon = RiImageLine;
     }
     // Audio
-    if (section.content.type === 'audio') {
+    if (section.content.link.type === 'audio') {
       icon = FiSpeaker;
-      type = "audio";
+      type = 'audio';
     }
     // Video
-    if (section.content.type === 'video') {
+    if (section.content.link.type === 'video') {
       icon = RiVideoLine;
     }
-    return { icon, type };
+    // Link
+    if (section.content.link.type === 'link') {
+      icon = VscLinkExternal;
+    }
+    return { icon };
   };
 
-  const choosePlayer = (type, section) => {
-    if (type === "audio") AudioPlayer(section);
-    console.log("Player")
-  }
-  
   const log = () => console.log('CLICK');
-  
+
   const displayResource = (section) => {
-    const { icon, type } = determineTypeOfResource(section);
+    const { icon } = determineTypeOfResource(section);
+    let resourceLink;
+    if (section.content.link.locationType === 'absolute') {
+      resourceLink = section.content.link.location;
+    } else {
+      resourceLink = `http://www.afatecha.com/id/files/${section.content.link.type}/${section.content.link.location}`;
+    }
     return (
-      <Stack onClick={() => choosePlayer(type, section)} cursor="pointer">
-      <SectionElement
-      icon={icon}
-      title={section.descriptor.title}
-      subtitle={ParagraphReducer(section.descriptor.subtitle)}
-      />
-      </Stack>
-      );
-    };
-    
-    return (
-      <>
+      <LinkBox>
+        <LinkOverlay href={resourceLink} isExternal="true" />
+        <Stack cursor="pointer">
+          <SectionElement
+            icon={icon}
+            title={section.descriptor.title}
+            subtitle={ParagraphReducer(section.descriptor.subtitle)}
+          />
+        </Stack>
+      </LinkBox>
+    );
+  };
+
+  return (
+    <>
       <HStack textAlign="left" justifyContent="flex-start" w="40rem">
-      <Heading fontSize="sm" color="gray.600" fontWeight="400">
-      PARA SABER MÁS
-      </Heading>
+        <Heading fontSize="sm" color="gray.600" fontWeight="400">
+          PARA SABER MÁS
+        </Heading>
       </HStack>
-      
+
       {sections.map((section) => clasifySection(section))}
     </>
   );

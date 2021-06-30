@@ -3,18 +3,18 @@ import { Stack, Badge, Text, Image, Heading, Box } from '@chakra-ui/react';
 import { LABELS } from '../../locals/sp/labels';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { ParagraphReducer } from '../common/paragraphReducer';
-import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
+import { CreateAreaBadge } from '../common/createAreaBadge';
 
-const ArticlesListItem   = ({ article }) => {
-  // Esto después se va
-
+const ArticlesListItem = ({ article }) => {
   const area = article.workarea.publicId;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date(article.inserted.timestamp).toLocaleDateString(
+    'es-Es',
+    options
+  );
 
-  const date = article.inserted.timestamp;
-  const image = article.contentHeader.image.location;
-
-  const badge = useCreateAreaBadge(area);
+  const image = `http://www.afatecha.com/id/files/image/${article.contentHeader.image.location}`;
+  const badge = CreateAreaBadge(area);
 
   return (
     <Stack
@@ -29,15 +29,16 @@ const ArticlesListItem   = ({ article }) => {
       borderWidth="1px"
       maxHeight="125px"
       _hover={{ bg: 'gray.100' }}
-  ><Box w="150px" h="125px">
-    <Image
-      boxSize="125px"
-      objectFit="cover"
-      src={image}
-      alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
-      fallbackSrc={fallBackImg}
-    />
-    </Box>
+    >
+      <Box w="150px" h="125px">
+        <Image
+          boxSize="125px"
+          objectFit="cover"
+          src={image}
+          alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
+          fallbackSrc={fallBackImg}
+        />
+      </Box>
       <Stack width="100%" justifyContent="flex-start">
         <Stack
           direction="row"
@@ -66,14 +67,8 @@ const ArticlesListItem   = ({ article }) => {
               {article.contentHeader.descriptor.title}
             </Heading>
             <Box textAlign="left" marginTop="0" paddingLeft={0}>
-              <Text
-                as="h5"
-                fontSize="sm"
-                fontWeight="400"
-              >
-                {ParagraphReducer(
-                  article.contentHeader.descriptor.subtitle
-                )}
+              <Text as="h5" fontSize="sm" fontWeight="400">
+                {ParagraphReducer(article.contentHeader.descriptor.subtitle)}
               </Text>
             </Box>
           </Stack>
@@ -83,4 +78,4 @@ const ArticlesListItem   = ({ article }) => {
   );
 };
 
-export { ArticlesListItem  };
+export { ArticlesListItem };

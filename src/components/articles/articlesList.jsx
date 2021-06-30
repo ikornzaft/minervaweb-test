@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { ArticlesListItem } from './articlesListItem';
@@ -7,9 +7,9 @@ const ArticlesList = ({ articles }) => {
 
   return (
     <>
-      {articles.map((el) => (
+      {articles.map((el, index) => (
         <Link to={`/article/${el.entity.publicId}`}>
-          <ArticlesListItem article={el} />
+          <ArticlesListItem key={index} article={el} />
         </Link>
       ))}
     </>

@@ -10,6 +10,7 @@ import {
   Textarea,
   Button,
   createStandaloneToast,
+  Box,
 } from '@chakra-ui/react';
 import { LABELS } from '../../locals/sp/labels';
 import { v4 as uuidv4 } from 'uuid';
@@ -49,7 +50,7 @@ const ParagraphPopover = ({
           resource: {
             articleHeader: {
               descriptor: {
-                subtitle: paragraphId,
+                subtitle: paragraphId, // CAMBIARLO A STRING
                 title: articleTitle,
               },
             },
@@ -63,13 +64,14 @@ const ParagraphPopover = ({
                   link: {
                     type: 'article',
                     locationType: 'relative',
-                    location: `http://www.afatecha.com/article/${articleId}`,
+                    location: `http://www.afatecha.com/article/${articleId}`, //PASAR A RELATIVO
                   },
                 },
               },
             ],
 
             workarea: { publicId: area },
+            workgroup: { publicId: 'aula/test_a/quinto' },
           },
           header: { publicId: questionId },
         },
@@ -91,7 +93,7 @@ const ParagraphPopover = ({
 
       try {
         setLoading(true);
-        console.log(newEntry)
+        console.log(newEntry);
         const response = await fetch(url, jsonMessage);
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
@@ -105,7 +107,6 @@ const ParagraphPopover = ({
           duration: 2500,
           isClosable: true,
         });
-
       } catch (err) {
         error = err;
         toast({
@@ -123,7 +124,6 @@ const ParagraphPopover = ({
     fetchData();
 
     setRequests((requests) => [...requests, question]);
-
   };
 
   const questionForm = ({ onClose }) => (
@@ -139,15 +139,11 @@ const ParagraphPopover = ({
         onChange={(el) => setQuestion(el.target.value)}
         placeholder={LABELS.ARTICLE.POPOVER.PLACEHOLDER}
       />
-      <Button
-        marginY={3}
-        size="sm"
-        variant="primary"
-        type="submit"
-        onClick={onClose}
-      >
-        {LABELS.ARTICLE.POPOVER.BUTON_CONTENT}
-      </Button>
+      <Box paddingY={3}>
+        <Button size="sm" variant="primary" type="submit" onClick={onClose}>
+          {LABELS.ARTICLE.POPOVER.BUTON_CONTENT}
+        </Button>
+      </Box>
     </form>
   );
 

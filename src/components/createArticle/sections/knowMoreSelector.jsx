@@ -41,7 +41,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     try {
       await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
         method: 'POST',
-        mode: 'cors',
+        mode: 'no-cors',
         body: data,
       });
       setKnowMore([...knowMore, newUploadedFile]);

@@ -53,6 +53,7 @@ const TopMenu = () => {
       justifyContent="space-between"
       alignItems="center"
       paddingX={6}
+      zIndex="100"
     >
       <Button ref={btnRef1} variant="primary" onClick={onOpenLeft}>
         {LABELS.TOP_MENU.MENU.LEFT_DRAWER.BUTTON_TEXT}

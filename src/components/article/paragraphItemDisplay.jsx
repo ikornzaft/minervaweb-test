@@ -7,6 +7,8 @@ import {
   VStack,
   Box,
   IconButton,
+  LinkOverlay,
+  LinkBox
 } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 import { ParagraphReducer } from '../common/paragraphReducer';
@@ -20,8 +22,8 @@ import { FiSpeaker } from 'react-icons/fi';
 
 const ParagraphItemDisplay = ({ item }) => {
   const [audioIsPlaying, setAudioIsPlaying] = useState(false);
-  console.log(item);
   if (item.content.link.type === 'image') {
+    const imageLink = `http://www.afatecha.com/id/files/image/${item.content.link.location}`;
     return (
       <VStack w="100%" p={6}>
         <Image
@@ -30,7 +32,7 @@ const ParagraphItemDisplay = ({ item }) => {
           borderStyle="solid"
           borderRadius="lg"
           borderWidth="1px"
-          src={item.content.link.location}
+          src={imageLink}
         />
         <HStack justifyContent="center" w="400px">
           {item.descriptor.title ? (
@@ -43,33 +45,22 @@ const ParagraphItemDisplay = ({ item }) => {
     );
   }
 
-  if (item.content.link.type === 'video') {
-    return (
-      <VStack p={2} borderRadius="lg" borderWidth="1px">
-        <ReactPlayer url={item.content.link.location} />
-        <Heading
-          as="h3"
-          size="xs"
-          marginLeft={0}
-          lineHeight="0.7rem"
-          fontFamily="Open Sans"
-        >
-          {item.descriptor.title}
-        </Heading>
-        {item.descriptor.subtitle ? (
-          <Text as="h5" fontSize="xs" fontFamily="Open Sans" fontWeight="400">
-            {ParagraphReducer(item.descriptor.subtitle)}
-          </Text>
-        ) : null}
-      </VStack>
-    );
+  if (item.content.link.type === 'link') {
+    const linkUrl = item.content.link.location;
+    const splittedLink = linkUrl.split('.');
+    if (splittedLink[1] === 'youtube') {
+      return (
+        <VStack p={2} borderRadius="lg" borderWidth="1px">
+          <ReactPlayer url={item.content.link.location} />
+        </VStack>
+      );
+    } 
   }
 
   if (item.content.link.type === 'audio') {
-    const src = `http://www.afatecha.com/id/files/audio/${item.content.location}`;
+    const audioLink = `http://www.afatecha.com/id/files/audio/${item.content.link.location}`;
 
     const handleAudioButton = (el) => {
-      console.log(item.content.link.location);
       setAudioIsPlaying(!audioIsPlaying);
     };
     return (
@@ -95,6 +86,7 @@ const ParagraphItemDisplay = ({ item }) => {
                   w="80px"
                   h="80px"
                   p={2}
+                  zIndex="1"
                   color="gray.600"
                 />
               ) : (
@@ -104,6 +96,7 @@ const ParagraphItemDisplay = ({ item }) => {
                   w="80px"
                   h="80px"
                   p={2}
+                  zIndex="1"
                   color="gray.600"
                 />
               )
@@ -124,7 +117,7 @@ const ParagraphItemDisplay = ({ item }) => {
               {ParagraphReducer(item.descriptor.subtitle)}
             </Text>
           </VStack>
-          <ReactPlayer url={src} playing={audioIsPlaying} width="1px" />
+          <ReactPlayer url={audioLink} playing={audioIsPlaying} width="1px" />
         </HStack>
       </VStack>
     );
@@ -142,9 +135,11 @@ const ParagraphItemDisplay = ({ item }) => {
   }
   return (
     <VStack w="100%" p={6}>
+    <LinkBox w="90%">
+    <LinkOverlay href={item.content.link.location} isExternal="true" />
       <HStack
         justifyContent="flex-start"
-        w="90%"
+        
         h="100px"
         borderRadius="lg"
         borderWidth="1px"
@@ -172,6 +167,7 @@ const ParagraphItemDisplay = ({ item }) => {
           </Text>
         </VStack>
       </HStack>
+      </LinkBox>
     </VStack>
   );
 };

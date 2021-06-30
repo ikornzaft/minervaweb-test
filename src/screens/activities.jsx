@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Stack, Heading, Spinner } from '@chakra-ui/react';
+import { Container, Stack, Heading, Spinner, Box } from '@chakra-ui/react';
 import { LABELS } from '../locals/sp/labels';
 import { useFetchContent } from '../hooks/useFetchContent';
 import { ActivitiesList } from '../components/activities/activitiesList';
@@ -15,6 +15,7 @@ const Activities = () => {
     contentTypes: null,
     state: null,
   });
+  const [activities, setActivities] = useState([]);
   const [areaTitle, setAreaTitle] = useState({ title: '', color: '' });
   useEffect(() => {
     if (param.id) {
@@ -50,7 +51,7 @@ const Activities = () => {
     body: JSON.stringify({
       id: 'msgid-1',
       target: 'soa@service/minerva',
-      method: 'mods/articles/handlers/FindArticles',
+      method: 'mods/commons/handlers/FindActivities',
       requester: 'root:YWNhY2lhITIwMTc=',
       principal: 'afatecha:YWZhdGVjaGExMjM=',
       message: {
@@ -64,6 +65,7 @@ const Activities = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
+        setActivities(resJson.message.resources);
       } catch (err) {
         setError(err);
       } finally {
@@ -74,17 +76,15 @@ const Activities = () => {
   }, []); 
 
 
-  //const [content, isLoading, errors] = useFetchContent(filters);
-  // ESTO DESPUÉS SE VA
-  const content = filters.workarea
-    ? ArticlesDb.filter((e) => e.workArea === filters.workarea)
-    : ArticlesDb;
-  // HASTA ACÁ
-
   const renderList = () => {
     if (!error) {
-      return <ActivitiesList contents={content} />;
+      if (activities.length > 0) {
+        console.log(activities)
+        return (<ActivitiesList contents={activities} />)
+    } else {
+      return (<Box paddingY={12}><Heading color="gray.400" fontWeight="400">No tienes actividades asignadas en este momento</Heading></Box>)
     }
+  }
     <p>error</p>;
   };
 

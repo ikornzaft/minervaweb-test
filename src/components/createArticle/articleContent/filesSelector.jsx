@@ -15,6 +15,9 @@ import { CreateFileName } from '../../common/createFileName';
 import { FiUpload } from 'react-icons/fi';
 import { DisplayUploadedFiles } from './displayUploadedFiles';
 
+
+// en el objeto que paso debería tener disponible un método MODCORS
+
 const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileDescription, setSelectedFileDescription] = useState(null);

@@ -76,7 +76,7 @@ const Article = ({requests, setRequests}) => {
       paddingBottom={6}
       ref={containerRef}
     >
-    {isLoading ? <Loader /> : article.map(art => (<ArticleContent article={art} requests={requests} setRequests={setRequests} />)) }
+    {isLoading ? <Loader /> : article.map((art, index) => (<ArticleContent key={index} article={art} requests={requests} setRequests={setRequests} />)) }
 
     </Stack>
   );
