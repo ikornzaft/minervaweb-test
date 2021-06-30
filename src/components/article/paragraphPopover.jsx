@@ -30,15 +30,12 @@ const ParagraphPopover = ({
   const initialFocusRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [serverResponse, setServerResponse] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(area);
 
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
-    const questionId = uuidv4();
+    const questionId = "Q" + uuidv4();
     const newEntry = {
       id: 'msgid-1',
       target: 'soa@service/minerva',
@@ -50,7 +47,7 @@ const ParagraphPopover = ({
           resource: {
             articleHeader: {
               descriptor: {
-                subtitle: paragraphId, // CAMBIARLO A STRING
+                subtitle: paragraphId.toString(),
                 title: articleTitle,
               },
             },
@@ -64,7 +61,7 @@ const ParagraphPopover = ({
                   link: {
                     type: 'article',
                     locationType: 'relative',
-                    location: `http://www.afatecha.com/article/${articleId}`, //PASAR A RELATIVO
+                    location: {articleId}, 
                   },
                 },
               },
@@ -93,13 +90,11 @@ const ParagraphPopover = ({
 
       try {
         setLoading(true);
-        console.log(newEntry);
         const response = await fetch(url, jsonMessage);
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
         const resJson = await response.json();
         console.log(resJson);
-        setServerResponse(resJson);
         toast({
           title: 'Consulta enviada.',
           description: 'Se creó un nuevo consulta.',
@@ -116,9 +111,9 @@ const ParagraphPopover = ({
           duration: 2500,
           isClosable: true,
         });
-        console.log(err);
       } finally {
         setLoading(false);
+        setQuestion('');
       }
     };
     fetchData();
