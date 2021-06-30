@@ -16,16 +16,15 @@ const Loader = () => (
   </Box>
 );
 
-const Article = () => {
-  const [article, setArticle] = useState(null);
+const Article = ({requests, setRequests}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const containerRef = useRef();
   const param = useParams();
-  console.log(param.id);
+  const [article, setArticle] = useState([]);
+  const [content, setContent] = useState(false);
 
   useEffect(() => {
-    console.log(param.id);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const jsonMessage = {
@@ -52,13 +51,13 @@ const Article = () => {
         const res = await fetch(url, jsonMessage);
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
-        const resJson = await res.json();
-        console.log(resJson);
-        setArticle(resJson.message.resources);
+        const resJson = await res.json()
+        setArticle([resJson.message.entity]);
+        
       } catch (err) {
         setError(err);
       } finally {
-        //setIsLoading(false);
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -67,7 +66,6 @@ const Article = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log('aaaah');
     containerRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [pathname]);
 
@@ -77,7 +75,10 @@ const Article = () => {
       alignItems="center"
       paddingBottom={6}
       ref={containerRef}
-    ></Stack>
+    >
+    {isLoading ? <Loader /> : article.map(art => (<ArticleContent article={art} requests={requests} setRequests={setRequests} />)) }
+
+    </Stack>
   );
 };
 

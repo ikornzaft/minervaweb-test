@@ -17,25 +17,27 @@ import { SectionsList } from '../article/sectionsList';
 import { ParagraphItemDisplay } from './paragraphItemDisplay';
 import { LABELS } from '../../locals/sp/labels';
 
-const ArticleContent = ({ article, requests, setRequests }) => {
+const ArticleContent = ({ article, requests, setRequests}) => {
   let cover;
   let footer;
   console.log(article)
-  /*if (article.resource.articleHeader.image) {
+  if (article.resource.articleHeader.image) {
     cover = article.resource.articleHeader.image.location;
     footer = article.resource.articleHeader.image.descriptor.title;
   } else {
     cover = fallBackImg;
     footer = null;
-  }*/
+  }
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const articleDate = new Date(
     article.logs.inserted.timestamp
   ).toLocaleDateString('es-Es', options);
-  const badge = useCreateAreaBadge(article.resource.workarea);
+  const badge = useCreateAreaBadge("mate");
   console.log(badge);
   return (
     <>
+    {article ? 
+      <>
       <Stack
         maxWidth="45rem"
         paddingTop={12}
@@ -82,7 +84,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
         {article.resource.paragraphs.map((el, id) => (
           <Stack width="50rem" paddingLeft={6} direction="row" role="group">
             <Container maxWidth="90ch">
-              {el.descriptor.description ? (
+              {!el.content ? (
                 <Text fontFamily="Open Sans" fontSize="sm" marginBottom={4}>
                   {el.descriptor.description}
                 </Text>
@@ -108,7 +110,9 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                 requests={requests}
                 paragraphId={id}
                 articleId={article.header.publicId}
-                area={article.workArea}
+                area={article.resource.workarea.publicId}
+                articleTitle={article.resource.articleHeader.descriptor.title}
+                articleSubtitle={article.resource.articleHeader.descriptor.subtitle}
                 setRequests={setRequests}
                 header={LABELS.ARTICLE.POPOVER.TITLE}
               />
@@ -117,6 +121,8 @@ const ArticleContent = ({ article, requests, setRequests }) => {
         ))}
       </Stack>
       <SectionsList sections={article.resource.sections} />
+      
+    </> : null}
     </>
   );
 };

@@ -1,6 +1,6 @@
-import { LABELS } from '../locals/sp/labels';
+import { LABELS } from '../../locals/sp/labels';
 
-const useCreateAreaBadge = (area) => {
+const CreateAreaBadge = (area) => {
   let badge = {};
     if (area === 'mate')
       badge = {
@@ -26,4 +26,4 @@ const useCreateAreaBadge = (area) => {
   return badge;
 };
 
-export { useCreateAreaBadge };
+export { CreateAreaBadge };

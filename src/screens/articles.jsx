@@ -5,6 +5,7 @@ import { ArticlesList } from '../components/articles/articlesList';
 import { LABELS } from '../locals/sp/labels';
 
 const Articles = () => {
+  const [workarea, setWorkarea] = useState(null);
   const [areaTitle, setAreaTitle] = useState({});
   const param = useParams();
 
@@ -75,6 +76,7 @@ const Articles = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
+        console.log(resJson);
         setArticles(resJson.message.resources);
       } catch (err) {
         setError(err);

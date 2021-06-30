@@ -21,7 +21,7 @@ import { FiSpeaker } from 'react-icons/fi';
 const ParagraphItemDisplay = ({ item }) => {
   const [audioIsPlaying, setAudioIsPlaying] = useState(false);
   console.log(item);
-  if (item.content.type === 'image') {
+  if (item.content.link.type === 'image') {
     return (
       <VStack w="100%" p={6}>
         <Image
@@ -30,7 +30,7 @@ const ParagraphItemDisplay = ({ item }) => {
           borderStyle="solid"
           borderRadius="lg"
           borderWidth="1px"
-          src={item.content.location}
+          src={item.content.link.location}
         />
         <HStack justifyContent="center" w="400px">
           {item.descriptor.title ? (
@@ -43,10 +43,10 @@ const ParagraphItemDisplay = ({ item }) => {
     );
   }
 
-  if (item.content.link.toLowerCase().split('.')[1] === 'youtube') {
+  if (item.content.link.type === 'video') {
     return (
       <VStack p={2} borderRadius="lg" borderWidth="1px">
-        <ReactPlayer url={item.content.link} />
+        <ReactPlayer url={item.content.link.location} />
         <Heading
           as="h3"
           size="xs"
@@ -56,18 +56,20 @@ const ParagraphItemDisplay = ({ item }) => {
         >
           {item.descriptor.title}
         </Heading>
-        {item.descriptor.subtitle ? <Text as="h5" fontSize="xs" fontFamily="Open Sans" fontWeight="400">
-          {ParagraphReducer(item.descriptor.subtitle)}
-        </Text> : null}
+        {item.descriptor.subtitle ? (
+          <Text as="h5" fontSize="xs" fontFamily="Open Sans" fontWeight="400">
+            {ParagraphReducer(item.descriptor.subtitle)}
+          </Text>
+        ) : null}
       </VStack>
     );
   }
 
-  if (item.content.type === 'audio') {
+  if (item.content.link.type === 'audio') {
     const src = `http://www.afatecha.com/id/files/audio/${item.content.location}`;
 
     const handleAudioButton = (el) => {
-      console.log(item.content.location)
+      console.log(item.content.link.location);
       setAudioIsPlaying(!audioIsPlaying);
     };
     return (
@@ -129,13 +131,13 @@ const ParagraphItemDisplay = ({ item }) => {
   }
 
   let icon;
-  if (item.content.type === 'document') {
+  if (item.content.link.type === 'document') {
     icon = VscFile;
-  } else if (item.content.type === 'audio') {
+  } else if (item.content.link.type === 'audio') {
     icon = FiSpeaker;
-  } else if (item.content.type === 'video') {
+  } else if (item.content.link.type === 'video') {
     icon = RiVideoLine;
-  } else if (item.content.type === 'link') {
+  } else if (item.content.link.type === 'link') {
     icon = VscLinkExternal;
   }
   return (
