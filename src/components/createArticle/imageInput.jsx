@@ -158,6 +158,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           accept="image/*"
           ref={imgInputRef}
           onChange={(event) => {
+            setSelectedImageDescription("");
             const file = event.target.files[0];
             if (file && file.type.substring(0, 5) === 'image') {
               const reader = new FileReader();
@@ -176,6 +177,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
         backgroundColor="white"
         id="articleImgFooter"
         w="12rem"
+        value={selectedImageDescription}
         placeholder="Descripción de la imágen"
         onChange={onDescriptionChange}
         />
