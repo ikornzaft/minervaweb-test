@@ -1,12 +1,11 @@
-import React, { useState, useRef } from 'react';
-import { Formik, Form, Field, FieldArray } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
 import {
   Modal,
   ModalContent,
   ModalOverlay,
   ModalHeader,
   ModalBody,
-  ModalCloseButton,
   ModalFooter,
   FormLabel,
   FormControl,
@@ -18,15 +17,11 @@ import {
   TabPanels,
   TabPanel,
   Flex,
-  Stack,
-  Tooltip,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
-import { ImageMultipleInput } from './imageMultipleInput';
 import { FilesSelector } from './filesSelector';
 import { ArticleContentLinkSelector } from './articleContentLinkSelector';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { GrTextAlignCenter } from 'react-icons/gr';
+import { LABELS } from '../../../locals/sp/labels';
 
 const ArticleContentInputModal = ({
   isOpen,
@@ -35,16 +30,12 @@ const ArticleContentInputModal = ({
   setParagraphList,
 }) => {
   const [articleContent, setArticleContent] = useState([]);
-
   const [articleContentLinks, setArticleContentLinks] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const articleContentValidationSchema = Yup.object({});
 
-  const [thumbnails, setThumbnails] = useState([]);
-
   const handleSubmit = (values) => {
-    //const paragraphsArray = values.textContent.split(/\r|\n/);
     let paragraphsToSubmit = [];
 
     if (values.textContent) {
@@ -57,15 +48,7 @@ const ArticleContentInputModal = ({
         };
         return obj;
       });
-    } else {
-      paragraphsToSubmit = [];
     }
-
-    /*     setParagraphList((paragraphList) => [
-      ...paragraphList,
-      ...paragraphsToSubmit,
-      ...uploadedFiles
-    ]); */
 
     uploadedFiles.length > 0
       ? setParagraphList((paragraphList) => [
@@ -77,19 +60,16 @@ const ArticleContentInputModal = ({
           ...paragraphsToSubmit,
         ]);
 
-    if (articleContentLinks.length > 0) setParagraphList((paragraphList) => [
+    if (articleContentLinks.length > 0)
+      setParagraphList((paragraphList) => [
         ...paragraphList,
         ...articleContentLinks,
-      ])
-    
+      ]);
 
-    setThumbnails([]);
     setUploadedFiles([]);
     setArticleContentLinks([]);
     onClose();
   };
-
-  const fileInputRef = useRef();
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -116,13 +96,13 @@ const ArticleContentInputModal = ({
                   <Tabs>
                     <TabList>
                       <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
-                        Texto
+                        {LABELS.CREATE_ARTICLE.PARAGRAPHS.TABS.TITLE_1}
                       </Tab>
                       <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
-                        Archivos
+                        {LABELS.CREATE_ARTICLE.PARAGRAPHS.TABS.TITLE_2}
                       </Tab>
                       <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
-                        Links
+                        {LABELS.CREATE_ARTICLE.PARAGRAPHS.TABS.TITLE_3}
                       </Tab>
                     </TabList>
 
@@ -137,14 +117,17 @@ const ArticleContentInputModal = ({
                                 htmlFor="textContent"
                                 fontFamily="Open Sans"
                               >
-                                Texto del artículo
+                                {LABELS.CREATE_ARTICLE.PARAGRAPHS.TAB_1.LABEL}
                               </FormLabel>
                               <Textarea
                                 fontSize="sm"
                                 height={32}
                                 {...field}
                                 id="textContent"
-                                placeholder="Ingresar el texto del artículo"
+                                placeholder={
+                                  LABELS.CREATE_ARTICLE.PARAGRAPHS.TAB_1
+                                    .PLACEHOLDER
+                                }
                               />
                             </FormControl>
                           )}
@@ -174,7 +157,7 @@ const ArticleContentInputModal = ({
                       colorScheme="blue"
                       type="submit"
                     >
-                      Confirmar contenido
+                      {LABELS.CREATE_ARTICLE.PARAGRAPHS.SUBMIT_BUTTON}
                     </Button>
                   </Flex>
                 </Form>

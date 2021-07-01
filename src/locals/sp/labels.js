@@ -20,6 +20,7 @@ const LABELS = {
       },
     },
   },
+
   TOP_MENU: {
     MENU: {
       LEFT_DRAWER: {
@@ -56,6 +57,7 @@ const LABELS = {
       },
     },
   },
+
   ACTIVITIES: {
     TITLE: {
       AREA_1: 'Matemáticas',
@@ -74,116 +76,68 @@ const LABELS = {
       },
     },
   },
+
   ARTICLE: {
     POPOVER: {
       TITLE: '¿Tienes alguna duda sobre este contenido?',
       PLACEHOLDER: 'Ingresa tu consulta',
       BUTON_CONTENT: 'Enviar consulta',
       TOASTER: {
-        TOASTER_TITLE: 'Se envió tu consulta'
-      }
+        TOASTER_TITLE: 'Se envió tu consulta',
+      },
     },
     SECCION: {
       HEADING: 'Otros artículos',
     },
   },
-  FEED: {
-    TITLE: 'Bienvenido al feed',
-  },
-  FORM: {
-    TITLE: 'Esto es un form',
-    FIRST_FIELD: {
-      TEXT: 'Nombre',
-      PLACEHOLDER: 'Tu nombre',
-    },
-    SECOND_FIELD: {
-      TEXT: 'Apellido',
-      PLACEHOLDER: 'Tu apellido',
-    },
-    BUTTON_TEXT: 'Enviar',
-  },
-  MIXED_ELEMENTS: {
-    TITLE: 'Acá hay links y botones',
-    SECTION_1: {
-      TITLE: '¿A dónde querés ir?',
-      BUTTON_1: 'Feed',
-      BUTTON_2: 'Form',
-    },
-    MODAL_1: {
-      BUTTON_TEXT: 'Más información',
-      TITLE: 'Acá hay más información',
-      CONTENT:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam rerum iure a aut obcaecati doloribus natus explicabo possimus magni, ipsa cum iste officia esse eum quia eaque reiciendis veniam? Dignissimos.',
-      SECOND_BUTON_TEXT: 'Seguir',
-    },
-    MODAL_2: {
-      BUTTON_TEXT: '¿Querés un perro?',
-      TITLE: 'Un perro',
-    },
-    SECTION_2: {
-      TITLE: 'Más cosas...',
-      MODAL_3: {
-        BUTTON_TEXT: 'Otro form',
-        FIRST_FIELD_LABEL: '¿Nos dejarías tu opinión?',
-        FIRST_FIELD_PLACEHOLDER: 'Comentario...',
-        SUBMIT_BUTTON_TEXT: 'Enviar opinión',
+
+  CREATE_ARTICLE: {
+    FORM: {
+      AREA_SELECTOR: {
+        LABEL: 'Elige la materia',
       },
-      MODAL_4: {
-        BUTTON_TEXT: 'Spinner',
-        TITLE: 'Cargando por siempre...',
+      TITLE: {
+        LABEL: 'Título',
+      },
+      SUBTITLE: {
+        LABEL: 'Subtítulo',
+        PLACEHOLDER: 'Descripción del artículo',
+      },
+      SECTIONS: {
+        LABEL: 'Agregar a secciones',
+        BUTTON_1: 'Para saber más',
+        BUTTON_2: 'Para hacer',
+      },
+      PARAGRAPHS: {
+        BUTTON: 'Agregar contenido',
+      },
+      TOASTS: {
+        SUCCESS: {
+          TITLE: 'Artículo guardadao',
+          DESCRIPTION: 'Se creó un nuevo artículo',
+        },
+        ERROR: {
+          TITLE: 'Se produjo un error al crear el artículo',
+        },
+      },
+      SUBMIT_BUTTON: 'Crear artículo',
+      ERRORS: {
+        TITLE_ERROR: 'Es necesario incluir un título',
+        SUBTITLE_ERROR: 'Es necesario incluir un subtítulo',
+        WORKAREA_ERROR: 'Es necesaria una materia',
       },
     },
-  },
-  DE_TODO: {
-    TITLE: 'De todo un poco',
-    MENU: {
-      BUTTON_TEXT: 'Un menú',
-      ITEM_1: 'Download',
-      ITEM_2: 'Create a Copy',
-      ITEM_3: 'Mark as Draft',
-      ITEM_4: 'Delete',
-      ITEM_5: 'Attend a Workshop',
-    },
-    POPOVER_1: {
-      BUTTON_TEXT: 'Popover',
-      HEADER: 'Pop Over!',
-      BODY: 'Esto es un popover!',
-    },
-    POPOVER_2: {
-      BUTTON_TEXT: 'Otro popover',
-      HEADER: 'Este es otro popover',
-      BODY: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
-      FOOTER: {
-        CONTENT: 'Paso 2 de 4',
-        BUTTON_1_TEXT: 'Configurar Email',
-        BUTTON_2_TEXT: 'Sig.',
+    PARAGRAPHS: {
+      TABS: {
+        TITLE_1: 'Texto',
+        TITLE_2: 'Archivos',
+        TITLE_3: 'Links',
       },
-    },
-    ACCORDION: {
-      SECTION_1: {
-        TITLE: 'Esta es la sección 1 de un acordeón',
-        CONTENT:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-      SECTION_2: {
-        TITLE: 'Y esta es la sección 2',
-        CONTENT:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      },
-    },
-    TABS: {
       TAB_1: {
-        TITLE: 'Uno',
-        CONTENT: 'one!',
+        LABEL: 'Texto del artículo',
+        PLACEHOLDER: 'Ingresa el texto del artículo',
       },
-      TAB_2: {
-        TITLE: 'Dos',
-        CONTENT: 'two!',
-      },
-      TAB_3: {
-        TITLE: 'Tres',
-        CONTENT: 'three!',
-      },
+      SUBMIT_BUTTON: 'Confirmar contenido',
     },
   },
 };

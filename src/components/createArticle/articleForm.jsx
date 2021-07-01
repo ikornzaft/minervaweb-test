@@ -22,6 +22,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
+import { LABELS } from '../../locals/sp/labels';
 import { AREAS } from '../../locals/sp/areas';
 
 import { ArticleContentInputModal } from './articleContent/articleContentInputModal';
@@ -73,15 +74,17 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
   ];
 
-  const date = new Date()
-  const formatedDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().slice(0,10);
-  const randomId = formatedDate + "-" + uuidv4();
-  console.log(randomId);
+  const date = new Date();
+  const formatedDate = new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 10);
+  const randomId = formatedDate + '-' + uuidv4();
 
   useEffect(() => {
     const principal = localStorage.getItem('credentials');
     if (data.title) {
-
       const newEntry = {
         id: 'msgid-1',
         target: 'soa@service/minerva',
@@ -100,7 +103,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                 ...coverImage,
               },
               sections: sectionsList,
-              workarea: {publicId: data.workArea},
+              workarea: { publicId: data.workArea },
             },
             header: {
               publicId: randomId,
@@ -108,8 +111,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           },
         },
       };
-
-      console.log(newEntry)
 
       const fetchData = async () => {
         const url =
@@ -130,10 +131,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           if (response.status >= 400 && response.status < 600)
             setError('Bad response from server');
           const resJson = await response.json();
-          console.log(resJson);
           toast({
-            title: 'Artículo guardado.',
-            description: 'Se creó un nuevo artículo.',
+            title: LABELS.CREATE_ARTICLE.FORM.TOASTS.SUCCESS.TITLE,
+            description: LABELS.CREATE_ARTICLE.FORM.TOASTS.SUCCESS.DESCRIPTION,
             status: 'success',
             duration: 2500,
             isClosable: true,
@@ -163,26 +163,23 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         } catch (err) {
           error = err;
           toast({
-            title: 'Se produjo un error al crear el artículo',
+            title: LABELS.CREATE_ARTICLE.FORM.TOASTS.ERROR.TITLE,
             description: error,
             status: 'error',
             duration: 2500,
             isClosable: true,
           });
-          console.log(err);
-        } 
+        }
       };
       fetchData();
-
-      console.log(newEntry);
     } else {
     }
   }, [data]);
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Es necesario incluir un título'),
-    subtitle: Yup.string().required('Es necesario incluir un subtítulo'),
-    workArea: Yup.string().required('Es necesaria una materia'),
+    title: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.TITLE_ERROR),
+    subtitle: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.SUBTITLE_ERROR),
+    workArea: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.WORKAREA_ERROR),
   });
 
   const {
@@ -219,7 +216,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const handleSubmit = (values) => {
-    setData((data) => ({ ...data, ...values}));
+    setData((data) => ({ ...data, ...values }));
     return;
   };
 
@@ -252,7 +249,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                   >
                     <VStack as="section" paddingX={6} w="50%" paddingBottom={6}>
                       <AreaSelector
-                        label="Elegir la materia"
+                        label={LABELS.CREATE_ARTICLE.FORM.AREA_SELECTOR.LABEL}
                         name="workArea"
                         options={dropsDownOptions}
                         area={area}
@@ -267,7 +264,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                               htmlFor="title"
                               marginBottom="0"
                             >
-                              Título
+                              {LABELS.CREATE_ARTICLE.FORM.TITLE.LABEL}
                             </FormLabel>
                             <Input fontSize="sm" {...field} id="title" />
                             <ErrorMessage name="title">
@@ -294,13 +291,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                               htmlFor="subtitle"
                               marginBottom="0"
                             >
-                              Subtítulo
+                              {LABELS.CREATE_ARTICLE.FORM.SUBTITLE.LABEL}
                             </FormLabel>
                             <Textarea
                               fontSize="sm"
                               {...field}
                               id="subtitle"
-                              placeholder="Descripción del artículo"
+                              placeholder={LABELS.CREATE_ARTICLE.FORM.SUBTITLE.PLACEHOLDER}
                             />
                             <ErrorMessage name="subtitle">
                               {(msg) => (
@@ -335,7 +332,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             htmlFor="subtitle"
                             marginBottom="0"
                           >
-                            Agregar a Secciones
+                            {LABELS.CREATE_ARTICLE.FORM.SECTIONS.LABEL}
                           </Text>
                         </Stack>
                         <Flex
@@ -359,7 +356,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             fontFamily="Poppins"
                             fontWeight="400"
                           >
-                            Para saber más
+                            {LABELS.CREATE_ARTICLE.FORM.SECTIONS.BUTTON_1}
                           </Button>
                           <Button
                             colorScheme="blue"
@@ -372,9 +369,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             fontFamily="Poppins"
                             fontWeight="400"
                             disabled="true"
-
                           >
-                            Para hacer
+                            {LABELS.CREATE_ARTICLE.FORM.SECTIONS.BUTTON_2}
                           </Button>
                         </Flex>
                       </VStack>
@@ -401,7 +397,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                           fontFamily="Poppins"
                           fontWeight="400"
                         >
-                          Agregar contenido
+                          {LABELS.CREATE_ARTICLE.FORM.PARAGRAPHS.BUTTON}
                         </Button>
                       </HStack>
                       <ArticleContentList
@@ -417,7 +413,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                     colorScheme="blue"
                     type="submit"
                   >
-                    Crear artículo
+                    {LABELS.CREATE_ARTICLE.FORM.SUBMIT_BUTTON}
                   </Button>
                 </Form>
               )}
