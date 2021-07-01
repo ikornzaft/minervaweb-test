@@ -20,7 +20,6 @@ import {
   Stack,
   HStack,
   Flex,
-  Box,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
 import { AREAS } from '../../locals/sp/areas';
@@ -29,7 +28,6 @@ import { ArticleContentInputModal } from './articleContent/articleContentInputMo
 import { ArticleContentList } from './articleContent/articleContentList';
 import { SectionsInputModal } from './sections/sectionsInputModal';
 import { KnowMoreInputModal } from './sections/knowMoreInputModal';
-import { ArticlesDb } from '../../resources/articlesDb';
 import { ImageInput } from './imageInput';
 import { AreaSelector } from './areaSelector';
 
@@ -45,8 +43,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   });
 
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [serverResponse, setServerResponse] = useState(null);
   const [paragraphList, setParagraphList] = useState([]);
 
   // Creamos el estado sectionList
@@ -77,43 +73,14 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
   ];
 
-  const randomId = uuidv4();
-  const date = new Date();
+  const date = new Date()
+  const formatedDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().slice(0,10);
+  const randomId = formatedDate + "-" + uuidv4();
+  console.log(randomId);
 
   useEffect(() => {
     const principal = localStorage.getItem('credentials');
     if (data.title) {
-      /*       const createdSections = [];
-      
-            if (sectionsList.relatedArticles.length > 0) {
-              sectionsList.relatedArticles.forEach((el) => {
-                const articleToPush = {
-                  descriptor: {
-                    type: 'article',
-                    articleId: el,
-                    link: '',
-                  },
-                };
-                createdSections.push(articleToPush);
-              });
-            }
-       */
-
-      /*       if (sectionsList.knowMore.length > 0) {
-              sectionsList.knowMore.forEach((el) => {
-                const articleToPush = {
-                  descriptor: {
-                    type: 'file',
-                    articleId: '',
-                    link: '',
-                    file: el.id,
-                    name: el.name,
-                    description: el.description,
-                  },
-                };
-                createdSections.push(articleToPush);
-              });
-            } */
 
       const newEntry = {
         id: 'msgid-1',
@@ -144,47 +111,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
       console.log(newEntry)
 
-      const newEntryLocal = {
-        _id: 'm:article/test/1',
-        _rev: '3-bd716f0ffaf2f0b75861bc6113534c74',
-        resource: {
-          workarea: {
-            publicId: data.workArea
-          },
-          paragraphs: paragraphList,
-          articleHeader: {
-            descriptor: {
-              subtitle: data.subtitle,
-              title: data.title,
-            },
-            ...coverImage,
-          },
-          sections: sectionsList,
-        },
-        subscribers: ['test/1'],
-        keys: [],
-        header: {
-          schema: 'm:article',
-          privateId: 'test/1',
-          scope: 'PUBLIC',
-          publicId: randomId,
-        },
-        logs: {
-          inserted: {
-            principal: 'root',
-            millis: 1621891372496,
-            timestamp: '2021-05-24 17:22:52',
-          },
-          modified: {
-            principal: 'root',
-            millis: 1621891372496,
-            timestamp: date,
-          },
-        },
-      };
-
-      ArticlesDb.push(newEntryLocal);
-
       const fetchData = async () => {
         const url =
           'http://afatecha.com:8080/minerva-server-web/minerva/perform';
@@ -200,13 +126,11 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         const toast = createStandaloneToast();
 
         try {
-          setLoading(true);
           const response = await fetch(url, jsonMessage);
           if (response.status >= 400 && response.status < 600)
             setError('Bad response from server');
           const resJson = await response.json();
           console.log(resJson);
-          setServerResponse(resJson);
           toast({
             title: 'Artículo guardado.',
             description: 'Se creó un nuevo artículo.',
@@ -246,9 +170,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
             isClosable: true,
           });
           console.log(err);
-        } finally {
-          setLoading(false);
-        }
+        } 
       };
       fetchData();
 
@@ -256,80 +178,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     } else {
     }
   }, [data]);
-
-  /*   useEffect(() => {
-    if (data.title) {
-      console.log('llegó la data');
-      console.log(data);
-      createArticle();
-      const toast = createStandaloneToast();
-      toast({
-        title: 'Artículo guardado.',
-        description: 'Se creó un nuevo artículo.',
-        status: 'success',
-        duration: 2500,
-        isClosable: true,
-      });
-      onClose();
-    } else {
-      console.log('no hay data aun');
-    }
-  }, [data]); */
-
-  /*   const createArticle = () => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const randomId = uuidv4();
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/articles/handlers/InsertArticle',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'root:cm9vdA==',
-        message: {
-          entity: {
-            header: { publicId: randomId },
-            resource: {
-              articleHeader: {
-                descriptor: {
-                  title: data.title,
-                  subtitle: data.subtitle,
-                },
-              },
-              paragraphs: data.paragraphs,
-              sections: [],
-            },
-          },
-        },
-      }),
-    };
-    let serverResponse = {};
-    let loading = true;
-    let error = '';
-    
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url, jsonMessage);
-        if (response.status >= 400 && response.status < 600)
-        error = 'Bad response from server';
-        const resJson = await response.json();
-        serverResponse = resJson;
-      } catch (err) {
-        error = err;
-        console.log(err);
-      } finally {
-        loading = false;
-        console.log(serverResponse);
-      }
-    };
-    fetchData();
-    
-    return { serverResponse, error, loading };
-  }; */
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Es necesario incluir un título'),
@@ -371,14 +219,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const handleSubmit = (values) => {
-    //setData((data) => ({ ...data, ...values }));
-    const paragraphArray = [];
-    const paragraphObj = { paragraphs: paragraphArray };
-    paragraphList.forEach((el) => {
-      const desc = { descriptor: { description: el } };
-      paragraphArray.push(desc);
-    });
-    setData((data) => ({ ...data, ...values, ...paragraphObj }));
+    setData((data) => ({ ...data, ...values}));
     return;
   };
 
