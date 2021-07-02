@@ -82,6 +82,12 @@ const ButtonStyles = {
         bg: darken('primary', 10),
       },
     },
+    submit: {
+      fontFamily: "Poppins",
+      fontWeight: "400",
+      colorScheme: "blue",
+      type: "submit"
+    }
   },
 };
 

@@ -150,13 +150,7 @@ const ArticleContentInputModal = ({
                     </TabPanels>
                   </Tabs>
                   <Flex justifyContent="center" paddingX={4}>
-                    <Button
-                      mt={4}
-                      fontFamily="Poppins"
-                      fontWeight="400"
-                      colorScheme="blue"
-                      type="submit"
-                    >
+                    <Button mt={4} variant="submit">
                       {LABELS.CREATE_ARTICLE.PARAGRAPHS.SUBMIT_BUTTON}
                     </Button>
                   </Flex>

@@ -178,8 +178,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const validationSchema = Yup.object({
     title: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.TITLE_ERROR),
-    subtitle: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.SUBTITLE_ERROR),
-    workArea: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.WORKAREA_ERROR),
+    subtitle: Yup.string().required(
+      LABELS.CREATE_ARTICLE.FORM.ERRORS.SUBTITLE_ERROR
+    ),
+    workArea: Yup.string().required(
+      LABELS.CREATE_ARTICLE.FORM.ERRORS.WORKAREA_ERROR
+    ),
   });
 
   const {
@@ -297,7 +301,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                               fontSize="sm"
                               {...field}
                               id="subtitle"
-                              placeholder={LABELS.CREATE_ARTICLE.FORM.SUBTITLE.PLACEHOLDER}
+                              placeholder={
+                                LABELS.CREATE_ARTICLE.FORM.SUBTITLE.PLACEHOLDER
+                              }
                             />
                             <ErrorMessage name="subtitle">
                               {(msg) => (
@@ -406,13 +412,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       />
                     </VStack>
                   </Stack>
-                  <Button
-                    marginY={3}
-                    fontFamily="Poppins"
-                    fontWeight="400"
-                    colorScheme="blue"
-                    type="submit"
-                  >
+                  <Button marginY={3} variant="submit">
                     {LABELS.CREATE_ARTICLE.FORM.SUBMIT_BUTTON}
                   </Button>
                 </Form>
