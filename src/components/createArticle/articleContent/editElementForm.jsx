@@ -33,7 +33,7 @@ const EditElementForm = ({
   const [location, setLocation] = useState('');
   const [locationType, setlocationType] = useState('');
   const [type, setType] = useState('');
-  let typeOfResource;
+  const [typeOfResource, setTypeOfResource] = useState('');
 
   useEffect(() => {
     if (paragraphList[elementId].content) {
@@ -42,25 +42,18 @@ const EditElementForm = ({
       setLocation(paragraphList[elementId].content.link.location);
       setType(paragraphList[elementId].content.link.type);
       setlocationType('relative')
-      typeOfResource='file'
+      setTypeOfResource('file')
       if (paragraphList[elementId].content.link.type === 'link') {
-        typeOfResource='link'
+        setTypeOfResource('link')
         setlocationType('absolute')
+        setType('link')
       }
     } else {
-      typeOfResource='text'
+      setTypeOfResource('text')
       setTextParagraph(paragraphList[elementId].descriptor.description);
     }
-  }, []);
+  }, [paragraphList]);
 
-  const changeText = (newElement) => {
-    currentElement = {
-      descriptor: {
-        description: newElement,
-      },
-    };
-  };
-  const changeLink = (newElement) => {};
   const handleCancel = () => {
     currentElement = {};
     if (paragraphList[elementId].content) {
@@ -82,7 +75,7 @@ const EditElementForm = ({
         },
         content: {
           link: {
-            locationType: 'relative',
+            locationType: locationType,
             location: location,
             type: type,
           },
@@ -106,15 +99,19 @@ const EditElementForm = ({
   };
 
   const renderForm = () => {
-    if (paragraphList[elementId].content) {
-      if (paragraphList[elementId].content.link.type === 'link') {
+    if (typeOfResource === 'link') {
         return (
           <EditElementFormLink
-            currentElement={currentElement}
-            changeLink={changeLink}
+          title={description}
+          setTitle={setDescription}
+          subtitle={fileName}
+          setSubtitle={setFileName}
+          location={location}
+          setLocation={setLocation}
           />
         );
-      } else {
+      }
+    if (typeOfResource === 'file') {
         return (
           <EditElementFormFile
             description={description}
@@ -123,14 +120,12 @@ const EditElementForm = ({
             setFileName={setFileName}
             location={location}
             setLocation={setLocation}
-            locationType={locationType}
-            setlocationType={setlocationType}
             type={type}
             setType={setType}
           />
         );
       }
-    } else {
+    if (typeOfResource === 'text') {
       return (
         <EditElementFormText
           textParagraph={textParagraph}

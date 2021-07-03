@@ -50,9 +50,23 @@ const ParagraphItemDisplay = ({ item }) => {
     const splittedLink = linkUrl.split('.');
     if (splittedLink[1] === 'youtube') {
       return (
+        <>
         <VStack p={2} borderRadius="lg" borderWidth="1px">
           <ReactPlayer url={item.content.link.location} />
+          <HStack justifyContent="center" textAlign="center" w="400px">
+            {item.descriptor.title ? (
+              <Box>
+              <Text fontSize="xs" fontWeight="700" color="gray.600">
+               {item.descriptor.title}
+              </Text>
+              <Text fontSize="xs" color="gray.500">
+               {item.descriptor.subtitle}
+              </Text>
+              </Box>
+            ) : null}
+          </HStack>
         </VStack>
+        </>
       );
     } 
   }

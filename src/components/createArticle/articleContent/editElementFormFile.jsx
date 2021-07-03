@@ -22,8 +22,6 @@ const EditElementFormFile = ({
   setFileName,
   location,
   setLocation,
-  locationType, 
-  setLocationType,
   type,
   setType,
 }) => {
@@ -31,6 +29,7 @@ const EditElementFormFile = ({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const FileInputRef = useRef();
+
 
   const defineFileType = (type) => {
     if (type.substring(0, 5) === 'image') return 'image';
