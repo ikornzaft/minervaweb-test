@@ -18,10 +18,10 @@ const DisplayArticleContentLinks = ({
 }) => {
   const deleteItem = (e) => {
     //const elementToDelete = options[index].key;
-
+    
     const linkToDeleteId = e.currentTarget.id;
     const filteredLinks = articleContentLinks.filter(
-      (filteredLink) => filteredLink.content.location !== linkToDeleteId
+      (filteredLink) => filteredLink.content.link.location !== linkToDeleteId
     );
     setArticleContentLinks(filteredLinks);
   };
@@ -36,7 +36,7 @@ const DisplayArticleContentLinks = ({
       </VStack>
       <Tooltip label="Eliminar archivo" bg="white" color="gray.700">
         <Button
-          id={link.content.location}
+          id={link.content.link.location}
           margin="0"
           size="xs"
           onClick={deleteItem}

@@ -110,6 +110,7 @@ const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLink
               fontWeight="400"
               size="xs"
               variant="outline"
+              disabled={(addedLink && addedLink !== '') ? false : true}
               onClick={onLinkAdd}
             >
               {' '}
@@ -119,7 +120,7 @@ const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLink
         </FormControl>
       </VStack>
       {articleContentLinks.map((link, index) => {
-        if (link.content.location && link.content.location !== '')
+        if (link.content.link.location && link.content.link.location !== '')
           return (
             <DisplayArticleContentLinks
               link={link}

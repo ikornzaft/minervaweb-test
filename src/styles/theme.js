@@ -29,6 +29,12 @@ const components = {
           width: '400px',
           height: '400px'
         }
+      },
+      extraheight: {
+        popper: {
+          width: '400px',
+          height: '500px'
+        }
       }
     }
   }

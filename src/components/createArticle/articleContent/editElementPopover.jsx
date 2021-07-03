@@ -27,7 +27,7 @@ const EditElementPopover = ({
   return (
     <>
       <Popover
-        variant="wide"
+        variant="extraheight"
         isOpen={isOpen}
         initialFocusRef={firstFieldRef}
         onOpen={onOpen}

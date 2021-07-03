@@ -35,7 +35,7 @@ const ArticleContentInputModal = ({
   const [articleContent, setArticleContent] = useState({
     descriptor: {
       title: 
-    }
+    },
     textContent: [],
     images: [''],
   });

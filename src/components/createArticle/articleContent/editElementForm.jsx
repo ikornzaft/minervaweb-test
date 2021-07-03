@@ -20,9 +20,6 @@ const EditElementForm = ({
   setParagraphList,
   elementId,
   onCancel,
-  forceRender,
-  setForceRender,
-  isImage,
 }) => {
 
   let currentElement = {};
@@ -92,7 +89,6 @@ const EditElementForm = ({
     setParagraphList((prevState) => {
       const newState = [...prevState];
       newState[elementId] = currentElement;
-      console.log(newState);
       return newState;
     });
     onCancel();
