@@ -27,6 +27,7 @@ const EditElementPopover = ({
   return (
     <>
       <Popover
+        variant="wide"
         isOpen={isOpen}
         initialFocusRef={firstFieldRef}
         onOpen={onOpen}
@@ -37,9 +38,8 @@ const EditElementPopover = ({
         <PopoverTrigger>
           <IconButton size="xs" icon={<FaEdit />} />
         </PopoverTrigger>
-        <PopoverContent p={5}>
+        <PopoverContent width="100%" height="100%" paddingY={4} >
           <PopoverArrow />
-          <PopoverCloseButton />
 
             <EditElementForm
               paragraphList={paragraphList}

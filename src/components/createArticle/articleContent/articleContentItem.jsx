@@ -6,7 +6,6 @@ import { VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { FiSpeaker } from 'react-icons/fi';
 
 const ArticleContentItem = ({ descriptor, content }) => {
-  console.log(content)
   const displayText = () => {
     return (
       <Text textAlign="left">{ParagraphReducer(descriptor.description)}</Text>
@@ -24,9 +23,6 @@ const ArticleContentItem = ({ descriptor, content }) => {
     } else if (content.link.type === 'link') {
       icon = VscLinkExternal;
     }
-
-    console.log(descriptor, content);
-
     return (
       <>
         <Box>

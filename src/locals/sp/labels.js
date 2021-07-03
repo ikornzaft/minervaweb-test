@@ -139,6 +139,13 @@ const LABELS = {
       },
       SUBMIT_BUTTON: 'Confirmar contenido',
     },
+    EDIT_PARAGRAPHS: {
+      MODAL_TITLE: 'Contenido',
+      FILE_FORM: {
+        LOADING: 'Subiendo...',
+        UPLOAD_BUTTON: 'Subir archivo',
+      }
+    },
   },
 };
 

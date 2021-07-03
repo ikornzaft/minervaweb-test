@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {
+  VStack,
+  Text,
   Stack,
   ButtonGroup,
   Button,
   FormControl,
   FormLabel,
   Textarea,
-  Input
+  Input,
 } from '@chakra-ui/react';
+import { EditElementFormText } from './editElementFormText';
+import { EditElementFormFile } from './editElementFormFile';
+import { EditElementFormLink } from './editElementFormLink';
+import { LABELS } from '../../../locals/sp/labels';
 
 const EditElementForm = ({
   paragraphList,
@@ -18,63 +24,135 @@ const EditElementForm = ({
   setForceRender,
   isImage,
 }) => {
-  const [currentValue, setCurrentValue] = useState(paragraphList[elementId]);
-  useEffect(() => {
-    setCurrentValue(paragraphList[elementId]);
-  }, [paragraphList]);
-  const handleChange = (e) => {
-    setCurrentValue(e.target.value);
-  };
 
-  const handleSubmit = (e) => {
-    paragraphList[elementId] = currentValue;
-    setForceRender(!forceRender);
+  let currentElement = {};
+
+  const [textParagraph, setTextParagraph] = useState('');
+  const [description, setDescription] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [location, setLocation] = useState('');
+  const [locationType, setlocationType] = useState('');
+  const [type, setType] = useState('');
+  let typeOfResource;
+
+  useEffect(() => {
+    if (paragraphList[elementId].content) {
+      setDescription(paragraphList[elementId].descriptor.title);
+      setFileName(paragraphList[elementId].descriptor.subtitle);
+      setLocation(paragraphList[elementId].content.link.location);
+      setType(paragraphList[elementId].content.link.type);
+      setlocationType('relative')
+      typeOfResource='file'
+      if (paragraphList[elementId].content.link.type === 'link') {
+        typeOfResource='link'
+        setlocationType('absolute')
+      }
+    } else {
+      typeOfResource='text'
+      setTextParagraph(paragraphList[elementId].descriptor.description);
+    }
+  }, []);
+
+  const changeText = (newElement) => {
+    currentElement = {
+      descriptor: {
+        description: newElement,
+      },
+    };
+  };
+  const changeLink = (newElement) => {};
+  const handleCancel = () => {
+    currentElement = {};
+    if (paragraphList[elementId].content) {
+      setDescription(paragraphList[elementId].descriptor.title);
+      setFileName(paragraphList[elementId].descriptor.subtitle);
+      setLocation(paragraphList[elementId].content.link.location);
+      setType(paragraphList[elementId].content.link.type);
+    } else {
+      setTextParagraph(paragraphList[elementId].descriptor.description);
+    }
     onCancel();
   };
+  const handleSubmit = () => {
+    if (paragraphList[elementId].content) {
+      currentElement = {
+        descriptor: {
+          subtitle: fileName,
+          title: description,
+        },
+        content: {
+          link: {
+            locationType: 'relative',
+            location: location,
+            type: type,
+          },
+        },
+      };
+    } else {
+      currentElement = {
+        descriptor: {
+          description: textParagraph,
+        },
+      };
+    }
+
+    setParagraphList((prevState) => {
+      const newState = [...prevState];
+      newState[elementId] = currentElement;
+      console.log(newState);
+      return newState;
+    });
+    onCancel();
+  };
+
+  const renderForm = () => {
+    if (paragraphList[elementId].content) {
+      if (paragraphList[elementId].content.link.type === 'link') {
+        return (
+          <EditElementFormLink
+            currentElement={currentElement}
+            changeLink={changeLink}
+          />
+        );
+      } else {
+        return (
+          <EditElementFormFile
+            description={description}
+            setDescription={setDescription}
+            fileName={fileName}
+            setFileName={setFileName}
+            location={location}
+            setLocation={setLocation}
+            locationType={locationType}
+            setlocationType={setlocationType}
+            type={type}
+            setType={setType}
+          />
+        );
+      }
+    } else {
+      return (
+        <EditElementFormText
+          textParagraph={textParagraph}
+          setTextParagraph={setTextParagraph}
+        />
+      );
+    }
+  };
+
   return (
-    <Stack spacing={4}>
-      <form method="GET" onSubmit={handleSubmit}>
-        <FormControl>
-          <FormLabel htmlFor="elementInput">Contenido</FormLabel>
-          {isImage === 'true' ? (
-            <Input
-              id="elementInput"
-              name="elementInput"
-              type="file"
-              onChange={(event) => {
-                const file = event.target.files[0];
-                if (file && file.type.substring(0, 5) === 'image') {
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    const readerResult = reader.result;
-                    const result = {image: readerResult}
-                    setCurrentValue(result);
-                    
-                  };
-                  reader.readAsDataURL(file);
-                }
-              }}
-            />
-          ) : (
-            <Textarea
-              id="elementInput"
-              name="elementInput"
-              type="text"
-              value={currentValue}
-              onChange={handleChange}
-            />
-          )}
-        </FormControl>
-        <ButtonGroup d="flex" justifyContent="flex-end">
-          <Button variant="outline" onClick={onCancel}>
-            Cancelar
-          </Button>
-          <Button type="button" onClick={handleSubmit}>
-            Modificar
-          </Button>
-        </ButtonGroup>
-      </form>
-    </Stack>
+    <VStack justifyContent="space-between" w="100%" h="100%">
+      <Text>{LABELS.CREATE_ARTICLE.EDIT_PARAGRAPHS.MODAL_TITLE}</Text>
+      {renderForm()}
+      <ButtonGroup d="flex" justifyContent="flex-end">
+        <Button variant="outline" onClick={handleCancel}>
+          Cancelar
+        </Button>
+        <Button type="button" onClick={handleSubmit}>
+          Modificar
+        </Button>
+      </ButtonGroup>
+    </VStack>
   );
 };
 

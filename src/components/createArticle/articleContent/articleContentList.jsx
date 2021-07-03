@@ -9,7 +9,6 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
 
   const listItems = (el, index) => {
-    el.content ? console.log(el.content.type) : console.log(el)
     /* if (el.image && el.image !== '') {
       return (
         <HStack
@@ -45,12 +44,13 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
         </HStack>
       );
     } */
-    if (el === '' || el.image === '') return null;
+    //if (el === '' || el.image === '') return null;
     const descriptor = el.descriptor;
     let content;
-    el.content ? content = el.content : content = null; 
+    el.content ? (content = el.content) : (content = null);
     return (
       <HStack
+        key={index}
         width="30rem"
         maxWidth="30rem"
         minWidth="30rem"
@@ -76,8 +76,7 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
 
   return (
     <Box paddingTop={2}>
-       {paragraphList.map((el, index) => listItems(el, index))}
-
+      {paragraphList.map((el, index) => listItems(el, index))}
     </Box>
   );
 };

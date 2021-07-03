@@ -22,6 +22,16 @@ const fonts = {
 const components = {
   ...chakraTheme.components,
   Button,
+  Popover: {
+    variants: {
+      wide: {
+        popper: {
+          width: '400px',
+          height: '400px'
+        }
+      }
+    }
+  }
 }
 
 const overrides = {

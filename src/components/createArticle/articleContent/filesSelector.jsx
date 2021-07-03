@@ -147,7 +147,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               alignItems="center"
               justifyContent="center"
               wordBreak="break-all"
-              wordWrap="break-word"
+              wordwrap="break-word"
               textAlign="center"
               p={2}
               >

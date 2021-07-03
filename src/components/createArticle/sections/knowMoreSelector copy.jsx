@@ -135,7 +135,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
                 alignItems="center"
                 justifyContent="center"
                 wordBreak="break-all"
-                wordWrap="break-word"
+                wordwrap="break-word"
                 textAlign="center"
                 p={2}
               >

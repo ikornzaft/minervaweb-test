@@ -79,7 +79,6 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson);
         if (resJson.response === 0) {
           setValidUser(true);
           localStorage.setItem('credentials', credentials);
@@ -132,7 +131,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             />
             <Input
               isRequired
-              autofocus="true"
+              autoFocus={true}
               fontSize="sm"
               type="text"
               id="user"

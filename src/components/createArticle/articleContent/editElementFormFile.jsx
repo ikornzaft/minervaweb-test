@@ -12,16 +12,25 @@ import {
   createStandaloneToast,
 } from '@chakra-ui/react';
 import { CreateFileName } from '../../common/createFileName';
+import { LABELS } from '../../../locals/sp/labels';
 import { FiUpload } from 'react-icons/fi';
-import { DisplayUploadedFiles } from './displayUploadedFiles';
 
-const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFileDescription, setSelectedFileDescription] = useState(null);
+const EditElementFormFile = ({
+  description,
+  setDescription,
+  fileName,
+  setFileName,
+  location,
+  setLocation,
+  locationType, 
+  setLocationType,
+  type,
+  setType,
+}) => {
+  const [selectedFile, setSelectedFile] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const knowMoreInputRef = useRef();
+  const FileInputRef = useRef();
 
   const defineFileType = (type) => {
     if (type.substring(0, 5) === 'image') return 'image';
@@ -35,7 +44,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     return 'document';
   };
 
-  const uploadFile = async (route, data, newUploadedFile) => {
+  const uploadFile = async (route, data) => {
     setLoading(true);
     const toast = createStandaloneToast();
     try {
@@ -44,65 +53,40 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
         mode: 'no-cors',
         body: data,
       });
-      setKnowMore([...knowMore, newUploadedFile]);
-      setUploadedFiles([...uploadedFiles, newUploadedFile]);
       toast({
-        title: "El archivo se subió correctamente",
-        status: "success",
+        title: 'El archivo se subió correctamente',
+        status: 'success',
         duration: 2000,
         isClosable: true,
-      })
-      setSelectedFile(null);
-      setSelectedFileDescription(null);
+      });
     } catch (err) {
       setError(err);
       toast({
-        title: "Ocurrió un error al subir el archivo",
-        status: "error",
+        title: 'Ocurrió un error al subir el archivo',
+        status: 'error',
         duration: 2000,
         isClosable: true,
-      })
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const onFileChange = (e) => {
-    defineFileType(e.target.files[0].type);
+    setType(defineFileType(e.target.files[0].type));
+    setFileName(e.target.files[0].name)
     setSelectedFile(e.target.files[0]);
-  };
-
-  const onDescriptionChange = (e) => {
-    setSelectedFileDescription(e.target.value);
   };
 
   const onFileUpload = () => {
     const formData = new FormData();
-
-    const { fileName, fileRoute } = CreateFileName(
-      selectedFile.type,
-      selectedFile.name
-    );
-
-    formData.append('fn', fileName);
+    const newFileName = CreateFileName(type, selectedFile.name);
+    setLocation(newFileName.fileName);
+    setFileName(selectedFile.name);
+    formData.append('fn', newFileName.fileName);
     formData.append('file', selectedFile);
 
-
-    const newUploadedFile = {
-      descriptor: {
-        title: selectedFileDescription,
-        subtitle: selectedFile.name,
-      },
-      content: {
-        link: {
-          type: defineFileType(selectedFile.type),
-          locationType: 'relative',
-          location: fileName,
-        }
-      },
-    };
-
-    uploadFile(fileRoute, formData, newUploadedFile);
+    uploadFile(newFileName.fileRoute, formData);
   };
 
   return (
@@ -122,7 +106,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
         <FormControl>
           <Stack w="100%" alignItems="center" justifyContent="flex-start">
             <FormLabel
-              htmlFor="knowmore-input"
+              htmlFor="file-input"
               bgColor="gray.200"
               cursor="pointer"
               w="120px"
@@ -136,33 +120,36 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
               marginRight={0}
               _hover={{ bgColor: 'gray.300' }}
               onChange={(e) => {
-                knowMoreInputRef.current.click();
+                FileInputRef.current.click();
               }}
-              >
+            >
               <Stack
-              w="100%"
-              h="100%"
-              alignItems="center"
-              justifyContent="center"
-              wordBreak="break-all"
-              wordwrap="break-word"
-              textAlign="center"
-              p={2}
+                w="100%"
+                h="100%"
+                alignItems="center"
+                justifyContent="center"
+                wordBreak="break-all"
+                wordwrap="break-word"
+                textAlign="center"
+                p={2}
               >
-              
-              {loading ? <p>Subiendo...</p> : null}
-              {selectedFile ? (
-                  <Text fontSize="xs">{selectedFile.name}</Text>
+                {loading ? (
+                  <p>
+                    {LABELS.CREATE_ARTICLE.EDIT_PARAGRAPHS.FILE_FORM.LOADING}
+                  </p>
+                ) : null}
+                {selectedFile ? (
+                  <Text fontSize="xs">{fileName}</Text>
                 ) : (
                   <Box as={FiUpload} size="40px" color="gray.600" />
                 )}
               </Stack>
             </FormLabel>
             <Input
-              id="knowmore-input"
+              id="file-input"
               type="file"
               display="none"
-              ref={knowMoreInputRef}
+              ref={FileInputRef}
               onChange={onFileChange}
               placeholder="Selecciona un archivo"
             />
@@ -172,7 +159,8 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
                 type="text"
                 id="elementDescription"
                 name="elementDescription"
-                onChange={onDescriptionChange}
+                value={description}
+                onChange={(el) => setDescription(el.target.value)}
                 placeholder="Escribe una descripción"
               />
             ) : null}
@@ -187,25 +175,14 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
                 onClick={onFileUpload}
               >
                 {' '}
-                Subir archivo
+                {LABELS.CREATE_ARTICLE.EDIT_PARAGRAPHS.FILE_FORM.UPLOAD_BUTTON}
               </Button>
             ) : null}
           </Stack>
         </FormControl>
       </VStack>
-      {uploadedFiles.map((file, index) => {
-        if (file !== '')
-          return (
-            <DisplayUploadedFiles
-              file={file}
-              uploadedFiles={uploadedFiles}
-              setUploadedFiles={setUploadedFiles}
-              index={index}
-            />
-          );
-      })}
     </VStack>
   );
 };
 
-export { KnowMoreSelector };
+export { EditElementFormFile };

@@ -374,7 +374,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             size="sm"
                             fontFamily="Poppins"
                             fontWeight="400"
-                            disabled="true"
+                            disabled={true}
                           >
                             {LABELS.CREATE_ARTICLE.FORM.SECTIONS.BUTTON_2}
                           </Button>
@@ -412,7 +412,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       />
                     </VStack>
                   </Stack>
-                  <Button marginY={3} variant="submit">
+                  <Button
+                    marginY={3}
+                    fontFamily="Poppins"
+                    fontWeight="400"
+                    colorScheme="blue"
+                    type="submit"
+                  >
                     {LABELS.CREATE_ARTICLE.FORM.SUBMIT_BUTTON}
                   </Button>
                 </Form>
