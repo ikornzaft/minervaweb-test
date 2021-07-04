@@ -173,6 +173,7 @@ const KnowMoreInputModal = ({
                     <TabPanels>
                       <TabPanel>
                         <RelatedArticleSelector
+                          area={area}
                           options={selectorOptions}
                           selectedArticles={selectedArticles}
                           setSelectedArticles={setSelectedArticles}

@@ -16,17 +16,19 @@ const DisplayRelatedArticle = ({
   selectedArticles,
   setSelectedArticles,
 }) => {
-  const [removedElement, setRemovedElement] = useState(null);
+  console.log(selectedArticles)
   const index = options.findIndex(
     (option) => option.key === article.article.entity.publicId
   );
-  const titleString = article.descriptor.title;
-  const subtitleString = article.descriptor.subtitle;
+  const titleString = options[index].value;
+  const subtitleString = options[index].subtitle;
+
+  const [removedElement, setRemovedElement] = useState(null);
 
   const deleteItem = (e) => {
-    const elementToDelete = article.article.entity.publicId;
+    const elementToDelete = options[index].key;
     const filteredArticles = selectedArticles.filter(
-      (item) => item.article.entity.publicId !== elementToDelete
+      (article) => article.article.entity.publicId !== elementToDelete
     );
     setSelectedArticles(filteredArticles);
   };
