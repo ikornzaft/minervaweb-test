@@ -9,42 +9,6 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const [forceRender, setForceRender] = useState(true);
 
   const listItems = (el, index) => {
-    /* if (el.image && el.image !== '') {
-      return (
-        <HStack
-          width="30rem"
-          maxWidth="30rem"
-          minWidth="30rem"
-          p={3}
-          bgColor="gray.100"
-          borderRadius="md"
-          marginBottom={2}
-          justifyContent="space-between"
-        >
-          <HStack width="100%" justifyContent="center">
-            <Image
-              w="110px"
-              h="110px"
-              borderWidth="1px"
-              borderStyle="solid"
-              borderColor="gray.400"
-              objectFit="cover"
-              borderRadius="md"
-              src={el.image}
-            />
-          </HStack>
-          <ArticleContentElementMenu
-            index={index}
-            paragraphList={paragraphList}
-            setParagraphList={setParagraphList}
-            forceRender={forceRender}
-            setForceRender={setForceRender}
-            isImage="true"
-          />
-        </HStack>
-      );
-    } */
-    //if (el === '' || el.image === '') return null;
     const descriptor = el.descriptor;
     let content;
     el.content ? (content = el.content) : (content = null);

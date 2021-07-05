@@ -71,6 +71,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
   };
 
   const onFileChange = (e) => {
+    console.log(e.target.files[0])
     defineFileType(e.target.files[0].type);
     setSelectedFile(e.target.files[0]);
   };
@@ -137,7 +138,9 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               marginBottom={0}
               marginRight={0}
               _hover={{ bgColor: 'gray.300' }}
-              onChange={(e) => {
+              onClick={(e) => {
+                e.preventDefault();
+                console.log('click')
                 FileInputRef.current.click();
               }}
               >
@@ -153,6 +156,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               >
               
               {loading ? <p>Subiendo...</p> : null}
+              {console.log(selectedFile)}
               {selectedFile ? (
                   <Text fontSize="xs">{selectedFile.name}</Text>
                 ) : (

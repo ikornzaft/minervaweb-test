@@ -11,10 +11,9 @@ const ArticleContentItem = ({ descriptor, content }) => {
       <Text textAlign="left">{ParagraphReducer(descriptor.description)}</Text>
     );
   };
-
   const displayContent = () => {
     let icon;
-    if (content.type === 'document') {
+    if (content.link.type === 'document') {
       icon = VscFile;
     } else if (content.link.type === 'audio') {
       icon = FiSpeaker;
