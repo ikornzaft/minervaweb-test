@@ -42,7 +42,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     workArea: '',
     sections: [],
   });
-
+  const [selectedArticles, setSelectedArticles] = useState([]);
+  const [knowMore, setKnowMore] = useState([]);
+  const [knowMoreLinks, setKnowMoreLinks] = useState([]);
   const [error, setError] = useState(null);
   const [paragraphList, setParagraphList] = useState([]);
 
@@ -157,6 +159,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
               contents: [],
             },
           ]);
+          setSelectedArticles([])
+          setKnowMore([])
+          setKnowMoreLinks([])
           setCoverImage(null);
 
           onClose();
@@ -447,6 +452,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         onClose={onCloseKnowMore}
         sectionsList={sectionsList}
         setSectionsList={setSectionsList}
+        selectedArticles={selectedArticles}
+        setSelectedArticles={setSelectedArticles}
+        knowMore={knowMore}
+        setKnowMore={setKnowMore}
+        knowMoreLinks={knowMoreLinks}
+        setKnowMoreLinks={setKnowMoreLinks}
         area={area}
       />
     </>

@@ -31,13 +31,18 @@ const KnowMoreInputModal = ({
   onClose,
   sectionsList,
   setSectionsList,
+  selectedArticles,
+  setSelectedArticles,
+  knowMore,
+  setKnowMore,
+  knowMoreLinks,
+  setKnowMoreLinks,
   area,
 }) => {
 
   // Recibimos sectionsList y su setter
   // Verificamos si ya existen artículos dentro de sectionsList[0].contents
   // Si hay, los agregamos a relatedArticlesArray
-  let relatedArticlesArray;
 
   /*   if (sectionsList[0].contents.length > 0) {
     console.log("ya hay articulos")
@@ -47,14 +52,18 @@ const KnowMoreInputModal = ({
     console.log("todavía no hay artículos")
     relatedArticlesArray = [];
   } */
-  relatedArticlesArray = [];
+  let relatedArticlesArray = [];
 
   // Creamos el estado selectedArticles
   // Es un array que va a contener los objetos que creemos como artículos relacionados
-  const [selectedArticles, setSelectedArticles] =
-    useState(relatedArticlesArray);
-  const [knowMore, setKnowMore] = useState([]);
-  const [knowMoreLinks, setKnowMoreLinks] = useState([]);
+
+  /* useEffect(() => {
+    let prevArticles = sectionsList[0].contents.filter(el=>el.article)
+    console.log(prevArticles.length)
+    if (prevArticles.length > 0) setSelectedArticles(prevArticles);
+    console.log(selectedArticles)
+    
+  }, [sectionsList]) */
 
   // ???
   const [areaArticles, setAreaArticles] = useState([]);
@@ -92,29 +101,21 @@ const KnowMoreInputModal = ({
 
   // Al enviar añadimos a sectionsList el contenido de selectedArticles
   const handleSubmit = (values) => {
+    console.log('sectionsList: ', sectionsList)
+    console.log('selectedArticles: ', selectedArticles)
+    console.log('knowMore: ', knowMore)
+    const concatArray = selectedArticles.concat(knowMore, knowMoreLinks)
+    console.log('array: ', concatArray)
+
 
     const newList = [...sectionsList];
-    if (selectedArticles.length > 0)
-      selectedArticles.map((resource) => {
-        newList[0].contents.push(resource);
-      });
 
-    if (knowMore.length > 0)
-      knowMore.map((resource) => {
-        newList[0].contents.push(resource);
-      });
+    newList[0].contents = concatArray;
 
-    if (knowMoreLinks.length > 0)
-      knowMoreLinks.map((resource) => {
-        newList[0].contents.push(resource);
-      });
+    console.log('sections list: ', sectionsList)
 
     setSectionsList(newList);
 
-    setSelectedArticles(relatedArticlesArray);
-
-    setKnowMore([]);
-    setKnowMoreLinks([]);
     onClose();
   };
 

@@ -7,7 +7,6 @@ import {
   Button,
   Tooltip,
 } from '@chakra-ui/react';
-import { ParagraphReducer } from '../../common/paragraphReducer';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
 const DisplayUploadedFiles = ({
@@ -17,11 +16,9 @@ const DisplayUploadedFiles = ({
   setUploadedFiles,
 }) => {
   const deleteItem = (e) => {
-    //const elementToDelete = options[index].key;
-
     const fileToDeleteId = e.currentTarget.id;
     const filteredFiles = uploadedFiles.filter(
-      (file) => file.document.location !== fileToDeleteId
+      (file) => file.content.link.location !== fileToDeleteId
     );
     setUploadedFiles(filteredFiles);
   };
@@ -36,7 +33,7 @@ const DisplayUploadedFiles = ({
       </VStack>
       <Tooltip label="Eliminar archivo" bg="white" color="gray.700">
         <Button
-          id={file.content.location}
+          id={file.content.link.location}
           margin="0"
           size="xs"
           onClick={deleteItem}

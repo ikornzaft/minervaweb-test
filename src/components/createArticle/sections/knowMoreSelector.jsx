@@ -23,6 +23,8 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const knowMoreInputRef = useRef();
 
+  console.log("knowmore:", knowMore)
+
   const defineFileType = (type) => {
     if (type.substring(0, 5) === 'image') return 'image';
     if (type.substring(0, 5) === 'video') return 'video';
@@ -193,13 +195,13 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
           </Stack>
         </FormControl>
       </VStack>
-      {uploadedFiles.map((file, index) => {
+      {knowMore.map((file, index) => {
         if (file !== '')
           return (
             <DisplayUploadedFiles
               file={file}
-              uploadedFiles={uploadedFiles}
-              setUploadedFiles={setUploadedFiles}
+              uploadedFiles={knowMore}
+              setUploadedFiles={setKnowMore}
               index={index}
             />
           );

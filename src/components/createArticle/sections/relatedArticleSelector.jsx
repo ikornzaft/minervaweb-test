@@ -3,6 +3,7 @@ import { Field, ErrorMessage } from 'formik';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
 
 import { DisplayRelatedArticle } from './displayRelatedArticle';
+import { RiContactsBookLine } from 'react-icons/ri';
 
 const RelatedArticleSelector = ({
   options,
@@ -90,8 +91,9 @@ const RelatedArticleSelector = ({
   const addArticle = () => {
     const articleIndex = articles.findIndex(
       (option) => option.entity.publicId === optionValue
-    );
+      );
     if (articleIndex !== -1) {
+
       const articleObj = {
         descriptor: {
           title: articles[articleIndex].contentHeader.descriptor.title,
@@ -105,7 +107,16 @@ const RelatedArticleSelector = ({
         },
       };
       const elementExists = selectedArticles.findIndex(el => el.article.entity.publicId === optionValue)
-      if (elementExists === -1) setSelectedArticles([...selectedArticles, articleObj]);
+      console.log('selected articles: ', selectedArticles)
+
+      console.log('Existe el elemento: ', elementExists, optionValue)
+      if (elementExists !== -1) {
+        //setSelectedArticles(selectedArticles);
+        console.log('no pasa nada')
+      } else {
+        console.log("lo estoy agregando")
+        setSelectedArticles([...selectedArticles, articleObj]);
+      }
     }
     setOptionValue(null);
   };

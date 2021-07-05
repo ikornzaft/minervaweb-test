@@ -15,16 +15,15 @@ import { CreateFileName } from '../../common/createFileName';
 import { FiUpload } from 'react-icons/fi';
 import { DisplayUploadedFiles } from './displayUploadedFiles';
 
-
-// en el objeto que paso debería tener disponible un método MODCORS
-
-const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
+const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileDescription, setSelectedFileDescription] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [files, setFiles] = useState([]);
-  const FileInputRef = useRef();
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const knowMoreInputRef = useRef();
+
+  console.log("knowmore:", knowMore)
 
   const defineFileType = (type) => {
     if (type.substring(0, 5) === 'image') return 'image';
@@ -47,8 +46,8 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
         mode: 'no-cors',
         body: data,
       });
+      setKnowMore([...knowMore, newUploadedFile]);
       setUploadedFiles([...uploadedFiles, newUploadedFile]);
-      setFiles([...files, newUploadedFile]);
       toast({
         title: "El archivo se subió correctamente",
         status: "success",
@@ -71,7 +70,6 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
   };
 
   const onFileChange = (e) => {
-    console.log(e.target.files[0])
     defineFileType(e.target.files[0].type);
     setSelectedFile(e.target.files[0]);
   };
@@ -90,6 +88,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
 
     formData.append('fn', fileName);
     formData.append('file', selectedFile);
+
 
     const newUploadedFile = {
       descriptor: {
@@ -125,7 +124,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
         <FormControl>
           <Stack w="100%" alignItems="center" justifyContent="flex-start">
             <FormLabel
-              htmlFor="file-input"
+              htmlFor="knowmore-input"
               bgColor="gray.200"
               cursor="pointer"
               w="120px"
@@ -138,9 +137,8 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               marginBottom={0}
               marginRight={0}
               _hover={{ bgColor: 'gray.300' }}
-              onClick={(e) => {
-                e.preventDefault();
-                FileInputRef.current.click();
+              onChange={(e) => {
+                knowMoreInputRef.current.click();
               }}
               >
               <Stack
@@ -155,7 +153,6 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               >
               
               {loading ? <p>Subiendo...</p> : null}
-              {console.log(selectedFile)}
               {selectedFile ? (
                   <Text fontSize="xs">{selectedFile.name}</Text>
                 ) : (
@@ -164,10 +161,10 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               </Stack>
             </FormLabel>
             <Input
-              id="file-input"
+              id="knowmore-input"
               type="file"
               display="none"
-              ref={FileInputRef}
+              ref={knowMoreInputRef}
               onChange={onFileChange}
               placeholder="Selecciona un archivo"
             />
@@ -205,6 +202,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               file={file}
               uploadedFiles={uploadedFiles}
               setUploadedFiles={setUploadedFiles}
+              index={index}
             />
           );
       })}
@@ -212,4 +210,4 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
   );
 };
 
-export { FilesSelector };
+export { KnowMoreSelector };

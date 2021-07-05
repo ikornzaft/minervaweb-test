@@ -32,7 +32,6 @@ const Login = ({ isLoginOn, setLoginOn }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [validUser, setValidUser] = useState(false);
-  const [tryNumber, setTryNumber] = useState(0);
   const toast = useToast();
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         isClosable: true,
       });
     }
-  }, [error, tryNumber, toast]);
+  }, [error, toast]);
 
   useEffect(() => {
     if (validUser) {

@@ -8,9 +8,10 @@ import {
   Box,
   IconButton,
   LinkOverlay,
-  LinkBox
+  LinkBox,
 } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
+import { DocumentModal } from './documentModal';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import {
   RiVideoLine,
@@ -51,24 +52,24 @@ const ParagraphItemDisplay = ({ item }) => {
     if (splittedLink[1] === 'youtube') {
       return (
         <>
-        <VStack p={2} borderRadius="lg" borderWidth="1px">
-          <ReactPlayer url={item.content.link.location} />
-          <HStack justifyContent="center" textAlign="center" w="400px">
-            {item.descriptor.title ? (
-              <Box>
-              <Text fontSize="xs" fontWeight="700" color="gray.600">
-               {item.descriptor.title}
-              </Text>
-              <Text fontSize="xs" color="gray.500">
-               {item.descriptor.subtitle}
-              </Text>
-              </Box>
-            ) : null}
-          </HStack>
-        </VStack>
+          <VStack p={2} borderRadius="lg" borderWidth="1px">
+            <ReactPlayer url={item.content.link.location} />
+            <HStack justifyContent="center" textAlign="center" w="400px">
+              {item.descriptor.title ? (
+                <Box>
+                  <Text fontSize="xs" fontWeight="700" color="gray.600">
+                    {item.descriptor.title}
+                  </Text>
+                  <Text fontSize="xs" color="gray.500">
+                    {item.descriptor.subtitle}
+                  </Text>
+                </Box>
+              ) : null}
+            </HStack>
+          </VStack>
         </>
       );
-    } 
+    }
   }
 
   if (item.content.link.type === 'audio') {
@@ -149,38 +150,37 @@ const ParagraphItemDisplay = ({ item }) => {
   }
   return (
     <VStack w="100%" p={6}>
-    <LinkBox w="90%">
-    <LinkOverlay href={item.content.link.location} isExternal="true" />
-      <HStack
-        justifyContent="flex-start"
-        
-        h="100px"
-        borderRadius="lg"
-        borderWidth="1px"
-      >
-        <Box
-          as={icon}
-          alignSelf="center"
-          w="80px"
-          h="80px"
-          p={2}
-          color="gray.600"
-        />
-        <VStack w="90%" justifyContent="center">
-          <Heading
-            as="h3"
-            size="sm"
-            marginLeft={0}
-            lineHeight="0.7rem"
-            fontFamily="Open Sans"
-          >
-            {item.descriptor.title}
-          </Heading>
-          <Text as="h5" fontSize="sm" fontFamily="Open Sans" fontWeight="400">
-            {ParagraphReducer(item.descriptor.subtitle)}
-          </Text>
-        </VStack>
-      </HStack>
+      <LinkBox w="90%">
+        <LinkOverlay href={item.content.link.location} isExternal="true" />
+        <HStack
+          justifyContent="flex-start"
+          h="100px"
+          borderRadius="lg"
+          borderWidth="1px"
+        >
+          <Box
+            as={icon}
+            alignSelf="center"
+            w="80px"
+            h="80px"
+            p={2}
+            color="gray.600"
+          />
+          <VStack w="90%" justifyContent="center">
+            <Heading
+              as="h3"
+              size="sm"
+              marginLeft={0}
+              lineHeight="0.7rem"
+              fontFamily="Open Sans"
+            >
+              {item.descriptor.title}
+            </Heading>
+            <Text as="h5" fontSize="sm" fontFamily="Open Sans" fontWeight="400">
+              {ParagraphReducer(item.descriptor.subtitle)}
+            </Text>
+          </VStack>
+        </HStack>
       </LinkBox>
     </VStack>
   );
