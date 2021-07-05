@@ -42,8 +42,13 @@ const ArticleContent = ({ article, requests, setRequests }) => {
             alignItems="flex-start"
             textAlign="left"
           >
-            <Stack textAlign="left" paddingBottom={2}>
-              <Box paddingTop={8}>
+          <Stack textAlign="left" paddingBottom={2}>
+          <Box paddingTop={4}>
+          <Badge paddingX={2} colorScheme={badge.color}>
+            {badge.content}
+          </Badge>
+        </Box>
+              <Box paddingTop={2}>
                 <Text fontSize="xs" color="gray.500">
                   Publicado: {articleDate}
                 </Text>
@@ -54,11 +59,6 @@ const ArticleContent = ({ article, requests, setRequests }) => {
               <Heading as="h4" size="sm" fontWeight="100" lineHeight="1.5rem">
                 {article.resource.articleHeader.descriptor.subtitle}
               </Heading>
-              <Box>
-                <Badge paddingX={2} colorScheme={badge.color}>
-                  {badge.content}
-                </Badge>
-              </Box>
             </Stack>
             <Image
               width="100%"
