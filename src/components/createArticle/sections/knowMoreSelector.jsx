@@ -23,8 +23,6 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const knowMoreInputRef = useRef();
 
-  console.log("knowmore:", knowMore)
-
   const defineFileType = (type) => {
     if (type.substring(0, 5) === 'image') return 'image';
     if (type.substring(0, 5) === 'video') return 'video';
@@ -49,21 +47,21 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
       setKnowMore([...knowMore, newUploadedFile]);
       setUploadedFiles([...uploadedFiles, newUploadedFile]);
       toast({
-        title: "El archivo se subió correctamente",
-        status: "success",
+        title: 'El archivo se subió correctamente',
+        status: 'success',
         duration: 2000,
         isClosable: true,
-      })
+      });
       setSelectedFile(null);
       setSelectedFileDescription(null);
     } catch (err) {
       setError(err);
       toast({
-        title: "Ocurrió un error al subir el archivo",
-        status: "error",
+        title: 'Ocurrió un error al subir el archivo',
+        status: 'error',
         duration: 2000,
         isClosable: true,
-      })
+      });
     } finally {
       setLoading(false);
     }
@@ -89,7 +87,6 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
     formData.append('fn', fileName);
     formData.append('file', selectedFile);
 
-
     const newUploadedFile = {
       descriptor: {
         title: selectedFileDescription,
@@ -100,7 +97,7 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
           type: defineFileType(selectedFile.type),
           locationType: 'relative',
           location: fileName,
-        }
+        },
       },
     };
 
@@ -140,20 +137,19 @@ const KnowMoreSelector = ({ knowMore, setKnowMore }) => {
               onChange={(e) => {
                 knowMoreInputRef.current.click();
               }}
-              >
+            >
               <Stack
-              w="100%"
-              h="100%"
-              alignItems="center"
-              justifyContent="center"
-              wordBreak="break-all"
-              wordwrap="break-word"
-              textAlign="center"
-              p={2}
+                w="100%"
+                h="100%"
+                alignItems="center"
+                justifyContent="center"
+                wordBreak="break-all"
+                wordwrap="break-word"
+                textAlign="center"
+                p={2}
               >
-              
-              {loading ? <p>Subiendo...</p> : null}
-              {selectedFile ? (
+                {loading ? <p>Subiendo...</p> : null}
+                {selectedFile ? (
                   <Text fontSize="xs">{selectedFile.name}</Text>
                 ) : (
                   <Box as={FiUpload} size="40px" color="gray.600" />

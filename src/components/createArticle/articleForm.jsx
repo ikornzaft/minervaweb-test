@@ -48,13 +48,6 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const [error, setError] = useState(null);
   const [paragraphList, setParagraphList] = useState([]);
 
-  // Creamos el estado sectionList
-  // Sections es un array con dos objetos (section1 y section2)
-  // Cada sección tiene un array de objetos "contents"
-  // Las propiedades de esos objetos cambian, de acuerdo al tipo de recurso (ej: article)
-  // Por eso acá no defino nada dentro de contents
-
-  // Le vamos a pasar sectionsList y su setter al modal KnowMoreInputModal
   const [sectionsList, setSectionsList] = useState([
     {
       section: { publicId: '1' },
@@ -159,9 +152,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
               contents: [],
             },
           ]);
-          setSelectedArticles([])
-          setKnowMore([])
-          setKnowMoreLinks([])
+          setSelectedArticles([]);
+          setKnowMore([]);
+          setKnowMoreLinks([]);
           setCoverImage(null);
 
           onClose();

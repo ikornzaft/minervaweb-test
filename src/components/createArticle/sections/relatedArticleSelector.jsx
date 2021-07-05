@@ -87,13 +87,11 @@ const RelatedArticleSelector = ({
     return false;
   };
 
-  // Agregamos el artículo a selectedArticles
   const addArticle = () => {
     const articleIndex = articles.findIndex(
       (option) => option.entity.publicId === optionValue
-      );
+    );
     if (articleIndex !== -1) {
-
       const articleObj = {
         descriptor: {
           title: articles[articleIndex].contentHeader.descriptor.title,
@@ -106,18 +104,13 @@ const RelatedArticleSelector = ({
           },
         },
       };
-      const elementExists = selectedArticles.findIndex(el => el.article.entity.publicId === optionValue)
-      console.log('selected articles: ', selectedArticles)
-
-      console.log('Existe el elemento: ', elementExists, optionValue)
-      if (elementExists !== -1) {
-        //setSelectedArticles(selectedArticles);
-        console.log('no pasa nada')
-      } else {
-        console.log("lo estoy agregando")
+      const elementExists = selectedArticles.findIndex(
+        (el) => el.article.entity.publicId === optionValue
+      );
+      if (elementExists === -1)
         setSelectedArticles([...selectedArticles, articleObj]);
-      }
     }
+
     setOptionValue(null);
   };
 

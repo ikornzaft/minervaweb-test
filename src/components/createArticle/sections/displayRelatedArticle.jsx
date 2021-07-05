@@ -16,10 +16,6 @@ const DisplayRelatedArticle = ({
   selectedArticles,
   setSelectedArticles,
 }) => {
-  const [removedElement, setRemovedElement] = useState(null);
-  const index = options.findIndex(
-    (option) => option.key === article.article.entity.publicId
-  );
   const titleString = article.descriptor.title;
   const subtitleString = article.descriptor.subtitle;
 

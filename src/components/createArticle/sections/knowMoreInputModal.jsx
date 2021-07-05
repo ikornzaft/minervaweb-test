@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Formik, Form, Field, FieldArray } from 'formik';
+import React, { useState, useEffect } from 'react';
+import { Formik, Form } from 'formik';
 import {
   Modal,
   ModalContent,
@@ -7,19 +7,13 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  FormLabel,
-  FormControl,
   Button,
-  Text,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
   Flex,
-  Stack,
-  Tooltip,
-  Select,
 } from '@chakra-ui/react';
 import { RelatedArticleSelector } from './relatedArticleSelector';
 import { KnowMoreSelector } from './knowMoreSelector';
@@ -39,53 +33,14 @@ const KnowMoreInputModal = ({
   setKnowMoreLinks,
   area,
 }) => {
-
-  // Recibimos sectionsList y su setter
-  // Verificamos si ya existen artículos dentro de sectionsList[0].contents
-  // Si hay, los agregamos a relatedArticlesArray
-
-  /*   if (sectionsList[0].contents.length > 0) {
-    console.log("ya hay articulos")
-    const filteredContent = sectionsList[0].contents.filter(el => el.article);
-    relatedArticlesArray = filteredContent;
-  } else {
-    console.log("todavía no hay artículos")
-    relatedArticlesArray = [];
-  } */
-  let relatedArticlesArray = [];
-
-  // Creamos el estado selectedArticles
-  // Es un array que va a contener los objetos que creemos como artículos relacionados
-
-  /* useEffect(() => {
-    let prevArticles = sectionsList[0].contents.filter(el=>el.article)
-    console.log(prevArticles.length)
-    if (prevArticles.length > 0) setSelectedArticles(prevArticles);
-    console.log(selectedArticles)
-    
-  }, [sectionsList]) */
-
-  // ???
-  const [areaArticles, setAreaArticles] = useState([]);
-
-  // Las opciones para el input selector
-  // Es un array por ahora vacío
-  // Después tendrá objetos con propiedades: key, value(título), subtitle
   const [selectorOptions, setSelectorOptions] = useState([]);
 
-  // Cada vez que seleccionamos una nueva workarea, este código se ejecuta
-  // Nos trae todo los artículos (si existen) de esa área
-  // y con cada uno crea un objeto newOption, que se lo añade a selectorOption
   useEffect(() => {
     const articles = ArticlesDb.filter((e) => e.workArea === area);
     setSelectorOptions([]);
 
-    // Para qué?
-    setAreaArticles(articles);
-
     if (articles.length > 0) {
       articles.forEach((el) => {
-        // Falta filtrar si ese artículo ya fue elegido
         const newOption = {
           key: el.header.publicId,
           value: el.resource.articleHeader.descriptor.title,
@@ -99,32 +54,16 @@ const KnowMoreInputModal = ({
     }
   }, [area]);
 
-  // Al enviar añadimos a sectionsList el contenido de selectedArticles
   const handleSubmit = (values) => {
-    console.log('sectionsList: ', sectionsList)
-    console.log('selectedArticles: ', selectedArticles)
-    console.log('knowMore: ', knowMore)
-    const concatArray = selectedArticles.concat(knowMore, knowMoreLinks)
-    console.log('array: ', concatArray)
-
-
+    const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);
     const newList = [...sectionsList];
-
     newList[0].contents = concatArray;
-
-    console.log('sections list: ', sectionsList)
-
     setSectionsList(newList);
-
     onClose();
   };
 
   const handleOptionChange = (e) => {};
 
-  // Acá le vamos a pasar al componente RelatedArticleSelector las propiedades:
-  // selectorOptions
-  // selectedArticles
-  // setSelectedArticles
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
