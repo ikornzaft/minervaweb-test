@@ -37,17 +37,17 @@ const ArticleContent = ({ article, requests, setRequests }) => {
         <>
           <Stack
             maxWidth="45rem"
-            paddingTop={12}
+            paddingTop={localStorage.getItem('isEditor') === 'true' ? "20" : "12"}
             paddingBottom={6}
             alignItems="flex-start"
             textAlign="left"
           >
-          <Stack textAlign="left" paddingBottom={2}>
-          <Box paddingTop={2}>
-          <Badge paddingX={2} colorScheme={badge.color}>
-            {badge.content}
-          </Badge>
-        </Box>
+            <Stack textAlign="left" paddingBottom={2}>
+              <Box paddingTop={2}>
+                <Badge paddingX={2} colorScheme={badge.color}>
+                  {badge.content}
+                </Badge>
+              </Box>
               <Box paddingTop={1}>
                 <Text fontSize="xs" color="gray.500">
                   Publicado: {articleDate}

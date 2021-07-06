@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Stack, Box, Spinner } from '@chakra-ui/react';
+import { Stack, HStack, Box, Spinner } from '@chakra-ui/react';
 import { ArticleContent } from '../components/article/articleContent';
+import { DraftMenu } from '../components/navigation/draftMenu';
 import { RiContactsBookLine } from 'react-icons/ri';
 
 const Loader = () => (
@@ -16,7 +17,7 @@ const Loader = () => (
   </Box>
 );
 
-const Article = ({requests, setRequests}) => {
+const Article = ({ requests, setRequests }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const containerRef = useRef();
@@ -51,9 +52,8 @@ const Article = ({requests, setRequests}) => {
         const res = await fetch(url, jsonMessage);
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
-        const resJson = await res.json()
+        const resJson = await res.json();
         setArticle([resJson.message.entity]);
-        
       } catch (err) {
         setError(err);
       } finally {
@@ -76,8 +76,21 @@ const Article = ({requests, setRequests}) => {
       paddingBottom={6}
       ref={containerRef}
     >
-    {isLoading ? <Loader /> : article.map((art, index) => (<ArticleContent key={index} article={art} requests={requests} setRequests={setRequests} />)) }
-
+      {localStorage.getItem('isEditor') === 'true' ? (
+        <DraftMenu />
+      ) : null}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        article.map((art, index) => (
+          <ArticleContent
+            key={index}
+            article={art}
+            requests={requests}
+            setRequests={setRequests}
+          />
+        ))
+      )}
     </Stack>
   );
 };
