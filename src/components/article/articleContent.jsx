@@ -43,12 +43,12 @@ const ArticleContent = ({ article, requests, setRequests }) => {
             textAlign="left"
           >
           <Stack textAlign="left" paddingBottom={2}>
-          <Box paddingTop={4}>
+          <Box paddingTop={2}>
           <Badge paddingX={2} colorScheme={badge.color}>
             {badge.content}
           </Badge>
         </Box>
-              <Box paddingTop={2}>
+              <Box paddingTop={1}>
                 <Text fontSize="xs" color="gray.500">
                   Publicado: {articleDate}
                 </Text>
