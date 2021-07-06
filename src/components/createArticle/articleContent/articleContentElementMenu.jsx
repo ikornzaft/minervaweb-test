@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { VStack, Button } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
 import { FaSortUp, FaSortDown } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
@@ -14,6 +15,7 @@ const ArticleContentElementMenu = ({
   setForceRender,
   isImage,
 }) => {
+
   const moveUp = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const element = paragraphList.splice(elementId, 1);
@@ -41,6 +43,8 @@ const ArticleContentElementMenu = ({
         id={`btn-up-${index}`}
         onClick={moveUp}
         isDisabled={index < 1 ? true : false}
+        boxShadow='none !important'
+
       >{<FaSortUp />}</Button>
       <EditElementPopover
         id={`popover-${index}`}
@@ -62,6 +66,7 @@ const ArticleContentElementMenu = ({
         type="button"
         id={`btn-down-${index}`}
         onClick={moveDown}
+        boxShadow='none !important'
         isDisabled={index === paragraphList.length - 1 ? true : false}
       >{<FaSortDown />}</Button>
     </VStack>
