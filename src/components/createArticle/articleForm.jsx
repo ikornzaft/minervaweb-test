@@ -68,43 +68,17 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
   ])
 
-  const fetchAreas = async () => {
-    const principal = localStorage.getItem('credentials');
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/workgroups/handlers/FindWorkareas',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'root:cm9vdA==',
-        message: {
-        },
-      }),
+  useEffect(() => {
+    if (localStorage.getItem('isResearcher') === 'true') {
+      console.log(localStorage.getItem('isResearcher'))
+      const researchArea = {
+        key: 'Investigación', 
+        value: 'research',
+      }
+      setWorkAreas([...workAreas, researchArea]);
+      console.log(workAreas)
     };
-    try {
-      const response = await fetch(url, jsonMessage);
-      const resJson = await response.json();
-      console.log(resJson);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  fetchAreas();
-
-  const workareasList = () => {
-    return [
-      { key: AREAS.area_1.tag, value: AREAS.area_1.route },
-      { key: AREAS.area_2.tag, value: AREAS.area_2.route },
-      { key: AREAS.area_3.tag, value: AREAS.area_3.route },
-      { key: AREAS.area_4.tag, value: AREAS.area_4.route },
-    ];
-  };
+  }, [])
 
   const date = new Date();
   const formatedDate = new Date(

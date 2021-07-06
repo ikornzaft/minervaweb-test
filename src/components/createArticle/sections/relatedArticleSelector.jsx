@@ -16,7 +16,7 @@ const RelatedArticleSelector = ({
   const [articlesToDisplay, setArticlesToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedArea, setSelectedArea] = useState(area);
+  const [selectedArea, setSelectedArea] = useState(null);
 
   useEffect(() => {
     setArticlesToDisplay([]);
@@ -120,7 +120,7 @@ const RelatedArticleSelector = ({
   return (
     <VStack paddingTop={2}>
       <Select
-        w="10rem"
+        w="12rem"
         borderRadius="md"
         size="sm"
         placeholder="Elige la materia"
