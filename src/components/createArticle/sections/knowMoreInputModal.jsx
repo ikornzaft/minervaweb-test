@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  ModalCloseButton,
   Button,
   Tabs,
   TabList,
@@ -151,7 +152,7 @@ const KnowMoreInputModal = ({
             )}
           </Formik>
         </ModalBody>
-
+        <ModalCloseButton />
         <ModalFooter />
       </ModalContent>
     </Modal>

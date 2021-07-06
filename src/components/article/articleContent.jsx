@@ -13,7 +13,7 @@ import { ParagraphPopover } from './paragraphPopover';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { CreateAreaBadge } from '../common/createAreaBadge';
 import { SectionsList } from '../article/sectionsList';
-import { ParagraphItemDisplay } from './paragraphItemDisplay';
+import { ParagraphItemDisplay } from './paragraphs/paragraphItemDisplay';
 import { LABELS } from '../../locals/sp/labels';
 
 const ArticleContent = ({ article, requests, setRequests }) => {
