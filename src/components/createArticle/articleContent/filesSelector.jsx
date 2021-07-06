@@ -71,7 +71,6 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
   };
 
   const onFileChange = (e) => {
-    console.log(e.target.files[0])
     defineFileType(e.target.files[0].type);
     setSelectedFile(e.target.files[0]);
   };

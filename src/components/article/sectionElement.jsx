@@ -37,7 +37,7 @@ const SectionElement = ({title, subtitle, icon}) => {
             as="h3"
             size="xs"
             marginLeft={0}
-            lineHeight="0.7rem"
+            lineHeight="1.2rem"
             fontFamily="Open Sans"
           >
             {title}

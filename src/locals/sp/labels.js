@@ -30,6 +30,7 @@ const LABELS = {
           BUTTON_2: 'Comunicación',
           BUTTON_3: 'Ciencias Naturales',
           BUTTON_4: 'Estudios Sociales',
+          BUTTON_5: 'Investigación',
         },
       },
       BUTTONS: {
@@ -64,6 +65,7 @@ const LABELS = {
       AREA_2: 'Comunicación',
       AREA_3: 'Ciencias Naturales',
       AREA_4: 'Estudios Sociales',
+      AREA_5: 'Investigación',
     },
 
     ACTIVITY: {
@@ -73,6 +75,7 @@ const LABELS = {
         AREA_2: 'COMUNICACIÓN',
         AREA_3: 'CIENCIAS NATURALES',
         AREA_4: 'ESTUDIOS SOCIALES',
+        AREA_5: 'INVESTIGACIÓN',
       },
     },
   },

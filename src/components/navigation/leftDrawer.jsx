@@ -15,6 +15,7 @@ import { AiOutlineCalculator } from 'react-icons/ai';
 import { FiPenTool } from 'react-icons/fi';
 import { RiLeafLine } from 'react-icons/ri';
 import { BiWorld } from 'react-icons/bi';
+import { ImLab } from 'react-icons/im';
 import { LABELS } from '../../locals/sp/labels';
 
 const LeftDrawer = ({
@@ -39,6 +40,9 @@ const LeftDrawer = ({
     }
     if (e.target.id === 'button_4') {
       history.push(`/articles/sociales`);
+    }
+    if (e.target.id === 'button_5') {
+      history.push(`/articles/research`);
     }
   };
   return (
@@ -103,6 +107,14 @@ const LeftDrawer = ({
             >
               {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_4}
             </Button>
+            {localStorage.getItem('isResearcher') === 'true' ? <Button
+              variant="drawerLeft"
+              leftIcon={<ImLab size="30px" />}
+              id="button_5"
+              onClick={menuHandler}
+            >
+              {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_5}
+            </Button> : null}
           </Stack>
         </DrawerBody>
       </DrawerContent>

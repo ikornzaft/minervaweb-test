@@ -5,7 +5,6 @@ import { ParagraphReducer } from '../../common/paragraphReducer';
 
 const DisplayAudio = ({ linkLocation, title, subtitle }) => {
   const audioLink = `http://www.afatecha.com/id/files/audio/${linkLocation}`;
-  console.log(audioLink);
   return (
     <VStack w="100%" p={2}>
       <VStack

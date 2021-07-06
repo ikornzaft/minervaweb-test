@@ -36,6 +36,11 @@ const Articles = () => {
             color: 'area4',
           });
           break;
+        case 'research':
+          setAreaTitle({
+            title: LABELS.ACTIVITIES.TITLE.AREA_5,
+            color: 'area5',
+          });
       }
     }
   }, [param.id]);
@@ -64,7 +69,6 @@ const Articles = () => {
             publicId: param.id,
           },
           workgroups: workgroups,
-          
         },
       }),
     };
@@ -84,8 +88,7 @@ const Articles = () => {
       }
     }
     fetchData();
-
-  }, [param.id])
+  }, [param.id]);
 
   const renderList = () => {
     if (!error) {

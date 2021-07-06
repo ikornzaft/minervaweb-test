@@ -11,6 +11,7 @@ const colors = {
   area2: '#FF3152',
   area3: '#05CE91',
   area4: '#8F00FF',
+  area5: '#FCDF03',
 };
 
 const fonts = {
