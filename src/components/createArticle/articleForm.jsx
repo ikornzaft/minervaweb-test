@@ -61,13 +61,50 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const [coverImage, setCoverImage] = useState(null);
   const [area, setArea] = useState(null);
-
-  const dropsDownOptions = [
+  const [workAreas, setWorkAreas] = useState([
     { key: AREAS.area_1.tag, value: AREAS.area_1.route },
     { key: AREAS.area_2.tag, value: AREAS.area_2.route },
     { key: AREAS.area_3.tag, value: AREAS.area_3.route },
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
-  ];
+  ])
+
+  const fetchAreas = async () => {
+    const principal = localStorage.getItem('credentials');
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/workgroups/handlers/FindWorkareas',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: 'root:cm9vdA==',
+        message: {
+        },
+      }),
+    };
+    try {
+      const response = await fetch(url, jsonMessage);
+      const resJson = await response.json();
+      console.log(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  fetchAreas();
+
+  const workareasList = () => {
+    return [
+      { key: AREAS.area_1.tag, value: AREAS.area_1.route },
+      { key: AREAS.area_2.tag, value: AREAS.area_2.route },
+      { key: AREAS.area_3.tag, value: AREAS.area_3.route },
+      { key: AREAS.area_4.tag, value: AREAS.area_4.route },
+    ];
+  };
 
   const date = new Date();
   const formatedDate = new Date(
@@ -253,7 +290,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       <AreaSelector
                         label={LABELS.CREATE_ARTICLE.FORM.AREA_SELECTOR.LABEL}
                         name="workArea"
-                        options={dropsDownOptions}
+                        options={workAreas}
                         area={area}
                         setArea={setArea}
                       />
@@ -451,6 +488,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         setKnowMore={setKnowMore}
         knowMoreLinks={knowMoreLinks}
         setKnowMoreLinks={setKnowMoreLinks}
+        workAreas={workAreas}
         area={area}
       />
     </>

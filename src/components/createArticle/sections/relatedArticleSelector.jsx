@@ -10,13 +10,16 @@ const RelatedArticleSelector = ({
   selectedArticles,
   setSelectedArticles,
   area,
+  workAreas,
 }) => {
   const [articles, setArticles] = useState([]);
   const [articlesToDisplay, setArticlesToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedArea, setSelectedArea] = useState(area);
 
   useEffect(() => {
+    setArticlesToDisplay([]);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
@@ -33,7 +36,7 @@ const RelatedArticleSelector = ({
         principal: credentials,
         message: {
           workarea: {
-            publicId: area,
+            publicId: selectedArea,
           },
           workgroups: workgroups,
         },
@@ -55,7 +58,7 @@ const RelatedArticleSelector = ({
       }
     }
     fetchData();
-  }, [area, setArticlesToDisplay]);
+  }, [area, setArticlesToDisplay, selectedArea]);
 
   useEffect(() => {
     articles.map((article) => {
@@ -115,10 +118,29 @@ const RelatedArticleSelector = ({
   };
 
   return (
-    <VStack>
-      <HStack className="form-control" paddingY={6}>
+    <VStack paddingTop={2}>
+      <Select
+        w="10rem"
+        borderRadius="md"
+        size="sm"
+        placeholder="Elige la materia"
+        autoFocus={true}
+        onChange={(e) => {
+          setSelectedArea(e.target.value);
+        }}
+      >
+        {workAreas.map((option) => {
+          return (
+            <option key={option.value} value={option.value}>
+              {option.key}
+            </option>
+          );
+        })}
+      </Select>
+      <HStack className="form-control" paddingY={4}>
         <Select
           borderRadius="md"
+          w="20rem"
           size="sm"
           placeholder="Seleccionar un artículo"
           onChange={(e) => {
@@ -135,7 +157,7 @@ const RelatedArticleSelector = ({
         </Select>
         <Button
           type="button"
-          w="15rem"
+          w="10rem"
           variant="outline"
           fontFamily="Poppins"
           fontWeight="400"

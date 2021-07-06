@@ -19,7 +19,6 @@ import {
 import { RelatedArticleSelector } from './relatedArticleSelector';
 import { KnowMoreSelector } from './knowMoreSelector';
 import { KnowMoreLinkSelector } from './knowMoreLinkSelector';
-import { ArticlesDb } from '../../../resources/articlesDb';
 
 const KnowMoreInputModal = ({
   isOpen,
@@ -33,27 +32,9 @@ const KnowMoreInputModal = ({
   knowMoreLinks,
   setKnowMoreLinks,
   area,
+  workAreas,
 }) => {
   const [selectorOptions, setSelectorOptions] = useState([]);
-
-  useEffect(() => {
-    const articles = ArticlesDb.filter((e) => e.workArea === area);
-    setSelectorOptions([]);
-
-    if (articles.length > 0) {
-      articles.forEach((el) => {
-        const newOption = {
-          key: el.header.publicId,
-          value: el.resource.articleHeader.descriptor.title,
-          subtitle: el.resource.articleHeader.descriptor.subtitle,
-        };
-        setSelectorOptions((selectorOptions) => [
-          ...selectorOptions,
-          newOption,
-        ]);
-      });
-    }
-  }, [area]);
 
   const handleSubmit = (values) => {
     const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);
@@ -62,8 +43,6 @@ const KnowMoreInputModal = ({
     setSectionsList(newList);
     onClose();
   };
-
-  const handleOptionChange = (e) => {};
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -116,6 +95,7 @@ const KnowMoreInputModal = ({
                         <RelatedArticleSelector
                           area={area}
                           options={selectorOptions}
+                          workAreas={workAreas}
                           selectedArticles={selectedArticles}
                           setSelectedArticles={setSelectedArticles}
                         />
