@@ -9,28 +9,46 @@ import {
   Box,
   VStack,
   HStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { SectionsList } from '../article/sectionsList';
 import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
+import { HeaderModal } from './headerModal';
 import { FaEdit } from 'react-icons/fa';
 import { LABELS } from '../../locals/sp/labels';
 
 const DraftContent = ({ draft }) => {
-const [draftHeader, setDraftHeader] = useState({...draft.resource.articleHeader});
-console.log(draftHeader)
+  const [draftHeader, setDraftHeader] = useState({
+    ...draft.resource.articleHeader,
+  });
+  const [draftContent, setDraftContent] = useState({
+    ...draft.resource.paragraphs,
+  });
+  const [draftKnowMore, setDraftKnowMore] = useState({
+    ...draft.resource.sections[0].contents,
+  });
+  const [draftToDo, setDraftToDo] = useState({
+    ...draft.resource.sections[1].contents,
+  });
+  const {
+    isOpen: isOpenHeaderModal,
+    onOpen: onOpenHeaderModal,
+    onClose: onCloseHeaderModal,
+  } = useDisclosure();
 
-let cover
-let footer
+  console.log(draftHeader);
 
-  if (draft.resource.articleHeader.image) {
-    cover = `http://www.afatecha.com/id/files/image/${draft.resource.articleHeader.image.location}`;
-    footer = draft.resource.articleHeader.image.descriptor.title;
-  } else {
-    cover = fallBackImg;
-    footer = null;
+  let cover;
+  let footer;
+  if (draftHeader.image) {
+    cover = `http://www.afatecha.com/id/files/image/${draftHeader.image.location}`;
+    footer = draftHeader.image.descriptor.title;
   }
 
+  const handleHeaderModal = (e) => {
+    onOpenHeaderModal();
+  };
 
   return (
     <>
@@ -42,8 +60,8 @@ let footer
         textAlign="left"
       >
         <VStack
-        w="49rem"
-        alignItems="flex-start"
+          w="49rem"
+          alignItems="flex-start"
           bg="gray.100"
           paddingX="2rem"
           paddingY="2rem"
@@ -61,6 +79,7 @@ let footer
               variant="outline"
               fontWeight="400"
               rightIcon={<FaEdit />}
+              onClick={handleHeaderModal}
             >
               Editar encabezado
             </Button>
@@ -73,21 +92,26 @@ let footer
               {draftHeader.descriptor.subtitle}
             </Heading>
           </Stack>
-          
-          {draftHeader.image ? <><Image
-            width="100%"
-            objectFit="cover"
-            borderRadius="lg"
-            src={cover}
-            alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
-            fallbackSrc={fallBackImg}
-          /><HStack justifyContent="flex-end" w="42rem">
-            {footer ? (
-              <Text fontSize="xs" color="gray.500">
-                Imágen: {footer}
-              </Text>
-            ) : null}
-          </HStack></> : null}
+
+          {draftHeader.image ? (
+            <>
+              <Image
+                width="100%"
+                objectFit="cover"
+                borderRadius="lg"
+                src={cover}
+                alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
+                fallbackSrc={fallBackImg}
+              />
+              <HStack justifyContent="flex-end" w="42rem">
+                {footer ? (
+                  <Text fontSize="xs" color="gray.500">
+                    Imágen: {footer}
+                  </Text>
+                ) : null}
+              </HStack>
+            </>
+          ) : null}
         </VStack>
       </Stack>
       <VStack
@@ -158,6 +182,12 @@ let footer
           <SectionsList sections={draft.resource.sections} />
         </VStack>
       </Box>
+      <HeaderModal
+        isOpen={isOpenHeaderModal}
+        onClose={onCloseHeaderModal}
+        draftHeader={draftHeader}
+        setDraftHeader={setDraftHeader}
+      />
     </>
   );
 };
