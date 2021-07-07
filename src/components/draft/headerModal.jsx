@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   ModalContent,
@@ -21,7 +21,13 @@ import {
 } from '@chakra-ui/react';
 
 const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
-  console.log(draftHeader)
+  const [descriptor, setDescriptor] = useState({ ...draftHeader.descriptor });
+  const [image, setImage] = useState({ ...draftHeader.image });
+
+  const handleChanges = () => {
+    setDraftHeader({...draftHeader, descriptor: descriptor})
+    onClose();
+  }
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
@@ -35,8 +41,20 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
           Editar encabezado
         </ModalHeader>
         <ModalBody textAlign="center">
-          <Input type="text" value={draftHeader.descriptor.title}></Input>
-          <Textarea value={draftHeader.descriptor.subtitle}></Textarea>
+          <Input
+            type="text"
+            value={descriptor.title}
+            onChange={(el) =>
+              setDescriptor({ ...descriptor, title: el.target.value })
+            }
+          ></Input>
+          <Textarea
+            value={descriptor.subtitle}
+            onChange={(el) =>
+              setDescriptor({ ...descriptor, subtitle: el.target.value })
+            }
+          ></Textarea>
+          <Button onClick={handleChanges}>Confirmar cambios</Button>
         </ModalBody>
         <ModalCloseButton />
       </ModalContent>
