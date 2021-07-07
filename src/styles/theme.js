@@ -7,6 +7,7 @@ import { ButtonStyles as Button } from './components/buttonStyles';
 const colors = {
   ...chakraTheme.colors,
   primary: '#1EA5FC',
+  primary_light: '#81CCFD',
   area1: '#005BFF',
   area2: '#FF3152',
   area3: '#05CE91',

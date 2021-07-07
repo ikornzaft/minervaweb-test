@@ -1,0 +1,165 @@
+import React, { useState, useEffect } from 'react';
+import {
+  Stack,
+  Button,
+  Image,
+  Heading,
+  Container,
+  Text,
+  Box,
+  VStack,
+  HStack,
+} from '@chakra-ui/react';
+import fallBackImg from '../../assets/images/Online-Tutor.svg';
+import { SectionsList } from '../article/sectionsList';
+import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
+import { FaEdit } from 'react-icons/fa';
+import { LABELS } from '../../locals/sp/labels';
+
+const DraftContent = ({ draft }) => {
+const [draftHeader, setDraftHeader] = useState({...draft.resource.articleHeader});
+console.log(draftHeader)
+
+let cover
+let footer
+
+  if (draft.resource.articleHeader.image) {
+    cover = `http://www.afatecha.com/id/files/image/${draft.resource.articleHeader.image.location}`;
+    footer = draft.resource.articleHeader.image.descriptor.title;
+  } else {
+    cover = fallBackImg;
+    footer = null;
+  }
+
+
+  return (
+    <>
+      <Stack
+        maxWidth="49rem"
+        paddingTop={24}
+        paddingBottom={6}
+        alignItems="flex-start"
+        textAlign="left"
+      >
+        <VStack
+        w="49rem"
+        alignItems="flex-start"
+          bg="gray.100"
+          paddingX="2rem"
+          paddingY="2rem"
+          borderRadius="lg"
+          borderColor="gray.300"
+          borderWidth="1px"
+        >
+          <HStack justifyContent="flex-end" paddingBottom="1rem" w="100%">
+            <Button
+              colorScheme="gray"
+              color="blue.600"
+              bg="white"
+              w="11rem"
+              size="sm"
+              variant="outline"
+              fontWeight="400"
+              rightIcon={<FaEdit />}
+            >
+              Editar encabezado
+            </Button>
+          </HStack>
+          <Stack textAlign="left" paddingBottom={2}>
+            <Heading as="h1" fontSize="4xl">
+              {draftHeader.descriptor.title}
+            </Heading>
+            <Heading as="h4" size="sm" fontWeight="100" lineHeight="1.5rem">
+              {draftHeader.descriptor.subtitle}
+            </Heading>
+          </Stack>
+          
+          {draftHeader.image ? <><Image
+            width="100%"
+            objectFit="cover"
+            borderRadius="lg"
+            src={cover}
+            alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
+            fallbackSrc={fallBackImg}
+          /><HStack justifyContent="flex-end" w="42rem">
+            {footer ? (
+              <Text fontSize="xs" color="gray.500">
+                Imágen: {footer}
+              </Text>
+            ) : null}
+          </HStack></> : null}
+        </VStack>
+      </Stack>
+      <VStack
+        maxWidth="49rem"
+        bg="gray.100"
+        paddingX="2rem"
+        paddingY="2rem"
+        borderRadius="lg"
+        borderColor="gray.300"
+        borderWidth="1px"
+      >
+        <HStack w="100%" justifyContent="flex-end" paddingBottom="2rem">
+          <Button
+            colorScheme="gray"
+            color="blue.600"
+            bg="white"
+            w="11rem"
+            size="sm"
+            variant="outline"
+            fontWeight="400"
+            rightIcon={<FaEdit />}
+          >
+            Editar contenido
+          </Button>
+        </HStack>
+        {draft.resource.paragraphs.map((el, id) => (
+          <Stack width="50rem" paddingLeft={6} direction="row" role="group">
+            <Container maxWidth="90ch">
+              {!el.content ? (
+                <Box paddingBottom={4}>
+                  <Text fontFamily="Open Sans" fontSize="sm">
+                    {el.descriptor.description}
+                  </Text>
+                </Box>
+              ) : (
+                <HStack w="100%" justifyContent="center">
+                  <ParagraphItemDisplay item={el} />
+                </HStack>
+              )}
+            </Container>
+          </Stack>
+        ))}
+      </VStack>
+      <Box paddingTop={6}>
+        <VStack
+          maxWidth="49rem"
+          bg="gray.100"
+          paddingX="2rem"
+          paddingY="2rem"
+          borderRadius="lg"
+          borderColor="gray.300"
+          borderWidth="1px"
+        >
+          <HStack w="100%" justifyContent="flex-end" paddingBottom="2rem">
+            <Button
+              colorScheme="gray"
+              color="blue.600"
+              bg="white"
+              w="11rem"
+              size="sm"
+              variant="outline"
+              fontWeight="400"
+              rightIcon={<FaEdit />}
+            >
+              Editar secciones
+            </Button>
+          </HStack>
+          <SectionsList sections={draft.resource.sections} />
+        </VStack>
+      </Box>
+    </>
+  );
+};
+
+export { DraftContent };

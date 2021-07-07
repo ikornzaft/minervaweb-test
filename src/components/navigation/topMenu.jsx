@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Stack, Button, useDisclosure } from '@chakra-ui/react';
+import { Stack, Button, useDisclosure, Box } from '@chakra-ui/react';
 import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
 import { LABELS } from '../../locals/sp/labels';
@@ -104,9 +104,11 @@ const TopMenu = () => {
         </Button>
       </Stack>
 
-      <Button ref={btnRef2} variant="primary" onClick={onOpenRight}>
-        {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
-      </Button>
+      {localStorage.getItem('isEditor') === 'true' ? (
+        <Button ref={btnRef2} variant="primary" onClick={onOpenRight}>
+          {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
+        </Button>
+      ) : <Box w="8rem" />}
 
       <LeftDrawer
         placement="left"
