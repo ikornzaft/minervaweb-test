@@ -4,6 +4,7 @@ import { Login } from './screens/login';
 import { Activities } from './screens/activities';
 import { Articles } from './screens/articles';
 import { Article } from './screens/article';
+import { Draft } from './screens/draft'
 import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
 import { Tasks } from './screens/tasks';
@@ -23,9 +24,8 @@ function App() {
         <Route path="/activities/:id" component={Activities} />
         <Route exact path="/articles/" component={Articles} />
         <Route path="/articles/:id" component={Articles} />
-        <Route path="/article/:id">
-          <Article requests={requests} setRequests={setRequests} />
-        </Route>
+        <Route path="/article/:id" component={Article} />
+        <Route path="/draft/:id" component={Draft} />
         <Route exact path="/requests-board/">
           <RequestsBoard requests={requests} setRequests={setRequests} />
         </Route>

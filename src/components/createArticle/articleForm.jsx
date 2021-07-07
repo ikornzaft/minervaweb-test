@@ -70,13 +70,11 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   useEffect(() => {
     if (localStorage.getItem('isResearcher') === 'true') {
-      console.log(localStorage.getItem('isResearcher'))
       const researchArea = {
         key: 'Investigación', 
         value: 'research',
       }
       setWorkAreas([...workAreas, researchArea]);
-      console.log(workAreas)
     };
   }, [])
 
