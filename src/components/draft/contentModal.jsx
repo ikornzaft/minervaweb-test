@@ -14,8 +14,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ArticleContentInputModal } from '../createArticle/articleContent/articleContentInputModal'
-import { ContentItem } from './contentItem';
-import { ContentElementMenu } from './contentElementMenu';
+import { ArticleContentItem } from '../createArticle/articleContent/articleContentItem';
+import { ArticleContentElementMenu } from '../createArticle/articleContent/articleContentElementMenu';
 
 const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
   const [forceRender, setForceRender] = useState(true);
@@ -36,8 +36,8 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
         marginBottom={2}
         justifyContent="space-between"
       >
-        <ContentItem descriptor={descriptor} content={content} />
-        <ContentElementMenu
+        <ArticleContentItem descriptor={descriptor} content={content} />
+        <ArticleContentElementMenu
           index={index}
           paragraphList={draftContent}
           setParagraphList={setDraftContent}

@@ -154,7 +154,6 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
               >
               
               {loading ? <p>Subiendo...</p> : null}
-              {console.log(selectedFile)}
               {selectedFile ? (
                   <Text fontSize="xs">{selectedFile.name}</Text>
                 ) : (
