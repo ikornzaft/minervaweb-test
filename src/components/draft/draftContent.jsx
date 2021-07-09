@@ -15,6 +15,7 @@ import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { SectionsList } from '../article/sectionsList';
 import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
 import { HeaderModal } from './headerModal';
+import { ContentModal } from './contentModal';
 import { FaEdit } from 'react-icons/fa';
 import { LABELS } from '../../locals/sp/labels';
 
@@ -22,20 +23,24 @@ const DraftContent = ({ draft }) => {
   const [draftHeader, setDraftHeader] = useState({
     ...draft.resource.articleHeader,
   });
-  const [draftContent, setDraftContent] = useState({
+  const [draftContent, setDraftContent] = useState([
     ...draft.resource.paragraphs,
-  });
+  ]);
   const [draftKnowMore, setDraftKnowMore] = useState({
     ...draft.resource.sections[0].contents,
   });
   const [draftToDo, setDraftToDo] = useState({
     ...draft.resource.sections[1].contents,
   });
-  console.log(draftHeader)
   const {
     isOpen: isOpenHeaderModal,
     onOpen: onOpenHeaderModal,
     onClose: onCloseHeaderModal,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenContentModal,
+    onOpen: onOpenContentModal,
+    onClose: onCloseContentModal,
   } = useDisclosure();
 
   let cover;
@@ -47,6 +52,9 @@ const DraftContent = ({ draft }) => {
 
   const handleHeaderModal = (e) => {
     onOpenHeaderModal();
+  };
+  const handleContentModal = (e) => {
+    onOpenContentModal();
   };
 
   return (
@@ -131,12 +139,13 @@ const DraftContent = ({ draft }) => {
             size="sm"
             variant="outline"
             fontWeight="400"
+            onClick={handleContentModal}
             rightIcon={<FaEdit />}
           >
             Editar contenido
           </Button>
         </HStack>
-        {draft.resource.paragraphs.map((el, id) => (
+        {draftContent.map((el, id) => (
           <Stack width="50rem" paddingLeft={6} direction="row" role="group">
             <Container maxWidth="90ch">
               {!el.content ? (
@@ -186,6 +195,12 @@ const DraftContent = ({ draft }) => {
         onClose={onCloseHeaderModal}
         draftHeader={draftHeader}
         setDraftHeader={setDraftHeader}
+      />
+      <ContentModal
+        isOpen={isOpenContentModal}
+        onClose={onCloseContentModal}
+        draftContent={draftContent}
+        setDraftContent={setDraftContent}
       />
     </>
   );
