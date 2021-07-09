@@ -31,13 +31,12 @@ const DraftContent = ({ draft }) => {
   const [draftToDo, setDraftToDo] = useState({
     ...draft.resource.sections[1].contents,
   });
+  console.log(draftHeader)
   const {
     isOpen: isOpenHeaderModal,
     onOpen: onOpenHeaderModal,
     onClose: onCloseHeaderModal,
   } = useDisclosure();
-
-  console.log(draftHeader);
 
   let cover;
   let footer;

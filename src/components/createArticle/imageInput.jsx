@@ -19,7 +19,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageDescription, setSelectedImageDescription] =
     useState(null);
-  const [missingImageDescription, setMissingImageDescription] = useState(false)
+  const [missingImageDescription, setMissingImageDescription] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [thumbnails, setThumbnails] = useState(null);
@@ -60,7 +60,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
   };
 
   const onDescriptionChange = (e) => {
-    if (e.target.value !== "") {
+    if (e.target.value !== '') {
       setMissingImageDescription(false);
     } else {
       setMissingImageDescription(true);
@@ -71,13 +71,11 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
   const onFileUpload = () => {
     const formData = new FormData();
 
-    
     const { fileName, fileRoute } = CreateFileName(
       selectedImage.type,
       selectedImage.name
-      );
-      
-    
+    );
+
     formData.append('fn', fileName);
     formData.append('file', selectedImage);
 
@@ -158,7 +156,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           accept="image/*"
           ref={imgInputRef}
           onChange={(event) => {
-            setSelectedImageDescription("");
+            setSelectedImageDescription('');
             const file = event.target.files[0];
             if (file && file.type.substring(0, 5) === 'image') {
               const reader = new FileReader();
@@ -172,29 +170,33 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           }}
         />
         <VStack h="100%" justifyContent="space-evenly">
-        <Textarea
-        fontSize="sm"
-        backgroundColor="white"
-        id="articleImgFooter"
-        w="12rem"
-        value={selectedImageDescription}
-        placeholder="Descripción de la imágen"
-        onChange={onDescriptionChange}
-        />
-        {missingImageDescription ? <Text position="absolute" fontSize="xs" color="red">Ingresa una descripción</Text> : null}
-        <Button
-          type="button"
-          colorScheme="blue"
-          fontFamily="Poppins"
-          fontWeight="400"
-          size="xs"
-          disabled={selectedImage ? false : true}
-          variant="outline"
-          onClick={onFileUpload}
-        >
-          {' '}
-          Subir imágen
-        </Button>
+          <Textarea
+            fontSize="sm"
+            backgroundColor="white"
+            id="articleImgFooter"
+            w="12rem"
+            value={selectedImageDescription}
+            placeholder="Descripción de la imágen"
+            onChange={onDescriptionChange}
+          />
+          {missingImageDescription ? (
+            <Text position="absolute" fontSize="xs" color="red">
+              Ingresa una descripción
+            </Text>
+          ) : null}
+          <Button
+            type="button"
+            colorScheme="blue"
+            fontFamily="Poppins"
+            fontWeight="400"
+            size="xs"
+            disabled={selectedImage ? false : true}
+            variant="outline"
+            onClick={onFileUpload}
+          >
+            {' '}
+            Subir imágen
+          </Button>
         </VStack>
       </FormControl>
     </HStack>

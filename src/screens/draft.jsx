@@ -33,7 +33,7 @@ const Draft = () => {
       body: JSON.stringify({
         id: 'msgid-1',
         target: 'soa@service/minerva',
-        method: 'mods/articles/handlers/GetArticle',
+        method: 'mods/articles/handlers/GetArticleDraft',
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
 
@@ -50,6 +50,7 @@ const Draft = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
+        console.log(resJson)
         setDraft([resJson.message.entity]);
       } catch (err) {
         setError(err);
