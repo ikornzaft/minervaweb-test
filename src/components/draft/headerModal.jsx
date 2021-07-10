@@ -21,7 +21,6 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
   useEffect(() => {
     if (draftHeader.image) {
       setImage({ ...draftHeader.image });
-      console.log(draftHeader.image);
       setSelectedImageDescription(draftHeader.image.descriptor.title);
     }
   }, []);

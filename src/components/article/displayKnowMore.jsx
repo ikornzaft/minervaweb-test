@@ -9,7 +9,6 @@ import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
 
 const DisplayKnowMore = ({ sections }) => {
-console.log(sections)
   const clasifySection = (section) => {
     let toRender;
     section.article

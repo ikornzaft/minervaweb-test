@@ -20,7 +20,7 @@ import { KnowMoreModal } from './knowMoreModal';
 import { FaEdit } from 'react-icons/fa';
 import { LABELS } from '../../locals/sp/labels';
 
-const DraftContent = ({ draft }) => {
+const DraftContent = ({ draft, setArticleHeader, setParagraphs, setSections}) => {
   const [draftHeader, setDraftHeader] = useState({
     ...draft.resource.articleHeader,
   });
@@ -65,6 +65,31 @@ const DraftContent = ({ draft }) => {
   const handleKnowMoreModal = (e) => {
     onOpenKnowMoreModal();
   };
+
+  useEffect(() => {
+    setArticleHeader(draftHeader)
+  }, [draftHeader])
+  useEffect(() => {
+    setParagraphs(draftContent)
+  }, [draftContent])
+  useEffect(() => {
+    
+  const sections = [
+        {
+          contents: draftKnowMore,
+          section: {
+            publicId: "1",
+          }
+        },
+        {
+          contents: draftToDo,
+          section: {
+            publicId: "2",
+          }
+        }
+      ]
+    setSections(sections)
+  }, [draftKnowMore])
 
   return (
     <>

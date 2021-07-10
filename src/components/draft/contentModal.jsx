@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   ModalContent,
@@ -13,11 +13,16 @@ import {
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ArticleContentInputModal } from '../createArticle/articleContent/articleContentInputModal'
+import { ArticleContentInputModal } from '../createArticle/articleContent/articleContentInputModal';
 import { ArticleContentItem } from '../createArticle/articleContent/articleContentItem';
 import { ArticleContentElementMenu } from '../createArticle/articleContent/articleContentElementMenu';
 
-const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
+const ContentModal = ({
+  isOpen,
+  onClose,
+  draftContent,
+  setDraftContent,
+}) => {
   const [forceRender, setForceRender] = useState(true);
   const listItems = (el, index) => {
     const descriptor = el.descriptor;
@@ -58,12 +63,11 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
   const addContentHandler = (e) => {
     onCloseAddContent();
     onOpenAddContent();
-  }
+  };
 
   const handleChanges = () => {
-    setDraftContent(draftContent)
-    console.log(draftContent);
-    onClose()
+    setDraftContent(draftContent);
+    onClose();
   };
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -83,29 +87,29 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
           </Box>
 
           <Button
-          mt={4}
-          colorScheme="blue"
-          type="button"
-          variant="outline"
-          bgColor="white"
-          onClick={addContentHandler}
-          size="sm"
-          fontFamily="Poppins"
-          fontWeight="400"
-        >
-          Agregar contenido
-        </Button>
+            mt={4}
+            colorScheme="blue"
+            type="button"
+            variant="outline"
+            bgColor="white"
+            onClick={addContentHandler}
+            size="sm"
+            fontFamily="Poppins"
+            fontWeight="400"
+          >
+            Agregar contenido
+          </Button>
 
           <Button onClick={handleChanges}>Confirmar cambios</Button>
         </ModalBody>
         <ModalCloseButton />
       </ModalContent>
       <ArticleContentInputModal
-      isOpen={isOpenAddContent}
-      onClose={onCloseAddContent}
-      paragraphList={draftContent}
-      setParagraphList={setDraftContent}
-    />
+        isOpen={isOpenAddContent}
+        onClose={onCloseAddContent}
+        paragraphList={draftContent}
+        setParagraphList={setDraftContent}
+      />
     </Modal>
   );
 };

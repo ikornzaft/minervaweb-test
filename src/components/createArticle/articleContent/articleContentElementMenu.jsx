@@ -18,22 +18,25 @@ const ArticleContentElementMenu = ({
 
   const moveUp = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
-    const element = paragraphList.splice(elementId, 1);
-    const removed = paragraphList.splice(elementId - 1, 0, element[0]);
-    setForceRender(!forceRender);
+    const newArray = [...paragraphList]
+    const element = newArray.splice(elementId, 1);
+    const removed = newArray.splice(elementId - 1, 0, element[0]);
+    setParagraphList(newArray)
   };
 
   const moveDown = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
-    const element = paragraphList.splice(elementId, 1);
-    const removed = paragraphList.splice(+elementId + 1, 0, element[0]);
-    setForceRender(!forceRender);
+    const newArray = [...paragraphList]
+    const element = newArray.splice(elementId, 1);
+    const removed = newArray.splice(+elementId + 1, 0, element[0]);
+    setParagraphList(newArray)
   };
 
   const delItem = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
-    const removed = paragraphList.splice(elementId, 1);
-    setForceRender(!forceRender);
+    const newArray = [...paragraphList]
+    const removed = newArray.splice(elementId, 1);
+    setParagraphList(newArray)
   };
   return (
     <VStack heigth="100%">

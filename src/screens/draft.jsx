@@ -21,6 +21,54 @@ const Draft = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [draft, setDraft] = useState(null);
+  const [articleHeader, setArticleHeader] = useState(null);
+  const [paragraphs, setParagraphs] = useState(null);
+  const [sections, setSections] = useState(null);
+
+  const updateDraft = () => {
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/articles/handlers/UpdateArticleDraft',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          entityRef: { publicId: param.id },
+          resource: {
+            articleHeader: articleHeader,
+            paragraphs: paragraphs,
+            sections: sections
+          }
+        },
+      }),
+    };
+
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(url, jsonMessage);
+        if (res.status >= 400 && res.status < 600)
+          setError('Bad response from server');
+        const resJson = await res.json();
+        console.log(resJson);
+        setDraft([resJson.message.entity]);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+
+  }
 
   useEffect(() => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
@@ -50,7 +98,7 @@ const Draft = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
+        console.log(resJson);
         setDraft([resJson.message.entity]);
       } catch (err) {
         setError(err);
@@ -63,8 +111,15 @@ const Draft = () => {
 
   return (
     <Stack marginTop={4} alignItems="center" paddingBottom={6}>
-    <DraftEditMenu />
-      {draft ? <DraftContent draft={draft[0]} /> : null}
+      <DraftEditMenu updateDraft={updateDraft} />
+      {draft ? (
+        <DraftContent
+          draft={draft[0]}
+          setArticleHeader={setArticleHeader}
+          setParagraphs={setParagraphs}
+          setSections={setSections}
+        />
+      ) : null}
     </Stack>
   );
 };

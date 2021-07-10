@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { HStack, Button, Text } from '@chakra-ui/react';
 
-const DraftEditMenu = () => {
+const DraftEditMenu = ({ updateDraft }) => {
   const param = useParams();
   return (
     <HStack
@@ -18,8 +18,15 @@ const DraftEditMenu = () => {
       paddingX={6}
       zIndex="10"
     >
-      <HStack w="38rem" justifyContent="flex-start" alignContent="center" paddingLeft="0.6rem">
-        <Text color="white" fontSize="xl">BORRADOR</Text>
+      <HStack
+        w="38rem"
+        justifyContent="flex-start"
+        alignContent="center"
+        paddingLeft="0.6rem"
+      >
+        <Text color="white" fontSize="xl">
+          BORRADOR
+        </Text>
       </HStack>
       <HStack w="38rem" justifyContent="space-between">
         <Button
@@ -31,6 +38,7 @@ const DraftEditMenu = () => {
           fontWeight="400"
           size="sm"
           variant="ghost"
+          onClick={updateDraft}
         >
           {' '}
           Volver al artículo
@@ -49,18 +57,18 @@ const DraftEditMenu = () => {
           Recuperar original
         </Button>
         <Button
-        w="12rem"
-        type="button"
-        bg="white"
-        colorScheme="blue"
-        fontFamily="Poppins"
-        fontWeight="400"
-        size="sm"
-        variant="ghost"
-      >
-        {' '}
-        Actualizar artículo
-      </Button>
+          w="12rem"
+          type="button"
+          bg="white"
+          colorScheme="blue"
+          fontFamily="Poppins"
+          fontWeight="400"
+          size="sm"
+          variant="ghost"
+        >
+          {' '}
+          Actualizar artículo
+        </Button>
       </HStack>
     </HStack>
   );
