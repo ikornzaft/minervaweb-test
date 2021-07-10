@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { Stack, HStack, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
 import { ParagraphReducer } from '../common/paragraphReducer';
-import { RiBook2Line, RiImageLine, RiVideoLine } from 'react-icons/ri';
+import { RiBook2Line, RiContactsBookLine, RiImageLine, RiVideoLine } from 'react-icons/ri';
 import { VscFilePdf, VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
 
 const DisplayKnowMore = ({ sections }) => {
-
+console.log(sections)
   const clasifySection = (section) => {
     let toRender;
     section.article

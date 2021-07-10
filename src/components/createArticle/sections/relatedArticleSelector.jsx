@@ -6,7 +6,6 @@ import { DisplayRelatedArticle } from './displayRelatedArticle';
 import { RiContactsBookLine } from 'react-icons/ri';
 
 const RelatedArticleSelector = ({
-  options,
   selectedArticles,
   setSelectedArticles,
   area,

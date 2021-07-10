@@ -12,10 +12,11 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
-import { SectionsList } from '../article/sectionsList';
 import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
+import { DisplayKnowMore } from '../article/displayKnowMore';
 import { HeaderModal } from './headerModal';
 import { ContentModal } from './contentModal';
+import { KnowMoreModal } from './knowMoreModal';
 import { FaEdit } from 'react-icons/fa';
 import { LABELS } from '../../locals/sp/labels';
 
@@ -26,9 +27,9 @@ const DraftContent = ({ draft }) => {
   const [draftContent, setDraftContent] = useState([
     ...draft.resource.paragraphs,
   ]);
-  const [draftKnowMore, setDraftKnowMore] = useState({
+  const [draftKnowMore, setDraftKnowMore] = useState([
     ...draft.resource.sections[0].contents,
-  });
+  ]);
   const [draftToDo, setDraftToDo] = useState({
     ...draft.resource.sections[1].contents,
   });
@@ -41,6 +42,11 @@ const DraftContent = ({ draft }) => {
     isOpen: isOpenContentModal,
     onOpen: onOpenContentModal,
     onClose: onCloseContentModal,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenKnowMoreModal,
+    onOpen: onOpenKnowMoreModal,
+    onClose: onCloseKnowMoreModal,
   } = useDisclosure();
 
   let cover;
@@ -55,6 +61,9 @@ const DraftContent = ({ draft }) => {
   };
   const handleContentModal = (e) => {
     onOpenContentModal();
+  };
+  const handleKnowMoreModal = (e) => {
+    onOpenKnowMoreModal();
   };
 
   return (
@@ -182,12 +191,23 @@ const DraftContent = ({ draft }) => {
               size="sm"
               variant="outline"
               fontWeight="400"
+              onClick={handleKnowMoreModal}
               rightIcon={<FaEdit />}
             >
               Editar secciones
             </Button>
           </HStack>
-          <SectionsList sections={draft.resource.sections} />
+          <VStack
+            bgColor="gray.100"
+            borderRadius="lg"
+            w="45rem"
+            paddingY={4}
+            paddingX={8}
+          >
+            {draftKnowMore.length > 0 ? (
+              <DisplayKnowMore sections={draftKnowMore} />
+            ) : null}
+          </VStack>
         </VStack>
       </Box>
       <HeaderModal
@@ -201,6 +221,13 @@ const DraftContent = ({ draft }) => {
         onClose={onCloseContentModal}
         draftContent={draftContent}
         setDraftContent={setDraftContent}
+      />
+      <KnowMoreModal
+        isOpen={isOpenKnowMoreModal}
+        onClose={onCloseKnowMoreModal}
+        draftKnowMore={draftKnowMore}
+        setDraftKnowMore={setDraftKnowMore}
+        area={draft.resource.workarea.publicId}
       />
     </>
   );
