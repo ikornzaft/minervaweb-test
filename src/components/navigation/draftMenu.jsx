@@ -16,6 +16,7 @@ const DraftMenu = () => {
       alignItems="flex-end"
       paddingBottom={1}
       paddingX={6}
+      zIndex="90"
     >
       <HStack w="21rem" justifyContent="space-between">
         <Button

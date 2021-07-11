@@ -146,7 +146,7 @@ const ParagraphPopover = ({
     <Popover initialFocusRef={initialFocusRef}>
       {({ isOpen, onClose }) => (
         <>
-          <PopoverTrigger>
+          <PopoverTrigger zIndex="1">
             <IconButton
               size="sm"
               bg="primary"
@@ -154,6 +154,7 @@ const ParagraphPopover = ({
               visibility="hidden"
               _groupHover={{ visibility: 'visible' }}
               isRound={true}
+              
               icon={<FaQuestion />}
             />
           </PopoverTrigger>

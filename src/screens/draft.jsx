@@ -41,7 +41,7 @@ const Draft = () => {
         principal: credentials,
 
         message: {
-          entityRef: { publicId: param.id },
+          entity: { publicId: param.id },
           resource: {
             articleHeader: articleHeader,
             paragraphs: paragraphs,
