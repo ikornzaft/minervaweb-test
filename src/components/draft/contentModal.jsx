@@ -9,20 +9,14 @@ import {
   Button,
   Box,
   HStack,
-  Input,
-  Textarea,
+  VStack,
   useDisclosure,
 } from '@chakra-ui/react';
 import { ArticleContentInputModal } from '../createArticle/articleContent/articleContentInputModal';
 import { ArticleContentItem } from '../createArticle/articleContent/articleContentItem';
 import { ArticleContentElementMenu } from '../createArticle/articleContent/articleContentElementMenu';
 
-const ContentModal = ({
-  isOpen,
-  onClose,
-  draftContent,
-  setDraftContent,
-}) => {
+const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
   const [forceRender, setForceRender] = useState(true);
   const listItems = (el, index) => {
     const descriptor = el.descriptor;
@@ -31,8 +25,8 @@ const ContentModal = ({
     return (
       <HStack
         key={index}
-        width="30rem"
-        maxWidth="30rem"
+        width="35rem"
+        maxWidth="35rem"
         minWidth="30rem"
         paddingY={2}
         paddingX={6}
@@ -82,25 +76,40 @@ const ContentModal = ({
           Editar contenido
         </ModalHeader>
         <ModalBody textAlign="center">
-          <Box paddingTop={2}>
-            {draftContent.map((el, index) => listItems(el, index))}
-          </Box>
-
+          <VStack
+            w="100%"
+            paddingX={4}
+            paddingBottom={4}
+            borderRadius="md"
+            borderWidth="1px"
+          >
+            <Button
+              mt={4}
+              colorScheme="blue"
+              type="button"
+              variant="outline"
+              bgColor="white"
+              onClick={addContentHandler}
+              size="sm"
+              fontFamily="Poppins"
+              fontWeight="400"
+            >
+              Agregar contenido
+            </Button>
+            <VStack paddingTop={2}>
+              {draftContent.map((el, index) => listItems(el, index))}
+            </VStack>
+          </VStack>
+          <HStack w="100%" justifyContent="center" paddingY={4}>
           <Button
-            mt={4}
-            colorScheme="blue"
-            type="button"
-            variant="outline"
-            bgColor="white"
-            onClick={addContentHandler}
-            size="sm"
             fontFamily="Poppins"
             fontWeight="400"
+            colorScheme="blue"
+            onClick={handleChanges}
           >
-            Agregar contenido
+            Confirmar cambios
           </Button>
-
-          <Button onClick={handleChanges}>Confirmar cambios</Button>
+          </HStack>
         </ModalBody>
         <ModalCloseButton />
       </ModalContent>

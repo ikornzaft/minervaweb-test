@@ -8,7 +8,7 @@ import { FiSpeaker } from 'react-icons/fi';
 const ArticleContentItem = ({ descriptor, content }) => {
   const displayText = () => {
     return (
-      <Text textAlign="left">{ParagraphReducer(descriptor.description)}</Text>
+      <Text fontSize="sm" textAlign="left">{ParagraphReducer(descriptor.description)}</Text>
     );
   };
   const displayContent = () => {
@@ -47,7 +47,7 @@ const ArticleContentItem = ({ descriptor, content }) => {
         </Box>
         <Box>
           <VStack>
-            <Text>{descriptor.title}</Text>
+            <Text fontSize="sm">{descriptor.title}</Text>
           </VStack>
         </Box>
       </>

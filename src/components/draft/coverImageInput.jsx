@@ -108,7 +108,7 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
   };
 
   return (
-    <Stack w="100%" alignItems="center" justifyContent="flex-start">
+    <Stack alignItems="center" justifyContent="flex-start">
       {thumbnail ? (
         <Image
           src={thumbnail}

@@ -55,6 +55,7 @@ const Draft = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
+        console.log(jsonMessage)
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();

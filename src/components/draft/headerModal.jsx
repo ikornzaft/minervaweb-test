@@ -9,6 +9,9 @@ import {
   Button,
   Input,
   Textarea,
+  Text,
+  HStack,
+  Box,
 } from '@chakra-ui/react';
 import { CoverImageInput } from './coverImageInput';
 
@@ -60,36 +63,77 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
         >
           Editar encabezado
         </ModalHeader>
-        <ModalBody textAlign="center">
-          <Input
-            type="text"
-            value={descriptor.title}
-            onChange={(el) =>
-              setDescriptor({ ...descriptor, title: el.target.value })
-            }
-          ></Input>
-          <Textarea
-            value={descriptor.subtitle}
-            onChange={(el) =>
-              setDescriptor({ ...descriptor, subtitle: el.target.value })
-            }
-          ></Textarea>
-          <CoverImageInput
-            image={image}
-            setIsImage={setIsImage}
-            onImageChange={onImageChange}
-          />
-          <Textarea
+        <ModalBody textAlign="left" paddingX={10}>
+          <Box paddingBottom={6}>
+            <Text
+              fontSize="sm"
+              fontFamily="Open Sans"
+              htmlFor="title"
+              marginBottom="0"
+            >
+              Título
+            </Text>
+            <Input
+              type="text"
+              fontSize="sm"
+              value={descriptor.title}
+              onChange={(el) =>
+                setDescriptor({ ...descriptor, title: el.target.value })
+              }
+            ></Input>
+          </Box>
+          <Box paddingBottom={6}>
+            <Text
+              fontSize="sm"
+              fontFamily="Open Sans"
+              htmlFor="title"
+              marginBottom="0"
+            >
+              Subtítulo
+            </Text>
+            <Textarea
             fontSize="sm"
-            backgroundColor="white"
-            id="articleImgFooter"
-            w="12rem"
-            value={selectedImageDescription}
-            placeholder="Descripción de la imágen"
-            disabled={isImage ? false : true}
-            onChange={onDescriptionChange}
-          />
-          <Button onClick={handleChanges}>Confirmar cambios</Button>
+              value={descriptor.subtitle}
+              h="8rem"
+              onChange={(el) =>
+                setDescriptor({ ...descriptor, subtitle: el.target.value })
+              }
+            />
+          </Box>
+          <HStack w="100%" justifyContent="center" paddingBottom={4}>
+          <HStack
+            p={4}
+            bgColor="gray.50"
+            w="25rem"
+            borderRadius="md"
+            borderWidth="1px"
+            justifyContent="space-evenly"
+          >
+            <CoverImageInput
+              image={image}
+              setIsImage={setIsImage}
+              onImageChange={onImageChange}
+            />
+            <Textarea
+              fontSize="sm"
+              backgroundColor="white"
+              id="articleImgFooter"
+              w="12rem"
+              h="6rem"
+              value={selectedImageDescription}
+              placeholder="Descripción de la imágen"
+              disabled={isImage ? false : true}
+              onChange={onDescriptionChange}
+            />
+          </HStack>
+          </HStack>
+          <HStack w="100%" justifyContent="center" paddingY={4}>
+          <Button 
+          fontFamily="Poppins"
+          fontWeight="400"
+          colorScheme="blue"
+          onClick={handleChanges}>Confirmar cambios</Button>
+          </HStack>
         </ModalBody>
         <ModalCloseButton />
       </ModalContent>
