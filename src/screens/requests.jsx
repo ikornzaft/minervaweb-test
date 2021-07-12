@@ -37,6 +37,7 @@ const RequestsBoard = () => {
           setError('Bad response from server');
         const resJson = await res.json();
         setQuestionsArray(resJson.message.resources);
+        console.log(resJson)
       } catch (err) {
         setError(err);
       } finally {

@@ -83,7 +83,7 @@ const RequestItem = ({ question }) => {
             <Stack
               direction="row"
               w="100%"
-              justifyContent="space-between"
+              justifyContent="flex-start"
               alignItems="center"
               paddingX={6}
               marginX={2}
@@ -94,7 +94,9 @@ const RequestItem = ({ question }) => {
               <Badge paddingX={2} colorScheme={badge.color}>
                 {badge.content}
               </Badge>
+              <Box paddingX={2}>
               <Text fontSize="sm">{requestDate}</Text>
+              </Box>
             </Stack>
             <Stack width="100%" direction="row" alignItems="center" padding={4}>
               <Stack alignItems="center" width="100%">
