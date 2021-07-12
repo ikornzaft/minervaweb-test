@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ActivitiesListItem } from './activitiesListItem';
 
 const ActivitiesList = ({ contents }) => {
-
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,10 +25,9 @@ const ActivitiesList = ({ contents }) => {
         principal: credentials,
         message: {
           workarea: {
-            publicId: "naturales"
+            publicId: 'naturales',
           },
           workgroups: workgroups,
-          
         },
       }),
     };
@@ -41,7 +39,6 @@ const ActivitiesList = ({ contents }) => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson);
         setArticles(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -50,8 +47,7 @@ const ActivitiesList = ({ contents }) => {
       }
     }
     fetchData();
-
-  }, [])
+  }, []);
 
   return (
     <>

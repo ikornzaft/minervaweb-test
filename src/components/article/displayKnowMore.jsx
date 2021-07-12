@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Stack, HStack, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
 import { ParagraphReducer } from '../common/paragraphReducer';
-import { RiBook2Line, RiContactsBookLine, RiImageLine, RiVideoLine } from 'react-icons/ri';
+import { RiBook2Line, RiImageLine, RiVideoLine } from 'react-icons/ri';
 import { VscFilePdf, VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
@@ -17,7 +17,6 @@ const DisplayKnowMore = ({ sections }) => {
     return toRender;
   };
 
-  // Si es un artículo relacionado
   const displayArticle = (section) => {
     return (
       <Link to={`/article/${section.article.entity.publicId}`}>
@@ -30,10 +29,8 @@ const DisplayKnowMore = ({ sections }) => {
     );
   };
 
-  // Si es otro recurso
   const determineTypeOfResource = (section) => {
     let icon;
-    let type;
     // Document
     if (section.content.link.type === 'document') {
       const fileName = section.descriptor.subtitle;
@@ -45,7 +42,7 @@ const DisplayKnowMore = ({ sections }) => {
         extension === 'doc' ||
         extension === 'docx' ||
         extension === 'rtf' ||
-        extension == 'txt'
+        extension === 'txt'
       ) {
         icon = SiMicrosoftword;
       } else {
@@ -59,7 +56,6 @@ const DisplayKnowMore = ({ sections }) => {
     // Audio
     if (section.content.link.type === 'audio') {
       icon = FiSpeaker;
-      type = 'audio';
     }
     // Video
     if (section.content.link.type === 'video') {
@@ -71,8 +67,6 @@ const DisplayKnowMore = ({ sections }) => {
     }
     return { icon };
   };
-
-  const log = () => console.log('CLICK');
 
   const displayResource = (section) => {
     const { icon } = determineTypeOfResource(section);

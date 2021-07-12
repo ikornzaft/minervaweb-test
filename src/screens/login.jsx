@@ -30,7 +30,6 @@ const Login = ({ isLoginOn, setLoginOn }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isInvalid = password === '' || user === '';
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [validUser, setValidUser] = useState(false);
   const toast = useToast();
 
@@ -73,7 +72,6 @@ const Login = ({ isLoginOn, setLoginOn }) => {
 
     async function fetchData() {
       try {
-        setIsLoading(true);
         const res = await fetch(url, jsonMessage);
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
@@ -93,9 +91,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         // save user data to localstorage
       } catch (err) {
         setError(err);
-      } finally {
-        setIsLoading(false);
-      }
+      } 
     }
     fetchData();
   };

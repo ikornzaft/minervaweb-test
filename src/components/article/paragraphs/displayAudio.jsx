@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack, Heading, HStack, Text } from '@chakra-ui/react';
+import { VStack, Heading, Text } from '@chakra-ui/react';
 import ReactPlayer from 'react-player/file';
 import { ParagraphReducer } from '../../common/paragraphReducer';
 

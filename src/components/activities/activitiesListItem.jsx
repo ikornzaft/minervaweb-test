@@ -6,14 +6,9 @@ import { ParagraphReducer } from '../common/paragraphReducer';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
 const ActivitiesListItem = ({ article }) => {
-  // Esto después se va
-
   const area = article.workarea.publicId;
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-
   const date = article.inserted.timestamp;
   const image = article.contentHeader.image.location;
-
   const badge = useCreateAreaBadge(area);
 
   return (
@@ -29,15 +24,16 @@ const ActivitiesListItem = ({ article }) => {
       borderWidth="1px"
       maxHeight="125px"
       _hover={{ bg: 'gray.100' }}
-  ><Box w="150px" h="125px">
-    <Image
-      boxSize="125px"
-      objectFit="cover"
-      src={image}
-      alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
-      fallbackSrc={fallBackImg}
-    />
-    </Box>
+    >
+      <Box w="150px" h="125px">
+        <Image
+          boxSize="125px"
+          objectFit="cover"
+          src={image}
+          alt={LABELS.ACTIVITIES.ACTIVITY.IMAGE_ALT}
+          fallbackSrc={fallBackImg}
+        />
+      </Box>
       <Stack width="100%" justifyContent="flex-start">
         <Stack
           direction="row"
@@ -66,14 +62,8 @@ const ActivitiesListItem = ({ article }) => {
               {article.contentHeader.descriptor.title}
             </Heading>
             <Box textAlign="left" marginTop="0" paddingLeft={0}>
-              <Text
-                as="h5"
-                fontSize="sm"
-                fontWeight="400"
-              >
-                {ParagraphReducer(
-                  article.contentHeader.descriptor.subtitle
-                )}
+              <Text as="h5" fontSize="sm" fontWeight="400">
+                {ParagraphReducer(article.contentHeader.descriptor.subtitle)}
               </Text>
             </Box>
           </Stack>

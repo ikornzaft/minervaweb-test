@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { HStack, Select, Text } from '@chakra-ui/react';
 

@@ -1,6 +1,5 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { VStack, Button } from '@chakra-ui/react';
-import { v4 as uuidv4 } from 'uuid';
 import { FaSortUp, FaSortDown } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
