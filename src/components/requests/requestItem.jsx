@@ -83,7 +83,7 @@ const RequestItem = ({ question }) => {
             <Stack
               direction="row"
               w="100%"
-              justifyContent="flex-start"
+              justifyContent="flex-end"
               alignItems="center"
               paddingX={6}
               marginX={2}
@@ -91,12 +91,12 @@ const RequestItem = ({ question }) => {
               borderBottomWidth="1px"
               borderBottomStyle="solid"
             >
-              <Badge paddingX={2} colorScheme={badge.color}>
-                {badge.content}
-              </Badge>
-              <Box paddingX={2}>
-              <Text fontSize="sm">{requestDate}</Text>
-              </Box>
+            <Box paddingX={2}>
+            <Text fontSize="sm">{requestDate}</Text>
+            </Box>
+            <Badge paddingX={2} colorScheme={badge.color}>
+              {badge.content}
+            </Badge>
             </Stack>
             <Stack width="100%" direction="row" alignItems="center" padding={4}>
               <Stack alignItems="center" width="100%">

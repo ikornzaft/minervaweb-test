@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { Stack, Box, Spinner } from '@chakra-ui/react';
 import { ArticleContent } from '../components/article/articleContent';
 import { DraftMenu } from '../components/navigation/draftMenu';
+import { CompleteActivityBar } from '../components/activities/completeActivityBar';
 
 const Loader = () => (
   <Box paddingTop={24} height="50vh">
@@ -16,7 +17,8 @@ const Loader = () => (
   </Box>
 );
 
-const Article = ({ requests, setRequests }) => {
+const Article = () => {
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const containerRef = useRef();
@@ -77,6 +79,8 @@ const Article = ({ requests, setRequests }) => {
       {localStorage.getItem('isEditor') === 'true' ? (
         <DraftMenu />
       ) : null}
+      {history.location.state ? <CompleteActivityBar /> : null}
+
       {isLoading ? (
         <Loader />
       ) : (
@@ -84,8 +88,6 @@ const Article = ({ requests, setRequests }) => {
           <ArticleContent
             key={index}
             article={art}
-            requests={requests}
-            setRequests={setRequests}
           />
         ))
       )}

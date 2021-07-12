@@ -21,10 +21,8 @@ const ParagraphPopover = ({
   paragraphId,
   articleId,
   area,
-  requests,
   setRequests,
   articleTitle,
-  articleSubtitle,
 }) => {
   const [question, setQuestion] = useState('');
   const initialFocusRef = useRef();
@@ -118,7 +116,6 @@ const ParagraphPopover = ({
     };
     fetchData();
 
-    setRequests((requests) => [...requests, question]);
   };
 
   const questionForm = ({ onClose }) => (

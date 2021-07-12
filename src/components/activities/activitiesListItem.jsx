@@ -7,8 +7,17 @@ import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
 const ActivitiesListItem = ({ article }) => {
   const area = article.workarea.publicId;
-  const date = article.inserted.timestamp;
-  const image = article.contentHeader.image.location;
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date(article.inserted.timestamp).toLocaleDateString(
+    'es-Es',
+    options
+  );
+  let image
+  if (article.contentHeader.image) {
+    image = `http://www.afatecha.com/id/files/image/${article.contentHeader.image.location}`;
+  } else {
+    image = fallBackImg;
+  }
   const badge = useCreateAreaBadge(area);
 
   return (

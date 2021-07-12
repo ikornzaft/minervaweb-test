@@ -20,7 +20,7 @@ const ArticlesListItem = ({ article, key }) => {
   } else {
     image = fallBackImg;
   }
-    
+
   const badge = CreateAreaBadge(area);
 
   return (

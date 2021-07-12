@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Heading, Stack, Spinner } from '@chakra-ui/react';
+import { Container, Heading, Stack, Spinner, Button } from '@chakra-ui/react';
 
 import { RequestItem } from '../components/requests/requestItem';
 
@@ -7,6 +7,7 @@ const RequestsBoard = () => {
   const [questionsArray, setQuestionsArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const isStudent = localStorage.getItem('isStudent');
 
   useEffect(() => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
@@ -37,7 +38,7 @@ const RequestsBoard = () => {
           setError('Bad response from server');
         const resJson = await res.json();
         setQuestionsArray(resJson.message.resources);
-        console.log(resJson)
+        console.log(resJson);
       } catch (err) {
         setError(err);
       } finally {
@@ -66,6 +67,8 @@ const RequestsBoard = () => {
               Consultas
             </Heading>
           </Stack>
+          {isStudent === 'true' ? <Button variant="primary" w="15rem">Crear una nueva consulta</Button> : null}
+
           {isLoading ? (
             <Spinner
               thickness="4px"

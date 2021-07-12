@@ -16,7 +16,7 @@ import { SectionsList } from '../article/sectionsList';
 import { ParagraphItemDisplay } from './paragraphs/paragraphItemDisplay';
 import { LABELS } from '../../locals/sp/labels';
 
-const ArticleContent = ({ article, requests, setRequests }) => {
+const ArticleContent = ({ article }) => {
   let cover;
   let footer;
   if (article.resource.articleHeader.image) {
@@ -31,6 +31,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
     article.logs.inserted.timestamp
   ).toLocaleDateString('es-Es', options);
   const badge = CreateAreaBadge(article.resource.workarea.publicId);
+  const isStudent = localStorage.getItem('isStudent');
   return (
     <>
       {article ? (
@@ -94,8 +95,7 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                   )}
                 </Container>
                 <Stack width="1rem" justifyContent="center" alignItems="center">
-                  <ParagraphPopover
-                    requests={requests}
+                  {isStudent === "true" ? <ParagraphPopover
                     paragraphId={id}
                     articleId={article.header.publicId}
                     area={article.resource.workarea.publicId}
@@ -105,9 +105,8 @@ const ArticleContent = ({ article, requests, setRequests }) => {
                     articleSubtitle={
                       article.resource.articleHeader.descriptor.subtitle
                     }
-                    setRequests={setRequests}
                     header={LABELS.ARTICLE.POPOVER.TITLE}
-                  />
+                  /> : null}
                 </Stack>
               </Stack>
             ))}

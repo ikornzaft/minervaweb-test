@@ -13,7 +13,6 @@ import { Feed } from './screens/feed';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
-  const [requests, setRequests] = useState([]);
   return (
     <Layout isLoginOn={isLoginOn}>
       <Switch>
@@ -27,7 +26,7 @@ function App() {
         <Route path="/article/:id" component={Article} />
         <Route path="/draft/:id" component={Draft} />
         <Route exact path="/requests-board/">
-          <RequestsBoard requests={requests} setRequests={setRequests} />
+          <RequestsBoard />
         </Route>
         <Route exact path="/tasks/" component={Tasks} />
         <Route exact path="/exams/" component={Exams} />
