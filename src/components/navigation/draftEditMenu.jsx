@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { HStack, Button, Text } from '@chakra-ui/react';
 
-const DraftEditMenu = ({ updateDraft }) => {
+const DraftEditMenu = ({ updateDraft, revertDraft, publishDraft }) => {
   const param = useParams();
   return (
     <HStack
@@ -52,6 +52,7 @@ const DraftEditMenu = ({ updateDraft }) => {
           fontWeight="400"
           size="sm"
           variant="ghost"
+          onClick={revertDraft}
         >
           {' '}
           Recuperar original
@@ -65,6 +66,7 @@ const DraftEditMenu = ({ updateDraft }) => {
           fontWeight="400"
           size="sm"
           variant="ghost"
+          onClick={publishDraft}
         >
           {' '}
           Actualizar artículo

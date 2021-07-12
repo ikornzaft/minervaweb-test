@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Spinner, Stack } from '@chakra-ui/react';
+import { useParams, useHistory, Link } from 'react-router-dom';
+import { Box, Spinner, Stack, createStandaloneToast } from '@chakra-ui/react';
 import { DraftEditMenu } from '../components/navigation/draftEditMenu';
 import { DraftContent } from '../components/draft/draftContent';
 
@@ -17,6 +17,7 @@ const Loader = () => (
 );
 
 const Draft = () => {
+  const history = useHistory();
   const param = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,6 +25,137 @@ const Draft = () => {
   const [articleHeader, setArticleHeader] = useState(null);
   const [paragraphs, setParagraphs] = useState(null);
   const [sections, setSections] = useState(null);
+
+  const revertDraft = () => {
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/articles/handlers/RevertArticleDraft',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          entity: { publicId: param.id },
+        },
+      }),
+    };
+
+    async function fetchData() {
+      const toast = createStandaloneToast();
+      try {
+        setIsLoading(true);
+        const res = await fetch(url, jsonMessage);
+        if (res.status >= 400 && res.status < 600)
+          setError('Bad response from server');
+        const resJson = await res.json();
+
+        toast({
+          title: 'Se recuperó el artículo original',
+          status: 'success',
+          duration: 2500,
+          isClosable: true,
+        });
+        history.goBack();
+      } catch (err) {
+        setError(err);
+        toast({
+          title: 'No pudo recuperarse el artículo',
+          description: error,
+          status: 'error',
+          duration: 2500,
+          isClosable: true,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  };
+
+  const publishDraft = () => {
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
+    const jsonMessage1 = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/articles/handlers/UpdateArticleDraft',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          entity: { publicId: param.id },
+          resource: {
+            articleHeader: articleHeader,
+            paragraphs: paragraphs,
+            sections: sections,
+          },
+        },
+      }),
+    };
+    const jsonMessage2 = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/articles/handlers/PublishArticleDraft',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          entity: { publicId: param.id },
+        },
+      }),
+    };
+
+    async function fetchData() {
+      const toast = createStandaloneToast();
+      try {
+        setIsLoading(true);
+        let res = await fetch(url, jsonMessage1);
+        if (res.status >= 400 && res.status < 600)
+          setError('Bad response from server');
+        let resJson = await res.json();
+        res = await fetch(url, jsonMessage2);
+        if (res.status >= 400 && res.status < 600)
+          setError('Bad response from server');
+        resJson = await res.json();
+        toast({
+          title: 'Se actualizó el artículo original',
+          status: 'success',
+          duration: 2500,
+          isClosable: true,
+        });
+        history.goBack();
+      } catch (err) {
+        setError(err);
+        toast({
+          title: 'No pudo actualizarse el artículo',
+          description: error,
+          status: 'error',
+          duration: 2500,
+          isClosable: true,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  };
 
   const updateDraft = () => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
@@ -45,33 +177,45 @@ const Draft = () => {
           resource: {
             articleHeader: articleHeader,
             paragraphs: paragraphs,
-            sections: sections
-          }
+            sections: sections,
+          },
         },
       }),
     };
 
     async function fetchData() {
+      const toast = createStandaloneToast();
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        console.log(jsonMessage)
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson);
-        setDraft([resJson.message.entity]);
+        toast({
+          title: 'Se guardó correctamente el borrador',
+          status: 'success',
+          duration: 2500,
+          isClosable: true,
+        });
+        history.goBack();
       } catch (err) {
         setError(err);
+        toast({
+          title: 'No pudo guardarse el borrador',
+          description: error,
+          status: 'error',
+          duration: 2500,
+          isClosable: true,
+        });
       } finally {
         setIsLoading(false);
       }
     }
     fetchData();
-
-  }
+  };
 
   useEffect(() => {
+    console.log('reset');
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const jsonMessage = {
@@ -112,7 +256,11 @@ const Draft = () => {
 
   return (
     <Stack marginTop={4} alignItems="center" paddingBottom={6}>
-      <DraftEditMenu updateDraft={updateDraft} />
+      <DraftEditMenu
+        updateDraft={updateDraft}
+        revertDraft={revertDraft}
+        publishDraft={publishDraft}
+      />
       {draft ? (
         <DraftContent
           draft={draft[0]}

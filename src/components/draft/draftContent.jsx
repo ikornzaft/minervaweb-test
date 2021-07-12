@@ -202,12 +202,12 @@ const DraftContent = ({ draft, setArticleHeader, setParagraphs, setSections}) =>
           maxWidth="49rem"
           bg="gray.100"
           paddingX="2rem"
-          paddingY="2rem"
+          paddingTop="2rem"
           borderRadius="lg"
           borderColor="gray.300"
           borderWidth="1px"
         >
-          <HStack w="100%" justifyContent="flex-end" paddingBottom="2rem">
+          <HStack w="100%" justifyContent="flex-end" >
             <Button
               colorScheme="gray"
               color="blue.600"
