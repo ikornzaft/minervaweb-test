@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Stack, HStack, Box, Spinner } from '@chakra-ui/react';
+import { Stack, Box, Spinner } from '@chakra-ui/react';
 import { ArticleContent } from '../components/article/articleContent';
 import { DraftMenu } from '../components/navigation/draftMenu';
-import { RiContactsBookLine } from 'react-icons/ri';
 
 const Loader = () => (
   <Box paddingTop={24} height="50vh">
@@ -23,7 +22,6 @@ const Article = ({ requests, setRequests }) => {
   const containerRef = useRef();
   const param = useParams();
   const [article, setArticle] = useState([]);
-  const [content, setContent] = useState(false);
 
   useEffect(() => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';

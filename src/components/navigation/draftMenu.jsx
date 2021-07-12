@@ -1,9 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
-import { HStack, Button } from '@chakra-ui/react';
+import { HStack, Button, useDisclosure } from '@chakra-ui/react';
+import { WorkgroupSelector } from '../article/publish/workgroupSelector';
 
 const DraftMenu = () => {
   const param = useParams();
+  const {
+    isOpen: isOpenGroupSelector,
+    onOpen: onOpenGroupSelector,
+    onClose: onCloseGroupSelector,
+  } = useDisclosure();
+
+  const groupSelectorHandler = (e) => {
+    onCloseGroupSelector();
+    onOpenGroupSelector();
+  };
+
   return (
     <HStack
       h="82px"
@@ -43,11 +55,16 @@ const DraftMenu = () => {
           fontWeight="400"
           size="sm"
           variant="ghost"
+          onClick={groupSelectorHandler}
         >
           {' '}
           Compartir en red
         </Button>
       </HStack>
+      <WorkgroupSelector
+        isOpen={isOpenGroupSelector}
+        onClose={onCloseGroupSelector}
+      />
     </HStack>
   );
 };
