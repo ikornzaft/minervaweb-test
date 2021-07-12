@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Box, Spinner, Stack, createStandaloneToast } from '@chakra-ui/react';
 import { DraftEditMenu } from '../components/navigation/draftEditMenu';
 import { DraftContent } from '../components/draft/draftContent';
