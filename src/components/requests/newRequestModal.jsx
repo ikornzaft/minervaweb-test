@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Formik, Field} from 'formik';
+import * as Yup from 'yup';
 import {
 Modal,
 ModalContent,
@@ -9,12 +11,28 @@ ModalCloseButton,
 Button,
 Input,
 Textarea,
+FormControl, 
+FormLabel,
+FormErrorMessage,
 Text,
 HStack,
 Box,
 } from '@chakra-ui/react';
 
 const NewRequestModal = ({ isOpen, onClose }) => {
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Es necesario un título'),
+    question: Yup.string().required('Es necesario un mensaje'),
+    area: Yup.string().required('Se necesita seleccionar un área')
+  });
+  const initialValues = {
+    title: "",
+    question: "",
+    area: ""
+  };
+  const onSubmit = values => {
+    console.log(values);
+  }
   
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -30,22 +48,36 @@ const NewRequestModal = ({ isOpen, onClose }) => {
         </ModalHeader>
         <ModalBody textAlign="left" paddingX={10}>
           <Box paddingBottom={6}>
-            <Text
-              fontSize="sm"
-              fontFamily="Open Sans"
-              htmlFor="title"
-              marginBottom="0"
-            >
-              Título
-            </Text>
-           </Box> 
-          
-          <HStack w="100%" justifyContent="center" paddingY={4}>
-          <Button 
+            <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={onSubmit}>
+            {(props) => (
+              <Field name="title">
+                {
+                  ({field, form}) => {
+                    return <FormControl isInvalid={form.errors["title"] && form.touched["title"]}>
+                      <FormLabel htmlFor="title">Título</FormLabel>
+                      <Input id="title" {...props} {...field} />
+                      <FormErrorMessage>{form.errors["title"]}</FormErrorMessage>
+                    </FormControl>
+                  } 
+                }
+              </Field>
+            )}
+            <Button 
+          type="submit"
           fontFamily="Poppins"
           fontWeight="400"
           colorScheme="blue"
-          onClick={el=>console.log(el.target.value)}>Crear consulta</Button>
+          >Crear consulta</Button>
+            </Formik>
+          
+
+
+
+
+           </Box> 
+          
+          <HStack w="100%" justifyContent="center" paddingY={4}>
+          
           </HStack>
         </ModalBody>
         <ModalCloseButton />
