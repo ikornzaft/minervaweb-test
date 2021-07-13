@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ActivitiesListItem } from './activitiesListItem';
 
 const ActivitiesList = ({activities}) => {
-  console.log(activities)
   return (
     <>
       {activities.map((el) => (

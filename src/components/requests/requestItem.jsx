@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Stack, Badge, Text, Heading, Box, VStack } from '@chakra-ui/react';
+import {
+  Stack,
+  Badge,
+  Text,
+  Heading,
+  Box,
+  HStack,
+  VStack,
+} from '@chakra-ui/react';
 import { CreateAreaBadge } from '../common/createAreaBadge';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { ArticlesDb } from '../../resources/articlesDb';
@@ -60,13 +68,12 @@ const RequestItem = ({ question }) => {
       justifyContent="flex-start"
       alignItems="flex-start"
       direction="row"
-      overflow="hidden"
       borderStyle="solid"
       borderWidth="1px"
-      maxHeight="125px"
       _hover={{ bg: 'gray.100' }}
     >
       {currentQuestion.map((q) => {
+        console.log(q);
         const badge = CreateAreaBadge(
           q.message.entity.resource.workarea.publicId
         );
@@ -80,42 +87,46 @@ const RequestItem = ({ question }) => {
           q.message.entity.resource.paragraphs[0].descriptor.title;
         return (
           <>
-            <Stack
+            <VStack
               direction="row"
               w="100%"
-              justifyContent="flex-end"
-              alignItems="center"
+              justifyContent="flex-start"
+              alignItems="flex-start"
               paddingX={6}
               marginX={2}
-              paddingY="2px"
-              borderBottomWidth="1px"
-              borderBottomStyle="solid"
             >
-            <Box paddingX={2}>
-            <Text fontSize="sm">{requestDate}</Text>
-            </Box>
-            <Badge paddingX={2} colorScheme={badge.color}>
-              {badge.content}
-            </Badge>
-            </Stack>
-            <Stack width="100%" direction="row" alignItems="center" padding={4}>
-              <Stack alignItems="center" width="100%">
-                <Heading
-                  as="h3"
-                  size="sm"
-                  marginLeft={0}
-                  lineHeight="0.7rem"
-                  fontFamily="Open Sans"
-                >
-                  {articleTitle}
-                </Heading>
-                <Box textAlign="left" marginTop="0" paddingLeft={0}>
-                  <Text as="h5" fontSize="sm" fontWeight="400">
-                    {ParagraphReducer(request)}
-                  </Text>
+              <HStack paddingTop={4}>
+                <Box paddingRight={2}>
+                  <Heading
+                    as="h3"
+                    size="sm"
+                    marginLeft={0}
+                    lineHeight="0.7rem"
+                    color="gray.700"
+                    fontFamily="Open Sans"
+                  >
+                    {articleTitle}
+                  </Heading>
                 </Box>
+                <Badge paddingX={2} colorScheme={badge.color}>
+                  {badge.content}
+                </Badge>
+              </HStack>
+              <HStack paddingBottom={2}>
+                <Text fontSize="sm" fontFamily="Open Sans" fontWeight="700" color="primary">
+                  {q.message.entity.resource.worker.publicId}
+                </Text>
+                <Text color="gray.500" fontSize="sm">
+                  - Publicado el {requestDate}
+                </Text>
+              </HStack>
+              <Stack textAlign="left" paddingBottom={4}>
+                <Text as="h5" fontSize="sm" fontWeight="400">
+                  {ParagraphReducer(request)}
+                </Text>
               </Stack>
-            </Stack>
+            </VStack>
+
           </>
         );
       })}
