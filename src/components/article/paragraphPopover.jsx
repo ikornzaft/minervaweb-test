@@ -21,7 +21,6 @@ const ParagraphPopover = ({
   paragraphId,
   articleId,
   area,
-  setRequests,
   articleTitle,
 }) => {
   const [question, setQuestion] = useState('');
@@ -33,7 +32,13 @@ const ParagraphPopover = ({
     e.preventDefault();
 
     const credentials = localStorage.getItem('credentials');
-    const questionId = "Q" + uuidv4();
+    const date = new Date();
+    const formatedDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .slice(0, 10);
+    const questionId = "Q-" + formatedDate + '-' + uuidv4();
     const newEntry = {
       id: 'msgid-1',
       target: 'soa@service/minerva',
@@ -47,6 +52,7 @@ const ParagraphPopover = ({
               descriptor: {
                 subtitle: paragraphId.toString(),
                 title: articleTitle,
+                description: question,
               },
             },
 
@@ -92,7 +98,6 @@ const ParagraphPopover = ({
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
         const resJson = await response.json();
-        console.log(resJson);
         toast({
           title: 'Consulta enviada.',
           description: 'Se creó un nuevo consulta.',
