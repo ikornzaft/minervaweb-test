@@ -15,7 +15,7 @@ import { Request } from './screens/request'
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
   return (
-    <Layout isLoginOn={isLoginOn}>
+    <Layout isLoginOn={isLoginOn} setLoginOn={setLoginOn}>
       <Switch>
         <Route exact path="/">
           <Login isLogin={isLoginOn} setLoginOn={setLoginOn} />

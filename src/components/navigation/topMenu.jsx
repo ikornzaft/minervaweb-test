@@ -5,7 +5,7 @@ import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
 import { LABELS } from '../../locals/sp/labels';
 
-const TopMenu = () => {
+const TopMenu = ({isLoginOn, setLoginOn}) => {
   const history = useHistory();
   const {
     isOpen: isOpenLeft,
@@ -120,6 +120,8 @@ const TopMenu = () => {
         firstButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.CANCEL_BUTTON}
         secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
         setActiveButton={setActiveButton}
+        isLoginOn={isLoginOn}
+        setLoginOn={setLoginOn}
       />
       <RightDrawer
         placement="right"
