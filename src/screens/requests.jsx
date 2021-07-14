@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Heading, Stack, Spinner, Button, useDisclosure } from '@chakra-ui/react';
-
+import {
+  Container,
+  Heading,
+  Stack,
+  Spinner,
+  Button,
+  useDisclosure,
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { RequestItem } from '../components/requests/requestItem';
 import { NewRequestModal } from '../components/requests/newRequestModal';
+import { RiContactsBookLine } from 'react-icons/ri';
 
 const RequestsBoard = () => {
   const [questionsArray, setQuestionsArray] = useState([]);
@@ -76,7 +84,11 @@ const RequestsBoard = () => {
               Consultas
             </Heading>
           </Stack>
-          {isStudent === 'true' ? <Button variant="primary" w="15rem" onClick={handleRequestModal}>Crear una nueva consulta</Button> : null}
+          {isStudent === 'true' ? (
+            <Button variant="primary" w="15rem" onClick={handleRequestModal}>
+              Crear una nueva consulta
+            </Button>
+          ) : null}
 
           {isLoading ? (
             <Spinner
@@ -90,12 +102,17 @@ const RequestsBoard = () => {
             </Spinner>
           ) : (
             questionsArray.map((question, index) => (
-              <RequestItem question={question} index={index} />
+              <Link to={`/request/${question.entity.publicId}`}>
+                <RequestItem question={question} index={index} />
+              </Link>
             ))
           )}
         </Stack>
       </Stack>
-      <NewRequestModal isOpen={isOpenRequestModal} onClose={onCloseRequestModal} />
+      <NewRequestModal
+        isOpen={isOpenRequestModal}
+        onClose={onCloseRequestModal}
+      />
     </Container>
   );
 };

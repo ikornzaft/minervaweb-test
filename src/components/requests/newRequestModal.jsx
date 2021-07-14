@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -10,16 +10,13 @@ import {
   ModalCloseButton,
   Button,
   Input,
-  Textarea,
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Text,
   Select,
   HStack,
   VStack,
   Stack,
-  Box,
   createStandaloneToast,
 } from '@chakra-ui/react';
 import { AREAS } from '../../locals/sp/areas';
@@ -266,22 +263,21 @@ const NewRequestModal = ({ isOpen, onClose }) => {
                         }}
                       </Field>
                     </VStack>
-                   <HStack justifyContent="center">
-                    <Button
-                      type="submit"
-                      fontFamily="Poppins"
-                      fontWeight="400"
-                      colorScheme="blue"
-                    >
-                      Crear consulta
-                    </Button>
-                   </HStack> 
+                    <HStack justifyContent="center">
+                      <Button
+                        type="submit"
+                        fontFamily="Poppins"
+                        fontWeight="400"
+                        colorScheme="blue"
+                      >
+                        Crear consulta
+                      </Button>
+                    </HStack>
                   </Form>
                 </Stack>
               )}
             </Formik>
           </VStack>
-
         </ModalBody>
         <ModalCloseButton />
       </ModalContent>

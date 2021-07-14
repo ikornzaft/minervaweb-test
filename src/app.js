@@ -10,6 +10,7 @@ import { RequestsBoard } from './screens/requests';
 import { Tasks } from './screens/tasks';
 import { Exams } from './screens/exams';
 import { Feed } from './screens/feed';
+import { Request } from './screens/request'
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -25,9 +26,8 @@ function App() {
         <Route path="/articles/:id" component={Articles} />
         <Route path="/article/:id" component={Article} />
         <Route path="/draft/:id" component={Draft} />
-        <Route exact path="/requests-board/">
-          <RequestsBoard />
-        </Route>
+        <Route exact path="/requests-board/" component={RequestsBoard} />
+        <Route path="/request/:id" component={Request} />
         <Route exact path="/tasks/" component={Tasks} />
         <Route exact path="/exams/" component={Exams} />
         <Route exact path="/feed/" component={Feed} />
