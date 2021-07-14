@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Stack, Heading, Box, Spinner } from '@chakra-ui/react';
-import { RequestContent } from '../components/requests/requestContent';
+import { Text, Stack, Box, Spinner } from '@chakra-ui/react';
+import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
 
-const Request = () => {
-  const param = useParams();
-  const question = param.id;
-  const [currentQuestion, setCurrentQuestion] = useState(null);
+const RequestReference = ({ articleId, articleParagraph }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [paragraph, setParagraph] = useState([]);
+  const param = useParams();
 
   const Loader = () => (
     <Box paddingTop={24} height="50vh">
@@ -25,7 +24,6 @@ const Request = () => {
   useEffect(() => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
-    const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
     const jsonMessage = {
       method: 'POST',
       headers: {
@@ -34,13 +32,12 @@ const Request = () => {
       body: JSON.stringify({
         id: 'msgid-1',
         target: 'soa@service/minerva',
-        method: 'mods/questions/handlers/GetQuestion',
+        method: 'mods/articles/handlers/GetArticle',
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
+
         message: {
-          entityRef: {
-            publicId: question,
-          },
+          entityRef: { publicId: articleId },
         },
       }),
     };
@@ -52,7 +49,9 @@ const Request = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        setCurrentQuestion(resJson.message.entity);
+        setParagraph(
+          resJson.message.entity.resource.paragraphs[articleParagraph]
+        );
       } catch (err) {
         setError(err);
       } finally {
@@ -62,32 +61,21 @@ const Request = () => {
     fetchData();
   }, [param.id]);
 
-  if (currentQuestion) {
-    return (
-      <Stack marginTop={4} alignItems="center" paddingBottom={6}>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Stack
-            maxWidth="45rem"
-            w="45rem"
-            paddingTop={16}
-            paddingBottom={6}
-            alignItems="flex-start"
-            textAlign="left"
-          >
-            <RequestContent question={currentQuestion} />
-          </Stack>
-        )}
-      </Stack>
-    );
-  } else {
-    return (
-      <Stack marginTop={4} alignItems="center" paddingBottom={6}>
-        <Loader />
-      </Stack>
-    );
-  }
+  const displayParagraph = () => {
+    if (paragraph.content) {
+      return (
+        <Box><ParagraphItemDisplay item={paragraph} /></Box>);
+    } else {
+      if (paragraph.descriptor) 
+      return (
+        <Box p={4}>
+        <Text fontSize="xs" color="gray.500">{paragraph.descriptor.description}</Text>
+        </Box>
+        );
+    }
+  };
+
+  return <Stack w="100%" h="100%">{isLoading ? <Loader /> : displayParagraph()}</Stack>;
 };
 
-export { Request };
+export { RequestReference };
