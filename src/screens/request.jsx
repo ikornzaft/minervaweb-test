@@ -7,6 +7,8 @@ const Request = () => {
   const param = useParams();
   const question = param.id;
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [commentsNumber, setCommentsNumber] = useState(0);
+  const [commentsArray, setCommentsArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -53,6 +55,7 @@ const Request = () => {
           setError('Bad response from server');
         const resJson = await res.json();
         setCurrentQuestion(resJson.message.entity);
+        setCommentsArray(resJson.message.comments)
       } catch (err) {
         setError(err);
       } finally {
@@ -60,7 +63,7 @@ const Request = () => {
       }
     }
     fetchData();
-  }, [param.id]);
+  }, [param.id, commentsNumber]);
 
   if (currentQuestion) {
     return (
@@ -76,7 +79,12 @@ const Request = () => {
             alignItems="flex-start"
             textAlign="left"
           >
-            <RequestContent question={currentQuestion} />
+            <RequestContent
+              question={currentQuestion}
+              commentsNumber={commentsNumber}
+              setCommentsNumber={setCommentsNumber}
+              commentsArray={commentsArray}
+            />
           </Stack>
         )}
       </Stack>
