@@ -36,9 +36,9 @@ const LABELS = {
       BUTTONS: {
         BUTTON_1: 'Actividades',
         BUTTON_2: 'Consultas',
-        BUTTON_3: 'Tareas',
-        BUTTON_4: 'Exámenes',
-        BUTTON_5: 'Muro',
+        BUTTON_3: 'Foro',
+        BUTTON_4: 'Tareas',
+        BUTTON_5: 'Exámenes',
       },
       RIGHT_DRAWER: {
         BUTTON_TEXT: 'Edición',

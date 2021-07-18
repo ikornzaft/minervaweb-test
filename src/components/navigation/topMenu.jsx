@@ -30,15 +30,15 @@ const TopMenu = ({isLoginOn, setLoginOn}) => {
     }
     if (e.target.id === 'menu-button_3') {
       setActiveButton(2);
-      history.push('/tasks/');
+      history.push('/forum/');
     }
     if (e.target.id === 'menu-button_4') {
       setActiveButton(3);
-      history.push('/exams/');
+      history.push('/tasks/');
     }
     if (e.target.id === 'menu-button_5') {
       setActiveButton(4);
-      history.push('/feed/');
+      history.push('/exams/');
     }
   };
   const [activeButton, setActiveButton] = useState(0);
@@ -80,7 +80,6 @@ const TopMenu = ({isLoginOn, setLoginOn}) => {
           id="menu-button_3"
           isActive={activeButton === 2 ? true : false}
           onClick={menuHandler}
-          disabled={true}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
         </Button>

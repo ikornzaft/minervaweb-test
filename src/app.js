@@ -9,6 +9,7 @@ import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
 import { Tasks } from './screens/tasks';
 import { Exams } from './screens/exams';
+import { Forum } from './screens/forum';
 import { Feed } from './screens/feed';
 import { Request } from './screens/request'
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/request/:id" component={Request} />
         <Route exact path="/tasks/" component={Tasks} />
         <Route exact path="/exams/" component={Exams} />
+        <Route exact path="/forum/" component={Forum} />
         <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />
       </Switch>

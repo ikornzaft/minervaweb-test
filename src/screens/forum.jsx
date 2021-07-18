@@ -10,21 +10,21 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { RequestItem } from '../components/requests/requestItem';
-import { NewRequestModal } from '../components/requests/newRequestModal';
+import { NewTopicModal } from '../components/forum/newTopicModal';
 
-const RequestsBoard = () => {
-  const [questionsArray, setQuestionsArray] = useState([]);
+const Forum = () => {
+  const [topicsArray, setTopicsArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const isStudent = localStorage.getItem('isStudent');
   const {
-    isOpen: isOpenRequestModal,
-    onOpen: onOpenRequestModal,
-    onClose: onCloseRequestModal,
+    isOpen: isOpenTopicModal,
+    onOpen: onOpenTopicModal,
+    onClose: onCloseTopicModal,
   } = useDisclosure();
 
-  const handleRequestModal = (e) => {
-    onOpenRequestModal();
+  const handleTopicModal = (e) => {
+    onOpenTopicModal();
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const RequestsBoard = () => {
       body: JSON.stringify({
         id: 'msgid-1',
         target: 'soa@service/minerva',
-        method: 'mods/questions/handlers/FindQuestion',
+        method: 'mods/topics/handlers/FindTopic',
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
         message: {
@@ -55,7 +55,8 @@ const RequestsBoard = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        setQuestionsArray(resJson.message.resources);
+        console.log(resJson)
+        setTopicsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
       } finally {
@@ -67,7 +68,6 @@ const RequestsBoard = () => {
 
   return (
     <>
-    {isStudent === 'true' ? (
       <HStack
         h="82px"
         borderBottomWidth="1px"
@@ -83,16 +83,15 @@ const RequestsBoard = () => {
         <HStack w="50rem" justifyContent="flex-end">
           <Button
             variant="primary"
-            w="10rem"
+            w="11rem"
             size="sm"
-            onClick={handleRequestModal}
+            onClick={handleTopicModal}
           >
-            + Nueva Consulta
+            + Nueva Publicación
           </Button>
         </HStack>
       </HStack>
-    ) : null}
-    <Container maxWidth="container.lg" alignSelf="center" pt={isStudent === 'true' ? 20 : 12}>
+    <Container maxWidth="container.lg" alignSelf="center" pt={20}>
     <Stack direction="column" textAlign="center">
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
           <Stack direction="row" w="50rem">
@@ -107,7 +106,7 @@ const RequestsBoard = () => {
               borderBottomColor="primary"
               borderBottomWidth="3px"
             >
-              Consultas
+              Foro
             </Heading>
           </Stack>
 
@@ -122,7 +121,7 @@ const RequestsBoard = () => {
               Loading...
             </Spinner>
           ) : (
-            questionsArray.map((question, index) => (
+            topicsArray.map((question, index) => (
               <Link to={`/request/${question.entity.publicId}`}>
                 <RequestItem question={question} index={index} />
               </Link>
@@ -130,13 +129,13 @@ const RequestsBoard = () => {
           )}
         </Stack>
       </Stack>
-      <NewRequestModal
-        isOpen={isOpenRequestModal}
-        onClose={onCloseRequestModal}
+      <NewTopicModal
+        isOpen={isOpenTopicModal}
+        onClose={onCloseTopicModal}
       />
     </Container>
     </>
   );
 };
 
-export { RequestsBoard };
+export { Forum }
