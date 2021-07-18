@@ -67,7 +67,7 @@ const CompleteActivityBar = () => {
   return (
     <HStack
       h="82px"
-      w="100vw"
+      w="85rem"
       position="fixed"
       justifyContent="flex-end"
       alignItems="flex-end"

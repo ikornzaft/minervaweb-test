@@ -94,12 +94,13 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
       <Textarea
         w="100%"
         autoFocus={true}
+        borderColor="gray.300"
         fontSize="sm"
-        placeholder="Tu respuesta..."
+        placeholder="Tu comentario..."
         onChange={(el) => setNewComment(el.target.value)}
       />
       <Button w="10rem" size="sm" variant="primary" onClick={handleNewComment}>
-        Agregar respuesta
+        Agregar comentario
       </Button>
     </VStack>
   );

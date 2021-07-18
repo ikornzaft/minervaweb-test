@@ -3,6 +3,7 @@ import {
   Container,
   Heading,
   Stack,
+  HStack,
   Spinner,
   Button,
   useDisclosure,
@@ -66,8 +67,34 @@ const RequestsBoard = () => {
   }, []);
 
   return (
-    <Container maxWidth="container.lg" alignSelf="center" pt={12}>
-      <Stack direction="column" textAlign="center">
+    <>
+    {isStudent === 'true' ? (
+      <HStack
+        h="82px"
+        borderBottomWidth="1px"
+        borderBottomColor="gray.300"
+        w="100vw"
+        bg="gray.100"
+        position="fixed"
+        justifyContent="center"
+        alignItems="flex-end"
+        paddingBottom={1}
+        zIndex="90"
+      >
+        <HStack w="50rem" justifyContent="flex-end">
+          <Button
+            variant="primary"
+            w="10rem"
+            size="sm"
+            onClick={handleRequestModal}
+          >
+            + Nueva Consulta
+          </Button>
+        </HStack>
+      </HStack>
+    ) : null}
+    <Container maxWidth="container.lg" alignSelf="center" pt={isStudent === 'true' ? 20 : 12}>
+    <Stack direction="column" textAlign="center">
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
           <Stack direction="row" w="50rem">
             <Heading
@@ -84,11 +111,6 @@ const RequestsBoard = () => {
               Consultas
             </Heading>
           </Stack>
-          {isStudent === 'true' ? (
-            <Button variant="primary" w="15rem" onClick={handleRequestModal}>
-              Crear una nueva consulta
-            </Button>
-          ) : null}
 
           {isLoading ? (
             <Spinner
@@ -114,6 +136,7 @@ const RequestsBoard = () => {
         onClose={onCloseRequestModal}
       />
     </Container>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
-import { HStack, Button, useDisclosure } from '@chakra-ui/react';
+import { HStack, Button, Box, useDisclosure } from '@chakra-ui/react';
 import { WorkgroupSelector } from '../article/publish/workgroupSelector';
 
 const DraftMenu = () => {
@@ -24,24 +24,23 @@ const DraftMenu = () => {
       w="100vw"
       bg="gray.100"
       position="fixed"
-      justifyContent="flex-end"
+      justifyContent="center"
       alignItems="flex-end"
       paddingBottom={1}
-      paddingX={6}
       zIndex="90"
     >
-      <HStack w="21rem" justifyContent="space-between">
+    
+      <HStack w="22rem" justifyContent="space-between">
         <Button
           as={ReactRouterLink}
           to={`/draft/${param.id}`}
           w="10rem"
           type="button"
-          bg="white"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
-          variant="ghost"
+          variant="primary"
         >
           {' '}
           Visualizar borrador
@@ -49,18 +48,18 @@ const DraftMenu = () => {
         <Button
           w="10rem"
           type="button"
-          bg="white"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
-          variant="ghost"
+          variant="primary"
           onClick={groupSelectorHandler}
         >
           {' '}
           Compartir en red
         </Button>
       </HStack>
+    
       <WorkgroupSelector
         isOpen={isOpenGroupSelector}
         onClose={onCloseGroupSelector}

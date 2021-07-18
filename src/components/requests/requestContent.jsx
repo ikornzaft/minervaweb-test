@@ -27,6 +27,7 @@ const RequestContent = ({
         w="43rem"
         borderRadius="lg"
         borderWidth="1px"
+        borderColor="gray.300"
       >
         <Heading as="h1" fontSize="2xl">
           {question.resource.articleHeader.descriptor.title}
@@ -63,13 +64,13 @@ const RequestContent = ({
           </HStack>
         ) : null}
       </VStack>
-      {commentsArray.length > 0 ? <CommentsList commentsArray={commentsArray} /> : <Box w="100%" paddingY={2} paddingX={6}><Heading fontSize="md">No hay respuestas aún.</Heading></Box>}
       <NewCommentInput
         questionId={questionId}
         area={area}
         commentsNumber={commentsNumber}
         setCommentsNumber={setCommentsNumber}
       />
+      {commentsArray.length > 0 ? <CommentsList commentsArray={commentsArray} /> : <Box w="100%" paddingY={2} paddingX={6}><Heading fontSize="md">No hay respuestas aún.</Heading></Box>}
     </VStack>
   );
 };
