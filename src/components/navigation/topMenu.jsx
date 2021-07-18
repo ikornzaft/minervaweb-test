@@ -59,14 +59,14 @@ const TopMenu = ({isLoginOn, setLoginOn}) => {
         {LABELS.TOP_MENU.MENU.LEFT_DRAWER.BUTTON_TEXT}
       </Button>
       <Stack direction={['column', 'row']}>
-        <Button
+        {localStorage.getItem('isStudent') === 'true' ? <Button
           variant="underlined"
           id="menu-button_1"
           isActive={activeButton === 0 ? true : false}
           onClick={menuHandler}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
-        </Button>
+        </Button> : null}
         <Button
           variant="underlined"
           id="menu-button_2"

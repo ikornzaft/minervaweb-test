@@ -51,9 +51,9 @@ const Activities = () => {
       } else {
         return (
           <Box paddingY={12}>
-            <Heading color="gray.400" fontWeight="400">
+            {localStorage.getItem('isStudent') === 'true' ? <Heading color="gray.400" fontWeight="400">
               No tienes actividades asignadas en este momento
-            </Heading>
+            </Heading> : null}
           </Box>
         );
       }

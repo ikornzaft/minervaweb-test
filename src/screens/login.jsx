@@ -79,19 +79,37 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         if (resJson.response === 0) {
           setValidUser(true);
           localStorage.setItem('credentials', credentials);
-          localStorage.setItem('userWorkgroups', JSON.stringify(resJson.message.entity.resource.workgroups));
-          localStorage.setItem('userName', resJson.message.entity.resource.username);
-          localStorage.setItem('isStudent', resJson.message.entity.resource.student);
-          localStorage.setItem('isEditor', resJson.message.entity.resource.editor);
-          localStorage.setItem('isResearcher', resJson.message.entity.resource.researcher);
-          localStorage.setItem('realName', resJson.message.entity.resource.descriptor.title)
+          localStorage.setItem(
+            'userWorkgroups',
+            JSON.stringify(resJson.message.entity.resource.workgroups)
+          );
+          localStorage.setItem(
+            'userName',
+            resJson.message.entity.resource.username
+          );
+          localStorage.setItem(
+            'isStudent',
+            resJson.message.entity.resource.student
+          );
+          localStorage.setItem(
+            'isEditor',
+            resJson.message.entity.resource.editor
+          );
+          localStorage.setItem(
+            'isResearcher',
+            resJson.message.entity.resource.researcher
+          );
+          localStorage.setItem(
+            'realName',
+            resJson.message.entity.resource.descriptor.title
+          );
         } else {
-          setError(resJson.error.text)
-        };
+          setError(resJson.error.text);
+        }
         // save user data to localstorage
       } catch (err) {
         setError(err);
-      } 
+      }
     }
     fetchData();
   };
