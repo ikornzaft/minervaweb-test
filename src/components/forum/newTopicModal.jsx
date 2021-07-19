@@ -127,8 +127,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
         console.log(newEntry)
         console.log(resJson);
         toast({
-          title: 'Consulta enviada.',
-          description: 'Se creó un nuevo consulta.',
+          title: 'Se publicó un nuevo tópico.',
           status: 'success',
           duration: 2500,
           isClosable: true,
@@ -136,7 +135,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
       } catch (err) {
         error = err;
         toast({
-          title: 'Se produjo un error al crear la consulta',
+          title: 'Se produjo un error al crear el tópico',
           description: error,
           status: 'error',
           duration: 2500,

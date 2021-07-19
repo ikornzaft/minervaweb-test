@@ -12,7 +12,6 @@ import { CreateAreaBadge } from '../common/createAreaBadge';
 import { ParagraphReducer } from '../common/paragraphReducer';
 
 const RequestItem = ({ question }) => {
-  console.log(question.workarea.publicId)
   const badge = CreateAreaBadge(question.workarea.publicId);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const requestDate = new Date(question.inserted.timestamp).toLocaleDateString(

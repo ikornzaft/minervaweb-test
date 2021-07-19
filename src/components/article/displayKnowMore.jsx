@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { Stack, HStack, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
 import { ParagraphReducer } from '../common/paragraphReducer';
-import { RiBook2Line, RiImageLine, RiVideoLine } from 'react-icons/ri';
+import { RiBook2Line, RiImageLine, RiVideoLine, RiExternalLinkFill } from 'react-icons/ri';
 import { VscFilePdf, VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
 
-const DisplayKnowMore = ({ sections }) => {
+const DisplayKnowMore = ({ sections, isTopic }) => {
   const clasifySection = (section) => {
     let toRender;
     section.article
@@ -63,7 +63,7 @@ const DisplayKnowMore = ({ sections }) => {
     }
     // Link
     if (section.content.link.type === 'link') {
-      icon = VscLinkExternal;
+      icon = RiExternalLinkFill;
     }
     return { icon };
   };
@@ -94,7 +94,7 @@ const DisplayKnowMore = ({ sections }) => {
     <>
       <HStack textAlign="left" justifyContent="flex-start" w="40rem">
         <Heading fontSize="sm" color="gray.600" fontWeight="400">
-          PARA SABER MÁS
+          {isTopic ? "CONTENIDO RELACIONADO" : "PARA SABER MÁS"} 
         </Heading>
       </HStack>
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Stack,
-  Badge,
   Text,
   Heading,
   Box,

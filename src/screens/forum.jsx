@@ -55,6 +55,7 @@ const Forum = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
+        console.log(resJson)
         setTopicsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -121,7 +122,7 @@ const Forum = () => {
             </Spinner>
           ) : (
             topicsArray.map((topic, index) => (
-              <Link to={`/request/${topic.entity.publicId}`}>
+              <Link to={`/topic/${topic.entity.publicId}`}>
                 <ForumItem topic={topic} index={index} />
               </Link>
             ))

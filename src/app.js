@@ -11,7 +11,8 @@ import { Tasks } from './screens/tasks';
 import { Exams } from './screens/exams';
 import { Forum } from './screens/forum';
 import { Feed } from './screens/feed';
-import { Request } from './screens/request'
+import { Request } from './screens/request';
+import { Topic } from './screens/topic';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/tasks/" component={Tasks} />
         <Route exact path="/exams/" component={Exams} />
         <Route exact path="/forum/" component={Forum} />
+        <Route path="/topic/:id" component={Topic} />
         <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />
       </Switch>
