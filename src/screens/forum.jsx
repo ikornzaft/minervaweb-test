@@ -9,7 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { RequestItem } from '../components/requests/requestItem';
+import { ForumItem } from '../components/forum/forumItem';
 import { NewTopicModal } from '../components/forum/newTopicModal';
 
 const Forum = () => {
@@ -55,7 +55,6 @@ const Forum = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
         setTopicsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -121,9 +120,9 @@ const Forum = () => {
               Loading...
             </Spinner>
           ) : (
-            topicsArray.map((question, index) => (
-              <Link to={`/request/${question.entity.publicId}`}>
-                <RequestItem question={question} index={index} />
+            topicsArray.map((topic, index) => (
+              <Link to={`/request/${topic.entity.publicId}`}>
+                <ForumItem topic={topic} index={index} />
               </Link>
             ))
           )}

@@ -58,7 +58,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Es necesario un título'),
-    message: Yup.string().required('Es necesario ingresar una consulta'),
+    message: Yup.string().required('Es necesario ingresar un mensaje'),
     group: Yup.string().required('Es necesario seleccionar un grupo'),
   });
   const initialValues = {
