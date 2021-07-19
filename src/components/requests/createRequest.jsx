@@ -30,7 +30,6 @@ const CreateRequest = ({ header, paragraphId, articleId, area, requests, setRequ
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(question);
     setRequests((requests) => [...requests, question]);
     const toast = createStandaloneToast();
     toast({

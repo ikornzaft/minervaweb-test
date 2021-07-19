@@ -38,6 +38,7 @@ const KnowMoreInputModal = ({
 
   const handleSubmit = (values) => {
     const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);
+    console.log(sectionsList)
     const newList = [...sectionsList];
     newList[0].contents = concatArray;
     setSectionsList(newList);

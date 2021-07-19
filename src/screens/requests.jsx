@@ -55,6 +55,7 @@ const RequestsBoard = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
+        console.log(resJson.message.resources)
         setQuestionsArray(resJson.message.resources);
       } catch (err) {
         setError(err);

@@ -17,12 +17,45 @@ import {
   HStack,
   VStack,
   Stack,
+  Box,
+  useDisclosure,
   createStandaloneToast,
 } from '@chakra-ui/react';
+import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal';
 import { AREAS } from '../../locals/sp/areas';
 import { v4 as uuidv4 } from 'uuid';
 
 const NewTopicModal = ({ isOpen, onClose }) => {
+  const [paragraphList, setParagraphList] = useState([
+      {
+        section: { publicId: '1' },
+        contents: [],
+      },
+      {
+        section: { publicId: '2' },
+        contents: [],
+      },
+  ]);
+  const [selectedArticles, setSelectedArticles] = useState([]);
+  const [contents, setContents] = useState([]);
+  const [links, setLinks] = useState([]);
+  const [workAreas, setWorkAreas] = useState([
+    { key: AREAS.area_1.tag, value: AREAS.area_1.route },
+    { key: AREAS.area_2.tag, value: AREAS.area_2.route },
+    { key: AREAS.area_3.tag, value: AREAS.area_3.route },
+    { key: AREAS.area_4.tag, value: AREAS.area_4.route },
+  ]);
+  const [area, setArea] = useState('mate');
+  const {
+    isOpen: isOpenKnowMore,
+    onOpen: onOpenKnowMore,
+    onClose: onCloseKnowMore,
+  } = useDisclosure();
+  const knowMoreModalHandler = (e) => {
+    onCloseKnowMore();
+    onOpenKnowMore();
+  };
+
   const validationSchema = Yup.object({
     title: Yup.string().required('Es necesario un título'),
     message: Yup.string().required('Es necesario ingresar una consulta'),
@@ -33,8 +66,11 @@ const NewTopicModal = ({ isOpen, onClose }) => {
     message: '',
     group: '',
   };
+
   const storedGroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-  const filteredGroups = storedGroups.filter(el => el.publicId.substring(0, 4) !== 'priv')
+  const filteredGroups = storedGroups.filter(
+    (el) => el.publicId.substring(0, 4) !== 'priv'
+  );
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const handleSubmit = (values) => {
@@ -61,15 +97,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
                 title: values.title,
               },
             },
-
-            paragraphs: [
-              {
-                descriptor: {
-                  title: values.message,
-                },
-              },
-            ],
-
+            paragraphs: paragraphList[0].contents,
             workgroup: { publicId: values.group },
           },
           header: { publicId: topicId },
@@ -96,7 +124,8 @@ const NewTopicModal = ({ isOpen, onClose }) => {
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
         const resJson = await response.json();
-        console.log(resJson)
+        console.log(newEntry)
+        console.log(resJson);
         toast({
           title: 'Consulta enviada.',
           description: 'Se creó un nuevo consulta.',
@@ -115,6 +144,14 @@ const NewTopicModal = ({ isOpen, onClose }) => {
         });
       } finally {
         setLoading(false);
+        setParagraphList([      {
+          section: { publicId: '1' },
+          contents: [],
+        },
+        {
+          section: { publicId: '2' },
+          contents: [],
+        }]);
         onClose();
       }
     };
@@ -122,7 +159,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
+    <Modal isOpen={isOpen} size="3xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
         <ModalHeader
@@ -224,7 +261,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
                         {({ field, form }) => {
                           return (
                             <FormControl
-                              paddingBottom={8}
+                              paddingBottom={4}
                               isInvalid={
                                 form.errors['message'] &&
                                 form.touched['message']
@@ -243,6 +280,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
                                 fontSize="sm"
                                 as="textarea"
                                 id="message"
+                                paddingY={2}
                                 {...props}
                                 {...field}
                               />
@@ -258,7 +296,21 @@ const NewTopicModal = ({ isOpen, onClose }) => {
                         }}
                       </Field>
                     </VStack>
-                    <HStack justifyContent="center">
+                    <VStack justifyContent="center">
+                      <Box paddingBottom={4}>
+                        <Button
+                          colorScheme="blue"
+                          type="button"
+                          variant="outline"
+                          bgColor="white"
+                          size="sm"
+                          fontFamily="Poppins"
+                          onClick={knowMoreModalHandler}
+                          fontWeight="400"
+                        >
+                          Agregar contenido
+                        </Button>
+                      </Box>
                       <Button
                         type="submit"
                         fontFamily="Poppins"
@@ -267,11 +319,25 @@ const NewTopicModal = ({ isOpen, onClose }) => {
                       >
                         Crear publicación
                       </Button>
-                    </HStack>
+                    </VStack>
                   </Form>
                 </Stack>
               )}
             </Formik>
+            <KnowMoreInputModal
+              isOpen={isOpenKnowMore}
+              onClose={onCloseKnowMore}
+              sectionsList={paragraphList}
+              setSectionsList={setParagraphList}
+              selectedArticles={selectedArticles}
+              setSelectedArticles={setSelectedArticles}
+              knowMore={contents}
+              setKnowMore={setContents}
+              knowMoreLinks={links}
+              setKnowMoreLinks={setLinks}
+              workAreas={workAreas}
+              area={area}
+            />
           </VStack>
         </ModalBody>
         <ModalCloseButton />
