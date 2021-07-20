@@ -142,7 +142,7 @@ const HomeworksSelector = ({
           size="sm"
           onClick={addHomework}
         >
-          Agregar artículo
+          Agregar tarea
         </Button>
       </HStack>
 </VStack>

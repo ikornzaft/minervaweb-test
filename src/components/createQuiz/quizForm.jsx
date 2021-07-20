@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import {
   Modal,
@@ -6,12 +8,20 @@ import {
   ModalOverlay,
   ModalHeader,
   ModalBody,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
   VStack,
   HStack,
+  Stack,
+  Select,
   createStandaloneToast,
   Button,
+  Input,
+  Textarea,
   useDisclosure,
 } from '@chakra-ui/react';
+import { AREAS } from '../../locals/sp/areas';
 import { AreaSelector } from './areaSelector';
 import { QuizHeaderForm } from './quizHeaderForm';
 import { QuizQuestionsForm } from './quizQuestionsForm';
@@ -19,8 +29,28 @@ import { QuizQuestionsList } from './quizQuestionsList';
 
 const QuizForm = ({ isOpen, onClose, modalTitle }) => {
   const [newQuizTitle, setNewQuizTitle] = useState('');
+  const [newQuizSubtitle, setNewQuizSubtitle] = useState('');
   const [newQuizWorkarea, setNewQuizWorkarea] = useState(null);
-  const [newQuizQuestionsArray, setNewQuizQuestionsArray] = useState([]);
+  const [quizQuestionsArray, setQuizQuestionsArray] = useState([]);
+
+  const initialValues = {
+    title: '',
+    subtitle: '',
+    area: '',
+  };
+
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Es necesario un título'),
+    subtitle: Yup.string().required('Es necesario ingresar una descripción'),
+    area: Yup.string().required('Es necesario seleccionar una materia'),
+  });
+
+  const workAreas = [
+    { key: AREAS.area_1.tag, value: AREAS.area_1.route },
+    { key: AREAS.area_2.tag, value: AREAS.area_2.route },
+    { key: AREAS.area_3.tag, value: AREAS.area_3.route },
+    { key: AREAS.area_4.tag, value: AREAS.area_4.route },
+  ];
 
   const {
     isOpen: isOpenNewQuestion,
@@ -45,7 +75,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const changeQuestionsArray = (e) => {
-    setNewQuizQuestionsArray([...newQuizQuestionsArray, e]);
+    setQuizQuestionsArray([...quizQuestionsArray, e]);
   };
 
   const createNewQuiz = () => {
@@ -63,7 +93,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
         message: {
           entity: {
             resource: {
-              paragraphs: newQuizQuestionsArray,
+              paragraphs: quizQuestionsArray,
               articleHeader: {
                 descriptor: {
                   subtitle: '',
@@ -71,8 +101,8 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                 },
               },
               workarea: {
-                publicId: newQuizWorkarea
-              }
+                publicId: newQuizWorkarea,
+              },
             },
             header: {
               publicId: randomId,
@@ -80,7 +110,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
           },
         },
       };
-      console.log(newQuizToSubmit)
+      console.log(newQuizToSubmit);
 
       const fetchData = async () => {
         const url =
@@ -132,7 +162,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} size="4xl" onClose={onClose}>
+      <Modal isOpen={isOpen} size="6xl" onClose={onClose}>
         <ModalOverlay />
         <ModalContent padding={2}>
           <ModalHeader
@@ -144,43 +174,182 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
             {modalTitle}
           </ModalHeader>
           <ModalBody textAlign="center">
-            <VStack justifyContent="center">
-              <AreaSelector
-                newQuizWorkarea={newQuizTitle}
-                setNewQuizWorkarea={changeWorkArea}
-                workareaError={workareaError}
-              />
-              <HStack justifyContent="space-between" alignItems="flex-end" paddingY={6}>
-                <QuizHeaderForm
-                  newQuizTitle={newQuizTitle}
-                  setNewQuizTitle={changeQuizTitle}
-                />
-                <Button
-                  variant="outline"
-                  colorScheme="blue"
-                  bgColor="white"
-                  size="sm"
-                  width="12rem"
-                  fontFamily="Poppins"
-                  fontWeight="400"
-                  onClick={handleNewQuestion}
-                >
-                  + Nueva Pregunta
-                </Button>
-              </HStack>
-              <QuizQuestionsList
-                newQuizQuestionsArray={newQuizQuestionsArray}
-                setNewQuizQuestionsArray={changeQuestionsArray}
-              />
-              <Button
-                colorScheme="blue"
-                fontFamily="Poppins"
-                fontWeight="400"
-                onClick={createNewQuiz}
-              >
-                Crear autoevaluación
-              </Button>
-            </VStack>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={createNewQuiz}
+            >
+              {(props) => (
+                <Form>
+                  <Stack
+                    direction="row"
+                    w="full"
+                    justifyContent="space-evenly"
+                    alignItems="flex-start"
+                  >
+                    <VStack
+                      paddingX={6}
+                      w="50%"
+                      h="30rem"
+                      paddingBottom={6}
+                      justifyContent="flex-start"
+                    >
+                      <Field name="area">
+                        {({ field, form }) => {
+                          return (
+                            <FormControl
+                              w="15rem"
+                              paddingBottom={4}
+                              isInvalid={
+                                form.errors['area'] && form.touched['area']
+                              }
+                            >
+                              <Select
+                                placeholder="Selecciona la materia"
+                                borderRadius="md"
+                                size="sm"
+                                w="15rem"
+                                id="area"
+                                {...props}
+                                {...field}
+                              >
+                                {workAreas.map((option) => {
+                                  return (
+                                    <option
+                                      key={option.value}
+                                      value={option.value}
+                                    >
+                                      {option.key}
+                                    </option>
+                                  );
+                                })}
+                              </Select>
+                              <FormErrorMessage
+                                position="absolute"
+                                top="1.7rem"
+                                fontSize="xs"
+                              >
+                                {form.errors['area']}
+                              </FormErrorMessage>
+                            </FormControl>
+                          );
+                        }}
+                      </Field>
+
+                      <Field name="title">
+                        {({ field, form }) => (
+                          <FormControl
+                            h={20}
+                            overflow="hidden"
+                            padding="0"
+                            isInvalid={
+                              form.errors['title'] && form.touched['title']
+                            }
+                          >
+                            <FormLabel
+                              fontSize="sm"
+                              fontFamily="Open Sans"
+                              htmlFor="title"
+                              marginBottom="0"
+                            >
+                              Título
+                            </FormLabel>
+                            <Input
+                              fontSize="sm"
+                              {...props}
+                              {...field}
+                              id="title"
+                            />
+                            <FormErrorMessage
+                              position="absolute"
+                              top="3.5rem"
+                              fontSize="xs"
+                            >
+                              {form.errors['title']}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+
+                      <Field name="subtitle">
+                        {({ field, form }) => (
+                          <FormControl
+                            h={32}
+                            padding="0"
+                            isInvalid={
+                              form.errors['subtitle'] &&
+                              form.touched['subtitle']
+                            }
+                          >
+                            <FormLabel
+                              fontSize="sm"
+                              fontFamily="Open Sans"
+                              htmlFor="subtitle"
+                              marginBottom="0"
+                            >
+                              Descripción
+                            </FormLabel>
+                            <Textarea
+                              fontSize="sm"
+                              h="12rem"
+                              {...props}
+                              {...field}
+                              id="subtitle"
+                              placeholder="Ingresa la descripción de la autoevaluación"
+                            />
+                            <FormErrorMessage
+                              position="absolute"
+                              top="13rem"
+                              fontSize="xs"
+                            >
+                              {form.errors['subtitle']}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+                    </VStack>
+                    <VStack
+                      w="50%"
+                      h="26rem"
+                      maxHeight="26rem"
+                      overflowY="scroll"
+                      borderWidth="1px"
+                      borderRadius="md"
+                      paddingLeft={6}
+                      paddingTop={4}
+                    >
+                      <Button
+                        variant="outline"
+                        colorScheme="blue"
+                        bgColor="white"
+                        size="sm"
+                        width="12rem"
+                        fontFamily="Poppins"
+                        fontWeight="400"
+                        onClick={handleNewQuestion}
+                      >
+                        + Nueva Pregunta
+                      </Button>
+                    </VStack>
+                  </Stack>
+                </Form>
+              )}
+            </Formik>
+
+            <HStack
+              justifyContent="space-between"
+              alignItems="flex-end"
+              paddingY={6}
+            ></HStack>
+
+            <Button
+              colorScheme="blue"
+              fontFamily="Poppins"
+              fontWeight="400"
+              onClick={createNewQuiz}
+            >
+              Crear autoevaluación
+            </Button>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -188,15 +357,14 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
         isOpen={isOpenNewQuestion}
         onClose={onCloseNewQuestion}
         modalTitle="Nueva pregunta"
-        newQuizQuestionsArray={newQuizQuestionsArray}
-        setNewQuizQuestionsArray={changeQuestionsArray}
+        quizQuestionsArray={quizQuestionsArray}
+        setQuizQuestionsArray={changeQuestionsArray}
       />
     </>
   );
 };
 
 export { QuizForm };
-
 
 /*
 
@@ -209,7 +377,7 @@ id: 'msgid-1',
         message: {
           entity: {
             resource: {
-              paragraphs: newQuizQuestionsArray,
+              paragraphs: quizQuestionsArray,
               // [
                 { 
                   resourceId: "", -> asignarlo para identificar correctamente
