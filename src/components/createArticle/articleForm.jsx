@@ -27,7 +27,7 @@ import { AREAS } from '../../locals/sp/areas';
 
 import { ArticleContentInputModal } from './articleContent/articleContentInputModal';
 import { ArticleContentList } from './articleContent/articleContentList';
-import { SectionsInputModal } from './sections/sectionsInputModal';
+import { TodoInputModal } from './sections/todoInputModal';
 import { KnowMoreInputModal } from './sections/knowMoreInputModal';
 import { ImageInput } from './imageInput';
 import { AreaSelector } from './areaSelector';
@@ -45,6 +45,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const [selectedArticles, setSelectedArticles] = useState([]);
   const [knowMore, setKnowMore] = useState([]);
   const [knowMoreLinks, setKnowMoreLinks] = useState([]);
+  const [selectedQuizzes, setSelectedQuizzes] = useState([]);
+  const [selectedExams, setSelectedExams] = useState([]);
+  const [selectedHomeworks, setSelectedHomeworks] = useState([]);
   const [error, setError] = useState(null);
   const [paragraphList, setParagraphList] = useState([]);
 
@@ -200,9 +203,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   } = useDisclosure();
 
   const {
-    isOpen: isOpenSections,
-    onOpen: onOpenSections,
-    onClose: onCloseSections,
+    isOpen: isOpenTodo,
+    onOpen: onOpenTodo,
+    onClose: onCloseTodo,
   } = useDisclosure();
 
   const {
@@ -221,9 +224,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     onOpenKnowMore();
   };
 
-  const sectionsModalHandler = (e) => {
-    onCloseSections();
-    onOpenSections();
+  const todoModalHandler = (e) => {
+    onCloseTodo();
+    onOpenTodo();
   };
 
   const handleSubmit = (values) => {
@@ -377,11 +380,10 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             variant="outline"
                             w="9rem"
                             bgColor="white"
-                            onClick={sectionsModalHandler}
+                            onClick={todoModalHandler}
                             size="sm"
                             fontFamily="Poppins"
                             fontWeight="400"
-                            disabled={true}
                           >
                             {LABELS.CREATE_ARTICLE.FORM.SECTIONS.BUTTON_2}
                           </Button>
@@ -442,12 +444,18 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         paragraphList={paragraphList}
         setParagraphList={setParagraphList}
       />
-      <SectionsInputModal
-        isOpen={isOpenSections}
-        onClose={onCloseSections}
+      <TodoInputModal
+        isOpen={isOpenTodo}
+        onClose={onCloseTodo}
         sectionsList={sectionsList}
         setSectionsList={setSectionsList}
-        area={area}
+        selectedExams={selectedExams}
+        setSelectedExams={setSelectedExams}
+        selectedQuizzes={selectedQuizzes}
+        setSelectedQuizzes={setSelectedQuizzes}
+        selectedHomeworks={selectedHomeworks}
+        setSelectedHomeworks={setSelectedHomeworks}
+        workAreas={workAreas}
       />
       <KnowMoreInputModal
         isOpen={isOpenKnowMore}
