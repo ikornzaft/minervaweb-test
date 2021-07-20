@@ -14,7 +14,7 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
     )
       .toISOString()
       .slice(0, 10);
-    const commentId = 'C-' + formatedDate + '-' + uuidv4();
+    const commentId = 'CQ-' + formatedDate + '-' + uuidv4();
     const newEntry = {
       id: 'msgid-1',
       target: 'soa@service/minerva',
@@ -40,7 +40,6 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
           ],
 
           workarea: { publicId: area },
-          workgroup: { publicId: 'aula/test_a/quinto' },
         },
         entityRef: {publicId: questionId}
       },
@@ -66,7 +65,7 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
           setError('Bad response from server');
         const resJson = await response.json();
         toast({
-          title: 'Respuesta enviada.',
+          title: 'Comentario enviado.',
           status: 'success',
           duration: 2500,
           isClosable: true,
@@ -74,7 +73,7 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
       } catch (err) {
         error = err;
         toast({
-          title: 'Se produjo un error al enviar la respuesta',
+          title: 'Se produjo un error al enviar el comentario',
           description: error,
           status: 'error',
           duration: 2500,

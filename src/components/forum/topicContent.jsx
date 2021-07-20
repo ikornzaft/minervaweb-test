@@ -17,6 +17,7 @@ const TopicContent = ({
   ).toLocaleDateString('es-Es', options);
   const worker = topic.logs.inserted.principal;
   const message = topic.resource.articleHeader.descriptor.subtitle;
+  const group = topic.resource.workgroup.publicId;
   const topicId = topic.header.publicId;
 
   return (
@@ -65,6 +66,7 @@ const TopicContent = ({
         topicId={topicId}
         commentsNumber={commentsNumber}
         setCommentsNumber={setCommentsNumber}
+        group={group}
       />
       {commentsArray.length > 0 ? (
         <CommentsList commentsArray={commentsArray} />
