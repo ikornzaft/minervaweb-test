@@ -19,6 +19,7 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
   const param = useParams();
   const storedGroups = JSON.parse(localStorage.getItem('userWorkgroups'));
+  console.log(storedGroups)
   const filteredGroups = storedGroups.filter(
     (el) => el.publicId.substring(0, 4) !== 'priv'
   );

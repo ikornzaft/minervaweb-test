@@ -22,6 +22,7 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { HomeworksSelector } from './homeworksSelector';
+import { QuizzesSelector } from './quizzesSelector';
 
 const TodoInputModal = ({
   isOpen,
@@ -109,7 +110,13 @@ const TodoInputModal = ({
                 />
               </TabPanel>
 
-              <TabPanel></TabPanel>
+              <TabPanel>
+                <QuizzesSelector
+                  workAreas={workAreas}
+                  selectedQuizzes={selectedQuizzes}
+                  setSelectedQuizzes={setSelectedQuizzes}
+                />
+              </TabPanel>
 
               <TabPanel></TabPanel>
             </TabPanels>

@@ -134,7 +134,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
           isClosable: true,
         });
         //borrar data
-
+        setQuizQuestionsArray([]);
         onClose();
       } catch (err) {
         error = err;
