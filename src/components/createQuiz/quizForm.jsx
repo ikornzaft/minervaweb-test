@@ -19,19 +19,20 @@ import {
   Button,
   Input,
   Textarea,
+  Text,
+  Box,
   useDisclosure,
 } from '@chakra-ui/react';
 import { AREAS } from '../../locals/sp/areas';
-import { AreaSelector } from './areaSelector';
-import { QuizHeaderForm } from './quizHeaderForm';
+
 import { QuizQuestionsForm } from './quizQuestionsForm';
-import { QuizQuestionsList } from './quizQuestionsList';
+
+import { ElementMenu } from './elementMenu';
+import { ParagraphReducer } from '../common/paragraphReducer';
 
 const QuizForm = ({ isOpen, onClose, modalTitle }) => {
-  const [newQuizTitle, setNewQuizTitle] = useState('');
-  const [newQuizSubtitle, setNewQuizSubtitle] = useState('');
-  const [newQuizWorkarea, setNewQuizWorkarea] = useState(null);
   const [quizQuestionsArray, setQuizQuestionsArray] = useState([]);
+  const [forceRender, setForceRender] = useState(true);
 
   const initialValues = {
     title: '',
@@ -61,103 +62,126 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
   const [workareaError, setWorkareaError] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [serverResponse, setServerResponse] = useState(null);
 
   const handleNewQuestion = (e) => {
     onOpenNewQuestion();
-  };
-
-  const changeWorkArea = (e) => {
-    setNewQuizWorkarea(e);
-  };
-  const changeQuizTitle = (e) => {
-    setNewQuizTitle(e);
   };
 
   const changeQuestionsArray = (e) => {
     setQuizQuestionsArray([...quizQuestionsArray, e]);
   };
 
-  const createNewQuiz = () => {
-    if (!newQuizWorkarea) {
-      setWorkareaError(true);
-    } else {
-      const randomId = uuidv4();
-      const principal = localStorage.getItem('credentials');
-      const newQuizToSubmit = {
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/quizzes/handlers/InsertQuiz',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: principal,
-        message: {
-          entity: {
-            resource: {
-              paragraphs: quizQuestionsArray,
-              articleHeader: {
-                descriptor: {
-                  subtitle: '',
-                  title: newQuizTitle,
-                },
-              },
-              workarea: {
-                publicId: newQuizWorkarea,
+  const createNewQuiz = (el) => {
+    const date = new Date();
+    const formatedDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .slice(0, 10);
+    const quizId = 'QZ-' + formatedDate + '-' + uuidv4();
+    const principal = localStorage.getItem('credentials');
+    const newQuizToSubmit = {
+      id: 'msgid-1',
+      target: 'soa@service/minerva',
+      method: 'mods/quizzes/handlers/InsertQuiz',
+      requester: 'root:YWNhY2lhITIwMTc=',
+      principal: principal,
+      message: {
+        entity: {
+          resource: {
+            paragraphs: quizQuestionsArray,
+            articleHeader: {
+              descriptor: {
+                subtitle: el.subtitle,
+                title: el.title,
               },
             },
-            header: {
-              publicId: randomId,
+            workarea: {
+              publicId: el.area,
             },
+          },
+          header: {
+            publicId: quizId,
           },
         },
+      },
+    };
+
+    const fetchData = async () => {
+      const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+
+      const jsonMessage = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify(newQuizToSubmit),
       };
-      console.log(newQuizToSubmit);
 
-      const fetchData = async () => {
-        const url =
-          'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+      const toast = createStandaloneToast();
 
-        const jsonMessage = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-          },
-          body: JSON.stringify(newQuizToSubmit),
-        };
+      try {
+        setLoading(true);
+        const response = await fetch(url, jsonMessage);
+        if (response.status >= 400 && response.status < 600)
+          setError('Bad response from server');
+        const resJson = await response.json();
+        console.log(resJson);
+        toast({
+          title: 'Nueva autoevaluación guardada.',
+          status: 'success',
+          duration: 2500,
+          isClosable: true,
+        });
+        //borrar data
 
-        const toast = createStandaloneToast();
+        onClose();
+      } catch (err) {
+        error = err;
+        toast({
+          title: 'Se produjo un error al crear la autoevaluación',
+          description: error,
+          status: 'error',
+          duration: 2500,
+          isClosable: true,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  };
 
-        try {
-          setLoading(true);
-          const response = await fetch(url, jsonMessage);
-          if (response.status >= 400 && response.status < 600)
-            setError('Bad response from server');
-          const resJson = await response.json();
-          console.log(resJson);
-          setServerResponse(resJson);
-          toast({
-            title: 'Nueva autoevaluación guardada.',
-            status: 'success',
-            duration: 2500,
-            isClosable: true,
-          });
-          //borrar data
-
-          onClose();
-        } catch (err) {
-          error = err;
-          toast({
-            title: 'Se produjo un error al crear la autoevaluación',
-            description: error,
-            status: 'error',
-            duration: 2500,
-            isClosable: true,
-          });
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }
+  const listItems = (el, index) => {
+    const descriptor = el.descriptor;
+    let content;
+    el.content ? (content = el.content) : (content = null);
+    return (
+      <HStack
+        key={index}
+        width="30rem"
+        maxWidth="35rem"
+        minWidth="30rem"
+        paddingY={2}
+        paddingX={6}
+        bgColor="gray.100"
+        borderRadius="md"
+        marginBottom={2}
+        justifyContent="space-between"
+      >
+        <Text fontSize="sm" textAlign="left">
+          {ParagraphReducer(descriptor.title)}
+        </Text>
+        <ElementMenu
+          index={index}
+          paragraphList={quizQuestionsArray}
+          setParagraphList={setQuizQuestionsArray}
+          forceRender={forceRender}
+          setForceRender={setForceRender}
+          isImage="false"
+        />
+      </HStack>
+    );
   };
 
   return (
@@ -190,7 +214,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                     <VStack
                       paddingX={6}
                       w="50%"
-                      h="30rem"
+                      h="20rem"
                       paddingBottom={6}
                       justifyContent="flex-start"
                     >
@@ -318,38 +342,45 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                       paddingLeft={6}
                       paddingTop={4}
                     >
-                      <Button
-                        variant="outline"
-                        colorScheme="blue"
-                        bgColor="white"
-                        size="sm"
-                        width="12rem"
-                        fontFamily="Poppins"
-                        fontWeight="400"
-                        onClick={handleNewQuestion}
-                      >
-                        + Nueva Pregunta
-                      </Button>
+                      <Box h="2rem">
+                        <Button
+                          variant="outline"
+                          colorScheme="blue"
+                          bgColor="white"
+                          size="sm"
+                          width="12rem"
+                          fontFamily="Poppins"
+                          fontWeight="400"
+                          onClick={handleNewQuestion}
+                        >
+                          + Nueva Pregunta
+                        </Button>
+                      </Box>
+                      <VStack paddingTop={2}>
+                        {quizQuestionsArray.map((el, index) =>
+                          listItems(el, index)
+                        )}
+                      </VStack>
                     </VStack>
                   </Stack>
+                  <HStack
+                    justifyContent="center"
+                    alignItems="flex-end"
+                    paddingTop={6}
+                    paddingBottom={3}
+                  >
+                    <Button
+                      type="submit"
+                      colorScheme="blue"
+                      fontFamily="Poppins"
+                      fontWeight="400"
+                    >
+                      Crear autoevaluación
+                    </Button>
+                  </HStack>
                 </Form>
               )}
             </Formik>
-
-            <HStack
-              justifyContent="space-between"
-              alignItems="flex-end"
-              paddingY={6}
-            ></HStack>
-
-            <Button
-              colorScheme="blue"
-              fontFamily="Poppins"
-              fontWeight="400"
-              onClick={createNewQuiz}
-            >
-              Crear autoevaluación
-            </Button>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -358,64 +389,10 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
         onClose={onCloseNewQuestion}
         modalTitle="Nueva pregunta"
         quizQuestionsArray={quizQuestionsArray}
-        setQuizQuestionsArray={changeQuestionsArray}
+        changeQuestionsArray={changeQuestionsArray}
       />
     </>
   );
 };
 
 export { QuizForm };
-
-/*
-
-
-id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/quizzes/handlers/InsertQuiz',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: 'afatecha:YWZhdGVjaGExMjM=',
-        message: {
-          entity: {
-            resource: {
-              paragraphs: quizQuestionsArray,
-              // [
-                { 
-                  resourceId: "", -> asignarlo para identificar correctamente
-                  descriptor: {
-                    title: ""
-                    subtitle: ""
-                  },
-                 content: {
-                   type: "text / choice" PARA EXAMS
-                  link: (artículo: objeto link)
-                  options: [
-                    {
-                      descriptor: {
-                        title: 
-                      },
-                      answer: (boolean)
-                    }
-                  ]
-                  
-                }
-                  
-
-                }
-                }
-              ]
-              articleHeader: {
-                descriptor: {
-                  subtitle: '',
-                  title: newQuizTitle,
-                },
-              },
-              workarea: newQuizWorkarea,
-            },
-            header: {
-              publicId: randomId,
-            },
-          },
-        },
-
-
-        */

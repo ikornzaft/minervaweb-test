@@ -18,6 +18,7 @@ import {
   Box,
   Text,
   HStack,
+  VStack,
   IconButton,
 } from '@chakra-ui/react';
 import { CoverImageInput } from '../draft/coverImageInput';
@@ -25,8 +26,8 @@ import { AnswersInput } from './answersInput';
 import { QuizQuestionCreator } from './quizQuestionCreator';
 
 const QuizQuestionsForm = ({
-  newQuizQuestionsArray,
-  setNewQuizQuestionsArray,
+  quizQuestionsArray,
+  changeQuestionsArray,
   isOpen,
   onClose,
   modalTitle,
@@ -34,29 +35,68 @@ const QuizQuestionsForm = ({
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState(null);
   const [isImage, setIsImage] = useState(false);
+  const [answersArray, setAnswersArray] = useState([]);
+  const [option, setOption] = useState(0);
 
-  const addNewQuestionToArray = (question, answersArray) => {
-    const newEntry = {
-      descriptor: {
-        title: question,
-        subtitle: '',
-      },
-      content: {
-        options: answersArray,
-      },
-    };
-    setNewQuizQuestionsArray(newEntry);
+  const addNewQuestionToArray = () => {
+    if (question !== '') {
+      const newArray = answersArray.map((answer, index) => {
+        let isTrue;
+        index === option ? (isTrue = true) : (isTrue = false);
+        const obj = {
+          answer: isTrue,
+          descriptor: {
+            title: answer,
+          },
+        };
+        return obj;
+      });
+
+      let newEntry;
+      if (image) {
+        newEntry = {
+          descriptor: {
+            title: question,
+            subtitle: '',
+          },
+          content: {
+            options: newArray,
+            link: {
+              locationType: 'relative',
+              location: image.location,
+              type: 'image',
+            },
+          },
+        };
+      } else {
+        newEntry = {
+          descriptor: {
+            title: question,
+            subtitle: '',
+          },
+          content: {
+            options: newArray,
+          },
+        };
+      }
+      console.log(newEntry);
+      changeQuestionsArray(newEntry);
+      setQuestion('');
+      setImage(null);
+      setAnswersArray([]);
+      setOption(0);
+      onClose();
+    }
   };
 
   const onImageChange = (newImage) => {
     setImage(newImage);
-    console.log(newImage);
   };
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
-      <ModalContent p={2} height="27rem">
+      <ModalContent p={2}>
         <ModalHeader
           alignSelf="center"
           color="gray.700"
@@ -65,7 +105,7 @@ const QuizQuestionsForm = ({
         >
           {modalTitle}
         </ModalHeader>
-        <ModalBody textAlign="center" h="20rem">
+        <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
               <Tab
@@ -96,7 +136,7 @@ const QuizQuestionsForm = ({
 
             <TabPanels>
               <TabPanel>
-                <FormControl h={20}>
+                <Box h="8rem">
                   <FormLabel
                     fontSize="sm"
                     fontFamily="Open Sans"
@@ -110,7 +150,7 @@ const QuizQuestionsForm = ({
                     id="question"
                     onChange={(el) => setQuestion(el.target.value)}
                   />
-                </FormControl>
+                </Box>
               </TabPanel>
 
               <TabPanel>
@@ -125,21 +165,24 @@ const QuizQuestionsForm = ({
               </TabPanel>
 
               <TabPanel>
-                <AnswersInput />
+                <VStack>
+                  <AnswersInput
+                    answersArray={answersArray}
+                    setAnswersArray={setAnswersArray}
+                    option={option}
+                    setOption={setOption}
+                  />
+                </VStack>
               </TabPanel>
             </TabPanels>
           </Tabs>
         </ModalBody>
         <ModalFooter>
-          <Box paddingTop={12}>
-            <Button
-              variant="primary"
-              w="12rem"
-              onClick={(el) => console.log(question)}
-            >
+          <HStack w="100%" justifyContent="center">
+            <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>
               Agregar pregunta
             </Button>
-          </Box>
+          </HStack>
         </ModalFooter>
       </ModalContent>
     </Modal>
