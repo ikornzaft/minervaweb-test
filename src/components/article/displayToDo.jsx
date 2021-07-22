@@ -11,7 +11,7 @@ const DisplayToDo = ({sections}) => {
   const displayContent = (content) => {
     console.log(content)
     return (
-      <Link to={`/article/${content.content.entity.publicId}`}>
+      <Link to={`/quiz/${content.content.entity.publicId}`}>
         <SectionElement
           icon={IoMdCheckboxOutline}
           title={content.descriptor.title}

@@ -4,7 +4,7 @@ import { Login } from './screens/login';
 import { Activities } from './screens/activities';
 import { Articles } from './screens/articles';
 import { Article } from './screens/article';
-import { Draft } from './screens/draft'
+import { Draft } from './screens/draft';
 import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
 import { Tasks } from './screens/tasks';
@@ -13,6 +13,7 @@ import { Forum } from './screens/forum';
 import { Feed } from './screens/feed';
 import { Request } from './screens/request';
 import { Topic } from './screens/topic';
+import { Quiz } from './screens/quiz';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <Route exact path="/exams/" component={Exams} />
         <Route exact path="/forum/" component={Forum} />
         <Route path="/topic/:id" component={Topic} />
+        <Route path="/quiz/:id" component={Quiz} />
         <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />
       </Switch>
