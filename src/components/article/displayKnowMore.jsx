@@ -94,7 +94,7 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
     <>
       <HStack textAlign="left" justifyContent="flex-start" w="40rem">
         <Heading fontSize="sm" color="gray.600" fontWeight="400">
-          {isTopic ? "CONTENIDO RELACIONADO" : "PARA SABER MÁS"} 
+          PARA SABER MÁS
         </Heading>
       </HStack>
 
