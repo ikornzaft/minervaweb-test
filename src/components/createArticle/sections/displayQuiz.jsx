@@ -31,10 +31,10 @@ const DisplayQuiz = ({
   return (
     <HStack width="100%">
       <VStack width="100%" p={3} bg="gray.100" borderRadius="md">
-        <Heading as="h4" fontSize="xs" fontWeight="400">
+        <Heading as="h4" fontSize="sm">
           {titleString}
         </Heading>
-        <Text fontSize="xs" color="gray.500">{ParagraphReducer(subtitleString)}</Text>
+        <Text fontSize="xs" color="gray.700">{ParagraphReducer(subtitleString)}</Text>
       </VStack>
       <Tooltip label="Borrar artículo" bg="white" color="gray.700">
         <Button margin="0" size="xs" onClick={deleteItem} >

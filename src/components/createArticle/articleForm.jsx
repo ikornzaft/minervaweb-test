@@ -168,6 +168,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           setKnowMore([]);
           setKnowMoreLinks([]);
           setCoverImage(null);
+          setSelectedQuizzes([]);
 
           onClose();
         } catch (err) {

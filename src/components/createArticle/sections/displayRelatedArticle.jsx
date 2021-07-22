@@ -30,7 +30,7 @@ const DisplayRelatedArticle = ({
   return (
     <HStack width="100%">
       <VStack width="100%" p={3} bg="gray.100" borderRadius="md">
-        <Heading as="h4" fontSize="md">
+        <Heading as="h4" fontSize="sm">
           {titleString}
         </Heading>
         <Text fontSize="xs">{ParagraphReducer(subtitleString)}</Text>
