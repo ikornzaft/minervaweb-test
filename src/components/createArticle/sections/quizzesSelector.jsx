@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
-
+import { DisplayQuiz } from './displayQuiz';
 
 const QuizzesSelector = ({
   workAreas,
@@ -12,7 +12,7 @@ const QuizzesSelector = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedArea, setSelectedArea] = useState([]);
-  const [optionValue, setOptionValue] = useState("");
+  const [optionValue, setOptionValue] = useState('');
 
   useEffect(() => {
     setQuizzesToDisplay([]);
@@ -45,8 +45,6 @@ const QuizzesSelector = ({
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(selectedArea)
-        console.log(resJson);
         setQuizzes(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -55,8 +53,7 @@ const QuizzesSelector = ({
       }
     }
     fetchData();
-  }, [setQuizzesToDisplay, selectedArea])
-
+  }, [setQuizzesToDisplay, selectedArea]);
 
   useEffect(() => {
     quizzes.map((quiz) => {
@@ -64,10 +61,7 @@ const QuizzesSelector = ({
         key: quiz.entity.publicId,
         value: quiz.contentHeader.descriptor.title,
       };
-      setQuizzesToDisplay((prevQuizzes) => [
-        ...prevQuizzes,
-        newQuizToDisplay,
-      ]);
+      setQuizzesToDisplay((prevQuizzes) => [...prevQuizzes, newQuizToDisplay]);
     });
   }, [quizzes]);
 
@@ -81,22 +75,26 @@ const QuizzesSelector = ({
           title: quizzes[quizIndex].contentHeader.descriptor.title,
           subtitle: quizzes[quizIndex].contentHeader.descriptor.subtitle,
         },
-
+        content: {
+          type: 'quiz',
+          entity: {
+            publicId: optionValue,
+          },
+        },
       };
+
       const elementExists = selectedQuizzes.findIndex(
-        (el) => el.quiz.entity.publicId === optionValue
+        (el) => el.content.entity.publicId === optionValue
       );
       if (elementExists === -1)
         setSelectedQuizzes([...selectedQuizzes, quizObj]);
     }
-
     setOptionValue(null);
   };
 
-
   return (
     <VStack paddingTop={2}>
-    <Select
+      <Select
         w="12rem"
         borderRadius="md"
         size="sm"
@@ -124,7 +122,7 @@ const QuizzesSelector = ({
             setOptionValue(e.target.value);
           }}
         >
-          { quizzesToDisplay.map((option) => {
+          {quizzesToDisplay.map((option) => {
             return (
               <option key={option.key} value={option.key}>
                 {option.value}
@@ -146,8 +144,19 @@ const QuizzesSelector = ({
           Agregar autoevaluación
         </Button>
       </HStack>
-</VStack>
-  )
+      {selectedQuizzes.map((quiz) => {
+        if (quiz !== '')
+          return (
+            <DisplayQuiz
+              options={quizzes}
+              selectedQuizzes={selectedQuizzes}
+              setSelectedQuizzes={setSelectedQuizzes}
+              quiz={quiz}
+            />
+          );
+      })}
+    </VStack>
+  );
 };
 
 export { QuizzesSelector };
