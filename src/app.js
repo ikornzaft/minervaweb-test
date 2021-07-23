@@ -13,6 +13,7 @@ import { Forum } from './screens/forum';
 import { Feed } from './screens/feed';
 import { Request } from './screens/request';
 import { Topic } from './screens/topic';
+import { Quizzes } from './screens/quizzes';
 import { Quiz } from './screens/quiz';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/exams/" component={Exams} />
         <Route exact path="/forum/" component={Forum} />
         <Route path="/topic/:id" component={Topic} />
+        <Route exact path="/quizzes/" component={Quizzes} />
         <Route path="/quiz/:id" component={Quiz} />
         <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />

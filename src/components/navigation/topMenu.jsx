@@ -5,7 +5,7 @@ import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
 import { LABELS } from '../../locals/sp/labels';
 
-const TopMenu = ({isLoginOn, setLoginOn}) => {
+const TopMenu = ({ isLoginOn, setLoginOn }) => {
   const history = useHistory();
   const {
     isOpen: isOpenLeft,
@@ -34,10 +34,14 @@ const TopMenu = ({isLoginOn, setLoginOn}) => {
     }
     if (e.target.id === 'menu-button_4') {
       setActiveButton(3);
-      history.push('/tasks/');
+      history.push('/quizzes/');
     }
     if (e.target.id === 'menu-button_5') {
       setActiveButton(4);
+      history.push('/tasks/');
+    }
+    if (e.target.id === 'menu-button_6') {
+      setActiveButton(5);
       history.push('/exams/');
     }
   };
@@ -59,14 +63,16 @@ const TopMenu = ({isLoginOn, setLoginOn}) => {
         {LABELS.TOP_MENU.MENU.LEFT_DRAWER.BUTTON_TEXT}
       </Button>
       <Stack direction={['column', 'row']}>
-        {localStorage.getItem('isStudent') === 'true' ? <Button
-          variant="underlined"
-          id="menu-button_1"
-          isActive={activeButton === 0 ? true : false}
-          onClick={menuHandler}
-        >
-          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
-        </Button> : null}
+        {localStorage.getItem('isStudent') === 'true' ? (
+          <Button
+            variant="underlined"
+            id="menu-button_1"
+            isActive={activeButton === 0 ? true : false}
+            onClick={menuHandler}
+          >
+            {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
+          </Button>
+        ) : null}
         <Button
           variant="underlined"
           id="menu-button_2"
@@ -83,31 +89,41 @@ const TopMenu = ({isLoginOn, setLoginOn}) => {
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
         </Button>
-        <Button
+        {localStorage.getItem('isStudent') === 'false' ? <Button
           variant="underlined"
           id="menu-button_4"
           isActive={activeButton === 3 ? true : false}
           onClick={menuHandler}
-          disabled={true}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
-        </Button>
-        <Button
+        </Button> : null}
+        {localStorage.getItem('isStudent') === 'false' ? <Button
           variant="underlined"
-          id="menu-button_4"
-          isActive={activeButton === 3 ? true : false}
+          id="menu-button_5"
+          isActive={activeButton === 4 ? true : false}
           onClick={menuHandler}
           disabled={true}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
-        </Button>
+        </Button> : null}
+        {localStorage.getItem('isStudent') === 'false' ? <Button
+          variant="underlined"
+          id="menu-button_6"
+          isActive={activeButton === 5 ? true : false}
+          onClick={menuHandler}
+          disabled={true}
+        >
+          {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_6}
+        </Button> : null}
       </Stack>
 
       {localStorage.getItem('isEditor') === 'true' ? (
         <Button ref={btnRef2} variant="primary" onClick={onOpenRight}>
           {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.BUTTON_TEXT}
         </Button>
-      ) : <Box w="8rem" />}
+      ) : (
+        <Box w="8rem" />
+      )}
 
       <LeftDrawer
         placement="left"

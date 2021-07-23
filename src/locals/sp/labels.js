@@ -37,8 +37,9 @@ const LABELS = {
         BUTTON_1: 'Actividades',
         BUTTON_2: 'Consultas',
         BUTTON_3: 'Foro',
-        BUTTON_4: 'Tareas',
-        BUTTON_5: 'Exámenes',
+        BUTTON_4: 'Autoevaluaciones',
+        BUTTON_5: 'Tareas',
+        BUTTON_6: 'Exámenes',
       },
       RIGHT_DRAWER: {
         BUTTON_TEXT: 'Edición',
