@@ -33,12 +33,31 @@ const KnowMoreInputModal = ({
   setKnowMoreLinks,
   area,
   workAreas,
+  prevArticle
 }) => {
   const [selectorOptions, setSelectorOptions] = useState([]);
 
+  useEffect(() => {
+    if (prevArticle) {
+
+      const articleObj = {
+        descriptor: {
+          title: prevArticle.resource.articleHeader.descriptor.title,
+          subtitle: prevArticle.resource.articleHeader.descriptor.subtitle,
+        },
+        article: {
+          type: 'article',
+          entity: {
+            publicId: prevArticle.header.publicId,
+          },
+        },
+      };
+      setSelectedArticles([articleObj]);
+    }
+  }, [])
+
   const handleSubmit = (values) => {
     const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);
-    console.log(sectionsList)
     const newList = [...sectionsList];
     newList[0].contents = concatArray;
     setSectionsList(newList);

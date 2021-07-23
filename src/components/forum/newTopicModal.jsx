@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -25,16 +25,57 @@ import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal
 import { AREAS } from '../../locals/sp/areas';
 import { v4 as uuidv4 } from 'uuid';
 
-const NewTopicModal = ({ isOpen, onClose }) => {
+const NewTopicModal = ({ isOpen, onClose, articleId }) => {
+  const [error, setError] = useState(null);
+  const [prevArticle, setPrevArticle] = useState(null);
+
+  useEffect(() => {
+    if (articleId) {
+      const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+      const credentials = localStorage.getItem('credentials');
+      const jsonMessage = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify({
+          id: 'msgid-1',
+          target: 'soa@service/minerva',
+          method: 'mods/articles/handlers/GetArticle',
+          requester: 'root:YWNhY2lhITIwMTc=',
+          principal: credentials,
+  
+          message: {
+            entityRef: { publicId: articleId },
+          },
+        }),
+      };
+  
+      async function fetchData() {
+        try {
+          const res = await fetch(url, jsonMessage);
+          if (res.status >= 400 && res.status < 600)
+            setError('Bad response from server');
+          const resJson = await res.json();
+          setPrevArticle(resJson.message.entity);
+        } catch (err) {
+          setError(err);
+        }
+      }
+      fetchData();
+    }
+  }, [])
+  
+
   const [paragraphList, setParagraphList] = useState([
-      {
-        section: { publicId: '1' },
-        contents: [],
-      },
-      {
-        section: { publicId: '2' },
-        contents: [],
-      },
+    {
+      section: { publicId: '1' },
+      contents: [],
+    },
+    {
+      section: { publicId: '2' },
+      contents: [],
+    },
   ]);
   const [selectedArticles, setSelectedArticles] = useState([]);
   const [contents, setContents] = useState([]);
@@ -71,7 +112,6 @@ const NewTopicModal = ({ isOpen, onClose }) => {
   const filteredGroups = storedGroups.filter(
     (el) => el.publicId.substring(0, 4) !== 'priv'
   );
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const handleSubmit = (values) => {
     const credentials = localStorage.getItem('credentials');
@@ -124,7 +164,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
         const resJson = await response.json();
-        console.log(newEntry)
+        console.log(newEntry);
         console.log(resJson);
         toast({
           title: 'Se publicó un nuevo tópico.',
@@ -143,14 +183,16 @@ const NewTopicModal = ({ isOpen, onClose }) => {
         });
       } finally {
         setLoading(false);
-        setParagraphList([      {
-          section: { publicId: '1' },
-          contents: [],
-        },
-        {
-          section: { publicId: '2' },
-          contents: [],
-        }]);
+        setParagraphList([
+          {
+            section: { publicId: '1' },
+            contents: [],
+          },
+          {
+            section: { publicId: '2' },
+            contents: [],
+          },
+        ]);
         onClose();
       }
     };
@@ -336,6 +378,7 @@ const NewTopicModal = ({ isOpen, onClose }) => {
               setKnowMoreLinks={setLinks}
               workAreas={workAreas}
               area={area}
+              prevArticle={prevArticle}
             />
           </VStack>
         </ModalBody>
