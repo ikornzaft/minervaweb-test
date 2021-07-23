@@ -8,6 +8,7 @@ import {
   ModalOverlay,
   ModalHeader,
   ModalBody,
+  ModalCloseButton,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -382,6 +383,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
               )}
             </Formik>
           </ModalBody>
+          <ModalCloseButton />
         </ModalContent>
       </Modal>
       <QuizQuestionsForm

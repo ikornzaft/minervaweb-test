@@ -10,7 +10,6 @@ const TopicContent = ({
   setCommentsNumber,
   commentsArray,
 }) => {
-  console.log(topic)
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const requestDate = new Date(
     topic.logs.inserted.timestamp
@@ -57,7 +56,7 @@ const TopicContent = ({
             {' '}
             <DisplayKnowMore
               sections={topic.resource.paragraphs}
-              isTopic={true}
+              isTopic={false}
             />{' '}
           </VStack>
         ) : null}

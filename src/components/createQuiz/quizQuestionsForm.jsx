@@ -154,14 +154,26 @@ const QuizQuestionsForm = ({
               </TabPanel>
 
               <TabPanel>
-                <Box paddingBottom={2}>
-                  <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
-                </Box>
-                <CoverImageInput
-                  image={image}
-                  setIsImage={setIsImage}
-                  onImageChange={onImageChange}
-                />
+              <HStack w="100%" justifyContent="center">
+                <VStack
+                  w="60%"
+                  p={4}
+                  bg="gray.50"
+                  borderRadius="md"
+                  borderStyle="solid"
+                  borderWidth="1px"
+                  marginBottom={4}
+                >
+                  <Box paddingBottom={2}>
+                    <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
+                  </Box>
+                  <CoverImageInput
+                    image={image}
+                    setIsImage={setIsImage}
+                    onImageChange={onImageChange}
+                  />
+                </VStack>
+                </HStack>
               </TabPanel>
 
               <TabPanel>

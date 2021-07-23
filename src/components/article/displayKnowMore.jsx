@@ -73,13 +73,14 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
     let resourceLink;
     if (section.content.link.locationType === 'absolute') {
       resourceLink = section.content.link.location;
+      if (resourceLink.substring(0, 4) !== 'http') resourceLink = `http://${resourceLink}`;
     } else {
       resourceLink = `http://www.afatecha.com/id/files/${section.content.link.type}/${section.content.link.location}`;
     }
     return (
       <LinkBox>
-        <LinkOverlay href={resourceLink} isExternal="true" />
-        <Stack cursor="pointer">
+      <LinkOverlay href={resourceLink} isExternal="true" />
+      <Stack cursor="pointer">
           <SectionElement
             icon={icon}
             title={section.descriptor.title}
