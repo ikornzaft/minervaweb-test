@@ -1,9 +1,7 @@
 import React, {useState } from 'react';
 import {
   Stack,
-  Image,
   Heading,
-  Container,
   Text,
   Box,
   Badge,
@@ -21,7 +19,6 @@ import { CreateAreaBadge } from '../common/createAreaBadge';
 import { QuizParagraph } from './quizParagraph';
 
 const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
-  console.log(date);
   const [answersArray, setAnswersArray] = useState([]);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const quizDate = new Date(date).toLocaleDateString('es-Es', options);
@@ -31,10 +28,7 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   const onClose = () => setIsOpen(false)
 
   const CheckAnswers = () => {
-    console.log(paragraphs)
-    console.log(answersArray)
     const resultArray = answersArray.filter(el => paragraphs[el.id].content.options[el.value].answer === false);
-    console.log(resultArray)
     if (answersArray.length !== paragraphs.length) return <Text>¡Debes responder todas las preguntas!</Text>
     if (resultArray.length < 1) return <Text>¡Perfecto! Todas las respuestas fueron correctas.</Text>;
     return <Text>Respondiste correctamente {answersArray.length - resultArray.length} de {answersArray.length} preguntas</Text>

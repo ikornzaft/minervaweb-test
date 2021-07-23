@@ -6,6 +6,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  ModalCloseButton,
   Tabs,
   TabList,
   Tab,
@@ -189,6 +190,7 @@ const QuizQuestionsForm = ({
             </TabPanels>
           </Tabs>
         </ModalBody>
+        <ModalCloseButton />
         <ModalFooter>
           <HStack w="100%" justifyContent="center">
             <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>

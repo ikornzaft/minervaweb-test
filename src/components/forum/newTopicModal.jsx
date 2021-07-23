@@ -108,10 +108,8 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
     group: '',
   };
 
-  const storedGroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-  const filteredGroups = storedGroups.filter(
-    (el) => el.publicId.substring(0, 4) !== 'priv'
-  );
+  const storedGroups = JSON.parse(localStorage.getItem('workgroups'));
+  const filteredGroups = storedGroups.filter(el => !el.resource.private)
   const [loading, setLoading] = useState(false);
   const handleSubmit = (values) => {
     const credentials = localStorage.getItem('credentials');
@@ -164,7 +162,6 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
         const resJson = await response.json();
-        console.log(newEntry);
         console.log(resJson);
         toast({
           title: 'Se publicó un nuevo tópico.',
@@ -243,10 +240,10 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
                                 {filteredGroups.map((option) => {
                                   return (
                                     <option
-                                      key={option.publicId}
-                                      value={option.publicId}
+                                      key={option.resource.descriptor.title}
+                                      value={option.header.privateId}
                                     >
-                                      {option.publicId}
+                                      {option.resource.descriptor.title}
                                     </option>
                                   );
                                 })}

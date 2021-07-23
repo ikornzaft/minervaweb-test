@@ -76,13 +76,17 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
+        console.log(resJson);
         if (resJson.response === 0) {
           setValidUser(true);
           localStorage.setItem('credentials', credentials);
           localStorage.setItem(
             'userWorkgroups',
             JSON.stringify(resJson.message.entity.resource.workgroups)
+          );
+          localStorage.setItem(
+            'workgroups',
+            JSON.stringify(resJson.message.workgroups)
           );
           localStorage.setItem(
             'userName',
