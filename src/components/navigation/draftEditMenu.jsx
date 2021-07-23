@@ -20,11 +20,11 @@ const DraftEditMenu = ({ updateDraft, revertDraft, publishDraft }) => {
     >
       <HStack
         w="38rem"
-        justifyContent="flex-start"
+        justifyContent="flex-end"
         alignContent="center"
-        paddingLeft="0.6rem"
+        paddingLeft="2.6rem"
       >
-        <Text color="white" fontSize="xl">
+        <Text color="white" fontWeight="700" fontSize="xl">
           BORRADOR
         </Text>
       </HStack>

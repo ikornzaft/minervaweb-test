@@ -55,7 +55,7 @@ const Forum = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
+        console.log(resJson);
         setTopicsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -73,7 +73,7 @@ const Forum = () => {
         borderBottomWidth="1px"
         borderBottomColor="gray.300"
         w="100vw"
-        bg="gray.100"
+        bg="primary_light"
         position="fixed"
         justifyContent="center"
         alignItems="flex-end"
@@ -82,8 +82,12 @@ const Forum = () => {
       >
         <HStack w="50rem" justifyContent="flex-end">
           <Button
-            variant="primary"
-            w="11rem"
+            variant="ghost"
+            w="12rem"
+            bg="white"
+            colorScheme="blue"
+            fontFamily="Poppins"
+            fontWeight="400"
             size="sm"
             onClick={handleTopicModal}
           >
@@ -91,51 +95,48 @@ const Forum = () => {
           </Button>
         </HStack>
       </HStack>
-    <Container maxWidth="container.lg" alignSelf="center" pt={20}>
-    <Stack direction="column" textAlign="center">
-        <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
-          <Stack direction="row" w="50rem">
-            <Heading
-              as="h3"
-              width="100%"
-              paddingRight={8}
-              paddingTop={2}
-              textAlign="left"
-              fontSize="lg"
-              fontWeight="400"
-              borderBottomColor="primary"
-              borderBottomWidth="3px"
-            >
-              Foro
-            </Heading>
-          </Stack>
+      <Container maxWidth="container.lg" alignSelf="center" pt={20}>
+        <Stack direction="column" textAlign="center">
+          <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
+            <Stack direction="row" w="50rem">
+              <Heading
+                as="h3"
+                width="100%"
+                paddingRight={8}
+                paddingTop={2}
+                textAlign="left"
+                fontSize="lg"
+                fontWeight="400"
+                borderBottomColor="primary"
+                borderBottomWidth="3px"
+              >
+                Foro
+              </Heading>
+            </Stack>
 
-          {isLoading ? (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="white"
-              color="primary"
-              size="xl"
-            >
-              Loading...
-            </Spinner>
-          ) : (
-            topicsArray.map((topic, index) => (
-              <Link to={`/topic/${topic.entity.publicId}`}>
-                <ForumItem topic={topic} index={index} />
-              </Link>
-            ))
-          )}
+            {isLoading ? (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="white"
+                color="primary"
+                size="xl"
+              >
+                Loading...
+              </Spinner>
+            ) : (
+              topicsArray.map((topic, index) => (
+                <Link to={`/topic/${topic.entity.publicId}`}>
+                  <ForumItem topic={topic} index={index} />
+                </Link>
+              ))
+            )}
+          </Stack>
         </Stack>
-      </Stack>
-      <NewTopicModal
-        isOpen={isOpenTopicModal}
-        onClose={onCloseTopicModal}
-      />
-    </Container>
+        <NewTopicModal isOpen={isOpenTopicModal} onClose={onCloseTopicModal} />
+      </Container>
     </>
   );
 };
 
-export { Forum }
+export { Forum };

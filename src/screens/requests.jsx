@@ -55,7 +55,7 @@ const RequestsBoard = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
+        console.log(resJson);
         setQuestionsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -68,74 +68,82 @@ const RequestsBoard = () => {
 
   return (
     <>
-    {isStudent === 'true' ? (
-      <HStack
-        h="82px"
-        borderBottomWidth="1px"
-        borderBottomColor="gray.300"
-        w="100vw"
-        bg="gray.100"
-        position="fixed"
-        justifyContent="center"
-        alignItems="flex-end"
-        paddingBottom={1}
-        zIndex="90"
-      >
-        <HStack w="50rem" justifyContent="flex-end">
-          <Button
-            variant="primary"
-            w="10rem"
-            size="sm"
-            onClick={handleRequestModal}
-          >
-            + Nueva Consulta
-          </Button>
-        </HStack>
-      </HStack>
-    ) : null}
-    <Container maxWidth="container.lg" alignSelf="center" pt={isStudent === 'true' ? 20 : 12}>
-    <Stack direction="column" textAlign="center">
-        <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
-          <Stack direction="row" w="50rem">
-            <Heading
-              as="h3"
-              width="100%"
-              paddingRight={8}
-              paddingTop={2}
-              textAlign="left"
-              fontSize="lg"
+      {isStudent === 'true' ? (
+        <HStack
+          h="82px"
+          borderBottomWidth="1px"
+          borderBottomColor="gray.300"
+          w="100vw"
+          bg="primary_light"
+          position="fixed"
+          justifyContent="center"
+          alignItems="flex-end"
+          paddingBottom={1}
+          zIndex="90"
+        >
+          <HStack w="50rem" justifyContent="flex-end">
+            <Button
+              variant="ghost"
+              w="12rem"
+              bg="white"
+              colorScheme="blue"
+              fontFamily="Poppins"
               fontWeight="400"
-              borderBottomColor="primary"
-              borderBottomWidth="3px"
+              size="sm"
+              onClick={handleRequestModal}
             >
-              Consultas
-            </Heading>
-          </Stack>
+              + Nueva Consulta
+            </Button>
+          </HStack>
+        </HStack>
+      ) : null}
+      <Container
+        maxWidth="container.lg"
+        alignSelf="center"
+        pt={isStudent === 'true' ? 20 : 12}
+      >
+        <Stack direction="column" textAlign="center">
+          <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
+            <Stack direction="row" w="50rem">
+              <Heading
+                as="h3"
+                width="100%"
+                paddingRight={8}
+                paddingTop={2}
+                textAlign="left"
+                fontSize="lg"
+                fontWeight="400"
+                borderBottomColor="primary"
+                borderBottomWidth="3px"
+              >
+                Consultas
+              </Heading>
+            </Stack>
 
-          {isLoading ? (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="white"
-              color="primary"
-              size="xl"
-            >
-              Loading...
-            </Spinner>
-          ) : (
-            questionsArray.map((question, index) => (
-              <Link to={`/request/${question.entity.publicId}`}>
-                <RequestItem question={question} index={index} />
-              </Link>
-            ))
-          )}
+            {isLoading ? (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="white"
+                color="primary"
+                size="xl"
+              >
+                Loading...
+              </Spinner>
+            ) : (
+              questionsArray.map((question, index) => (
+                <Link to={`/request/${question.entity.publicId}`}>
+                  <RequestItem question={question} index={index} />
+                </Link>
+              ))
+            )}
+          </Stack>
         </Stack>
-      </Stack>
-      <NewRequestModal
-        isOpen={isOpenRequestModal}
-        onClose={onCloseRequestModal}
-      />
-    </Container>
+        <NewRequestModal
+          isOpen={isOpenRequestModal}
+          onClose={onCloseRequestModal}
+        />
+      </Container>
     </>
   );
 };

@@ -33,49 +33,53 @@ const DraftMenu = () => {
       borderBottomWidth="1px"
       borderBottomColor="gray.300"
       w="100vw"
-      bg="gray.100"
+      bg="primary_light"
       position="fixed"
-      justifyContent="center"
+      justifyContent="flex-end"
       alignItems="flex-end"
       paddingBottom={1}
+      paddingX={6}
       zIndex="90"
     >
-      <HStack w="22rem" justifyContent="space-between">
+      <HStack w="38rem" justifyContent="space-between">
         <Button
           as={ReactRouterLink}
           to={`/draft/${param.id}`}
-          w="10rem"
           type="button"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
-          variant="primary"
+          variant="ghost"
+          bg="white"
+          width="12rem"
         >
           {' '}
           Visualizar borrador
         </Button>
         <Button
-          w="10rem"
+          w="12rem"
           type="button"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
-          variant="primary"
+          variant="ghost"
+          bg="white"
           onClick={createTopic}
         >
           {' '}
           Publicar en el foro
         </Button>
         <Button
-          w="10rem"
+          w="12rem"
           type="button"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
-          variant="primary"
+          variant="ghost"
+          bg="white"
           onClick={groupSelectorHandler}
         >
           {' '}
