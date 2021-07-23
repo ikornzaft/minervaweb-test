@@ -19,13 +19,11 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
   const param = useParams();
   const storedGroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-  console.log(storedGroups)
   const filteredGroups = storedGroups.filter(
     (el) => el.publicId.substring(0, 4) !== 'priv'
   );
   const handlePublish = () => {
     if (selectedGroup) {
-      console.log(selectedGroup);
       const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
       const credentials = localStorage.getItem('credentials');
       const jsonMessage = {

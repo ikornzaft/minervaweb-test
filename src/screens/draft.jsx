@@ -158,60 +158,71 @@ const Draft = () => {
   };
 
   const updateDraft = () => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/articles/handlers/UpdateArticleDraft',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
+    const prevArticleHeader = draft[0].resource.articleHeader
+    const prevParagraphs = draft[0].resource.paragraphs
+    const prevSections = draft[0].resource.sections
+    const articleHeaderChanges = JSON.stringify(prevArticleHeader) === JSON.stringify(articleHeader)
+    const paragraphsChanges = JSON.stringify(prevParagraphs) === JSON.stringify(paragraphs)
+    const sectionsChanges = JSON.stringify(prevSections) === JSON.stringify(sections)
 
-        message: {
-          entity: { publicId: param.id },
-          resource: {
-            articleHeader: articleHeader,
-            paragraphs: paragraphs,
-            sections: sections,
-          },
+    if (articleHeaderChanges && paragraphsChanges && sectionsChanges) {
+      history.goBack();
+    } else {
+      const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+      const credentials = localStorage.getItem('credentials');
+      const jsonMessage = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
         },
-      }),
-    };
-
-    async function fetchData() {
-      const toast = createStandaloneToast();
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
-        const resJson = await res.json();
-        toast({
-          title: 'Se guardó correctamente el borrador',
-          status: 'success',
-          duration: 2500,
-          isClosable: true,
-        });
-        history.goBack();
-      } catch (err) {
-        setError(err);
-        toast({
-          title: 'No pudo guardarse el borrador',
-          description: error,
-          status: 'error',
-          duration: 2500,
-          isClosable: true,
-        });
-      } finally {
-        setIsLoading(false);
+        body: JSON.stringify({
+          id: 'msgid-1',
+          target: 'soa@service/minerva',
+          method: 'mods/articles/handlers/UpdateArticleDraft',
+          requester: 'root:YWNhY2lhITIwMTc=',
+          principal: credentials,
+  
+          message: {
+            entity: { publicId: param.id },
+            resource: {
+              articleHeader: articleHeader,
+              paragraphs: paragraphs,
+              sections: sections,
+            },
+          },
+        }),
+      };
+  
+      async function fetchData() {
+        const toast = createStandaloneToast();
+        try {
+          setIsLoading(true);
+          const res = await fetch(url, jsonMessage);
+          if (res.status >= 400 && res.status < 600)
+            setError('Bad response from server');
+          const resJson = await res.json();
+          toast({
+            title: 'Se guardó correctamente el borrador',
+            status: 'success',
+            duration: 2500,
+            isClosable: true,
+          });
+          history.goBack();
+        } catch (err) {
+          setError(err);
+          toast({
+            title: 'No pudo guardarse el borrador',
+            description: error,
+            status: 'error',
+            duration: 2500,
+            isClosable: true,
+          });
+        } finally {
+          setIsLoading(false);
+        }
       }
+      fetchData();
     }
-    fetchData();
   };
 
   useEffect(() => {
@@ -242,6 +253,7 @@ const Draft = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
+        // 
         setDraft([resJson.message.entity]);
       } catch (err) {
         setError(err);
