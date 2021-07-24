@@ -1,7 +1,10 @@
-import React from 'react';
-import { VStack, Button } from '@chakra-ui/react';
+import React, {useState, useEffect} from 'react';
+import { VStack, Button, useDisclosure } from '@chakra-ui/react';
+import { QuizQuestionsForm } from './quizQuestionsForm';
 import { FaSortUp, FaSortDown } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
+
 
 const ElementMenu = ({
   index,
@@ -11,6 +14,20 @@ const ElementMenu = ({
   setForceRender,
   isImage,
 }) => {
+
+  const {
+    isOpen: isOpenEditQuestion,
+    onOpen: onOpenEditQuestion,
+    onClose: onCloseEditQuestion,
+  } = useDisclosure();
+
+  const [prevImage, setPrevImage] = useState(null);
+  const [prevQuestion, setPrevQuestion] = useState('');
+  const [prevAnswers, setPrevAnswers] = useState([]);
+  const [truePrevAnswer, setTruePrevAnswer] = useState(0);
+  
+  useEffect(() => {
+  }, [])
 
   const moveUp = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
@@ -34,6 +51,28 @@ const ElementMenu = ({
     const removed = newArray.splice(elementId, 1);
     setParagraphList(newArray)
   };
+
+  const editItem = (el) => {
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
+    if (paragraphList[index].content.link) setPrevImage({location: paragraphList[index].content.link.location});
+    setPrevQuestion(paragraphList[index].descriptor.title);
+    console.log(paragraphList[index].content.options)
+    const answers = paragraphList[index].content.options.map(el => el.descriptor.title) 
+    const trueAnswer = paragraphList[index].content.options.findIndex(el => el.answer === true)
+    console.log(trueAnswer, answers)
+    setPrevAnswers(answers);
+    setTruePrevAnswer(trueAnswer)
+    onOpenEditQuestion();
+  };
+
+  const changeQuestionsArray = (newEntry) => {
+    console.log(newEntry)
+    const newParagraphArray = [...paragraphList]
+    newParagraphArray.splice(index, 1, newEntry);
+    console.log(newParagraphArray)
+    setParagraphList(newParagraphArray);
+  }
+
   return (
     <VStack heigth="100%">
       <Button
@@ -52,6 +91,12 @@ const ElementMenu = ({
         onClick={delItem}
       >{<FaRegTrashAlt />}</Button>
       <Button
+      size="xs"
+      type="button"
+      id={`btn-edit-${index}`}
+      onClick={editItem}
+    >{<FaEdit />}</Button>
+      <Button
         size="xs"
         type="button"
         id={`btn-down-${index}`}
@@ -59,6 +104,18 @@ const ElementMenu = ({
         boxShadow='none !important'
         isDisabled={index === paragraphList.length - 1 ? true : false}
       >{<FaSortDown />}</Button>
+      <QuizQuestionsForm
+      isOpen={isOpenEditQuestion}
+      onClose={onCloseEditQuestion}
+      modalTitle="Editar pregunta"
+      quizQuestionsArray={paragraphList}
+      changeQuestionsArray={changeQuestionsArray}
+      prevImage={prevImage}
+      prevQuestion={prevQuestion}
+      prevAnswers={prevAnswers}
+      truePrevAnswer={truePrevAnswer}
+      buttonText='Confirmar cambios'
+    />
     </VStack>
   );
 };

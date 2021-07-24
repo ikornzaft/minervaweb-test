@@ -390,6 +390,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
         isOpen={isOpenNewQuestion}
         onClose={onCloseNewQuestion}
         modalTitle="Nueva pregunta"
+        buttonText="Agregar pregunta"
         quizQuestionsArray={quizQuestionsArray}
         changeQuestionsArray={changeQuestionsArray}
       />

@@ -32,12 +32,29 @@ const QuizQuestionsForm = ({
   isOpen,
   onClose,
   modalTitle,
+  prevImage,
+  prevQuestion,
+  prevAnswers,
+  truePrevAnswer,
+  buttonText,
 }) => {
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState(null);
   const [isImage, setIsImage] = useState(false);
   const [answersArray, setAnswersArray] = useState([]);
   const [option, setOption] = useState(0);
+  
+  useEffect(() => {
+    setImage(prevImage)
+    setQuestion(prevQuestion)
+    if (prevAnswers) setAnswersArray(prevAnswers);
+    setOption(truePrevAnswer)
+    console.log(prevAnswers)
+  }, [prevImage, prevQuestion, prevAnswers, truePrevAnswer])
+
+  useEffect(() => {
+    console.log('answersArray: ', answersArray)
+  }, [answersArray])
 
   const addNewQuestionToArray = () => {
     if (question !== '') {
@@ -149,6 +166,7 @@ const QuizQuestionsForm = ({
                     fontSize="sm"
                     h="6rem"
                     id="question"
+                    value={question}
                     onChange={(el) => setQuestion(el.target.value)}
                   />
                 </Box>
@@ -194,7 +212,7 @@ const QuizQuestionsForm = ({
         <ModalFooter>
           <HStack w="100%" justifyContent="center">
             <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>
-              Agregar pregunta
+              {buttonText}
             </Button>
           </HStack>
         </ModalFooter>
