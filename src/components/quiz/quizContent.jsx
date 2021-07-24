@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import {
   Stack,
   Heading,
@@ -8,31 +8,66 @@ import {
   HStack,
   VStack,
   Button,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
+  createStandaloneToast,
 } from '@chakra-ui/react';
 import { CreateAreaBadge } from '../common/createAreaBadge';
 import { QuizParagraph } from './quizParagraph';
 
 const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   const [answersArray, setAnswersArray] = useState([]);
+  const [isDone, setIsDone] = useState(false);
+  const [result, setResult] = useState('');
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const quizDate = new Date(date).toLocaleDateString('es-Es', options);
   const badge = CreateAreaBadge(workarea);
 
-  const [isOpen, setIsOpen] = useState(false)
-  const onClose = () => setIsOpen(false)
+  const toast = createStandaloneToast();
 
-  const CheckAnswers = () => {
-    const resultArray = answersArray.filter(el => paragraphs[el.id].content.options[el.value].answer === false);
-    if (answersArray.length !== paragraphs.length) return <Text>¡Debes responder todas las preguntas!</Text>
-    if (resultArray.length < 1) return <Text>¡Perfecto! Todas las respuestas fueron correctas.</Text>;
-    return <Text>Respondiste correctamente {answersArray.length - resultArray.length} de {answersArray.length} preguntas</Text>
-  }
+  const checkAnswers = () => {
+    if (answersArray.length !== paragraphs.length) {
+      toast({
+        title: '¡Debes responder todas las preguntas!',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
+    } else {
+      setIsDone(true);
+    }
+  };
+
+  const DisplayResult = () => {
+    const resultArray = answersArray.filter(
+      (el) => paragraphs[el.id].content.options[el.value].answer === false
+    );
+    if (resultArray.length < 1)
+      return (
+        <VStack justifyContent="center" textAlign="center" p={12} w="100%">
+          <Heading color="gray.700" fontSize="xx-large">
+            ¡Perfecto!
+          </Heading>
+          <Heading color="gray.500" fontSize="xl">
+            Todas las respuestas fueron correctas.
+          </Heading>
+        </VStack>
+      );
+    return (
+      <VStack justifyContent="center" textAlign="center" p={12} w="100%">
+      <Heading color="gray.700" fontSize="xx-large">
+        Tu resultado:
+      </Heading>
+      <Heading color="gray.500" fontSize="xl">
+      Respondiste correctamente {answersArray.length - resultArray.length} de{' '}
+      {answersArray.length} preguntas.
+      </Heading>
+    </VStack>
+    );
+  };
+
+  const reset = () => {
+    setAnswersArray([]);
+    setIsDone(false);
+  };
 
   return (
     <Stack
@@ -44,11 +79,11 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
       textAlign="left"
     >
       <Stack textAlign="left" paddingBottom={2}>
-      <Box paddingTop={2}>
-                <Badge paddingX={2} colorScheme={badge.color}>
-                  {badge.content}
-                </Badge>
-              </Box>
+        <Box paddingTop={2}>
+          <Badge paddingX={2} colorScheme={badge.color}>
+            {badge.content}
+          </Badge>
+        </Box>
         <Box paddingTop={1}>
           <Text fontSize="xs" color="gray.500">
             Publicado: {quizDate}
@@ -61,40 +96,29 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           {subtitle}
         </Heading>
       </Stack>
-      <VStack w="100%" justifyContent="center">
-      {paragraphs.map((paragraph, index) => (
-        <QuizParagraph paragraph={paragraph} paragraphIndex={index} answersArray={answersArray} setAnswersArray={setAnswersArray} />
-      ))}
-      </VStack>
+      {isDone ? (
+        <DisplayResult />
+      ) : (
+        <VStack w="100%" justifyContent="center">
+          {paragraphs.map((paragraph, index) => (
+            <QuizParagraph
+              paragraph={paragraph}
+              paragraphIndex={index}
+              answersArray={answersArray}
+              setAnswersArray={setAnswersArray}
+            />
+          ))}
+        </VStack>
+      )}
       <HStack w="100%" justifyContent="center" paddingY={4}>
-      <Button w="14rem" variant="primary" onClick={() => setIsOpen(true)}>
-        Comprobar respuestas
-      </Button>
+        <Button
+          w="14rem"
+          variant="primary"
+          onClick={isDone ? reset : checkAnswers}
+        >
+          {isDone ? 'Intentarlo nuevamente' : 'Comprobar respuestas'}
+        </Button>
       </HStack>
-      <AlertDialog
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Tu resultado:
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-            <HStack w="100%" justifyContent="center">
-              {CheckAnswers()}
-              </HStack>
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button onClick={onClose}>
-                Cerrar
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
     </Stack>
   );
 };

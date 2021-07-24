@@ -44,8 +44,8 @@ const QuizParagraph = ({ paragraph, paragraphIndex, answersArray, setAnswersArra
       {options.map((option, index) => (
         <RadioGroup onChange={selectRadio} value={value}>
           <Box paddingBottom={2}>
-            <HStack p={4} bg="gray.100" w="35rem" h="5rem" borderRadius="lg">
-              <Radio value={index}></Radio>
+            <HStack p={4} bg="gray.100" w="35rem" borderRadius="lg">
+              <Radio borderColor="gray.300" value={index}></Radio>
               <Text>{option.descriptor.title}</Text>
             </HStack>
           </Box>
