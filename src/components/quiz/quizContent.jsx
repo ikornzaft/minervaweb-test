@@ -53,14 +53,14 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
       );
     return (
       <VStack justifyContent="center" textAlign="center" p={12} w="100%">
-      <Heading color="gray.700" fontSize="xx-large">
-        Tu resultado:
-      </Heading>
-      <Heading color="gray.500" fontSize="xl">
-      Respondiste correctamente {answersArray.length - resultArray.length} de{' '}
-      {answersArray.length} preguntas.
-      </Heading>
-    </VStack>
+        <Heading color="gray.700" fontSize="xx-large">
+          Tu resultado:
+        </Heading>
+        <Heading color="gray.500" fontSize="xl">
+          Respondiste correctamente {answersArray.length - resultArray.length}{' '}
+          de {answersArray.length} preguntas.
+        </Heading>
+      </VStack>
     );
   };
 

@@ -38,7 +38,7 @@ const AnswersList = ({ answersArray, setAnswersArray, option, setOption }) => {
                 paddingX={4}
               >
                 <HStack w={6} justifyContent="center">
-                  <Radio colorScheme="blue" value={index}></Radio>
+                  <Radio borderColor="gray.300" colorScheme="blue" value={index}></Radio>
                 </HStack>
                 <HStack
                   w="100%"

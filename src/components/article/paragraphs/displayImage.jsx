@@ -8,7 +8,7 @@ const DisplayImage = ({linkLocation, title}) => {
     <>
     <Image
     boxSize="400px"
-    objectFit="cover"
+    objectFit="scale-down"
     borderStyle="solid"
     borderRadius="lg"
     borderWidth="1px"
