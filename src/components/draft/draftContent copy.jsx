@@ -14,19 +14,13 @@ import {
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
 import { DisplayKnowMore } from '../article/displayKnowMore';
-import { DisplayToDo } from '../article/displayToDo';
 import { HeaderModal } from './headerModal';
 import { ContentModal } from './contentModal';
 import { KnowMoreModal } from './knowMoreModal';
 import { FaEdit } from 'react-icons/fa';
 import { LABELS } from '../../locals/sp/labels';
 
-const DraftContent = ({
-  draft,
-  setArticleHeader,
-  setParagraphs,
-  setSections,
-}) => {
+const DraftContent = ({ draft, setArticleHeader, setParagraphs, setSections}) => {
   const [draftHeader, setDraftHeader] = useState({
     ...draft.resource.articleHeader,
   });
@@ -36,16 +30,9 @@ const DraftContent = ({
   const [draftKnowMore, setDraftKnowMore] = useState([
     ...draft.resource.sections[0].contents,
   ]);
-  let todoArr;
-  if (Array.isArray(draft.resource.sections[1].contents)) {
-    todoArr = [
-      ...draft.resource.sections[1].contents,
-    ]
-  } else {
-    todoArr = []; 
-  }
-  const [draftToDo, setDraftToDo] = useState(todoArr);
-
+  const [draftToDo, setDraftToDo] = useState({
+    ...draft.resource.sections[1].contents,
+  });
   const {
     isOpen: isOpenHeaderModal,
     onOpen: onOpenHeaderModal,
@@ -80,28 +67,29 @@ const DraftContent = ({
   };
 
   useEffect(() => {
-    setArticleHeader(draftHeader);
-  }, [draftHeader]);
+    setArticleHeader(draftHeader)
+  }, [draftHeader])
   useEffect(() => {
-    setParagraphs(draftContent);
-  }, [draftContent]);
+    setParagraphs(draftContent)
+  }, [draftContent])
   useEffect(() => {
-    const sections = [
-      {
-        contents: draftKnowMore,
-        section: {
-          publicId: '1',
+    
+  const sections = [
+        {
+          contents: draftKnowMore,
+          section: {
+            publicId: "1",
+          }
         },
-      },
-      {
-        contents: draftToDo,
-        section: {
-          publicId: '2',
-        },
-      },
-    ];
-    setSections(sections);
-  }, [draftKnowMore]);
+        {
+          contents: draftToDo,
+          section: {
+            publicId: "2",
+          }
+        }
+      ]
+    setSections(sections)
+  }, [draftKnowMore])
 
   return (
     <>
@@ -215,74 +203,35 @@ const DraftContent = ({
           bg="gray.100"
           paddingX="2rem"
           paddingTop="2rem"
-          paddingBottom="1rem"
           borderRadius="lg"
           borderColor="gray.300"
           borderWidth="1px"
         >
-          <HStack w="100%" justifyContent="flex-end">
+          <HStack w="100%" justifyContent="flex-end" >
             <Button
               colorScheme="gray"
               color="blue.600"
               bg="white"
-              w="12rem"
+              w="11rem"
               size="sm"
               variant="outline"
               fontWeight="400"
               onClick={handleKnowMoreModal}
               rightIcon={<FaEdit />}
             >
-              Editar "Saber Más"
+              Editar secciones
             </Button>
           </HStack>
           <VStack
             bgColor="gray.100"
             borderRadius="lg"
             w="45rem"
-            paddingBottom={4}
+            paddingY={4}
             paddingX={8}
           >
             {draftKnowMore.length > 0 ? (
               <DisplayKnowMore sections={draftKnowMore} />
             ) : null}
-          </VStack>
-        </VStack>
-      </Box>
-
-      <Box paddingY={6}>
-        <VStack
-          maxWidth="49rem"
-          bg="gray.100"
-          paddingX="2rem"
-          paddingTop="2rem"
-          paddingBottom="1rem"
-          borderRadius="lg"
-          borderColor="gray.300"
-          borderWidth="1px"
-        >
-          <HStack w="100%" justifyContent="flex-end">
-            <Button
-              colorScheme="gray"
-              color="blue.600"
-              bg="white"
-              w="12rem"
-              size="sm"
-              variant="outline"
-              fontWeight="400"
-              onClick={handleKnowMoreModal}
-              rightIcon={<FaEdit />}
-            >
-              Editar "Para Hacer"
-            </Button>
-          </HStack>
-          <VStack
-            bgColor="gray.100"
-            borderRadius="lg"
-            w="45rem"
-            paddingBottom={4}
-            paddingX={8}
-          >
-            {draftToDo.length > 0 ? <DisplayToDo sections={draftToDo} /> : null}
           </VStack>
         </VStack>
       </Box>

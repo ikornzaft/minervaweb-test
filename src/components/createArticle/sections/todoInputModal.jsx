@@ -72,7 +72,7 @@ const TodoInputModal = ({
   }, [section2])
 
   const submitTodoSection = () => {
-    setSection2({...section2, contents: selectedQuizzes})
+    setSection2({...section2, contents: [...selectedQuizzes]})
     onClose();
   }
 
