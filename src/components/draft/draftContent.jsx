@@ -18,6 +18,7 @@ import { DisplayToDo } from '../article/displayToDo';
 import { HeaderModal } from './headerModal';
 import { ContentModal } from './contentModal';
 import { KnowMoreModal } from './knowMoreModal';
+import { TodoInputModal } from './todoInputModal';
 import { FaEdit } from 'react-icons/fa';
 import { LABELS } from '../../locals/sp/labels';
 
@@ -36,6 +37,10 @@ const DraftContent = ({
   const [draftKnowMore, setDraftKnowMore] = useState([
     ...draft.resource.sections[0].contents,
   ]);
+
+  const [selectedHomeworks, setSelectedHomeworks] = useState([])
+  const [selectedQuizzes, setSelectedQuizzes] = useState([]);
+
   let todoArr;
   if (Array.isArray(draft.resource.sections[1].contents)) {
     todoArr = [
@@ -45,6 +50,7 @@ const DraftContent = ({
     todoArr = []; 
   }
   const [draftToDo, setDraftToDo] = useState(todoArr);
+  console.log(draft.resource)
 
   const {
     isOpen: isOpenHeaderModal,
@@ -60,6 +66,11 @@ const DraftContent = ({
     isOpen: isOpenKnowMoreModal,
     onOpen: onOpenKnowMoreModal,
     onClose: onCloseKnowMoreModal,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenToDoModal,
+    onOpen: onOpenToDoModal,
+    onClose: onCloseToDoModal,
   } = useDisclosure();
 
   let cover;
@@ -78,6 +89,9 @@ const DraftContent = ({
   const handleKnowMoreModal = (e) => {
     onOpenKnowMoreModal();
   };
+  const handleToDoModal = (e) => {
+    onOpenToDoModal();
+  }
 
   useEffect(() => {
     setArticleHeader(draftHeader);
@@ -101,7 +115,7 @@ const DraftContent = ({
       },
     ];
     setSections(sections);
-  }, [draftKnowMore]);
+  }, [draftKnowMore, draftToDo]);
 
   return (
     <>
@@ -269,7 +283,7 @@ const DraftContent = ({
               size="sm"
               variant="outline"
               fontWeight="400"
-              onClick={handleKnowMoreModal}
+              onClick={handleToDoModal}
               rightIcon={<FaEdit />}
             >
               Editar "Para Hacer"
@@ -305,6 +319,16 @@ const DraftContent = ({
         setDraftKnowMore={setDraftKnowMore}
         area={draft.resource.workarea.publicId}
       />
+      <TodoInputModal
+      isOpen={isOpenToDoModal}
+      onClose={onCloseToDoModal}
+      draftToDo={draftToDo}
+      setDraftToDo={setDraftToDo}
+      selectedHomeworks={selectedHomeworks}
+      setSelectedHomeworks={setSelectedHomeworks}
+      selectedQuizzes={selectedQuizzes}
+      setSelectedQuizzes={setSelectedQuizzes}
+    />
     </>
   );
 };
