@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Box, VStack, HStack, Text, Heading } from '@chakra-ui/react';
 
 const CommentsList = ({ commentsArray }) => {
+  const sortedArray = commentsArray.sort((a, b) => new Date(b.logs.inserted.timestamp) - new Date(a.logs.inserted.timestamp))
+
+  console.log(sortedArray)
   return (
     <Box w="100%">
       <Box paddingY={3} paddingX={6}>

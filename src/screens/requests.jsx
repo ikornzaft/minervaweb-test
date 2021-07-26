@@ -66,6 +66,10 @@ const RequestsBoard = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const sortedArray = questionsArray.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
+  }, [questionsArray])
+
   return (
     <>
       {isStudent === 'true' ? (

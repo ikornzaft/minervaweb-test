@@ -55,7 +55,6 @@ const Forum = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson);
         setTopicsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -65,6 +64,10 @@ const Forum = () => {
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const sortedArray = topicsArray.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
+  }, [topicsArray])
 
   return (
     <>
