@@ -9,6 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ArticleForm } from '../createArticle/articleForm';
+import { ExamForm } from '../createExam/examForm';
 import { QuizForm } from '../createQuiz/quizForm';
 import { BiPlusCircle } from 'react-icons/bi';
 import { LABELS } from '../../locals/sp/labels';
@@ -20,6 +21,11 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
     onClose: onCloseNewActivity,
   } = useDisclosure();
   const {
+    isOpen: isOpenNewExam,
+    onOpen: onOpenNewExam,
+    onClose: onCloseNewExam,
+  } = useDisclosure();
+  const {
     isOpen: isOpenNewQuiz,
     onOpen: onOpenNewQuiz,
     onClose: onCloseNewQuiz,
@@ -27,6 +33,10 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
   const menuHandlerActivity = (e) => {
     onClose();
     onOpenNewActivity();
+  };
+  const menuHandlerExam = (e) => {
+    onClose();
+    onOpenNewExam();
   };
   const menuHandlerQuiz = (e) => {
     onClose();
@@ -69,7 +79,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
                 variant="drawerRight"
                 rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_3"
-                onClick={menuHandlerActivity}
+                onClick={menuHandlerExam}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_3}
               </Button>
@@ -90,6 +100,11 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
         onClose={onCloseNewActivity}
         modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}
       />
+      <ExamForm
+      isOpen={isOpenNewExam}
+      onClose={onCloseNewExam}
+      modalTitle="Nuevo examen"
+    />
       <QuizForm
         isOpen={isOpenNewQuiz}
         onClose={onCloseNewQuiz}

@@ -166,7 +166,7 @@ const NewCommentInput = ({
           size="sm"
           onClick={knowMoreModalHandler}
         >
-          Agregar contenido
+          + Agregar contenido
         </Button>
         <Button
           w="10rem"

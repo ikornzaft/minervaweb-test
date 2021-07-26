@@ -90,6 +90,10 @@ const Quizzes = () => {
     fetchData();
   }, [param.id]);
 
+  useEffect(() => {
+    const sortedArray = quizzes.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
+  }, [quizzes])
+
   const renderList = () => {
     if (!error) {
       return <QuizzesList quizzes={quizzes} />;
