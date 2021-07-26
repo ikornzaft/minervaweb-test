@@ -33,7 +33,8 @@ const KnowMoreInputModal = ({
   setKnowMoreLinks,
   area,
   workAreas,
-  prevArticle
+  prevArticle,
+  title
 }) => {
   const [selectorOptions, setSelectorOptions] = useState([]);
 
@@ -75,7 +76,7 @@ const KnowMoreInputModal = ({
           fontFamily="Poppins"
           fontWeight="300"
         >
-          Para saber más...
+          {title}
         </ModalHeader>
         <ModalBody textAlign="center">
           <Formik initialValues={sectionsList} onSubmit={handleSubmit}>

@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  ModalCloseButton,
   FormLabel,
   FormControl,
   Button,
@@ -139,7 +140,7 @@ const TodoInputModal = ({
             </TabPanels>
           </Tabs>
         </ModalBody>
-
+        <ModalCloseButton />
         <ModalFooter>
         <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
         <Button

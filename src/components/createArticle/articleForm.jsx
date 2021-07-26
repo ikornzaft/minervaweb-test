@@ -471,6 +471,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         setKnowMoreLinks={setKnowMoreLinks}
         workAreas={workAreas}
         area={area}
+        title='Para saber más...'
       />
     </>
   );

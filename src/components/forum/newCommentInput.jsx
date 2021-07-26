@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import { Textarea, VStack, Button, createStandaloneToast } from '@chakra-ui/react';
+import {
+  Textarea,
+  VStack,
+  Button,
+  createStandaloneToast,
+} from '@chakra-ui/react';
+import { darken } from '@chakra-ui/theme-tools';
 import { v4 as uuidv4 } from 'uuid';
 
-const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) => {
+const NewCommentInput = ({
+  topicId,
+  group,
+  commentsNumber,
+  setCommentsNumber,
+}) => {
   const [newComment, setNewComment] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,7 +51,7 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
           ],
           workgroup: { publicId: group },
         },
-        entityRef: {publicId: topicId}
+        entityRef: { publicId: topicId },
       },
     };
 
@@ -63,7 +74,7 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
         if (response.status >= 400 && response.status < 600)
           setError('Bad response from server');
         const resJson = await response.json();
-        console.log(topicId, resJson)
+        console.log(topicId, resJson);
         toast({
           title: 'Comentario enviado.',
           status: 'success',
@@ -81,7 +92,7 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
         });
       } finally {
         setCommentsNumber(commentsNumber + 1);
-        setNewComment("");
+        setNewComment('');
         setLoading(false);
       }
     };
@@ -98,7 +109,15 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
         placeholder="Tu comentario..."
         onChange={(el) => setNewComment(el.target.value)}
       />
-      <Button w="10rem" size="sm" variant="primary" onClick={handleNewComment}>
+      <Button
+        w="10rem"
+        size="sm"
+        variant="primary"
+        _hover={newComment === '' ? {bg: 'primary'} : {bg: darken('primary', 10)}}
+
+        onClick={handleNewComment}
+        isDisabled={newComment === '' ? true : false}
+      >
         Agregar comentario
       </Button>
     </VStack>

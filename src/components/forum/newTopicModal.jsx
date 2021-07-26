@@ -376,6 +376,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
               workAreas={workAreas}
               area={area}
               prevArticle={prevArticle}
+              title='Selecciona contenido'
             />
           </VStack>
         </ModalBody>
