@@ -14,10 +14,6 @@ const Tasks = ({ requests, setRequests }) => {
     state: null,
   };
 
-  useEffect(() => {
-    console.log(requests);
-  }, []);
-
   const [content, isLoading, errors] = useFetchContent(filters);
 
   const renderList = () => {

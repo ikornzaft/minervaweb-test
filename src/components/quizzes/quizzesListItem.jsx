@@ -7,7 +7,6 @@ import { ParagraphReducer } from '../common/paragraphReducer';
 import { CreateAreaBadge } from '../common/createAreaBadge';
 
 const QuizzesListItem = ({ quiz, key }) => {
-  console.log(quiz)
   const area = quiz.workarea.publicId;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const date = new Date(quiz.inserted.timestamp).toLocaleDateString(

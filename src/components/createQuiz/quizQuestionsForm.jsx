@@ -49,12 +49,7 @@ const QuizQuestionsForm = ({
     setQuestion(prevQuestion)
     if (prevAnswers) setAnswersArray(prevAnswers);
     setOption(truePrevAnswer)
-    console.log(prevAnswers)
   }, [prevImage, prevQuestion, prevAnswers, truePrevAnswer])
-
-  useEffect(() => {
-    console.log('answersArray: ', answersArray)
-  }, [answersArray])
 
   const addNewQuestionToArray = () => {
     if (question !== '') {
@@ -97,7 +92,6 @@ const QuizQuestionsForm = ({
           },
         };
       }
-      console.log(newEntry);
       changeQuestionsArray(newEntry);
       setQuestion('');
       setImage(null);

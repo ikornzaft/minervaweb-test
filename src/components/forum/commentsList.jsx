@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, VStack, HStack, Text, Heading } from '@chakra-ui/react';
+import { DisplayContent } from './displayContent';
 
 const CommentsList = ({ commentsArray }) => {
   const sortedArray = commentsArray.sort((a, b) => new Date(b.logs.inserted.timestamp) - new Date(a.logs.inserted.timestamp))
@@ -28,6 +29,7 @@ const CommentsList = ({ commentsArray }) => {
           <Text marginTop="0 !important" color="gray.700" fontSize="sm">
             {comment.resource.articleHeader.descriptor.description}
           </Text>
+          {comment.resource.paragraphs.length > 0 ? <DisplayContent paragraphs={comment.resource.paragraphs} /> : null}
         </VStack>
       ))}
     </Box>
