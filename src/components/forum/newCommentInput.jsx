@@ -39,7 +39,7 @@ const NewCommentInput = ({
     { key: AREAS.area_2.tag, value: AREAS.area_2.route },
     { key: AREAS.area_3.tag, value: AREAS.area_3.route },
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
-  ])
+  ]);
 
   const {
     isOpen: isOpenKnowMore,
@@ -56,8 +56,13 @@ const NewCommentInput = ({
   const [loading, setLoading] = useState(false);
 
   const handleParagraphsChange = () => {
-    setParagraphs([...paragraphs, ...selectedArticles, ...knowMore, ...knowMoreLinks])
-  }
+    setParagraphs([
+      ...paragraphs,
+      ...selectedArticles,
+      ...knowMore,
+      ...knowMoreLinks,
+    ]);
+  };
 
   const submitNewComment = () => {
     const credentials = localStorage.getItem('credentials');
@@ -137,7 +142,7 @@ const NewCommentInput = ({
 
   useEffect(() => {
     if (paragraphs.length > 0) submitNewComment();
-  }, [paragraphs])
+  }, [paragraphs]);
 
   return (
     <VStack w="100%" paddingTop={3} paddingX={6} justifyContent="center">
@@ -149,11 +154,16 @@ const NewCommentInput = ({
         placeholder="Tu comentario..."
         onChange={(el) => setNewComment(el.target.value)}
       />
-      <HStack>
+      <HStack spacing={4}>
         <Button
+          colorScheme="blue"
+          variant="outline"
+          bgColor="white"
+          fontFamily="Poppins"
+          fontWeight="400"
+          borderRadius="lg"
           w="10rem"
           size="sm"
-          variant="primary"
           onClick={knowMoreModalHandler}
         >
           Agregar contenido
@@ -174,20 +184,20 @@ const NewCommentInput = ({
         </Button>
       </HStack>
       <KnowMoreInputModal
-      isOpen={isOpenKnowMore}
-      onClose={onCloseKnowMore}
-      sectionsList={sectionsList}
-      setSectionsList={setSectionsList}
-      selectedArticles={selectedArticles}
-      setSelectedArticles={setSelectedArticles}
-      knowMore={knowMore}
-      setKnowMore={setKnowMore}
-      knowMoreLinks={knowMoreLinks}
-      setKnowMoreLinks={setKnowMoreLinks}
-      workAreas={workAreas}
-      area={area}
-      title='Agregar contenido'
-    />
+        isOpen={isOpenKnowMore}
+        onClose={onCloseKnowMore}
+        sectionsList={sectionsList}
+        setSectionsList={setSectionsList}
+        selectedArticles={selectedArticles}
+        setSelectedArticles={setSelectedArticles}
+        knowMore={knowMore}
+        setKnowMore={setKnowMore}
+        knowMoreLinks={knowMoreLinks}
+        setKnowMoreLinks={setKnowMoreLinks}
+        workAreas={workAreas}
+        area={area}
+        title="Agregar contenido"
+      />
     </VStack>
   );
 };
