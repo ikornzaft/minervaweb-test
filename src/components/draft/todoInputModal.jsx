@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/react';
 import { HomeworksSelector } from '../createArticle/sections/homeworksSelector';
 import { QuizzesSelector } from '../createArticle/sections/quizzesSelector';
+import { ExamsSelector } from '../createArticle/sections/examsSelector';
 import { AREAS } from '../../locals/sp/areas';
 import { RiContactsBookLine } from 'react-icons/ri';
 
@@ -35,6 +36,8 @@ const TodoInputModal = ({
   setSelectedHomeworks,
   selectedQuizzes, 
   setSelectedQuizzes,
+  selectedExams,
+  setSelectedExams
 }) => {
 
   const [selectorOptions, setSelectorOptions] = useState([]);
@@ -50,12 +53,16 @@ const TodoInputModal = ({
   
   useEffect(() => {
     const quizzes = draftToDo.filter(el => el.content.type === 'quiz')
+    const exams = draftToDo.filter(el=> el.content.type === 'exam')
     setSelectedQuizzes(quizzes)
+    setSelectedExams(exams)
 
   }, [draftToDo])
 
   const submitTodoSection = () => {
-    setDraftToDo(selectedQuizzes);
+    console.log(selectedExams)
+    setDraftToDo(selectedQuizzes.concat(selectedExams));
+    console.log(draftToDo)
     onClose();
   }
 
@@ -118,7 +125,13 @@ const TodoInputModal = ({
                 />
               </TabPanel>
 
-              <TabPanel></TabPanel>
+              <TabPanel>
+                <ExamsSelector
+                  workAreas={workAreas}
+                  selectedExams={selectedExams}
+                  setSelectedExams={setSelectedExams}
+                />
+              </TabPanel>
             </TabPanels>
           </Tabs>
         </ModalBody>

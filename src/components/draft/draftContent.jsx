@@ -38,19 +38,18 @@ const DraftContent = ({
     ...draft.resource.sections[0].contents,
   ]);
 
-  const [selectedHomeworks, setSelectedHomeworks] = useState([])
+  const [selectedHomeworks, setSelectedHomeworks] = useState([]);
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
+  const [selectedExams, setSelectedExams] = useState([]);
 
   let todoArr;
   if (Array.isArray(draft.resource.sections[1].contents)) {
-    todoArr = [
-      ...draft.resource.sections[1].contents,
-    ]
+    todoArr = [...draft.resource.sections[1].contents];
   } else {
-    todoArr = []; 
+    todoArr = [];
   }
   const [draftToDo, setDraftToDo] = useState(todoArr);
-  console.log(draft.resource)
+  console.log(draft.resource);
 
   const {
     isOpen: isOpenHeaderModal,
@@ -91,7 +90,7 @@ const DraftContent = ({
   };
   const handleToDoModal = (e) => {
     onOpenToDoModal();
-  }
+  };
 
   useEffect(() => {
     setArticleHeader(draftHeader);
@@ -320,15 +319,17 @@ const DraftContent = ({
         area={draft.resource.workarea.publicId}
       />
       <TodoInputModal
-      isOpen={isOpenToDoModal}
-      onClose={onCloseToDoModal}
-      draftToDo={draftToDo}
-      setDraftToDo={setDraftToDo}
-      selectedHomeworks={selectedHomeworks}
-      setSelectedHomeworks={setSelectedHomeworks}
-      selectedQuizzes={selectedQuizzes}
-      setSelectedQuizzes={setSelectedQuizzes}
-    />
+        isOpen={isOpenToDoModal}
+        onClose={onCloseToDoModal}
+        draftToDo={draftToDo}
+        setDraftToDo={setDraftToDo}
+        selectedHomeworks={selectedHomeworks}
+        setSelectedHomeworks={setSelectedHomeworks}
+        selectedQuizzes={selectedQuizzes}
+        setSelectedQuizzes={setSelectedQuizzes}
+        selectedExams={selectedExams}
+        setSelectedExams={setSelectedExams}
+      />
     </>
   );
 };
