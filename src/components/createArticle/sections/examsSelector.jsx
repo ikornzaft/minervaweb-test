@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
-import { DisplayQuiz } from './displayQuiz';
+import { DisplayExam } from './displayExam';
 
-const QuizzesSelector = ({
+const ExamsSelector = ({
   workAreas,
-  selectedQuizzes,
-  setSelectedQuizzes,
+  selectedExams,
+  setSelectedExams,
 }) => {
-  const [quizzes, setQuizzes] = useState([]);
-  const [quizzesToDisplay, setQuizzesToDisplay] = useState([]);
+  const [exams, setExams] = useState([]);
+  const [examsToDisplay, setExamsToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedArea, setSelectedArea] = useState([]);
   const [optionValue, setOptionValue] = useState('');
 
   useEffect(() => {
-    setQuizzesToDisplay([]);
+    setExamsToDisplay([]);
     console.log(selectedArea)
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
@@ -28,7 +28,7 @@ const QuizzesSelector = ({
       body: JSON.stringify({
         id: 'msgid-1',
         target: 'soa@service/minerva',
-        method: 'mods/quizzes/handlers/FindQuizzes',
+        method: 'mods/exams/handlers/FindExams',
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
         message: {
@@ -47,7 +47,7 @@ const QuizzesSelector = ({
           setError('Bad response from server');
         const resJson = await res.json();
         console.log(resJson)
-        setQuizzes(resJson.message.resources);
+        setExams(resJson.message.resources);
       } catch (err) {
         setError(err);
       } finally {
@@ -55,41 +55,41 @@ const QuizzesSelector = ({
       }
     }
     fetchData();
-  }, [setQuizzesToDisplay, selectedArea]);
+  }, [setExamsToDisplay, selectedArea]);
 
   useEffect(() => {
-    quizzes.map((quiz) => {
-      const newQuizToDisplay = {
-        key: quiz.entity.publicId,
-        value: quiz.contentHeader.descriptor.title,
+    exams.map((exam) => {
+      const newExamToDisplay = {
+        key: exam.entity.publicId,
+        value: exam.contentHeader.descriptor.title,
       };
-      setQuizzesToDisplay((prevQuizzes) => [...prevQuizzes, newQuizToDisplay]);
+      setExamsToDisplay((prevExams) => [...prevExams, newExamToDisplay]);
     });
-  }, [quizzes]);
+  }, [exams]);
 
-  const addQuiz = () => {
-    const quizIndex = quizzes.findIndex(
+  const addExam = () => {
+    const examIndex = exams.findIndex(
       (option) => option.entity.publicId === optionValue
     );
-    if (quizIndex !== -1) {
-      const quizObj = {
+    if (examIndex !== -1) {
+      const examObj = {
         descriptor: {
-          title: quizzes[quizIndex].contentHeader.descriptor.title,
-          subtitle: quizzes[quizIndex].contentHeader.descriptor.subtitle,
+          title: exams[examIndex].contentHeader.descriptor.title,
+          subtitle: exams[examIndex].contentHeader.descriptor.subtitle,
         },
         content: {
-          type: 'quiz',
+          type: 'exam',
           entity: {
             publicId: optionValue,
           },
         },
       };
 
-      const elementExists = selectedQuizzes.findIndex(
+      const elementExists = selectedExams.findIndex(
         (el) => el.content.entity.publicId === optionValue
       );
       if (elementExists === -1)
-        setSelectedQuizzes([...selectedQuizzes, quizObj]);
+        setSelectedExams([...selectedExams, examObj]);
     }
     setOptionValue(null);
   };
@@ -119,12 +119,12 @@ const QuizzesSelector = ({
           borderRadius="md"
           w="20rem"
           size="sm"
-          placeholder="Selecciona una autoevaluación"
+          placeholder="Selecciona un examen"
           onChange={(e) => {
             setOptionValue(e.target.value);
           }}
         >
-          {quizzesToDisplay.map((option) => {
+          {examsToDisplay.map((option) => {
             return (
               <option key={option.key} value={option.key}>
                 {option.value}
@@ -141,19 +141,19 @@ const QuizzesSelector = ({
           bgColor="white"
           colorScheme="blue"
           size="sm"
-          onClick={addQuiz}
+          onClick={addExam}
         >
-          Agregar autoevaluación
+          Agregar examen
         </Button>
       </HStack>
-      {selectedQuizzes.map((quiz) => {
-        if (quiz !== '')
+      {selectedExams.map((exam) => {
+        if (exam !== '')
           return (
-            <DisplayQuiz
-              options={quizzes}
-              selectedQuizzes={selectedQuizzes}
-              setSelectedQuizzes={setSelectedQuizzes}
-              quiz={quiz}
+            <DisplayExam
+              options={exams}
+              selectedExams={selectedExams}
+              setSelectedExams={setSelectedExams}
+              exam={exam}
             />
           );
       })}
@@ -161,4 +161,4 @@ const QuizzesSelector = ({
   );
 };
 
-export { QuizzesSelector };
+export { ExamsSelector };

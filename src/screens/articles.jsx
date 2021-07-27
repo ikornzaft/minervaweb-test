@@ -90,6 +90,10 @@ const Articles = () => {
     fetchData();
   }, [param.id]);
 
+  useEffect(() => {
+    const sortedArray = articles.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
+  }, [articles])
+
   const renderList = () => {
     if (!error) {
       return <ArticlesList articles={articles} />;

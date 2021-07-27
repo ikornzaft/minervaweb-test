@@ -14,8 +14,9 @@ import { ParagraphReducer } from '../common/paragraphReducer';
 
 const DisplayToDo = ({ sections }) => {
   const displayContent = (content) => {
+    const type = content.content.type;
     return (
-      <Link to={`/quiz/${content.content.entity.publicId}`}>
+      <Link to={`/${type}/${content.content.entity.publicId}`}>
         <SectionElement
           icon={IoMdCheckboxOutline}
           title={content.descriptor.title}

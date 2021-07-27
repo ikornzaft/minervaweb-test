@@ -24,6 +24,7 @@ import {
 } from '@chakra-ui/react';
 import { HomeworksSelector } from './homeworksSelector';
 import { QuizzesSelector } from './quizzesSelector';
+import { ExamsSelector } from './examsSelector';
 
 const TodoInputModal = ({
   isOpen,
@@ -73,7 +74,7 @@ const TodoInputModal = ({
   }, [section2])
 
   const submitTodoSection = () => {
-    setSection2({...section2, contents: [...selectedQuizzes]})
+    setSection2({...section2, contents: [...selectedQuizzes, ...selectedExams]})
     onClose();
   }
 
@@ -136,7 +137,13 @@ const TodoInputModal = ({
                 />
               </TabPanel>
 
-              <TabPanel></TabPanel>
+              <TabPanel>
+              <ExamsSelector
+                  workAreas={workAreas}
+                  selectedExams={selectedExams}
+                  setSelectedExams={setSelectedExams}
+                />
+              </TabPanel>
             </TabPanels>
           </Tabs>
         </ModalBody>
