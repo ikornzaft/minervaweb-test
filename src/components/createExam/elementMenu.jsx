@@ -14,7 +14,6 @@ const ElementMenu = ({
   setForceRender,
   isImage,
 }) => {
-  console.log(paragraphList)
   const {
     isOpen: isOpenEditQuestion,
     onOpen: onOpenEditQuestion,
@@ -25,9 +24,6 @@ const ElementMenu = ({
   const [prevQuestion, setPrevQuestion] = useState('');
   const [prevAnswers, setPrevAnswers] = useState([]);
   const [truePrevAnswer, setTruePrevAnswer] = useState(0);
-  
-  useEffect(() => {
-  }, [])
 
   const moveUp = (el) => {
     const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
@@ -53,23 +49,18 @@ const ElementMenu = ({
   };
 
   const editItem = (el) => {
-    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     if (paragraphList[index].content.link) setPrevImage({location: paragraphList[index].content.link.location});
     setPrevQuestion(paragraphList[index].descriptor.title);
-    console.log(paragraphList[index].content.options)
     const answers = paragraphList[index].content.options.map(el => el.descriptor.title) 
     const trueAnswer = paragraphList[index].content.options.findIndex(el => el.answer === true)
-    console.log(trueAnswer, answers)
     setPrevAnswers(answers);
     setTruePrevAnswer(trueAnswer)
     onOpenEditQuestion();
   };
 
   const changeQuestionsArray = (newEntry) => {
-    console.log(newEntry)
     const newParagraphArray = [...paragraphList]
     newParagraphArray.splice(index, 1, newEntry);
-    console.log(newParagraphArray)
     setParagraphList(newParagraphArray);
   }
 

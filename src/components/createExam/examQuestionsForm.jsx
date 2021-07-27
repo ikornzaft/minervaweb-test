@@ -48,7 +48,11 @@ const ExamQuestionsForm = ({
   useEffect(() => {
     setImage(prevImage);
     setQuestion(prevQuestion);
-    if (prevAnswers) setAnswersArray(prevAnswers);
+    if (prevAnswers) {
+      setAnswersArray(prevAnswers);
+      if (prevAnswers.length > 0) setIsChoice(true);
+    }
+      
     setOption(truePrevAnswer);
   }, [prevImage, prevQuestion, prevAnswers, truePrevAnswer]);
 
@@ -169,7 +173,7 @@ const ExamQuestionsForm = ({
                     <FormLabel htmlFor="is_choice" mb="0">
                       <Text fontSize="sm">¿Es múltiple choice?</Text>
                     </FormLabel>
-                    <Switch id="is_choice" size="sm" onChange={el => setIsChoice(!isChoice)} />
+                    <Switch id="is_choice" size="sm" isChecked={isChoice ? true : false} onChange={el => setIsChoice(!isChoice)} />
                   </FormControl>
                 </Box>
               </TabPanel>
