@@ -103,6 +103,7 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
           isActive={activeButton === 4 ? true : false}
           onClick={menuHandler}
           disabled={true}
+
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
         </Button> : null}
@@ -111,7 +112,6 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
           id="menu-button_6"
           isActive={activeButton === 5 ? true : false}
           onClick={menuHandler}
-          disabled={true}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_6}
         </Button> : null}

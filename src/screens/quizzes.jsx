@@ -65,9 +65,7 @@ const Quizzes = () => {
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
         message: {
-          workarea: {
-            publicId: 'sociales',
-          },
+
           workgroups: workgroups,
         },
       }),

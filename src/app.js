@@ -9,6 +9,7 @@ import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
 import { Tasks } from './screens/tasks';
 import { Exams } from './screens/exams';
+import { Exam } from './screens/exam';
 import { Forum } from './screens/forum';
 import { Feed } from './screens/feed';
 import { Request } from './screens/request';
@@ -34,6 +35,7 @@ function App() {
         <Route path="/request/:id" component={Request} />
         <Route exact path="/tasks/" component={Tasks} />
         <Route exact path="/exams/" component={Exams} />
+        <Route path="/exam/:id" component={Exam} />
         <Route exact path="/forum/" component={Forum} />
         <Route path="/topic/:id" component={Topic} />
         <Route exact path="/quizzes/" component={Quizzes} />
