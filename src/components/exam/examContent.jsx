@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Stack,
   Heading,
@@ -8,6 +9,7 @@ import {
   HStack,
   VStack,
   Button,
+  createStandaloneToast,
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
@@ -19,31 +21,109 @@ import { CreateAreaBadge } from '../common/createAreaBadge';
 import { ExamParagraph } from './examParagraph';
 
 const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
+  const param = useParams();
   const [answersArray, setAnswersArray] = useState([]);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const examDate = new Date(date).toLocaleDateString('es-Es', options);
   const badge = CreateAreaBadge(workarea);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
+  const toast = createStandaloneToast();
 
   let textAnswerArray = [];
+
   const handleChangeTextAnswer = (id, value) => {
-    textAnswerArray[id] = value;
-    console.log(textAnswerArray);
+    const prevArray = answersArray;
+    prevArray[id] = value;
+    setAnswersArray(prevArray);
+  };
+
+  const handleOpenDialog = () => {
+    setIsOpen(true);
   };
 
   const submitAnswers = () => {
-    console.log('Enviando...');
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/exams/handlers/InsertExamResponse',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          resource: {
+            paragraphs: answersArray,
+            worker: { publicId: localStorage.getItem('userName') },
+          },
+          entityRef: { publicId: param.id },
+        },
+      }),
+    };
+
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        console.log(answersArray);
+        const res = await fetch(url, jsonMessage);
+        if (res.status >= 400 && res.status < 600)
+          setError('Bad response from server');
+        const resJson = await res.json();
+        if (resJson.error) {
+          if (resJson.error.code === 707501) {
+            toast({
+              title: 'Este examen ya fue realizado',
+              description: error,
+              status: 'error',
+              duration: 2500,
+              isClosable: true,
+            });
+          }
+        } else {
+          toast({
+            title: 'Respuestas enviadas.',
+            status: 'success',
+            duration: 2500,
+            isClosable: true,
+          });
+        }
+        console.log(resJson);
+        
+      } catch (err) {
+        setError(err);
+        toast({
+          title: 'Se produjo un error al enviar las respuestas',
+          description: error,
+          status: 'error',
+          duration: 2500,
+          isClosable: true,
+        });
+      } finally {
+        setAnswersArray([])
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+
+    onClose(); // FALTARÍA MARCAR LA ACTIVIDAD COMO COMPLETADA
   };
 
-  function AlertDialogExample() {
-    const [isOpen, setIsOpen] = React.useState(false)
-    const onClose = () => setIsOpen(false)
-    const cancelRef = React.useRef()
+  function AlertDialogExample(textAnswerArray) {
+    const cancelRef = React.useRef();
     return (
       <HStack w="100%" justifyContent="center" paddingY={4}>
-        <Button w="12rem" variant="primary" onClick={() => setIsOpen(true)}>
+        <Button w="12rem" variant="primary" onClick={handleOpenDialog}>
           Enviar respuestas
         </Button>
-  
+
         <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
@@ -54,16 +134,16 @@ const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 Enviar respuestas
               </AlertDialogHeader>
-  
+
               <AlertDialogBody>
                 Se enviarán las respuestas para su corrección.
               </AlertDialogBody>
-  
+
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancelar
                 </Button>
-                <Button colorScheme="blue" onClick={onClose} ml={3}>
+                <Button colorScheme="blue" onClick={submitAnswers} ml={3}>
                   Enviar
                 </Button>
               </AlertDialogFooter>
@@ -71,8 +151,8 @@ const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           </AlertDialogOverlay>
         </AlertDialog>
       </HStack>
-    )
-  };
+    );
+  }
 
   return (
     <Stack
