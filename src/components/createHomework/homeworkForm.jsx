@@ -26,12 +26,12 @@ import {
 } from '@chakra-ui/react';
 import { AREAS } from '../../locals/sp/areas';
 
-import { ExamQuestionsForm } from './examQuestionsForm';
+import { HomeworkQuestionsForm } from './homeworkQuestionsForm';
 import { ElementMenu } from './elementMenu';
 import { ParagraphReducer } from '../common/paragraphReducer';
 
-const ExamForm = ({ isOpen, onClose, modalTitle }) => {
-  const [examQuestionsArray, setExamQuestionsArray] = useState([]);
+const HomeworkForm = ({ isOpen, onClose, modalTitle }) => {
+  const [homeworkQuestionsArray, setHomeworkQuestionsArray] = useState([]);
   const [forceRender, setForceRender] = useState(true);
 
   const initialValues = {
@@ -68,28 +68,29 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const changeQuestionsArray = (e) => {
-    setExamQuestionsArray([...examQuestionsArray, e]);
+    setHomeworkQuestionsArray([...homeworkQuestionsArray, e]);
   };
 
-  const createNewExam = (el) => {
+  const createNewHomework = (el) => {
+    console.log(homeworkQuestionsArray)
     const date = new Date();
     const formatedDate = new Date(
       date.getTime() - date.getTimezoneOffset() * 60000
     )
       .toISOString()
       .slice(0, 10);
-    const examId = 'EX-' + formatedDate + '-' + uuidv4();
+    const homeworkId = 'EX-' + formatedDate + '-' + uuidv4();
     const principal = localStorage.getItem('credentials');
-    const newExamToSubmit = {
+    const newHomeworkToSubmit = {
       id: 'msgid-1',
       target: 'soa@service/minerva',
-      method: 'mods/exams/handlers/InsertExam',
+      method: 'mods/exams/handlers/InsertHomework',
       requester: 'root:YWNhY2lhITIwMTc=',
       principal: principal,
       message: {
         entity: {
           resource: {
-            paragraphs: examQuestionsArray,
+            paragraphs: homeworkQuestionsArray,
             articleHeader: {
               descriptor: {
                 subtitle: el.subtitle,
@@ -101,7 +102,7 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
             },
           },
           header: {
-            publicId: examId,
+            publicId: homeworkId,
           },
         },
       },
@@ -115,7 +116,7 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
         },
-        body: JSON.stringify(newExamToSubmit),
+        body: JSON.stringify(newHomeworkToSubmit),
       };
 
       const toast = createStandaloneToast();
@@ -128,18 +129,18 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
         const resJson = await response.json();
         console.log(resJson);
         toast({
-          title: 'Nuevo examen guardado.',
+          title: 'Nueva tarea guardada.',
           status: 'success',
           duration: 2500,
           isClosable: true,
         });
         //borrar data
-        setExamQuestionsArray([]);
+        setHomeworkQuestionsArray([]);
         onClose();
       } catch (err) {
         error = err;
         toast({
-          title: 'Se produjo un error al crear el examen',
+          title: 'Se produjo un error al crear la tarea',
           description: error,
           status: 'error',
           duration: 2500,
@@ -174,8 +175,8 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
         </Text>
         <ElementMenu
           index={index}
-          paragraphList={examQuestionsArray}
-          setParagraphList={setExamQuestionsArray}
+          paragraphList={homeworkQuestionsArray}
+          setParagraphList={setHomeworkQuestionsArray}
           forceRender={forceRender}
           setForceRender={setForceRender}
           isImage="false"
@@ -201,7 +202,7 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
             <Formik
               validationSchema={validationSchema}
               initialValues={initialValues}
-              onSubmit={createNewExam}
+              onSubmit={createNewHomework}
             >
               {(props) => (
                 <Form>
@@ -319,7 +320,7 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
                               {...props}
                               {...field}
                               id="subtitle"
-                              placeholder="Ingresa la descripción del examen"
+                              placeholder="Ingresa la descripción de la tarea"
                             />
                             <FormErrorMessage
                               position="absolute"
@@ -353,11 +354,11 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
                           fontWeight="400"
                           onClick={handleNewQuestion}
                         >
-                          + Nueva Pregunta
+                          + Nueva Consigna
                         </Button>
                       </Box>
                       <VStack paddingTop={2}>
-                        {examQuestionsArray.map((el, index) =>
+                        {homeworkQuestionsArray.map((el, index) =>
                           listItems(el, index)
                         )}
                       </VStack>
@@ -376,7 +377,7 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
                       fontFamily="Poppins"
                       fontWeight="400"
                     >
-                      Crear examen
+                      Crear tarea
                     </Button>
                   </HStack>
                 </Form>
@@ -386,16 +387,16 @@ const ExamForm = ({ isOpen, onClose, modalTitle }) => {
           <ModalCloseButton />
         </ModalContent>
       </Modal>
-      <ExamQuestionsForm
+      <HomeworkQuestionsForm
         isOpen={isOpenNewQuestion}
         onClose={onCloseNewQuestion}
-        modalTitle="Nueva pregunta"
-        buttonText="Agregar pregunta"
-        examQuestionsArray={examQuestionsArray}
+        modalTitle="Nueva consigna"
+        buttonText="Agregar consigna"
+        homeworkQuestionsArray={homeworkQuestionsArray}
         changeQuestionsArray={changeQuestionsArray}
       />
     </>
   );
 };
 
-export { ExamForm };
+export { HomeworkForm };

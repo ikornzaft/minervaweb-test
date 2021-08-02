@@ -11,6 +11,7 @@ import {
 import { ArticleForm } from '../createArticle/articleForm';
 import { ExamForm } from '../createExam/examForm';
 import { QuizForm } from '../createQuiz/quizForm';
+import { HomeworkForm } from '../createHomework/homeworkForm';
 import { BiPlusCircle } from 'react-icons/bi';
 import { LABELS } from '../../locals/sp/labels';
 
@@ -19,6 +20,11 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
     isOpen: isOpenNewActivity,
     onOpen: onOpenNewActivity,
     onClose: onCloseNewActivity,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenNewHomework,
+    onOpen: onOpenNewHomework,
+    onClose: onCloseNewHomework,
   } = useDisclosure();
   const {
     isOpen: isOpenNewExam,
@@ -33,6 +39,10 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
   const menuHandlerActivity = (e) => {
     onClose();
     onOpenNewActivity();
+  };
+  const menuHandlerHomework = (e) => {
+    onClose();
+    onOpenNewHomework();
   };
   const menuHandlerExam = (e) => {
     onClose();
@@ -71,7 +81,7 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
                 variant="drawerRight"
                 rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_2"
-                onClick={menuHandlerActivity}
+                onClick={menuHandlerHomework}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_2}
               </Button>
@@ -100,11 +110,16 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
         onClose={onCloseNewActivity}
         modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}
       />
-      <ExamForm
-      isOpen={isOpenNewExam}
-      onClose={onCloseNewExam}
-      modalTitle="Nuevo examen"
+      <HomeworkForm
+      isOpen={isOpenNewHomework}
+      onClose={onCloseNewHomework}
+      modalTitle="Nueva tarea"
     />
+      <ExamForm
+        isOpen={isOpenNewExam}
+        onClose={onCloseNewExam}
+        modalTitle="Nuevo examen"
+      />
       <QuizForm
         isOpen={isOpenNewQuiz}
         onClose={onCloseNewQuiz}
