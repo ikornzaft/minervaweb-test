@@ -10,18 +10,13 @@ import {
 import { ParagraphReducer } from '../../common/paragraphReducer';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const DisplayExam = ({
-  options,
-  exam,
-  selectedExams,
-  setSelectedExams,
-}) => {
+const DisplayExam = ({ options, exam, selectedExams, setSelectedExams }) => {
   const titleString = exam.descriptor.title;
   const subtitleString = exam.descriptor.subtitle;
 
   const [removedElement, setRemovedElement] = useState(null);
 
-   const deleteItem = (e) => {
+  const deleteItem = (e) => {
     const filteredExams = selectedExams.filter(
       (el) => el.content.entity.publicId !== exam.content.entity.publicId
     );
@@ -34,10 +29,12 @@ const DisplayExam = ({
         <Heading as="h4" fontSize="sm">
           {titleString}
         </Heading>
-        <Text fontSize="xs" color="gray.700">{ParagraphReducer(subtitleString)}</Text>
+        <Text fontSize="xs" color="gray.700">
+          {ParagraphReducer(subtitleString)}
+        </Text>
       </VStack>
       <Tooltip label="Borrar artículo" bg="white" color="gray.700">
-        <Button margin="0" size="xs" onClick={deleteItem} >
+        <Button margin="0" size="xs" onClick={deleteItem}>
           <FaRegTrashAlt />
         </Button>
       </Tooltip>

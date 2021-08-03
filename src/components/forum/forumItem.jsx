@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Stack,
-  Text,
-  Heading,
-  Box,
-  HStack,
-  VStack,
-} from '@chakra-ui/react';
+import { Stack, Text, Heading, Box, HStack, VStack } from '@chakra-ui/react';
 import { ParagraphReducer } from '../common/paragraphReducer';
 
 const ForumItem = ({ topic }) => {
@@ -79,7 +72,7 @@ const ForumItem = ({ topic }) => {
           </Stack>
         </VStack>
       </>
-      ); 
+      );
     </VStack>
   );
 };

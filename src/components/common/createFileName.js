@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-
 const CreateFileName = (type, name) => {
   const randomId = uuidv4();
   const today = new Date();

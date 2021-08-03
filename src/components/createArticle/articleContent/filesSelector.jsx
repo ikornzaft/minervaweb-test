@@ -15,7 +15,6 @@ import { CreateFileName } from '../../common/createFileName';
 import { FiUpload } from 'react-icons/fi';
 import { DisplayUploadedFiles } from './displayUploadedFiles';
 
-
 // en el objeto que paso debería tener disponible un método MODCORS
 
 const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
@@ -50,21 +49,21 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
       setUploadedFiles([...uploadedFiles, newUploadedFile]);
       setFiles([...files, newUploadedFile]);
       toast({
-        title: "El archivo se subió correctamente",
-        status: "success",
+        title: 'El archivo se subió correctamente',
+        status: 'success',
         duration: 2000,
         isClosable: true,
-      })
+      });
       setSelectedFile(null);
       setSelectedFileDescription(null);
     } catch (err) {
       setError(err);
       toast({
-        title: "Ocurrió un error al subir el archivo",
-        status: "error",
+        title: 'Ocurrió un error al subir el archivo',
+        status: 'error',
         duration: 2000,
         isClosable: true,
-      })
+      });
     } finally {
       setLoading(false);
     }
@@ -100,7 +99,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
           type: defineFileType(selectedFile.type),
           locationType: 'relative',
           location: fileName,
-        }
+        },
       },
     };
 
@@ -141,20 +140,19 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
                 e.preventDefault();
                 FileInputRef.current.click();
               }}
-              >
+            >
               <Stack
-              w="100%"
-              h="100%"
-              alignItems="center"
-              justifyContent="center"
-              wordBreak="break-all"
-              wordwrap="break-word"
-              textAlign="center"
-              p={2}
+                w="100%"
+                h="100%"
+                alignItems="center"
+                justifyContent="center"
+                wordBreak="break-all"
+                wordwrap="break-word"
+                textAlign="center"
+                p={2}
               >
-              
-              {loading ? <p>Subiendo...</p> : null}
-              {selectedFile ? (
+                {loading ? <p>Subiendo...</p> : null}
+                {selectedFile ? (
                   <Text fontSize="xs">{selectedFile.name}</Text>
                 ) : (
                   <Box as={FiUpload} size="40px" color="gray.600" />

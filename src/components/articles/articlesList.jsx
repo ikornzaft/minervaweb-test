@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import { ArticlesListItem } from './articlesListItem';
 
 const ArticlesList = ({ articles }) => {
-
   return (
     <>
       {articles.map((el, index) => (
-        <Link to={`/article/${el.entity.publicId}`}>
-          <ArticlesListItem key={index} article={el} />
+        <Link key={index} to={`/article/${el.entity.publicId}`}>
+          <ArticlesListItem article={el} />
         </Link>
       ))}
     </>

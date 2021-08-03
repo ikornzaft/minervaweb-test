@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
 import { DisplayExam } from './displayExam';
 
-const ExamsSelector = ({
-  workAreas,
-  selectedExams,
-  setSelectedExams,
-}) => {
+const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
   const [exams, setExams] = useState([]);
   const [examsToDisplay, setExamsToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +12,7 @@ const ExamsSelector = ({
 
   useEffect(() => {
     setExamsToDisplay([]);
-    console.log(selectedArea)
+    console.log(selectedArea);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
@@ -46,7 +42,7 @@ const ExamsSelector = ({
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
+        console.log(resJson);
         setExams(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -88,8 +84,7 @@ const ExamsSelector = ({
       const elementExists = selectedExams.findIndex(
         (el) => el.content.entity.publicId === optionValue
       );
-      if (elementExists === -1)
-        setSelectedExams([...selectedExams, examObj]);
+      if (elementExists === -1) setSelectedExams([...selectedExams, examObj]);
     }
     setOptionValue(null);
   };

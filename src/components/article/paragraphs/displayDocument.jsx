@@ -12,7 +12,6 @@ import { ParagraphReducer } from '../../common/paragraphReducer';
 import { VscFile } from 'react-icons/vsc';
 
 const DisplayDocument = ({ linkLocation, title, subtitle }) => {
-
   const documentLink = `http://www.afatecha.com/id/files/document/${linkLocation}`;
 
   return (
@@ -59,7 +58,7 @@ const DisplayDocument = ({ linkLocation, title, subtitle }) => {
         </HStack>
       </LinkBox>
     </VStack>
-    )
+  );
 };
 
 export { DisplayDocument };

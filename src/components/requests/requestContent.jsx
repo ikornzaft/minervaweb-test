@@ -70,7 +70,13 @@ const RequestContent = ({
         commentsNumber={commentsNumber}
         setCommentsNumber={setCommentsNumber}
       />
-      {commentsArray.length > 0 ? <CommentsList commentsArray={commentsArray} /> : <Box w="100%" paddingY={2} paddingX={6}><Heading fontSize="md">No hay respuestas aún.</Heading></Box>}
+      {commentsArray.length > 0 ? (
+        <CommentsList commentsArray={commentsArray} />
+      ) : (
+        <Box w="100%" paddingY={2} paddingX={6}>
+          <Heading fontSize="md">No hay respuestas aún.</Heading>
+        </Box>
+      )}
     </VStack>
   );
 };

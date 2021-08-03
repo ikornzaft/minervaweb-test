@@ -85,7 +85,7 @@ const RequestItem = ({ question }) => {
           </Stack>
         </VStack>
       </>
-      ); 
+      );
     </VStack>
   );
 };

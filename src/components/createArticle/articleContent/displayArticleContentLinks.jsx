@@ -18,7 +18,7 @@ const DisplayArticleContentLinks = ({
 }) => {
   const deleteItem = (e) => {
     //const elementToDelete = options[index].key;
-    
+
     const linkToDeleteId = e.currentTarget.id;
     const filteredLinks = articleContentLinks.filter(
       (filteredLink) => filteredLink.content.link.location !== linkToDeleteId
@@ -30,7 +30,9 @@ const DisplayArticleContentLinks = ({
     <HStack width="100%" marginBottom={2}>
       <VStack width="100%" p={3} bg="gray.100" borderRadius="md">
         <Heading as="h4" fontSize="md">
-          {link.descriptor.title ? link.descriptor.title : link.content.location}
+          {link.descriptor.title
+            ? link.descriptor.title
+            : link.content.location}
         </Heading>
         <Text fontSize="xs">{link.descriptor.subtitle}</Text>
       </VStack>

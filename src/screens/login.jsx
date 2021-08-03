@@ -141,11 +141,9 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             {LABELS.LOGIN.FORM.USER_LABEL}
           </FormLabel>
           <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              fontSize="xl"
-              children={<TiUserOutline color="gray" />}
-            />
+            <InputLeftElement pointerEvents="none" fontSize="xl">
+              <TiUserOutline color="gray" />
+            </InputLeftElement>
             <Input
               isRequired
               autoFocus={true}
@@ -164,11 +162,9 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             {LABELS.LOGIN.FORM.PASS_LABEL}
           </FormLabel>
           <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              fontSize="xl"
-              children={<TiLockClosedOutline color="gray" />}
-            />
+            <InputLeftElement pointerEvents="none" fontSize="xl">
+              <TiLockClosedOutline color="gray" />
+            </InputLeftElement>
             <Input
               isRequired
               fontSize="sm"

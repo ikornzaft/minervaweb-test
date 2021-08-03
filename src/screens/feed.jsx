@@ -30,8 +30,9 @@ const Feed = ({ requests, setRequests }) => {
   return (
     <Container maxWidth="container.lg" alignSelf="center" pt={12}>
       {requests.length > 0
-        ? requests.map((el) => (
+        ? requests.map((el, index) => (
             <RequestItem
+              key={index}
               request={el.request}
               title={el.article}
               area={el.area}

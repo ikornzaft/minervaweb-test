@@ -17,10 +17,10 @@ const DisplayUploadedFiles = ({
   setUploadedFiles,
 }) => {
   const defineType = (e) => {
-    if (e.image) return "image";
-    if (e.document) return "document";
-    if (e.audio) return "audio";
-    if (e.video) return "video";
+    if (e.image) return 'image';
+    if (e.document) return 'document';
+    if (e.audio) return 'audio';
+    if (e.video) return 'video';
   };
 
   const deleteItem = (e) => {

@@ -38,19 +38,18 @@ const EditElementPopover = ({
         <PopoverTrigger>
           <IconButton size="xs" icon={<FaEdit />} />
         </PopoverTrigger>
-        <PopoverContent width="100%" height="100%" paddingY={4} >
+        <PopoverContent width="100%" height="100%" paddingY={4}>
           <PopoverArrow />
 
-            <EditElementForm
-              paragraphList={paragraphList}
-              elementId={elementId}
-              setParagraphList={setParagraphList}
-              onCancel={onClose}
-              forceRender={forceRender}
-              setForceRender={setForceRender}
-              isImage={isImage}
-            />
-          
+          <EditElementForm
+            paragraphList={paragraphList}
+            elementId={elementId}
+            setParagraphList={setParagraphList}
+            onCancel={onClose}
+            forceRender={forceRender}
+            setForceRender={setForceRender}
+            isImage={isImage}
+          />
         </PopoverContent>
       </Popover>
     </>

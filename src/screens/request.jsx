@@ -55,7 +55,7 @@ const Request = () => {
           setError('Bad response from server');
         const resJson = await res.json();
         setCurrentQuestion(resJson.message.entity);
-        setCommentsArray(resJson.message.comments)
+        setCommentsArray(resJson.message.comments);
       } catch (err) {
         setError(err);
       } finally {

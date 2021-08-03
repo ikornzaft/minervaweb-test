@@ -55,7 +55,7 @@ const Topic = () => {
           setError('Bad response from server');
         const resJson = await res.json();
         setCurrentTopic(resJson.message.entity);
-        setCommentsArray(resJson.message.comments)
+        setCommentsArray(resJson.message.comments);
       } catch (err) {
         setError(err);
       } finally {

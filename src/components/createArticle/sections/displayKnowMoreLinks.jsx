@@ -30,7 +30,9 @@ const DisplayKnowMoreLinks = ({
     <HStack width="100%" marginBottom={2}>
       <VStack width="100%" p={3} bg="gray.100" borderRadius="md">
         <Heading as="h4" fontSize="md">
-          {link.descriptor.title ? link.descriptor.title : link.content.link.location}
+          {link.descriptor.title
+            ? link.descriptor.title
+            : link.content.link.location}
         </Heading>
         <Text fontSize="xs">{link.descriptor.subtitle}</Text>
       </VStack>

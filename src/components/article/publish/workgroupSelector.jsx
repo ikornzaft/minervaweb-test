@@ -18,8 +18,8 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const param = useParams();
-  const groups=JSON.parse(localStorage.getItem('workgroups'))
-  const filteredGroups = groups.filter(el => !el.resource.private)
+  const groups = JSON.parse(localStorage.getItem('workgroups'));
+  const filteredGroups = groups.filter((el) => !el.resource.private);
   const handlePublish = () => {
     if (selectedGroup) {
       const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
@@ -75,7 +75,7 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
         }
       }
       fetchData();
-    } 
+    }
   };
   return (
     <Modal isOpen={isOpen} size="md" onClose={onClose}>
@@ -98,7 +98,10 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
           >
             {filteredGroups.map((option) => {
               return (
-                <option key={option.resource.descriptor.title} value={option.header.privateId}>
+                <option
+                  key={option.resource.descriptor.title}
+                  value={option.header.privateId}
+                >
                   {option.resource.descriptor.title}
                 </option>
               );

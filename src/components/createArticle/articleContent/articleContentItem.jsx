@@ -8,7 +8,9 @@ import { FiSpeaker } from 'react-icons/fi';
 const ArticleContentItem = ({ descriptor, content }) => {
   const displayText = () => {
     return (
-      <Text fontSize="sm" textAlign="left">{ParagraphReducer(descriptor.description)}</Text>
+      <Text fontSize="sm" textAlign="left">
+        {ParagraphReducer(descriptor.description)}
+      </Text>
     );
   };
   const displayContent = () => {

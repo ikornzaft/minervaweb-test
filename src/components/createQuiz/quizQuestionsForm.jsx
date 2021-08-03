@@ -43,13 +43,13 @@ const QuizQuestionsForm = ({
   const [isImage, setIsImage] = useState(false);
   const [answersArray, setAnswersArray] = useState([]);
   const [option, setOption] = useState(0);
-  
+
   useEffect(() => {
-    setImage(prevImage)
-    setQuestion(prevQuestion)
+    setImage(prevImage);
+    setQuestion(prevQuestion);
     if (prevAnswers) setAnswersArray(prevAnswers);
-    setOption(truePrevAnswer)
-  }, [prevImage, prevQuestion, prevAnswers, truePrevAnswer])
+    setOption(truePrevAnswer);
+  }, [prevImage, prevQuestion, prevAnswers, truePrevAnswer]);
 
   const addNewQuestionToArray = () => {
     if (question !== '') {
@@ -167,25 +167,25 @@ const QuizQuestionsForm = ({
               </TabPanel>
 
               <TabPanel>
-              <HStack w="100%" justifyContent="center">
-                <VStack
-                  w="60%"
-                  p={4}
-                  bg="gray.50"
-                  borderRadius="md"
-                  borderStyle="solid"
-                  borderWidth="1px"
-                  marginBottom={4}
-                >
-                  <Box paddingBottom={2}>
-                    <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
-                  </Box>
-                  <CoverImageInput
-                    image={image}
-                    setIsImage={setIsImage}
-                    onImageChange={onImageChange}
-                  />
-                </VStack>
+                <HStack w="100%" justifyContent="center">
+                  <VStack
+                    w="60%"
+                    p={4}
+                    bg="gray.50"
+                    borderRadius="md"
+                    borderStyle="solid"
+                    borderWidth="1px"
+                    marginBottom={4}
+                  >
+                    <Box paddingBottom={2}>
+                      <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
+                    </Box>
+                    <CoverImageInput
+                      image={image}
+                      setIsImage={setIsImage}
+                      onImageChange={onImageChange}
+                    />
+                  </VStack>
                 </HStack>
               </TabPanel>
 

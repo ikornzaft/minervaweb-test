@@ -52,7 +52,14 @@ const TopicContent = ({
           </Text>
         </Box>
         {topic.resource.paragraphs.length > 0 ? (
-          <VStack padding={2} paddingBottom={4} bg="gray.100" borderRadius="lg" borderWidth="1px" w="100%">
+          <VStack
+            padding={2}
+            paddingBottom={4}
+            bg="gray.100"
+            borderRadius="lg"
+            borderWidth="1px"
+            w="100%"
+          >
             {' '}
             <DisplayKnowMore
               sections={topic.resource.paragraphs}

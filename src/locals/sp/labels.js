@@ -148,7 +148,7 @@ const LABELS = {
       FILE_FORM: {
         LOADING: 'Subiendo...',
         UPLOAD_BUTTON: 'Subir archivo',
-      }
+      },
     },
   },
 };

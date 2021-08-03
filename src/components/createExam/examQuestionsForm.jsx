@@ -52,7 +52,7 @@ const ExamQuestionsForm = ({
       setAnswersArray(prevAnswers);
       if (prevAnswers.length > 0) setIsChoice(true);
     }
-      
+
     setOption(truePrevAnswer);
   }, [prevImage, prevQuestion, prevAnswers, truePrevAnswer]);
 
@@ -72,7 +72,7 @@ const ExamQuestionsForm = ({
       });
       let newEntry;
 
-      isChoice ? options = newArray : options = [];
+      isChoice ? (options = newArray) : (options = []);
 
       if (image) {
         newEntry = {
@@ -173,7 +173,12 @@ const ExamQuestionsForm = ({
                     <FormLabel htmlFor="is_choice" mb="0">
                       <Text fontSize="sm">¿Es múltiple choice?</Text>
                     </FormLabel>
-                    <Switch id="is_choice" size="sm" isChecked={isChoice ? true : false} onChange={el => setIsChoice(!isChoice)} />
+                    <Switch
+                      id="is_choice"
+                      size="sm"
+                      isChecked={isChoice ? true : false}
+                      onChange={(el) => setIsChoice(!isChoice)}
+                    />
                   </FormControl>
                 </Box>
               </TabPanel>

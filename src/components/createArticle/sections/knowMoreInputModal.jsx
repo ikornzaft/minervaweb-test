@@ -34,13 +34,12 @@ const KnowMoreInputModal = ({
   area,
   workAreas,
   prevArticle,
-  title
+  title,
 }) => {
   const [selectorOptions, setSelectorOptions] = useState([]);
 
   useEffect(() => {
     if (prevArticle) {
-
       const articleObj = {
         descriptor: {
           title: prevArticle.resource.articleHeader.descriptor.title,
@@ -55,7 +54,7 @@ const KnowMoreInputModal = ({
       };
       setSelectedArticles([articleObj]);
     }
-  }, [])
+  }, []);
 
   const handleSubmit = (values) => {
     const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);

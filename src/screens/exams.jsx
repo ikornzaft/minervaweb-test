@@ -41,7 +41,7 @@ const Exams = () => {
           setError('Bad response from server');
         const resJson = await res.json();
         setExams(resJson.message.resources);
-        console.log(resJson)
+        console.log(resJson);
       } catch (err) {
         setError(err);
       } finally {
@@ -52,8 +52,10 @@ const Exams = () => {
   }, [param.id]);
 
   useEffect(() => {
-    const sortedArray = exams.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
-  }, [exams])
+    const sortedArray = exams.sort(
+      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+    );
+  }, [exams]);
 
   const renderList = () => {
     if (!error) {
@@ -65,23 +67,22 @@ const Exams = () => {
   return (
     <Container maxWidth="container.lg" alignSelf="center" pt={12}>
       <Stack direction="column" textAlign="center">
-      
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
-        <Stack direction="row" w="50rem">
-        <Heading
-          as="h3"
-          width="100%"
-          paddingRight={8}
-          paddingTop={2}
-          textAlign="left"
-          fontSize="lg"
-          fontWeight="400"
-          borderBottomColor="primary"
-          borderBottomWidth="3px"
-        >
-          Examenes
-        </Heading>
-      </Stack>
+          <Stack direction="row" w="50rem">
+            <Heading
+              as="h3"
+              width="100%"
+              paddingRight={8}
+              paddingTop={2}
+              textAlign="left"
+              fontSize="lg"
+              fontWeight="400"
+              borderBottomColor="primary"
+              borderBottomWidth="3px"
+            >
+              Examenes
+            </Heading>
+          </Stack>
           {isLoading ? (
             <Spinner
               thickness="4px"

@@ -9,7 +9,7 @@ import {
   Image,
   RadioGroup,
   Radio,
-  Textarea
+  Textarea,
 } from '@chakra-ui/react';
 
 const ExamParagraph = ({
@@ -24,9 +24,8 @@ const ExamParagraph = ({
 
   const selectRadio = (el) => {
     setValue(+el);
-    handleChangeTextAnswer(paragraphIndex, options[el].descriptor.title)
+    handleChangeTextAnswer(paragraphIndex, options[el].descriptor.title);
   };
-
 
   return (
     <VStack
@@ -53,30 +52,37 @@ const ExamParagraph = ({
         ) : null}
       </Box>
       {options.length > 0 ? (
-      <Box>
-      {options.map((option, index) => (
-        <RadioGroup onChange={selectRadio} value={value}>
-          <Stack p={1}>
-            <HStack
-              p={3}
-              bg="gray.100"
-              borderWidth="1px"
-              borderColor="gray.300"
-              w="35rem"
-              borderRadius="lg"
-              _hover={{bg:"gray.200"}}
-            >
-              <Radio borderColor="gray.400" w="100%" value={index}>
-                <Box w="100%" >
-                  <Text>{option.descriptor.title}</Text>
-                </Box>
-              </Radio>
-            </HStack>
-          </Stack>
-        </RadioGroup>
-      ))}
-      </Box>
-      ) : <Textarea placeholder="Tu respuesta..." onChange={el => handleChangeTextAnswer(paragraphIndex, el.target.value)} />}
+        <Box>
+          {options.map((option, index) => (
+            <RadioGroup key={index} onChange={selectRadio} value={value}>
+              <Stack p={1}>
+                <HStack
+                  p={3}
+                  bg="gray.100"
+                  borderWidth="1px"
+                  borderColor="gray.300"
+                  w="35rem"
+                  borderRadius="lg"
+                  _hover={{ bg: 'gray.200' }}
+                >
+                  <Radio borderColor="gray.400" w="100%" value={index}>
+                    <Box w="100%">
+                      <Text>{option.descriptor.title}</Text>
+                    </Box>
+                  </Radio>
+                </HStack>
+              </Stack>
+            </RadioGroup>
+          ))}
+        </Box>
+      ) : (
+        <Textarea
+          placeholder="Tu respuesta..."
+          onChange={(el) =>
+            handleChangeTextAnswer(paragraphIndex, el.target.value)
+          }
+        />
+      )}
     </VStack>
   );
 };

@@ -30,15 +30,15 @@ const DisplayContent = ({ paragraphs }) => {
         resourceLink = `http://${resourceLink}`;
       return (
         <LinkBox>
-        <HStack
-        borderWidth="1px"
-        borderRadius="md"
-        paddingY={2}
-        paddingX={6}
-        cursor="pointer"
-        _hover={{ bg: 'gray.100' }}
-        >
-        <LinkOverlay href={resourceLink} isExternal="true" />
+          <HStack
+            borderWidth="1px"
+            borderRadius="md"
+            paddingY={2}
+            paddingX={6}
+            cursor="pointer"
+            _hover={{ bg: 'gray.100' }}
+          >
+            <LinkOverlay href={resourceLink} isExternal="true" />
             <Text fontSize="xs">Link: </Text>
             <Text fontSize="xs" fontWeight="700">
               {item.descriptor.title}
@@ -51,21 +51,21 @@ const DisplayContent = ({ paragraphs }) => {
     console.log('aaah');
     return (
       <LinkBox>
-      <HStack
-      borderWidth="1px"
-      borderRadius="md"
-      paddingY={2}
-      paddingX={6}
-      cursor="pointer"
-      _hover={{ bg: 'gray.100' }}
-      >
-      <LinkOverlay href={resourceLink} isExternal="true" />
+        <HStack
+          borderWidth="1px"
+          borderRadius="md"
+          paddingY={2}
+          paddingX={6}
+          cursor="pointer"
+          _hover={{ bg: 'gray.100' }}
+        >
+          <LinkOverlay href={resourceLink} isExternal="true" />
           <Text fontSize="xs">Adjunto: </Text>
           <Text fontSize="xs" fontWeight="700">
             {item.descriptor.title}
           </Text>
-          </HStack>
-          </LinkBox>
+        </HStack>
+      </LinkBox>
     );
   };
 

@@ -7,12 +7,14 @@ import {
   Text,
   Input,
   Textarea,
-
 } from '@chakra-ui/react';
 
 import { DisplayArticleContentLinks } from './displayArticleContentLinks';
 
-const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLinks }) => {
+const ArticleContentLinkSelector = ({
+  articleContentLinks,
+  setArticleContentLinks,
+}) => {
   const [addedLink, setAddedLink] = useState(null);
   const [addedLinkTitle, setAddedLinkTitle] = useState(null);
   const [addedLinkDescription, setAddedLinkDescription] = useState(null);
@@ -40,14 +42,17 @@ const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLink
           type: 'link',
           locationType: 'absolute',
           location: addedLink,
-        }
+        },
       },
     };
 
-    setArticleContentLinks((articleContentLinks) => [...articleContentLinks, newLink]);
-    setAddedLink("");
-    setAddedLinkDescription("");
-    setAddedLinkTitle("");
+    setArticleContentLinks((articleContentLinks) => [
+      ...articleContentLinks,
+      newLink,
+    ]);
+    setAddedLink('');
+    setAddedLinkDescription('');
+    setAddedLinkTitle('');
   };
 
   return (
@@ -110,7 +115,7 @@ const ArticleContentLinkSelector = ({ articleContentLinks, setArticleContentLink
               fontWeight="400"
               size="xs"
               variant="outline"
-              disabled={(addedLink && addedLink !== '') ? false : true}
+              disabled={addedLink && addedLink !== '' ? false : true}
               onClick={onLinkAdd}
             >
               {' '}

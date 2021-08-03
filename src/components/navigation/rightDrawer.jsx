@@ -111,10 +111,10 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
         modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}
       />
       <HomeworkForm
-      isOpen={isOpenNewHomework}
-      onClose={onCloseNewHomework}
-      modalTitle="Nueva tarea"
-    />
+        isOpen={isOpenNewHomework}
+        onClose={onCloseNewHomework}
+        modalTitle="Nueva tarea"
+      />
       <ExamForm
         isOpen={isOpenNewExam}
         onClose={onCloseNewExam}

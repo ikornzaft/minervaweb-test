@@ -28,7 +28,6 @@ const useFetchContent = (filter) => {
   };
 
   useEffect(() => {
-
     async function fetchData() {
       try {
         const res = await fetch(url, jsonMessage);

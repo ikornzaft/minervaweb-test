@@ -13,7 +13,8 @@ import { ParagraphReducer } from '../../common/paragraphReducer';
 import { VscLinkExternal } from 'react-icons/vsc';
 
 const DisplayLink = ({ linkLocation, title, subtitle }) => {
-  if (linkLocation.substring(0, 4) !== 'http') linkLocation = `http://${linkLocation}`;
+  if (linkLocation.substring(0, 4) !== 'http')
+    linkLocation = `http://${linkLocation}`;
 
   const isYoutubeLink = () => {
     const splittedLink = linkLocation.split('.');

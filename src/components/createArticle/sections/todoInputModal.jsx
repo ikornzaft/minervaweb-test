@@ -40,14 +40,14 @@ const TodoInputModal = ({
   workAreas,
 }) => {
   const [selectorOptions, setSelectorOptions] = useState([]);
-  const [section1, setSection1] = useState(null)
-  const [section2, setSection2] = useState(null)
+  const [section1, setSection1] = useState(null);
+  const [section2, setSection2] = useState(null);
 
   useEffect(() => {
     const [s1, s2] = [...sectionsList];
-    setSection1(s1)
-    setSection2(s2)
-  }, [])
+    setSection1(s1);
+    setSection2(s2);
+  }, []);
 
   /* useEffect(() => {
     const homeworks = HomeworksDb;
@@ -70,13 +70,16 @@ const TodoInputModal = ({
   }, []); */
 
   useEffect(() => {
-    setSectionsList([section1, section2])
-  }, [section2])
+    setSectionsList([section1, section2]);
+  }, [section2]);
 
   const submitTodoSection = () => {
-    setSection2({...section2, contents: [...selectedQuizzes, ...selectedExams]})
+    setSection2({
+      ...section2,
+      contents: [...selectedQuizzes, ...selectedExams],
+    });
     onClose();
-  }
+  };
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -138,7 +141,7 @@ const TodoInputModal = ({
               </TabPanel>
 
               <TabPanel>
-              <ExamsSelector
+                <ExamsSelector
                   workAreas={workAreas}
                   selectedExams={selectedExams}
                   setSelectedExams={setSelectedExams}
@@ -149,17 +152,17 @@ const TodoInputModal = ({
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-        <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
-        <Button
-          mt={4}
-          fontFamily="Poppins"
-          fontWeight="400"
-          colorScheme="blue"
-          onClick={submitTodoSection}
-        >
-          Confirmar contenido
-        </Button>
-      </Flex>
+          <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
+            <Button
+              mt={4}
+              fontFamily="Poppins"
+              fontWeight="400"
+              colorScheme="blue"
+              onClick={submitTodoSection}
+            >
+              Confirmar contenido
+            </Button>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -44,13 +44,13 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
           method: 'mods/articles/handlers/GetArticle',
           requester: 'root:YWNhY2lhITIwMTc=',
           principal: credentials,
-  
+
           message: {
             entityRef: { publicId: articleId },
           },
         }),
       };
-  
+
       async function fetchData() {
         try {
           const res = await fetch(url, jsonMessage);
@@ -64,8 +64,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
       }
       fetchData();
     }
-  }, [])
-  
+  }, []);
 
   const [paragraphList, setParagraphList] = useState([
     {
@@ -109,7 +108,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
   };
 
   const storedGroups = JSON.parse(localStorage.getItem('workgroups'));
-  const filteredGroups = storedGroups.filter(el => !el.resource.private)
+  const filteredGroups = storedGroups.filter((el) => !el.resource.private);
   const [loading, setLoading] = useState(false);
   const handleSubmit = (values) => {
     const credentials = localStorage.getItem('credentials');
@@ -376,7 +375,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
               workAreas={workAreas}
               area={area}
               prevArticle={prevArticle}
-              title='Selecciona contenido'
+              title="Selecciona contenido"
             />
           </VStack>
         </ModalBody>

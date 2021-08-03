@@ -21,7 +21,6 @@ const EditElementForm = ({
   elementId,
   onCancel,
 }) => {
-
   let currentElement = {};
 
   const [textParagraph, setTextParagraph] = useState('');
@@ -38,15 +37,15 @@ const EditElementForm = ({
       setFileName(paragraphList[elementId].descriptor.subtitle);
       setLocation(paragraphList[elementId].content.link.location);
       setType(paragraphList[elementId].content.link.type);
-      setlocationType('relative')
-      setTypeOfResource('file')
+      setlocationType('relative');
+      setTypeOfResource('file');
       if (paragraphList[elementId].content.link.type === 'link') {
-        setTypeOfResource('link')
-        setlocationType('absolute')
-        setType('link')
+        setTypeOfResource('link');
+        setlocationType('absolute');
+        setType('link');
       }
     } else {
-      setTypeOfResource('text')
+      setTypeOfResource('text');
       setTextParagraph(paragraphList[elementId].descriptor.description);
     }
   }, [paragraphList]);
@@ -96,31 +95,31 @@ const EditElementForm = ({
 
   const renderForm = () => {
     if (typeOfResource === 'link') {
-        return (
-          <EditElementFormLink
+      return (
+        <EditElementFormLink
           title={description}
           setTitle={setDescription}
           subtitle={fileName}
           setSubtitle={setFileName}
           location={location}
           setLocation={setLocation}
-          />
-        );
-      }
+        />
+      );
+    }
     if (typeOfResource === 'file') {
-        return (
-          <EditElementFormFile
-            description={description}
-            setDescription={setDescription}
-            fileName={fileName}
-            setFileName={setFileName}
-            location={location}
-            setLocation={setLocation}
-            type={type}
-            setType={setType}
-          />
-        );
-      }
+      return (
+        <EditElementFormFile
+          description={description}
+          setDescription={setDescription}
+          fileName={fileName}
+          setFileName={setFileName}
+          location={location}
+          setLocation={setLocation}
+          type={type}
+          setType={setType}
+        />
+      );
+    }
     if (typeOfResource === 'text') {
       return (
         <EditElementFormText

@@ -30,7 +30,6 @@ const EditElementFormFile = ({
   const [loading, setLoading] = useState(false);
   const FileInputRef = useRef();
 
-
   const defineFileType = (type) => {
     if (type.substring(0, 5) === 'image') return 'image';
     if (type.substring(0, 5) === 'video') return 'video';
@@ -73,7 +72,7 @@ const EditElementFormFile = ({
 
   const onFileChange = (e) => {
     setType(defineFileType(e.target.files[0].type));
-    setFileName(e.target.files[0].name)
+    setFileName(e.target.files[0].name);
     setSelectedFile(e.target.files[0]);
   };
 

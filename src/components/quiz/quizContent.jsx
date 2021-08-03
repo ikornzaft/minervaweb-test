@@ -99,9 +99,10 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
       {isDone ? (
         <DisplayResult />
       ) : (
-        <VStack w="100%" justifyContent="center" spacing="20px"> 
+        <VStack w="100%" justifyContent="center" spacing="20px">
           {paragraphs.map((paragraph, index) => (
             <QuizParagraph
+              key={index}
               paragraph={paragraph}
               paragraphIndex={index}
               answersArray={answersArray}

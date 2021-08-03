@@ -21,7 +21,7 @@ const DisplayQuiz = ({
 
   const [removedElement, setRemovedElement] = useState(null);
 
-   const deleteItem = (e) => {
+  const deleteItem = (e) => {
     const filteredQuizzes = selectedQuizzes.filter(
       (el) => el.content.entity.publicId !== quiz.content.entity.publicId
     );
@@ -34,10 +34,12 @@ const DisplayQuiz = ({
         <Heading as="h4" fontSize="sm">
           {titleString}
         </Heading>
-        <Text fontSize="xs" color="gray.700">{ParagraphReducer(subtitleString)}</Text>
+        <Text fontSize="xs" color="gray.700">
+          {ParagraphReducer(subtitleString)}
+        </Text>
       </VStack>
       <Tooltip label="Borrar artículo" bg="white" color="gray.700">
-        <Button margin="0" size="xs" onClick={deleteItem} >
+        <Button margin="0" size="xs" onClick={deleteItem}>
           <FaRegTrashAlt />
         </Button>
       </Tooltip>

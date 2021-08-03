@@ -96,7 +96,6 @@ const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           });
         }
         console.log(resJson);
-        
       } catch (err) {
         setError(err);
         toast({
@@ -107,7 +106,7 @@ const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           isClosable: true,
         });
       } finally {
-        setAnswersArray([])
+        setAnswersArray([]);
         setIsLoading(false);
       }
     }
@@ -185,6 +184,7 @@ const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
       <VStack w="100%" justifyContent="center" spacing="20px">
         {paragraphs.map((paragraph, index) => (
           <ExamParagraph
+            key={index}
             paragraph={paragraph}
             paragraphIndex={index}
             answersArray={answersArray}

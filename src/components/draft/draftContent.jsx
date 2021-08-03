@@ -205,7 +205,13 @@ const DraftContent = ({
           </Button>
         </HStack>
         {draftContent.map((el, id) => (
-          <Stack width="50rem" paddingLeft={6} direction="row" role="group">
+          <Stack
+            key={id}
+            width="50rem"
+            paddingLeft={6}
+            direction="row"
+            role="group"
+          >
             <Container maxWidth="90ch">
               {!el.content ? (
                 <Box paddingBottom={4}>
@@ -245,7 +251,7 @@ const DraftContent = ({
               onClick={handleKnowMoreModal}
               rightIcon={<FaEdit />}
             >
-              Editar "Saber Más"
+              Editar &quot;Saber Más&quot;
             </Button>
           </HStack>
           <VStack
@@ -285,7 +291,7 @@ const DraftContent = ({
               onClick={handleToDoModal}
               rightIcon={<FaEdit />}
             >
-              Editar "Para Hacer"
+              Editar &quot;Para Hacer&quot;
             </Button>
           </HStack>
           <VStack

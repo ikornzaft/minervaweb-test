@@ -66,8 +66,10 @@ const Forum = () => {
   }, []);
 
   useEffect(() => {
-    const sortedArray = topicsArray.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
-  }, [topicsArray])
+    const sortedArray = topicsArray.sort(
+      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+    );
+  }, [topicsArray]);
 
   return (
     <>
@@ -129,7 +131,7 @@ const Forum = () => {
               </Spinner>
             ) : (
               topicsArray.map((topic, index) => (
-                <Link to={`/topic/${topic.entity.publicId}`}>
+                <Link key={index} to={`/topic/${topic.entity.publicId}`}>
                   <ForumItem topic={topic} index={index} />
                 </Link>
               ))

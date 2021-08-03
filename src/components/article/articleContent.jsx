@@ -38,7 +38,9 @@ const ArticleContent = ({ article }) => {
         <>
           <Stack
             maxWidth="45rem"
-            paddingTop={localStorage.getItem('isEditor') === 'true' ? "20" : "12"}
+            paddingTop={
+              localStorage.getItem('isEditor') === 'true' ? '20' : '12'
+            }
             paddingBottom={6}
             alignItems="flex-start"
             textAlign="left"
@@ -80,7 +82,13 @@ const ArticleContent = ({ article }) => {
           </Stack>
           <Stack alignItems="center">
             {article.resource.paragraphs.map((el, id) => (
-              <Stack width="50rem" paddingLeft={6} direction="row" role="group">
+              <Stack
+                key={id}
+                width="50rem"
+                paddingLeft={6}
+                direction="row"
+                role="group"
+              >
                 <Container maxWidth="90ch">
                   {!el.content ? (
                     <Box paddingBottom={4}>
@@ -95,18 +103,20 @@ const ArticleContent = ({ article }) => {
                   )}
                 </Container>
                 <Stack width="1rem" justifyContent="center" alignItems="center">
-                  {isStudent === "true" ? <ParagraphPopover
-                    paragraphId={id}
-                    articleId={article.header.publicId}
-                    area={article.resource.workarea.publicId}
-                    articleTitle={
-                      article.resource.articleHeader.descriptor.title
-                    }
-                    articleSubtitle={
-                      article.resource.articleHeader.descriptor.subtitle
-                    }
-                    header={LABELS.ARTICLE.POPOVER.TITLE}
-                  /> : null}
+                  {isStudent === 'true' ? (
+                    <ParagraphPopover
+                      paragraphId={id}
+                      articleId={article.header.publicId}
+                      area={article.resource.workarea.publicId}
+                      articleTitle={
+                        article.resource.articleHeader.descriptor.title
+                      }
+                      articleSubtitle={
+                        article.resource.articleHeader.descriptor.subtitle
+                      }
+                      header={LABELS.ARTICLE.POPOVER.TITLE}
+                    />
+                  ) : null}
                 </Stack>
               </Stack>
             ))}

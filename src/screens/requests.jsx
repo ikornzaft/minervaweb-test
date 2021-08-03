@@ -66,8 +66,10 @@ const RequestsBoard = () => {
   }, []);
 
   useEffect(() => {
-    const sortedArray = questionsArray.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
-  }, [questionsArray])
+    const sortedArray = questionsArray.sort(
+      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+    );
+  }, [questionsArray]);
 
   return (
     <>
@@ -135,7 +137,7 @@ const RequestsBoard = () => {
               </Spinner>
             ) : (
               questionsArray.map((question, index) => (
-                <Link to={`/request/${question.entity.publicId}`}>
+                <Link key={index} to={`/request/${question.entity.publicId}`}>
                   <RequestItem question={question} index={index} />
                 </Link>
               ))

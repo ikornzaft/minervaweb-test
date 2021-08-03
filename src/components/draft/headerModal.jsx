@@ -92,7 +92,7 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
               Subtítulo
             </Text>
             <Textarea
-            fontSize="sm"
+              fontSize="sm"
               value={descriptor.subtitle}
               h="8rem"
               onChange={(el) =>
@@ -101,38 +101,41 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
             />
           </Box>
           <HStack w="100%" justifyContent="center" paddingBottom={4}>
-          <HStack
-            p={4}
-            bgColor="gray.50"
-            w="25rem"
-            borderRadius="md"
-            borderWidth="1px"
-            justifyContent="space-evenly"
-          >
-            <CoverImageInput
-              image={image}
-              setIsImage={setIsImage}
-              onImageChange={onImageChange}
-            />
-            <Textarea
-              fontSize="sm"
-              backgroundColor="white"
-              id="articleImgFooter"
-              w="12rem"
-              h="6rem"
-              value={selectedImageDescription}
-              placeholder="Descripción de la imágen"
-              disabled={isImage ? false : true}
-              onChange={onDescriptionChange}
-            />
-          </HStack>
+            <HStack
+              p={4}
+              bgColor="gray.50"
+              w="25rem"
+              borderRadius="md"
+              borderWidth="1px"
+              justifyContent="space-evenly"
+            >
+              <CoverImageInput
+                image={image}
+                setIsImage={setIsImage}
+                onImageChange={onImageChange}
+              />
+              <Textarea
+                fontSize="sm"
+                backgroundColor="white"
+                id="articleImgFooter"
+                w="12rem"
+                h="6rem"
+                value={selectedImageDescription}
+                placeholder="Descripción de la imágen"
+                disabled={isImage ? false : true}
+                onChange={onDescriptionChange}
+              />
+            </HStack>
           </HStack>
           <HStack w="100%" justifyContent="center" paddingY={4}>
-          <Button 
-          fontFamily="Poppins"
-          fontWeight="400"
-          colorScheme="blue"
-          onClick={handleChanges}>Confirmar cambios</Button>
+            <Button
+              fontFamily="Poppins"
+              fontWeight="400"
+              colorScheme="blue"
+              onClick={handleChanges}
+            >
+              Confirmar cambios
+            </Button>
           </HStack>
         </ModalBody>
         <ModalCloseButton />

@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { Stack, HStack, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
 import { SectionElement } from './sectionElement';
 import { ParagraphReducer } from '../common/paragraphReducer';
-import { RiBook2Line, RiImageLine, RiVideoLine, RiExternalLinkFill } from 'react-icons/ri';
+import {
+  RiBook2Line,
+  RiImageLine,
+  RiVideoLine,
+  RiExternalLinkFill,
+} from 'react-icons/ri';
 import { VscFilePdf, VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
@@ -73,14 +78,15 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
     let resourceLink;
     if (section.content.link.locationType === 'absolute') {
       resourceLink = section.content.link.location;
-      if (resourceLink.substring(0, 4) !== 'http') resourceLink = `http://${resourceLink}`;
+      if (resourceLink.substring(0, 4) !== 'http')
+        resourceLink = `http://${resourceLink}`;
     } else {
       resourceLink = `http://www.afatecha.com/id/files/${section.content.link.type}/${section.content.link.location}`;
     }
     return (
       <LinkBox>
-      <LinkOverlay href={resourceLink} isExternal="true" />
-      <Stack cursor="pointer">
+        <LinkOverlay href={resourceLink} isExternal="true" />
+        <Stack cursor="pointer">
           <SectionElement
             icon={icon}
             title={section.descriptor.title}

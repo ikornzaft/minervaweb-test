@@ -55,7 +55,7 @@ const QuizParagraph = ({
         ) : null}
       </Box>
       {options.map((option, index) => (
-        <RadioGroup onChange={selectRadio} value={value}>
+        <RadioGroup key={index} onChange={selectRadio} value={value}>
           <Box>
             <HStack
               p={3}
@@ -64,10 +64,10 @@ const QuizParagraph = ({
               borderColor="gray.300"
               w="35rem"
               borderRadius="lg"
-              _hover={{bg:"gray.200"}}
+              _hover={{ bg: 'gray.200' }}
             >
               <Radio borderColor="gray.400" w="100%" value={index}>
-                <Box w="100%" >
+                <Box w="100%">
                   <Text>{option.descriptor.title}</Text>
                 </Box>
               </Radio>

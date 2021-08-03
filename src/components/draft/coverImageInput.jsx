@@ -70,7 +70,6 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
   };
 
   const uploadFile = async (route, data, newUploadedImage) => {
-
     setLoading(true);
     const toast = createStandaloneToast();
     try {

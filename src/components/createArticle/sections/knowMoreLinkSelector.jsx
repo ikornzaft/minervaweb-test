@@ -7,7 +7,6 @@ import {
   Text,
   Input,
   Textarea,
-
 } from '@chakra-ui/react';
 
 import { DisplayKnowMoreLinks } from './displayKnowMoreLinks';
@@ -40,14 +39,14 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
           location: addedLink,
           locationType: 'absolute',
           type: 'link',
-        }
+        },
       },
     };
 
     setKnowMoreLinks((knowMoreLinks) => [...knowMoreLinks, newLink]);
-    setAddedLink("");
-    setAddedLinkDescription("");
-    setAddedLinkTitle("");
+    setAddedLink('');
+    setAddedLinkDescription('');
+    setAddedLinkTitle('');
   };
 
   return (
@@ -119,18 +118,19 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
         </FormControl>
       </VStack>
       {knowMoreLinks.map((link, index) => {
-        console.log(link)
+        console.log(link);
         if (link.content.link) {
           if (link.content.link.location !== '')
-          return (
-            <DisplayKnowMoreLinks
-              link={link}
-              knowMoreLinks={knowMoreLinks}
-              setKnowMoreLinks={setKnowMoreLinks}
-              index={index}
-            />
-          );
-      }})}
+            return (
+              <DisplayKnowMoreLinks
+                link={link}
+                knowMoreLinks={knowMoreLinks}
+                setKnowMoreLinks={setKnowMoreLinks}
+                index={index}
+              />
+            );
+        }
+      })}
     </VStack>
   );
 };

@@ -72,7 +72,7 @@ const HomeworkForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const createNewHomework = (el) => {
-    console.log(homeworkQuestionsArray)
+    console.log(homeworkQuestionsArray);
     const date = new Date();
     const formatedDate = new Date(
       date.getTime() - date.getTimezoneOffset() * 60000

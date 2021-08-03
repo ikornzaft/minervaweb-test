@@ -12,7 +12,7 @@ const ActivitiesListItem = ({ article }) => {
     'es-Es',
     options
   );
-  let image
+  let image;
   if (article.contentHeader.image) {
     image = `http://www.afatecha.com/id/files/image/${article.contentHeader.image.location}`;
   } else {

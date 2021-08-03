@@ -64,18 +64,27 @@ const RequestReference = ({ articleId, articleParagraph }) => {
   const displayParagraph = () => {
     if (paragraph.content) {
       return (
-        <Box><ParagraphItemDisplay item={paragraph} /></Box>);
-    } else {
-      if (paragraph.descriptor) 
-      return (
-        <Box p={4}>
-        <Text fontSize="xs" color="gray.500">{paragraph.descriptor.description}</Text>
+        <Box>
+          <ParagraphItemDisplay item={paragraph} />
         </Box>
+      );
+    } else {
+      if (paragraph.descriptor)
+        return (
+          <Box p={4}>
+            <Text fontSize="xs" color="gray.500">
+              {paragraph.descriptor.description}
+            </Text>
+          </Box>
         );
     }
   };
 
-  return <Stack w="100%" h="100%">{isLoading ? <Loader /> : displayParagraph()}</Stack>;
+  return (
+    <Stack w="100%" h="100%">
+      {isLoading ? <Loader /> : displayParagraph()}
+    </Stack>
+  );
 };
 
 export { RequestReference };

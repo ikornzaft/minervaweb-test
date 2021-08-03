@@ -11,7 +11,7 @@ import { HiPlusCircle } from 'react-icons/hi';
 import { darken } from '@chakra-ui/theme-tools';
 import { AnswersList } from './answersList';
 
-const AnswersInput = ({answersArray, setAnswersArray, option, setOption}) => {
+const AnswersInput = ({ answersArray, setAnswersArray, option, setOption }) => {
   const [actualAnswer, setActualAnswer] = useState('');
 
   const addAnswer = () => {

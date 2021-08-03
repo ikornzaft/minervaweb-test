@@ -27,7 +27,7 @@ const AnswersList = ({ answersArray, setAnswersArray, option, setOption }) => {
       <RadioGroup onChange={selectRadio} value={option}>
         {answersArray.map((answer, index) => {
           return (
-            <HStack w="100%" paddingY={1}>
+            <HStack key={index} w="100%" paddingY={1}>
               <HStack
                 bg="gray.100"
                 w="100%"
@@ -38,7 +38,11 @@ const AnswersList = ({ answersArray, setAnswersArray, option, setOption }) => {
                 paddingX={4}
               >
                 <HStack w={6} justifyContent="center">
-                  <Radio borderColor="gray.300" colorScheme="blue" value={index}></Radio>
+                  <Radio
+                    borderColor="gray.300"
+                    colorScheme="blue"
+                    value={index}
+                  ></Radio>
                 </HStack>
                 <HStack
                   w="100%"

@@ -32,7 +32,6 @@ const QuizzesListItem = ({ quiz, key }) => {
       maxHeight="125px"
       _hover={{ bg: 'gray.100' }}
     >
-
       <Stack width="100%" justifyContent="flex-start">
         <Stack
           direction="row"
@@ -48,7 +47,7 @@ const QuizzesListItem = ({ quiz, key }) => {
             {badge.content}
           </Badge>
           <Box paddingX={2}>
-          <Text fontSize="sm">{date}</Text>
+            <Text fontSize="sm">{date}</Text>
           </Box>
         </Stack>
         <Stack width="100%" direction="row" alignItems="center" paddingX={4}>

@@ -69,17 +69,17 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     { key: AREAS.area_2.tag, value: AREAS.area_2.route },
     { key: AREAS.area_3.tag, value: AREAS.area_3.route },
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
-  ])
+  ]);
 
   useEffect(() => {
     if (localStorage.getItem('isResearcher') === 'true') {
       const researchArea = {
-        key: 'Investigación', 
+        key: 'Investigación',
         value: 'research',
-      }
+      };
       setWorkAreas([...workAreas, researchArea]);
-    };
-  }, [])
+    }
+  }, []);
 
   const date = new Date();
   const formatedDate = new Date(
@@ -471,7 +471,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         setKnowMoreLinks={setKnowMoreLinks}
         workAreas={workAreas}
         area={area}
-        title='Para saber más...'
+        title="Para saber más..."
       />
     </>
   );

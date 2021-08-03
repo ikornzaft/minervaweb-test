@@ -16,27 +16,22 @@ const DisplayAudio = ({ linkLocation, title, subtitle }) => {
         borderWidth="1px"
         _hover={{ bg: 'gray.50' }}
       >
-            {title ? (
-              <Heading
-                as="h3"
-                size="xs"
-                marginLeft={0}
-                lineHeight="0.7rem"
-                fontFamily="Open Sans"
-              >
-                {title}
-              </Heading>
-            ) : null}
-            {subtitle ? (
-              <Text
-                as="h5"
-                fontSize="xs"
-                fontFamily="Open Sans"
-                fontWeight="400"
-              >
-                {ParagraphReducer(subtitle)}
-              </Text>
-            ) : null}
+        {title ? (
+          <Heading
+            as="h3"
+            size="xs"
+            marginLeft={0}
+            lineHeight="0.7rem"
+            fontFamily="Open Sans"
+          >
+            {title}
+          </Heading>
+        ) : null}
+        {subtitle ? (
+          <Text as="h5" fontSize="xs" fontFamily="Open Sans" fontWeight="400">
+            {ParagraphReducer(subtitle)}
+          </Text>
+        ) : null}
         <ReactPlayer url={audioLink} controls="true" height="30%" width="90%" />
       </VStack>
     </VStack>

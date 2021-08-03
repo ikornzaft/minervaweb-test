@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
-
 
 const HomeworksSelector = ({
   workAreas,
@@ -12,7 +11,7 @@ const HomeworksSelector = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedArea, setSelectedArea] = useState([]);
-  const [optionValue, setOptionValue] = useState("");
+  const [optionValue, setOptionValue] = useState('');
 
   useEffect(() => {
     setHomeworksToDisplay([]);
@@ -53,8 +52,7 @@ const HomeworksSelector = ({
       }
     }
     fetchData();
-  }, [setHomeworksToDisplay, selectedArea])
-
+  }, [setHomeworksToDisplay, selectedArea]);
 
   useEffect(() => {
     homeworks.map((homework) => {
@@ -79,7 +77,6 @@ const HomeworksSelector = ({
           title: homeworks[homeworkIndex].contentHeader.descriptor.title,
           subtitle: homeworks[homeworkIndex].contentHeader.descriptor.subtitle,
         },
-
       };
       const elementExists = selectedHomeworks.findIndex(
         (el) => el.homework.entity.publicId === optionValue
@@ -91,10 +88,9 @@ const HomeworksSelector = ({
     setOptionValue(null);
   };
 
-
   return (
     <VStack paddingTop={2}>
-    <Select
+      <Select
         w="12rem"
         borderRadius="md"
         size="sm"
@@ -144,8 +140,8 @@ const HomeworksSelector = ({
           Agregar tarea
         </Button>
       </HStack>
-</VStack>
-  )
+    </VStack>
+  );
 };
 
 export { HomeworksSelector };

@@ -32,39 +32,37 @@ const TodoInputModal = ({
   onClose,
   draftToDo,
   setDraftToDo,
-  selectedHomeworks, 
+  selectedHomeworks,
   setSelectedHomeworks,
-  selectedQuizzes, 
+  selectedQuizzes,
   setSelectedQuizzes,
   selectedExams,
-  setSelectedExams
+  setSelectedExams,
 }) => {
-
   const [selectorOptions, setSelectorOptions] = useState([]);
-  const [section1, setSection1] = useState(null)
-  const [section2, setSection2] = useState(null)
+  const [section1, setSection1] = useState(null);
+  const [section2, setSection2] = useState(null);
 
   const [workAreas, setWorkAreas] = useState([
     { key: AREAS.area_1.tag, value: AREAS.area_1.route },
     { key: AREAS.area_2.tag, value: AREAS.area_2.route },
     { key: AREAS.area_3.tag, value: AREAS.area_3.route },
     { key: AREAS.area_4.tag, value: AREAS.area_4.route },
-  ])
-  
-  useEffect(() => {
-    const quizzes = draftToDo.filter(el => el.content.type === 'quiz')
-    const exams = draftToDo.filter(el=> el.content.type === 'exam')
-    setSelectedQuizzes(quizzes)
-    setSelectedExams(exams)
+  ]);
 
-  }, [draftToDo])
+  useEffect(() => {
+    const quizzes = draftToDo.filter((el) => el.content.type === 'quiz');
+    const exams = draftToDo.filter((el) => el.content.type === 'exam');
+    setSelectedQuizzes(quizzes);
+    setSelectedExams(exams);
+  }, [draftToDo]);
 
   const submitTodoSection = () => {
-    console.log(selectedExams)
+    console.log(selectedExams);
     setDraftToDo(selectedQuizzes.concat(selectedExams));
-    console.log(draftToDo)
+    console.log(draftToDo);
     onClose();
-  }
+  };
 
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
@@ -77,7 +75,7 @@ const TodoInputModal = ({
           fontFamily="Poppins"
           fontWeight="300"
         >
-          Modificar "Para Hacer"
+          Modificar &quot;Para Hacer&quot;
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
@@ -137,17 +135,17 @@ const TodoInputModal = ({
         </ModalBody>
 
         <ModalFooter>
-        <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
-        <Button
-          mt={4}
-          fontFamily="Poppins"
-          fontWeight="400"
-          colorScheme="blue"
-          onClick={submitTodoSection}
-        >
-          Confirmar contenido
-        </Button>
-      </Flex>
+          <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
+            <Button
+              mt={4}
+              fontFamily="Poppins"
+              fontWeight="400"
+              colorScheme="blue"
+              onClick={submitTodoSection}
+            >
+              Confirmar contenido
+            </Button>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -76,19 +76,14 @@ const Article = () => {
       paddingBottom={6}
       ref={containerRef}
     >
-      {localStorage.getItem('isEditor') === 'true' ? (
-        <DraftMenu />
-      ) : null}
+      {localStorage.getItem('isEditor') === 'true' ? <DraftMenu /> : null}
       {history.location.state ? <CompleteActivityBar /> : null}
 
       {isLoading ? (
         <Loader />
       ) : (
         article.map((art, index) => (
-          <ArticleContent
-            key={index}
-            article={art}
-          />
+          <ArticleContent key={index} article={art} />
         ))
       )}
     </Stack>

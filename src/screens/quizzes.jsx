@@ -65,7 +65,6 @@ const Quizzes = () => {
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
         message: {
-
           workgroups: workgroups,
         },
       }),
@@ -89,8 +88,10 @@ const Quizzes = () => {
   }, [param.id]);
 
   useEffect(() => {
-    const sortedArray = quizzes.sort((a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp))
-  }, [quizzes])
+    const sortedArray = quizzes.sort(
+      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+    );
+  }, [quizzes]);
 
   const renderList = () => {
     if (!error) {
@@ -102,23 +103,22 @@ const Quizzes = () => {
   return (
     <Container maxWidth="container.lg" alignSelf="center" pt={12}>
       <Stack direction="column" textAlign="center">
-      
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
-        <Stack direction="row" w="50rem">
-        <Heading
-          as="h3"
-          width="100%"
-          paddingRight={8}
-          paddingTop={2}
-          textAlign="left"
-          fontSize="lg"
-          fontWeight="400"
-          borderBottomColor="primary"
-          borderBottomWidth="3px"
-        >
-          Autoevaluaciones
-        </Heading>
-      </Stack>
+          <Stack direction="row" w="50rem">
+            <Heading
+              as="h3"
+              width="100%"
+              paddingRight={8}
+              paddingTop={2}
+              textAlign="left"
+              fontSize="lg"
+              fontWeight="400"
+              borderBottomColor="primary"
+              borderBottomWidth="3px"
+            >
+              Autoevaluaciones
+            </Heading>
+          </Stack>
           {isLoading ? (
             <Spinner
               thickness="4px"

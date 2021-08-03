@@ -29,18 +29,18 @@ const components = {
       wide: {
         popper: {
           width: '400px',
-          height: '400px'
-        }
+          height: '400px',
+        },
       },
       extraheight: {
         popper: {
           width: '400px',
-          height: '500px'
-        }
-      }
-    }
-  }
-}
+          height: '500px',
+        },
+      },
+    },
+  },
+};
 
 const overrides = {
   ...chakraTheme,

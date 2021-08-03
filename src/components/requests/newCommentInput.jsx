@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { Textarea, VStack, Button, createStandaloneToast } from '@chakra-ui/react';
+import {
+  Textarea,
+  VStack,
+  Button,
+  createStandaloneToast,
+} from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 
-const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }) => {
+const NewCommentInput = ({
+  questionId,
+  area,
+  commentsNumber,
+  setCommentsNumber,
+}) => {
   const [newComment, setNewComment] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -41,7 +51,7 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
 
           workarea: { publicId: area },
         },
-        entityRef: {publicId: questionId}
+        entityRef: { publicId: questionId },
       },
     };
 
@@ -81,7 +91,7 @@ const NewCommentInput = ({ questionId, area, commentsNumber, setCommentsNumber }
         });
       } finally {
         setCommentsNumber(commentsNumber + 1);
-        setNewComment("");
+        setNewComment('');
         setLoading(false);
       }
     };

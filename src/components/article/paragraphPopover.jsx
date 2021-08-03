@@ -38,7 +38,7 @@ const ParagraphPopover = ({
     )
       .toISOString()
       .slice(0, 10);
-    const questionId = "Q-" + formatedDate + '-' + uuidv4();
+    const questionId = 'Q-' + formatedDate + '-' + uuidv4();
     const newEntry = {
       id: 'msgid-1',
       target: 'soa@service/minerva',
@@ -65,7 +65,7 @@ const ParagraphPopover = ({
                   link: {
                     type: 'article',
                     locationType: 'relative',
-                    location: {articleId}, 
+                    location: { articleId },
                   },
                 },
               },
@@ -120,7 +120,6 @@ const ParagraphPopover = ({
       }
     };
     fetchData();
-
   };
 
   const questionForm = ({ onClose }) => (
@@ -156,7 +155,6 @@ const ParagraphPopover = ({
               visibility="hidden"
               _groupHover={{ visibility: 'visible' }}
               isRound={true}
-              
               icon={<FaQuestion />}
             />
           </PopoverTrigger>

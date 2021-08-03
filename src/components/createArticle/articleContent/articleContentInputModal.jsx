@@ -41,14 +41,16 @@ const ArticleContentInputModal = ({
 
     if (values.textContent) {
       const paragraphs = values.textContent.split(/\n\s*\n/);
-       paragraphsToSubmit = paragraphs.filter(el => el !== "").map((el) => {
-        const obj = {
-          descriptor: {
-            description: el,
-          },
-        };
+      paragraphsToSubmit = paragraphs
+        .filter((el) => el !== '')
+        .map((el) => {
+          const obj = {
+            descriptor: {
+              description: el,
+            },
+          };
           return obj;
-      }); 
+        });
     }
 
     uploadedFiles.length > 0

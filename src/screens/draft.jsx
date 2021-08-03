@@ -158,12 +158,15 @@ const Draft = () => {
   };
 
   const updateDraft = () => {
-    const prevArticleHeader = draft[0].resource.articleHeader
-    const prevParagraphs = draft[0].resource.paragraphs
-    const prevSections = draft[0].resource.sections
-    const articleHeaderChanges = JSON.stringify(prevArticleHeader) === JSON.stringify(articleHeader)
-    const paragraphsChanges = JSON.stringify(prevParagraphs) === JSON.stringify(paragraphs)
-    const sectionsChanges = JSON.stringify(prevSections) === JSON.stringify(sections)
+    const prevArticleHeader = draft[0].resource.articleHeader;
+    const prevParagraphs = draft[0].resource.paragraphs;
+    const prevSections = draft[0].resource.sections;
+    const articleHeaderChanges =
+      JSON.stringify(prevArticleHeader) === JSON.stringify(articleHeader);
+    const paragraphsChanges =
+      JSON.stringify(prevParagraphs) === JSON.stringify(paragraphs);
+    const sectionsChanges =
+      JSON.stringify(prevSections) === JSON.stringify(sections);
 
     if (articleHeaderChanges && paragraphsChanges && sectionsChanges) {
       history.goBack();
@@ -181,7 +184,7 @@ const Draft = () => {
           method: 'mods/articles/handlers/UpdateArticleDraft',
           requester: 'root:YWNhY2lhITIwMTc=',
           principal: credentials,
-  
+
           message: {
             entity: { publicId: param.id },
             resource: {
@@ -192,7 +195,7 @@ const Draft = () => {
           },
         }),
       };
-  
+
       async function fetchData() {
         const toast = createStandaloneToast();
         try {
@@ -253,7 +256,7 @@ const Draft = () => {
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        // 
+        //
         setDraft([resJson.message.entity]);
       } catch (err) {
         setError(err);

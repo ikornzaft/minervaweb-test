@@ -6,9 +6,11 @@ import { TopMenu } from '../components/navigation/topMenu';
 const Layout = ({ children, isLoginOn, setLoginOn }) => {
   return (
     <Stack width="100vw" maxHeight="100vh" spacing="0">
-      {!isLoginOn ? null : <TopMenu isLoginOn={isLoginOn} setLoginOn={setLoginOn} />}
+      {!isLoginOn ? null : (
+        <TopMenu isLoginOn={isLoginOn} setLoginOn={setLoginOn} />
+      )}
 
-        {children}
+      {children}
     </Stack>
   );
 };

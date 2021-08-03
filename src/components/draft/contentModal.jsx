@@ -101,14 +101,14 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
             </VStack>
           </VStack>
           <HStack w="100%" justifyContent="center" paddingY={4}>
-          <Button
-            fontFamily="Poppins"
-            fontWeight="400"
-            colorScheme="blue"
-            onClick={handleChanges}
-          >
-            Confirmar cambios
-          </Button>
+            <Button
+              fontFamily="Poppins"
+              fontWeight="400"
+              colorScheme="blue"
+              onClick={handleChanges}
+            >
+              Confirmar cambios
+            </Button>
           </HStack>
         </ModalBody>
         <ModalCloseButton />

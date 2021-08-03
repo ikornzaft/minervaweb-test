@@ -11,8 +11,16 @@ const EditElementFormLink = ({
 }) => {
   return (
     <VStack w="90%" h="250px">
-    <Input type="text" value={location} onChange={(el) => setLocation(el.target.value)} />
-    <Input type="text" value={title} onChange={(el) => setTitle(el.target.value)} />
+      <Input
+        type="text"
+        value={location}
+        onChange={(el) => setLocation(el.target.value)}
+      />
+      <Input
+        type="text"
+        value={title}
+        onChange={(el) => setTitle(el.target.value)}
+      />
       <Textarea
         h="100%"
         value={subtitle}

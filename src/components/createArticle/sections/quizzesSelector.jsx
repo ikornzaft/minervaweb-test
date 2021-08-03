@@ -16,7 +16,7 @@ const QuizzesSelector = ({
 
   useEffect(() => {
     setQuizzesToDisplay([]);
-    console.log(selectedArea)
+    console.log(selectedArea);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
@@ -46,7 +46,7 @@ const QuizzesSelector = ({
         if (res.status >= 400 && res.status < 600)
           setError('Bad response from server');
         const resJson = await res.json();
-        console.log(resJson)
+        console.log(resJson);
         setQuizzes(resJson.message.resources);
       } catch (err) {
         setError(err);
