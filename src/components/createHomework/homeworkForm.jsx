@@ -84,7 +84,7 @@ const HomeworkForm = ({ isOpen, onClose, modalTitle }) => {
     const newHomeworkToSubmit = {
       id: 'msgid-1',
       target: 'soa@service/minerva',
-      method: 'mods/exams/handlers/InsertHomework',
+      method: 'mods/homeworks/handlers/InsertHomework',
       requester: 'root:YWNhY2lhITIwMTc=',
       principal: principal,
       message: {
