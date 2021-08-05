@@ -46,7 +46,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
 
   useEffect(() => {
     if (validUser) {
-      setLoginOn(!isLoginOn);
+      setLoginOn(true);
       history.push('/activities/');
     }
   }, [validUser, history, isLoginOn, setLoginOn]);
@@ -54,7 +54,9 @@ const Login = ({ isLoginOn, setLoginOn }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = user + ':' + btoa(password);
+    const buf = Buffer.from(password);
+    const credentials = user + ':' + buf.toString('base64');
+    console.log(credentials);
     const jsonMessage = {
       method: 'POST',
       headers: {

@@ -11,7 +11,6 @@ import { Tasks } from './screens/tasks';
 import { Exams } from './screens/exams';
 import { Exam } from './screens/exam';
 import { Forum } from './screens/forum';
-import { Feed } from './screens/feed';
 import { Request } from './screens/request';
 import { Topic } from './screens/topic';
 import { Quizzes } from './screens/quizzes';
@@ -44,7 +43,6 @@ function App() {
         <Route path="/quiz/:id" component={Quiz} />
         <Route exact path="/homeworks/" component={Homeworks} />
         <Route path="/homework/:id" component={Homework} />
-        <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />
       </Switch>
     </Layout>
