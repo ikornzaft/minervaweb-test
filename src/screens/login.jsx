@@ -47,7 +47,9 @@ const Login = ({ isLoginOn, setLoginOn }) => {
   useEffect(() => {
     if (validUser) {
       setLoginOn(true);
-      history.push('/activities/');
+      localStorage.getItem('isStudent') === 'true'
+        ? history.push('/activities/')
+        : history.push('/requests-board/');
     }
   }, [validUser, history, isLoginOn, setLoginOn]);
 

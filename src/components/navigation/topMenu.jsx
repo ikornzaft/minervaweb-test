@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Stack, Button, useDisclosure, Box } from '@chakra-ui/react';
 import { LeftDrawer } from './leftDrawer';
@@ -45,7 +45,12 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
       history.push('/exams/');
     }
   };
-  const [activeButton, setActiveButton] = useState(0);
+  const [activeButton, setActiveButton] = useState();
+  useEffect(() => {
+    localStorage.getItem('isStudent') === 'true'
+      ? setActiveButton(0)
+      : setActiveButton(1);
+  }, []);
   return (
     <Stack
       width="100vw"
