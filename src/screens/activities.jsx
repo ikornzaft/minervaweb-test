@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner, Box } from '@chakra-ui/react';
+import { BlueSpinner } from '../components/common/spinner';
 import { LABELS } from '../locals/sp/labels';
-import { useFetchContent } from '../hooks/useFetchContent';
 import { ActivitiesList } from '../components/activities/activitiesList';
 
 const Activities = () => {
@@ -53,7 +52,7 @@ const Activities = () => {
           <Box paddingY={12}>
             {localStorage.getItem('isStudent') === 'true' ? (
               <Heading color="gray.400" fontWeight="400">
-                No tienes actividades asignadas en este momento
+                {LABELS.ACTIVITIES.EMPTY_LIST.TEXT}
               </Heading>
             ) : null}
           </Box>
@@ -67,19 +66,7 @@ const Activities = () => {
     <Container maxWidth="container.lg" alignSelf="center" pt={12}>
       <Stack direction="column" textAlign="center" paddingTop={6}>
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
-          {isLoading ? (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="white"
-              color="primary"
-              size="xl"
-            >
-              Loading...
-            </Spinner>
-          ) : (
-            renderList()
-          )}
+          {isLoading ? <BlueSpinner /> : renderList()}
         </Stack>
       </Stack>
     </Container>

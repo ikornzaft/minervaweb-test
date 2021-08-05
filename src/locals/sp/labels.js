@@ -61,6 +61,9 @@ const LABELS = {
   },
 
   ACTIVITIES: {
+    EMPTY_LIST: {
+      TEXT: 'No tienes actividades asignadas en este momento',
+    },
     TITLE: {
       AREA_1: 'Matemáticas',
       AREA_2: 'Comunicación',
