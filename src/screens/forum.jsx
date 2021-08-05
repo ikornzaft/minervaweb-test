@@ -9,6 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+
 import { ForumItem } from '../components/forum/forumItem';
 import { NewTopicModal } from '../components/forum/newTopicModal';
 
@@ -52,9 +53,10 @@ const Forum = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         setTopicsArray(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -74,65 +76,59 @@ const Forum = () => {
   return (
     <>
       <HStack
-        h="82px"
-        borderBottomWidth="1px"
-        borderBottomColor="gray.300"
-        w="100vw"
-        bg="primary_light"
-        position="fixed"
-        justifyContent="center"
         alignItems="flex-end"
+        bg="primary_light"
+        borderBottomColor="gray.300"
+        borderBottomWidth="1px"
+        h="82px"
+        justifyContent="center"
         paddingBottom={1}
+        position="fixed"
+        w="100vw"
         zIndex="90"
       >
-        <HStack w="50rem" justifyContent="flex-end">
+        <HStack justifyContent="flex-end" w="50rem">
           <Button
-            variant="ghost"
-            w="12rem"
             bg="white"
             colorScheme="blue"
             fontFamily="Poppins"
             fontWeight="400"
             size="sm"
+            variant="ghost"
+            w="12rem"
             onClick={handleTopicModal}
           >
             + Nueva Publicación
           </Button>
         </HStack>
       </HStack>
-      <Container maxWidth="container.lg" alignSelf="center" pt={20}>
+      <Container alignSelf="center" maxWidth="container.lg" pt={20}>
         <Stack direction="column" textAlign="center">
           <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
             <Stack direction="row" w="50rem">
               <Heading
                 as="h3"
-                width="100%"
+                borderBottomColor="primary"
+                borderBottomWidth="3px"
+                fontSize="lg"
+                fontWeight="400"
                 paddingRight={8}
                 paddingTop={2}
                 textAlign="left"
-                fontSize="lg"
-                fontWeight="400"
-                borderBottomColor="primary"
-                borderBottomWidth="3px"
+                width="100%"
               >
                 Foro
               </Heading>
             </Stack>
 
             {isLoading ? (
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="white"
-                color="primary"
-                size="xl"
-              >
+              <Spinner color="primary" emptyColor="white" size="xl" speed="0.65s" thickness="4px">
                 Loading...
               </Spinner>
             ) : (
               topicsArray.map((topic, index) => (
                 <Link key={index} to={`/topic/${topic.entity.publicId}`}>
-                  <ForumItem topic={topic} index={index} />
+                  <ForumItem index={index} topic={topic} />
                 </Link>
               ))
             )}

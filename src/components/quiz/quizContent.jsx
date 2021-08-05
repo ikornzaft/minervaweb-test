@@ -10,7 +10,9 @@ import {
   Button,
   createStandaloneToast,
 } from '@chakra-ui/react';
+
 import { CreateAreaBadge } from '../common/createAreaBadge';
+
 import { QuizParagraph } from './quizParagraph';
 
 const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
@@ -40,9 +42,10 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
     const resultArray = answersArray.filter(
       (el) => paragraphs[el.id].content.options[el.value].answer === false
     );
+
     if (resultArray.length < 1)
       return (
-        <VStack justifyContent="center" textAlign="center" p={12} w="100%">
+        <VStack justifyContent="center" p={12} textAlign="center" w="100%">
           <Heading color="gray.700" fontSize="xx-large">
             ¡Perfecto!
           </Heading>
@@ -51,14 +54,15 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           </Heading>
         </VStack>
       );
+
     return (
-      <VStack justifyContent="center" textAlign="center" p={12} w="100%">
+      <VStack justifyContent="center" p={12} textAlign="center" w="100%">
         <Heading color="gray.700" fontSize="xx-large">
           Tu resultado:
         </Heading>
         <Heading color="gray.500" fontSize="xl">
-          Respondiste correctamente {answersArray.length - resultArray.length}{' '}
-          de {answersArray.length} preguntas.
+          Respondiste correctamente {answersArray.length - resultArray.length} de{' '}
+          {answersArray.length} preguntas.
         </Heading>
       </VStack>
     );
@@ -71,52 +75,48 @@ const QuizContent = ({ title, subtitle, paragraphs, workarea, date }) => {
 
   return (
     <Stack
-      maxWidth="45rem"
-      w="45rem"
-      paddingTop={localStorage.getItem('isEditor') === 'true' ? '20' : '12'}
-      paddingBottom={6}
       alignItems="flex-start"
+      maxWidth="45rem"
+      paddingBottom={6}
+      paddingTop={localStorage.getItem('isEditor') === 'true' ? '20' : '12'}
       textAlign="left"
+      w="45rem"
     >
-      <Stack textAlign="left" paddingBottom={2}>
+      <Stack paddingBottom={2} textAlign="left">
         <Box paddingTop={2}>
-          <Badge paddingX={2} colorScheme={badge.color}>
+          <Badge colorScheme={badge.color} paddingX={2}>
             {badge.content}
           </Badge>
         </Box>
         <Box paddingTop={1}>
-          <Text fontSize="xs" color="gray.500">
+          <Text color="gray.500" fontSize="xs">
             Publicado: {quizDate}
           </Text>
         </Box>
         <Heading as="h1" fontSize="4xl">
           {title}
         </Heading>
-        <Heading as="h4" size="sm" fontWeight="100" lineHeight="1.5rem">
+        <Heading as="h4" fontWeight="100" lineHeight="1.5rem" size="sm">
           {subtitle}
         </Heading>
       </Stack>
       {isDone ? (
         <DisplayResult />
       ) : (
-        <VStack w="100%" justifyContent="center" spacing="20px">
+        <VStack justifyContent="center" spacing="20px" w="100%">
           {paragraphs.map((paragraph, index) => (
             <QuizParagraph
               key={index}
+              answersArray={answersArray}
               paragraph={paragraph}
               paragraphIndex={index}
-              answersArray={answersArray}
               setAnswersArray={setAnswersArray}
             />
           ))}
         </VStack>
       )}
-      <HStack w="100%" justifyContent="center" paddingY={4}>
-        <Button
-          w="14rem"
-          variant="primary"
-          onClick={isDone ? reset : checkAnswers}
-        >
+      <HStack justifyContent="center" paddingY={4} w="100%">
+        <Button variant="primary" w="14rem" onClick={isDone ? reset : checkAnswers}>
           {isDone ? 'Intentarlo nuevamente' : 'Comprobar respuestas'}
         </Button>
       </HStack>

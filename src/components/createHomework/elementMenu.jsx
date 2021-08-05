@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, Button, useDisclosure } from '@chakra-ui/react';
-import { HomeworkQuestionsForm } from './homeworkQuestionsForm';
 import { FaSortUp, FaSortDown } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
+
+import { HomeworkQuestionsForm } from './homeworkQuestionsForm';
 
 const ElementMenu = ({
   index,
@@ -25,31 +26,28 @@ const ElementMenu = ({
   const [truePrevAnswer, setTruePrevAnswer] = useState(0);
 
   const moveUp = (el) => {
-    const elementId = el.currentTarget.id.substr(
-      el.currentTarget.id.length - 1
-    );
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const newArray = [...paragraphList];
     const element = newArray.splice(elementId, 1);
     const removed = newArray.splice(elementId - 1, 0, element[0]);
+
     setParagraphList(newArray);
   };
 
   const moveDown = (el) => {
-    const elementId = el.currentTarget.id.substr(
-      el.currentTarget.id.length - 1
-    );
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const newArray = [...paragraphList];
     const element = newArray.splice(elementId, 1);
     const removed = newArray.splice(+elementId + 1, 0, element[0]);
+
     setParagraphList(newArray);
   };
 
   const delItem = (el) => {
-    const elementId = el.currentTarget.id.substr(
-      el.currentTarget.id.length - 1
-    );
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const newArray = [...paragraphList];
     const removed = newArray.splice(elementId, 1);
+
     setParagraphList(newArray);
   };
 
@@ -62,6 +60,7 @@ const ElementMenu = ({
 
   const changeQuestionsArray = (newEntry) => {
     const newParagraphArray = [...paragraphList];
+
     newParagraphArray.splice(index, 1, newEntry);
     setParagraphList(newParagraphArray);
   };
@@ -69,52 +68,42 @@ const ElementMenu = ({
   return (
     <VStack heigth="100%">
       <Button
+        boxShadow="none !important"
+        id={`btn-up-${index}`}
+        isDisabled={index < 1 ? true : false}
         size="xs"
         type="button"
-        id={`btn-up-${index}`}
         onClick={moveUp}
-        isDisabled={index < 1 ? true : false}
-        boxShadow="none !important"
       >
         {<FaSortUp />}
       </Button>
-      <Button
-        size="xs"
-        type="button"
-        id={`btn-delete-${index}`}
-        onClick={delItem}
-      >
+      <Button id={`btn-delete-${index}`} size="xs" type="button" onClick={delItem}>
         {<FaRegTrashAlt />}
       </Button>
-      <Button
-        size="xs"
-        type="button"
-        id={`btn-edit-${index}`}
-        onClick={editItem}
-      >
+      <Button id={`btn-edit-${index}`} size="xs" type="button" onClick={editItem}>
         {<FaEdit />}
       </Button>
       <Button
+        boxShadow="none !important"
+        id={`btn-down-${index}`}
+        isDisabled={index === paragraphList.length - 1 ? true : false}
         size="xs"
         type="button"
-        id={`btn-down-${index}`}
         onClick={moveDown}
-        boxShadow="none !important"
-        isDisabled={index === paragraphList.length - 1 ? true : false}
       >
         {<FaSortDown />}
       </Button>
       <HomeworkQuestionsForm
-        isOpen={isOpenEditQuestion}
-        onClose={onCloseEditQuestion}
-        modalTitle="Editar pregunta"
-        examQuestionsArray={paragraphList}
+        buttonText="Confirmar cambios"
         changeQuestionsArray={changeQuestionsArray}
+        examQuestionsArray={paragraphList}
+        isOpen={isOpenEditQuestion}
+        modalTitle="Editar pregunta"
+        prevAnswers={prevAnswers}
         prevImage={prevImage}
         prevQuestion={prevQuestion}
-        prevAnswers={prevAnswers}
         truePrevAnswer={truePrevAnswer}
-        buttonText="Confirmar cambios"
+        onClose={onCloseEditQuestion}
       />
     </VStack>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Stack, Heading, Box, Spinner } from '@chakra-ui/react';
+
 import { RequestContent } from '../components/requests/requestContent';
 
 const Request = () => {
@@ -13,14 +14,8 @@ const Request = () => {
   const [error, setError] = useState(null);
 
   const Loader = () => (
-    <Box paddingTop={24} height="50vh">
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
+    <Box height="50vh" paddingTop={24}>
+      <Spinner color="blue.500" emptyColor="gray.200" size="xl" speed="0.65s" thickness="4px" />
     </Box>
   );
 
@@ -51,9 +46,10 @@ const Request = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         setCurrentQuestion(resJson.message.entity);
         setCommentsArray(resJson.message.comments);
       } catch (err) {
@@ -67,23 +63,23 @@ const Request = () => {
 
   if (currentQuestion) {
     return (
-      <Stack marginTop={4} alignItems="center" paddingBottom={6}>
+      <Stack alignItems="center" marginTop={4} paddingBottom={6}>
         {isLoading ? (
           <Loader />
         ) : (
           <Stack
-            maxWidth="45rem"
-            w="45rem"
-            paddingTop={16}
-            paddingBottom={6}
             alignItems="flex-start"
+            maxWidth="45rem"
+            paddingBottom={6}
+            paddingTop={16}
             textAlign="left"
+            w="45rem"
           >
             <RequestContent
-              question={currentQuestion}
-              commentsNumber={commentsNumber}
-              setCommentsNumber={setCommentsNumber}
               commentsArray={commentsArray}
+              commentsNumber={commentsNumber}
+              question={currentQuestion}
+              setCommentsNumber={setCommentsNumber}
             />
           </Stack>
         )}
@@ -91,7 +87,7 @@ const Request = () => {
     );
   } else {
     return (
-      <Stack marginTop={4} alignItems="center" paddingBottom={6}>
+      <Stack alignItems="center" marginTop={4} paddingBottom={6}>
         <Loader />
       </Stack>
     );

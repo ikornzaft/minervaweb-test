@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Box, Spinner, Stack, createStandaloneToast } from '@chakra-ui/react';
+
 import { DraftEditMenu } from '../components/navigation/draftEditMenu';
 import { DraftContent } from '../components/draft/draftContent';
 
 const Loader = () => (
-  <Box paddingTop={24} height="50vh">
-    <Spinner
-      thickness="4px"
-      speed="0.65s"
-      emptyColor="gray.200"
-      color="blue.500"
-      size="xl"
-    />
+  <Box height="50vh" paddingTop={24}>
+    <Spinner color="blue.500" emptyColor="gray.200" size="xl" speed="0.65s" thickness="4px" />
   </Box>
 );
 
@@ -49,11 +44,12 @@ const Draft = () => {
 
     async function fetchData() {
       const toast = createStandaloneToast();
+
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
 
         toast({
@@ -124,15 +120,16 @@ const Draft = () => {
 
     async function fetchData() {
       const toast = createStandaloneToast();
+
       try {
         setIsLoading(true);
         let res = await fetch(url, jsonMessage1);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         let resJson = await res.json();
+
         res = await fetch(url, jsonMessage2);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         resJson = await res.json();
         toast({
           title: 'Se actualizó el artículo original',
@@ -163,10 +160,8 @@ const Draft = () => {
     const prevSections = draft[0].resource.sections;
     const articleHeaderChanges =
       JSON.stringify(prevArticleHeader) === JSON.stringify(articleHeader);
-    const paragraphsChanges =
-      JSON.stringify(prevParagraphs) === JSON.stringify(paragraphs);
-    const sectionsChanges =
-      JSON.stringify(prevSections) === JSON.stringify(sections);
+    const paragraphsChanges = JSON.stringify(prevParagraphs) === JSON.stringify(paragraphs);
+    const sectionsChanges = JSON.stringify(prevSections) === JSON.stringify(sections);
 
     if (articleHeaderChanges && paragraphsChanges && sectionsChanges) {
       history.goBack();
@@ -198,12 +193,14 @@ const Draft = () => {
 
       async function fetchData() {
         const toast = createStandaloneToast();
+
         try {
           setIsLoading(true);
           const res = await fetch(url, jsonMessage);
-          if (res.status >= 400 && res.status < 600)
-            setError('Bad response from server');
+
+          if (res.status >= 400 && res.status < 600) setError('Bad response from server');
           const resJson = await res.json();
+
           toast({
             title: 'Se guardó correctamente el borrador',
             status: 'success',
@@ -253,9 +250,10 @@ const Draft = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         //
         setDraft([resJson.message.entity]);
       } catch (err) {
@@ -268,11 +266,11 @@ const Draft = () => {
   }, [param.id]);
 
   return (
-    <Stack marginTop={4} alignItems="center" paddingBottom={6}>
+    <Stack alignItems="center" marginTop={4} paddingBottom={6}>
       <DraftEditMenu
-        updateDraft={updateDraft}
-        revertDraft={revertDraft}
         publishDraft={publishDraft}
+        revertDraft={revertDraft}
+        updateDraft={updateDraft}
       />
       {draft ? (
         <DraftContent

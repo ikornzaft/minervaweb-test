@@ -21,9 +21,10 @@ import {
   useDisclosure,
   createStandaloneToast,
 } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
+
 import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal';
 import { AREAS } from '../../locals/sp/areas';
-import { v4 as uuidv4 } from 'uuid';
 
 const NewTopicModal = ({ isOpen, onClose, articleId }) => {
   const [error, setError] = useState(null);
@@ -54,9 +55,10 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
       async function fetchData() {
         try {
           const res = await fetch(url, jsonMessage);
-          if (res.status >= 400 && res.status < 600)
-            setError('Bad response from server');
+
+          if (res.status >= 400 && res.status < 600) setError('Bad response from server');
           const resJson = await res.json();
+
           setPrevArticle(resJson.message.entity);
         } catch (err) {
           setError(err);
@@ -113,9 +115,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
   const handleSubmit = (values) => {
     const credentials = localStorage.getItem('credentials');
     const date = new Date();
-    const formatedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    )
+    const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     const topicId = 'T-' + formatedDate + '-' + uuidv4();
@@ -158,9 +158,10 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
       try {
         setLoading(true);
         const response = await fetch(url, jsonMessage);
-        if (response.status >= 400 && response.status < 600)
-          setError('Bad response from server');
+
+        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
+
         console.log(resJson);
         toast({
           title: 'Se publicó un nuevo tópico.',
@@ -192,6 +193,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
         onClose();
       }
     };
+
     fetchData();
   };
 
@@ -199,40 +201,33 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
     <Modal isOpen={isOpen} size="3xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           Crear nueva publicación
         </ModalHeader>
-        <ModalBody textAlign="left" paddingX={10}>
+        <ModalBody paddingX={10} textAlign="left">
           <VStack justifyContent="center" paddingBottom={6}>
             <Formik
-              validationSchema={validationSchema}
               initialValues={initialValues}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {(props) => (
                 <Stack w="100%">
                   <Form>
-                    <HStack w="100%" justifyContent="center" paddingBottom={8}>
+                    <HStack justifyContent="center" paddingBottom={8} w="100%">
                       <Field name="group">
                         {({ field, form }) => {
                           return (
                             <FormControl
+                              isInvalid={form.errors['group'] && form.touched['group']}
                               w="15rem"
-                              isInvalid={
-                                form.errors['group'] && form.touched['group']
-                              }
                             >
                               <Select
-                                placeholder="Selecciona el grupo"
                                 borderRadius="md"
+                                id="group"
+                                placeholder="Selecciona el grupo"
                                 size="sm"
                                 w="15rem"
-                                id="group"
                                 {...props}
                                 {...field}
                               >
@@ -247,11 +242,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
                                   );
                                 })}
                               </Select>
-                              <FormErrorMessage
-                                position="absolute"
-                                top="28px"
-                                fontSize="xs"
-                              >
+                              <FormErrorMessage fontSize="xs" position="absolute" top="28px">
                                 {form.errors['group']}
                               </FormErrorMessage>
                             </FormControl>
@@ -264,30 +255,19 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
                         {({ field, form }) => {
                           return (
                             <FormControl
+                              isInvalid={form.errors['title'] && form.touched['title']}
                               paddingBottom={10}
-                              isInvalid={
-                                form.errors['title'] && form.touched['title']
-                              }
                             >
                               <FormLabel
+                                fontSize="sm"
                                 htmlFor="title"
                                 position="absolute"
                                 top="-22px"
-                                fontSize="sm"
                               >
                                 Título
                               </FormLabel>
-                              <Input
-                                id="title"
-                                fontSize="sm"
-                                {...props}
-                                {...field}
-                              />
-                              <FormErrorMessage
-                                fontSize="xs"
-                                position="absolute"
-                                top="35px"
-                              >
+                              <Input fontSize="sm" id="title" {...props} {...field} />
+                              <FormErrorMessage fontSize="xs" position="absolute" top="35px">
                                 {form.errors['title']}
                               </FormErrorMessage>
                             </FormControl>
@@ -298,34 +278,27 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
                         {({ field, form }) => {
                           return (
                             <FormControl
+                              isInvalid={form.errors['message'] && form.touched['message']}
                               paddingBottom={4}
-                              isInvalid={
-                                form.errors['message'] &&
-                                form.touched['message']
-                              }
                             >
                               <FormLabel
+                                fontSize="sm"
                                 htmlFor="message"
                                 position="absolute"
                                 top="-22px"
-                                fontSize="sm"
                               >
                                 Mensaje
                               </FormLabel>
                               <Input
-                                h="6rem"
-                                fontSize="sm"
                                 as="textarea"
+                                fontSize="sm"
+                                h="6rem"
                                 id="message"
                                 paddingY={2}
                                 {...props}
                                 {...field}
                               />
-                              <FormErrorMessage
-                                fontSize="xs"
-                                position="absolute"
-                                top="91px"
-                              >
+                              <FormErrorMessage fontSize="xs" position="absolute" top="91px">
                                 {form.errors['message']}
                               </FormErrorMessage>
                             </FormControl>
@@ -336,23 +309,23 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
                     <VStack justifyContent="center">
                       <Box paddingBottom={4}>
                         <Button
+                          bgColor="white"
                           colorScheme="blue"
+                          fontFamily="Poppins"
+                          fontWeight="400"
+                          size="sm"
                           type="button"
                           variant="outline"
-                          bgColor="white"
-                          size="sm"
-                          fontFamily="Poppins"
                           onClick={knowMoreModalHandler}
-                          fontWeight="400"
                         >
                           Agregar contenido
                         </Button>
                       </Box>
                       <Button
-                        type="submit"
+                        colorScheme="blue"
                         fontFamily="Poppins"
                         fontWeight="400"
-                        colorScheme="blue"
+                        type="submit"
                       >
                         Crear publicación
                       </Button>
@@ -362,20 +335,20 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
               )}
             </Formik>
             <KnowMoreInputModal
-              isOpen={isOpenKnowMore}
-              onClose={onCloseKnowMore}
-              sectionsList={paragraphList}
-              setSectionsList={setParagraphList}
-              selectedArticles={selectedArticles}
-              setSelectedArticles={setSelectedArticles}
-              knowMore={contents}
-              setKnowMore={setContents}
-              knowMoreLinks={links}
-              setKnowMoreLinks={setLinks}
-              workAreas={workAreas}
               area={area}
+              isOpen={isOpenKnowMore}
+              knowMore={contents}
+              knowMoreLinks={links}
               prevArticle={prevArticle}
+              sectionsList={paragraphList}
+              selectedArticles={selectedArticles}
+              setKnowMore={setContents}
+              setKnowMoreLinks={setLinks}
+              setSectionsList={setParagraphList}
+              setSelectedArticles={setSelectedArticles}
               title="Selecciona contenido"
+              workAreas={workAreas}
+              onClose={onCloseKnowMore}
             />
           </VStack>
         </ModalBody>

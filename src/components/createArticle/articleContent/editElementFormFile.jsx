@@ -11,9 +11,10 @@ import {
   FormLabel,
   createStandaloneToast,
 } from '@chakra-ui/react';
+import { FiUpload } from 'react-icons/fi';
+
 import { CreateFileName } from '../../common/createFileName';
 import { LABELS } from '../../../locals/sp/labels';
-import { FiUpload } from 'react-icons/fi';
 
 const EditElementFormFile = ({
   description,
@@ -34,17 +35,16 @@ const EditElementFormFile = ({
     if (type.substring(0, 5) === 'image') return 'image';
     if (type.substring(0, 5) === 'video') return 'video';
     if (type.substring(0, 5) === 'audio') return 'audio';
-    if (
-      type.substring(0, 4) === 'text' ||
-      type.substring(0, 11) === 'application'
-    )
+    if (type.substring(0, 4) === 'text' || type.substring(0, 11) === 'application')
       return 'document';
+
     return 'document';
   };
 
   const uploadFile = async (route, data) => {
     setLoading(true);
     const toast = createStandaloneToast();
+
     try {
       await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
         method: 'POST',
@@ -79,6 +79,7 @@ const EditElementFormFile = ({
   const onFileUpload = () => {
     const formData = new FormData();
     const newFileName = CreateFileName(type, selectedFile.name);
+
     setLocation(newFileName.fileName);
     setFileName(selectedFile.name);
     formData.append('fn', newFileName.fileName);
@@ -90,85 +91,81 @@ const EditElementFormFile = ({
   return (
     <VStack justifyContent="center" paddingTop={4}>
       <VStack
-        w="60%"
-        p={4}
         bg="gray.50"
         borderRadius="md"
         borderStyle="solid"
         borderWidth="1px"
         marginBottom={4}
+        p={4}
+        w="60%"
       >
-        <Text fontSize="sm" color="gray.700">
+        <Text color="gray.700" fontSize="sm">
           Subir un documento, imagen, video o audio
         </Text>
         <FormControl>
-          <Stack w="100%" alignItems="center" justifyContent="flex-start">
+          <Stack alignItems="center" justifyContent="flex-start" w="100%">
             <FormLabel
-              htmlFor="file-input"
+              _hover={{ bgColor: 'gray.300' }}
               bgColor="gray.200"
-              cursor="pointer"
-              w="120px"
-              h="120px"
-              fontSize="sm"
+              borderColor="gray.400"
+              borderRadius="lg"
               borderStyle="dashed"
               borderWidth="2px"
-              borderRadius="lg"
-              borderColor="gray.400"
+              cursor="pointer"
+              fontSize="sm"
+              h="120px"
+              htmlFor="file-input"
               marginBottom={0}
               marginRight={0}
-              _hover={{ bgColor: 'gray.300' }}
+              w="120px"
               onChange={(e) => {
                 FileInputRef.current.click();
               }}
             >
               <Stack
-                w="100%"
-                h="100%"
                 alignItems="center"
+                h="100%"
                 justifyContent="center"
+                p={2}
+                textAlign="center"
+                w="100%"
                 wordBreak="break-all"
                 wordwrap="break-word"
-                textAlign="center"
-                p={2}
               >
-                {loading ? (
-                  <p>
-                    {LABELS.CREATE_ARTICLE.EDIT_PARAGRAPHS.FILE_FORM.LOADING}
-                  </p>
-                ) : null}
+                {loading ? <p>{LABELS.CREATE_ARTICLE.EDIT_PARAGRAPHS.FILE_FORM.LOADING}</p> : null}
                 {selectedFile ? (
                   <Text fontSize="xs">{fileName}</Text>
                 ) : (
-                  <Box as={FiUpload} size="40px" color="gray.600" />
+                  <Box as={FiUpload} color="gray.600" size="40px" />
                 )}
               </Stack>
             </FormLabel>
             <Input
-              id="file-input"
-              type="file"
-              display="none"
               ref={FileInputRef}
-              onChange={onFileChange}
+              display="none"
+              id="file-input"
               placeholder="Selecciona un archivo"
+              type="file"
+              onChange={onFileChange}
             />
             {selectedFile ? (
               <Textarea
-                size="xs"
-                type="text"
                 id="elementDescription"
                 name="elementDescription"
+                placeholder="Escribe una descripción"
+                size="xs"
+                type="text"
                 value={description}
                 onChange={(el) => setDescription(el.target.value)}
-                placeholder="Escribe una descripción"
               />
             ) : null}
             {selectedFile ? (
               <Button
-                type="button"
                 colorScheme="blue"
                 fontFamily="Poppins"
                 fontWeight="400"
                 size="xs"
+                type="button"
                 variant="outline"
                 onClick={onFileUpload}
               >

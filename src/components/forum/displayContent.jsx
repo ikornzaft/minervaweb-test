@@ -8,12 +8,12 @@ const DisplayContent = ({ paragraphs }) => {
       return (
         <Link to={`/article/${item.article.entity.publicId}`}>
           <HStack
-            borderWidth="1px"
-            borderRadius="md"
-            paddingY={2}
-            paddingX={8}
-            cursor="pointer"
             _hover={{ bg: 'gray.100' }}
+            borderRadius="md"
+            borderWidth="1px"
+            cursor="pointer"
+            paddingX={8}
+            paddingY={2}
           >
             <Text fontSize="xs">Ver artículo: </Text>
             <Text fontSize="xs" fontWeight="700">
@@ -24,19 +24,20 @@ const DisplayContent = ({ paragraphs }) => {
       );
     console.log(item);
     let resourceLink;
+
     if (item.content.link.locationType === 'absolute') {
       resourceLink = item.content.link.location;
-      if (resourceLink.substring(0, 4) !== 'http')
-        resourceLink = `http://${resourceLink}`;
+      if (resourceLink.substring(0, 4) !== 'http') resourceLink = `http://${resourceLink}`;
+
       return (
         <LinkBox>
           <HStack
-            borderWidth="1px"
-            borderRadius="md"
-            paddingY={2}
-            paddingX={6}
-            cursor="pointer"
             _hover={{ bg: 'gray.100' }}
+            borderRadius="md"
+            borderWidth="1px"
+            cursor="pointer"
+            paddingX={6}
+            paddingY={2}
           >
             <LinkOverlay href={resourceLink} isExternal="true" />
             <Text fontSize="xs">Link: </Text>
@@ -49,15 +50,16 @@ const DisplayContent = ({ paragraphs }) => {
     }
     resourceLink = `http://www.afatecha.com/id/files/${item.content.link.type}/${item.content.link.location}`;
     console.log('aaah');
+
     return (
       <LinkBox>
         <HStack
-          borderWidth="1px"
-          borderRadius="md"
-          paddingY={2}
-          paddingX={6}
-          cursor="pointer"
           _hover={{ bg: 'gray.100' }}
+          borderRadius="md"
+          borderWidth="1px"
+          cursor="pointer"
+          paddingX={6}
+          paddingY={2}
         >
           <LinkOverlay href={resourceLink} isExternal="true" />
           <Text fontSize="xs">Adjunto: </Text>
@@ -69,11 +71,7 @@ const DisplayContent = ({ paragraphs }) => {
     );
   };
 
-  return (
-    <VStack alignItems="flex-start">
-      {paragraphs.map((item) => DisplayItem(item))}
-    </VStack>
-  );
+  return <VStack alignItems="flex-start">{paragraphs.map((item) => DisplayItem(item))}</VStack>;
 };
 
 export { DisplayContent };

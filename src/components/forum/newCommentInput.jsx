@@ -7,17 +7,13 @@ import {
   createStandaloneToast,
   useDisclosure,
 } from '@chakra-ui/react';
-import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal';
-import { AREAS } from '../../locals/sp/areas';
 import { darken } from '@chakra-ui/theme-tools';
 import { v4 as uuidv4 } from 'uuid';
 
-const NewCommentInput = ({
-  topicId,
-  group,
-  commentsNumber,
-  setCommentsNumber,
-}) => {
+import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal';
+import { AREAS } from '../../locals/sp/areas';
+
+const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) => {
   const [paragraphs, setParagraphs] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [selectedArticles, setSelectedArticles] = useState([]);
@@ -56,20 +52,13 @@ const NewCommentInput = ({
   const [loading, setLoading] = useState(false);
 
   const handleParagraphsChange = () => {
-    setParagraphs([
-      ...paragraphs,
-      ...selectedArticles,
-      ...knowMore,
-      ...knowMoreLinks,
-    ]);
+    setParagraphs([...paragraphs, ...selectedArticles, ...knowMore, ...knowMoreLinks]);
   };
 
   const submitNewComment = () => {
     const credentials = localStorage.getItem('credentials');
     const date = new Date();
-    const formatedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    )
+    const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     const commentId = 'CT-' + formatedDate + '-' + uuidv4();
@@ -112,9 +101,10 @@ const NewCommentInput = ({
       try {
         setLoading(true);
         const response = await fetch(url, jsonMessage);
-        if (response.status >= 400 && response.status < 600)
-          setError('Bad response from server');
+
+        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
+
         console.log(topicId, resJson);
         toast({
           title: 'Comentario enviado.',
@@ -137,6 +127,7 @@ const NewCommentInput = ({
         setLoading(false);
       }
     };
+
     fetchData();
   };
 
@@ -145,58 +136,54 @@ const NewCommentInput = ({
   }, [paragraphs]);
 
   return (
-    <VStack w="100%" paddingTop={3} paddingX={6} justifyContent="center">
+    <VStack justifyContent="center" paddingTop={3} paddingX={6} w="100%">
       <Textarea
-        w="100%"
         autoFocus={true}
         borderColor="gray.300"
         fontSize="sm"
         placeholder="Tu comentario..."
+        w="100%"
         onChange={(el) => setNewComment(el.target.value)}
       />
       <HStack spacing={4}>
         <Button
-          colorScheme="blue"
-          variant="outline"
           bgColor="white"
+          borderRadius="lg"
+          colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
-          borderRadius="lg"
-          w="10rem"
           size="sm"
+          variant="outline"
+          w="10rem"
           onClick={knowMoreModalHandler}
         >
           + Agregar contenido
         </Button>
         <Button
-          w="10rem"
+          _hover={newComment === '' ? { bg: 'primary' } : { bg: darken('primary', 10) }}
+          isDisabled={newComment === '' ? true : false}
           size="sm"
           variant="primary"
-          _hover={
-            newComment === ''
-              ? { bg: 'primary' }
-              : { bg: darken('primary', 10) }
-          }
+          w="10rem"
           onClick={handleParagraphsChange}
-          isDisabled={newComment === '' ? true : false}
         >
           Publicar comentario
         </Button>
       </HStack>
       <KnowMoreInputModal
-        isOpen={isOpenKnowMore}
-        onClose={onCloseKnowMore}
-        sectionsList={sectionsList}
-        setSectionsList={setSectionsList}
-        selectedArticles={selectedArticles}
-        setSelectedArticles={setSelectedArticles}
-        knowMore={knowMore}
-        setKnowMore={setKnowMore}
-        knowMoreLinks={knowMoreLinks}
-        setKnowMoreLinks={setKnowMoreLinks}
-        workAreas={workAreas}
         area={area}
+        isOpen={isOpenKnowMore}
+        knowMore={knowMore}
+        knowMoreLinks={knowMoreLinks}
+        sectionsList={sectionsList}
+        selectedArticles={selectedArticles}
+        setKnowMore={setKnowMore}
+        setKnowMoreLinks={setKnowMoreLinks}
+        setSectionsList={setSectionsList}
+        setSelectedArticles={setSelectedArticles}
         title="Agregar contenido"
+        workAreas={workAreas}
+        onClose={onCloseKnowMore}
       />
     </VStack>
   );

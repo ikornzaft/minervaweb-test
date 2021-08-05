@@ -11,7 +11,9 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react';
+
 import { CreateAreaBadge } from '../common/createAreaBadge';
+
 import { HomeworkParagraph } from './homeworkParagraph';
 import { FilesUploadModal } from './filesUploaderModal';
 
@@ -41,68 +43,64 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
 
   const handleChangeTextAnswer = (id, value) => {
     const prevArray = answersArray;
+
     prevArray[id] = value;
     setAnswersArray(prevArray);
   };
 
   return (
     <Stack
-      maxWidth="45rem"
-      w="45rem"
-      paddingTop={localStorage.getItem('isEditor') === 'true' ? '20' : '12'}
-      paddingBottom={6}
       alignItems="flex-start"
+      maxWidth="45rem"
+      paddingBottom={6}
+      paddingTop={localStorage.getItem('isEditor') === 'true' ? '20' : '12'}
       textAlign="left"
+      w="45rem"
     >
-      <Stack textAlign="left" paddingBottom={2}>
+      <Stack paddingBottom={2} textAlign="left">
         <Box paddingTop={2}>
-          <Badge paddingX={2} colorScheme={badge.color}>
+          <Badge colorScheme={badge.color} paddingX={2}>
             {badge.content}
           </Badge>
         </Box>
         <Box paddingTop={1}>
-          <Text fontSize="xs" color="gray.500">
+          <Text color="gray.500" fontSize="xs">
             Publicado: {examDate}
           </Text>
         </Box>
         <Heading as="h1" fontSize="4xl">
           {title}
         </Heading>
-        <Heading as="h4" size="sm" fontWeight="100" lineHeight="1.5rem">
+        <Heading as="h4" fontWeight="100" lineHeight="1.5rem" size="sm">
           {subtitle}
         </Heading>
       </Stack>
 
-      <VStack w="100%" justifyContent="center" spacing="20px">
+      <VStack justifyContent="center" spacing="20px" w="100%">
         {paragraphs.map((paragraph, index) => (
           <HomeworkParagraph
             key={index}
+            answersArray={answersArray}
+            handleChangeTextAnswer={handleChangeTextAnswer}
             paragraph={paragraph}
             paragraphIndex={index}
             paragraphsLength={paragraphs.length}
-            answersArray={answersArray}
             setAnswersArray={setAnswersArray}
-            handleChangeTextAnswer={handleChangeTextAnswer}
           />
         ))}
       </VStack>
-      <HStack justifyContent="center" w="100%" paddingY={3}>
-        <Button
-          w="11rem"
-          variant="primary"
-          isDisabled={sendedAnswer}
-          onClick={fileUploaderHandler}
-        >
+      <HStack justifyContent="center" paddingY={3} w="100%">
+        <Button isDisabled={sendedAnswer} variant="primary" w="11rem" onClick={fileUploaderHandler}>
           Enviar respuestas
         </Button>
       </HStack>
       <FilesUploadModal
         isOpen={isOpenFileUploader}
-        onClose={onCloseFileUploader}
-        uploadedFiles={uploadedFiles}
-        setUploadedFiles={setUploadedFiles}
         setSendedAnswer={setSendedAnswer}
+        setUploadedFiles={setUploadedFiles}
         title="Enviar respuestas"
+        uploadedFiles={uploadedFiles}
+        onClose={onCloseFileUploader}
       />
     </Stack>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Image, HStack, Box } from '@chakra-ui/react';
+
 import { ParagraphReducer } from '../../common/paragraphReducer';
 
 import { ArticleContentItem } from './articleContentItem';
@@ -11,38 +12,36 @@ const ArticleContentList = ({ paragraphList, setParagraphList }) => {
   const listItems = (el, index) => {
     const descriptor = el.descriptor;
     let content;
+
     el.content ? (content = el.content) : (content = null);
+
     return (
       <HStack
         key={index}
-        width="30rem"
-        maxWidth="30rem"
-        minWidth="30rem"
-        paddingY={2}
-        paddingX={6}
         bgColor="gray.100"
         borderRadius="md"
-        marginBottom={2}
         justifyContent="space-between"
+        marginBottom={2}
+        maxWidth="30rem"
+        minWidth="30rem"
+        paddingX={6}
+        paddingY={2}
+        width="30rem"
       >
-        <ArticleContentItem descriptor={descriptor} content={content} />
+        <ArticleContentItem content={content} descriptor={descriptor} />
         <ArticleContentElementMenu
-          index={index}
-          paragraphList={paragraphList}
-          setParagraphList={setParagraphList}
           forceRender={forceRender}
-          setForceRender={setForceRender}
+          index={index}
           isImage="false"
+          paragraphList={paragraphList}
+          setForceRender={setForceRender}
+          setParagraphList={setParagraphList}
         />
       </HStack>
     );
   };
 
-  return (
-    <Box paddingTop={2}>
-      {paragraphList.map((el, index) => listItems(el, index))}
-    </Box>
-  );
+  return <Box paddingTop={2}>{paragraphList.map((el, index) => listItems(el, index))}</Box>;
 };
 
 export { ArticleContentList };

@@ -18,6 +18,7 @@ import { RiLeafLine } from 'react-icons/ri';
 import { BiWorld } from 'react-icons/bi';
 import { ImLab } from 'react-icons/im';
 import { IoMdExit } from 'react-icons/io';
+
 import { LABELS } from '../../locals/sp/labels';
 
 const LeftDrawer = ({
@@ -61,87 +62,83 @@ const LeftDrawer = ({
     setLoginOn(!isLoginOn);
     onClose();
   };
+
   return (
     <Drawer
+      finalFocusRef={finalFocus}
       isOpen={isOpen}
       placement={placement}
-      onClose={onClose}
-      finalFocusRef={finalFocus}
       size="xs"
+      onClose={onClose}
     >
       <DrawerOverlay />
       <DrawerContent>
         <DrawerBody paddingX="0">
           <VStack h="97vh" justifyContent="space-between">
-            <Stack
-              width="100%"
-              direction="column"
-              paddingTop={4}
-              paddingRight={4}
-            >
+            <Stack direction="column" paddingRight={4} paddingTop={4} width="100%">
               <HStack justifyContent="center">
                 <Heading
                   as="h2"
-                  marginBottom={2}
+                  color="gray.600"
+                  fontFamily="Poppins"
                   fontSize="lg"
                   fontWeight="400"
-                  fontFamily="Poppins"
-                  color="gray.600"
+                  marginBottom={2}
                 >
                   Materias
                 </Heading>
               </HStack>
               <Divider />
               <Button
-                variant="drawerLeft"
-                leftIcon={<AiOutlineCalculator size="30px" />}
                 id="button_1"
+                leftIcon={<AiOutlineCalculator size="30px" />}
+                variant="drawerLeft"
                 onClick={menuHandler}
               >
                 {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_1}
               </Button>
               <Button
-                variant="drawerLeft"
-                leftIcon={<FiPenTool size="30px" />}
                 id="button_2"
+                leftIcon={<FiPenTool size="30px" />}
+                variant="drawerLeft"
                 onClick={menuHandler}
               >
                 {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_2}
               </Button>{' '}
               <Button
-                variant="drawerLeft"
-                leftIcon={<RiLeafLine size="30px" />}
                 id="button_3"
+                leftIcon={<RiLeafLine size="30px" />}
+                variant="drawerLeft"
                 onClick={menuHandler}
               >
                 {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_3}
               </Button>
               <Button
-                variant="drawerLeft"
-                leftIcon={<BiWorld size="30px" />}
                 id="button_4"
+                leftIcon={<BiWorld size="30px" />}
+                variant="drawerLeft"
                 onClick={menuHandler}
               >
                 {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_4}
               </Button>
               {localStorage.getItem('isResearcher') === 'true' ? (
                 <Button
-                  variant="drawerLeft"
-                  leftIcon={<ImLab size="30px" />}
                   id="button_5"
+                  leftIcon={<ImLab size="30px" />}
+                  variant="drawerLeft"
                   onClick={menuHandler}
                 >
                   {LABELS.TOP_MENU.MENU.LEFT_DRAWER.MATERIAS.BUTTON_5}
                 </Button>
               ) : null}
             </Stack>
-            <Stack w="100%" alignItems="flex-end">
+            <Stack alignItems="flex-end" w="100%">
               <Divider />
               <Button
-                w="11rem"
-                variant="drawerRight"
-                rightIcon={<IoMdExit size="30px" />}
                 id="button_4"
+                rightIcon={<IoMdExit size="30px" />}
+                variant="drawerRight"
+                w="11rem"
                 onClick={logoutHandler}
               >
                 Cerrar sesión

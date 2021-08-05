@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  FormControl,
-  Button,
-  VStack,
-  Stack,
-  Text,
-  Input,
-  Textarea,
-} from '@chakra-ui/react';
+import { FormControl, Button, VStack, Stack, Text, Input, Textarea } from '@chakra-ui/react';
 
 import { DisplayKnowMoreLinks } from './displayKnowMoreLinks';
 
@@ -52,62 +44,62 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
   return (
     <VStack justifyContent="center" paddingTop={4}>
       <VStack
-        w="90%"
-        p={4}
         bg="gray.50"
         borderRadius="md"
         borderStyle="solid"
         borderWidth="1px"
         marginBottom={4}
+        p={4}
+        w="90%"
       >
-        <Text fontSize="sm" color="gray.700">
+        <Text color="gray.700" fontSize="sm">
           Ingresa un link
         </Text>
         <FormControl>
-          <Stack w="100%" alignItems="center" justifyContent="flex-start">
-            <VStack w="100%" alignItems="flex-start">
+          <Stack alignItems="center" justifyContent="flex-start" w="100%">
+            <VStack alignItems="flex-start" w="100%">
               <Input
-                id="knowmore-link-input"
-                type="text"
                 bg="white"
-                size="sm"
-                value={addedLink}
                 borderRadius="md"
-                onChange={onLinkChange}
+                id="knowmore-link-input"
                 placeholder="http://"
+                size="sm"
+                type="text"
+                value={addedLink}
+                onChange={onLinkChange}
               />
-              <Text fontSize="xs" color="gray.600">
+              <Text color="gray.600" fontSize="xs">
                 Título
               </Text>
               <Input
+                bg="white"
+                borderRadius="md"
                 id="knowmore-link-title"
+                size="sm"
                 type="text"
                 value={addedLinkTitle}
-                borderRadius="md"
-                bg="white"
-                size="sm"
                 onChange={onTitleChange}
               />
-              <Text fontSize="xs" color="gray.600">
+              <Text color="gray.600" fontSize="xs">
                 Descripción
               </Text>
               <Textarea
-                id="knowmore-link-description"
                 bg="white"
-                value={addedLinkDescription}
                 borderRadius="md"
+                id="knowmore-link-description"
                 size="sm"
                 type="textarea"
+                value={addedLinkDescription}
                 onChange={onDescriptionChange}
               />
             </VStack>
 
             <Button
-              type="button"
               colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
               size="xs"
+              type="button"
               variant="outline"
               onClick={onLinkAdd}
             >
@@ -123,10 +115,10 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
           if (link.content.link.location !== '')
             return (
               <DisplayKnowMoreLinks
-                link={link}
-                knowMoreLinks={knowMoreLinks}
-                setKnowMoreLinks={setKnowMoreLinks}
                 index={index}
+                knowMoreLinks={knowMoreLinks}
+                link={link}
+                setKnowMoreLinks={setKnowMoreLinks}
               />
             );
         }

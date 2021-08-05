@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { Stack, Box, Spinner } from '@chakra-ui/react';
+
 import { ArticleContent } from '../components/article/articleContent';
 import { DraftMenu } from '../components/navigation/draftMenu';
 import { CompleteActivityBar } from '../components/activities/completeActivityBar';
 
 const Loader = () => (
-  <Box paddingTop={24} height="50vh">
-    <Spinner
-      thickness="4px"
-      speed="0.65s"
-      emptyColor="gray.200"
-      color="blue.500"
-      size="xl"
-    />
+  <Box height="50vh" paddingTop={24}>
+    <Spinner color="blue.500" emptyColor="gray.200" size="xl" speed="0.65s" thickness="4px" />
   </Box>
 );
 
@@ -50,9 +45,10 @@ const Article = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         setArticle([resJson.message.entity]);
       } catch (err) {
         setError(err);
@@ -70,21 +66,14 @@ const Article = () => {
   }, [pathname]);
 
   return (
-    <Stack
-      marginTop={4}
-      alignItems="center"
-      paddingBottom={6}
-      ref={containerRef}
-    >
+    <Stack ref={containerRef} alignItems="center" marginTop={4} paddingBottom={6}>
       {localStorage.getItem('isEditor') === 'true' ? <DraftMenu /> : null}
       {history.location.state ? <CompleteActivityBar /> : null}
 
       {isLoading ? (
         <Loader />
       ) : (
-        article.map((art, index) => (
-          <ArticleContent key={index} article={art} />
-        ))
+        article.map((art, index) => <ArticleContent key={index} article={art} />)
       )}
     </Stack>
   );

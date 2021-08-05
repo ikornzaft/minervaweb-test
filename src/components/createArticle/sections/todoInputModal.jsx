@@ -22,6 +22,7 @@ import {
   Tooltip,
   Select,
 } from '@chakra-ui/react';
+
 import { HomeworksSelector } from './homeworksSelector';
 import { QuizzesSelector } from './quizzesSelector';
 import { ExamsSelector } from './examsSelector';
@@ -45,6 +46,7 @@ const TodoInputModal = ({
 
   useEffect(() => {
     const [s1, s2] = [...sectionsList];
+
     setSection1(s1);
     setSection2(s2);
   }, []);
@@ -87,38 +89,23 @@ const TodoInputModal = ({
       <ModalContent>
         <ModalHeader
           alignSelf="center"
-          paddingBottom={2}
           color="gray.700"
           fontFamily="Poppins"
           fontWeight="300"
+          paddingBottom={2}
         >
           Agregar a Secciones
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Tareas
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Autoevaluaciones
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Pruebas
               </Tab>
             </TabList>
@@ -126,25 +113,25 @@ const TodoInputModal = ({
             <TabPanels>
               <TabPanel>
                 <HomeworksSelector
-                  workAreas={workAreas}
                   selectedHomeworks={selectedHomeworks}
                   setSelectedHomeworks={setSelectedHomeworks}
+                  workAreas={workAreas}
                 />
               </TabPanel>
 
               <TabPanel>
                 <QuizzesSelector
-                  workAreas={workAreas}
                   selectedQuizzes={selectedQuizzes}
                   setSelectedQuizzes={setSelectedQuizzes}
+                  workAreas={workAreas}
                 />
               </TabPanel>
 
               <TabPanel>
                 <ExamsSelector
-                  workAreas={workAreas}
                   selectedExams={selectedExams}
                   setSelectedExams={setSelectedExams}
+                  workAreas={workAreas}
                 />
               </TabPanel>
             </TabPanels>
@@ -152,12 +139,12 @@ const TodoInputModal = ({
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
+          <Flex justifyContent="center" paddingBottom={2} paddingX={4} w="100%">
             <Button
-              mt={4}
+              colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
-              colorScheme="blue"
+              mt={4}
               onClick={submitTodoSection}
             >
               Confirmar contenido

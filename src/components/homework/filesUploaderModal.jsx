@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FilesSelector } from '../createArticle/articleContent/filesSelector';
 import {
   Modal,
   ModalContent,
@@ -13,6 +12,8 @@ import {
   Button,
   createStandaloneToast,
 } from '@chakra-ui/react';
+
+import { FilesSelector } from '../createArticle/articleContent/filesSelector';
 
 const FilesUploadModal = ({
   isOpen,
@@ -57,9 +58,10 @@ const FilesUploadModal = ({
         console.log('enviando');
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         console.log(resJson);
         if (resJson.error) {
           if (resJson.error.code === 707501) {
@@ -105,18 +107,15 @@ const FilesUploadModal = ({
       <ModalContent>
         <ModalHeader
           alignSelf="center"
-          paddingBottom={2}
           color="gray.700"
           fontFamily="Poppins"
           fontWeight="300"
+          paddingBottom={2}
         >
           {title}
         </ModalHeader>
         <ModalBody>
-          <FilesSelector
-            uploadedFiles={uploadedFiles}
-            setUploadedFiles={setUploadedFiles}
-          />
+          <FilesSelector setUploadedFiles={setUploadedFiles} uploadedFiles={uploadedFiles} />
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter justifyContent="center">

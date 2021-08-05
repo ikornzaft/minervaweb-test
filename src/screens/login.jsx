@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LABELS } from '../locals/sp/labels';
-
 import {
   Stack,
   Button,
@@ -15,13 +13,9 @@ import {
   InputRightElement,
   useToast,
 } from '@chakra-ui/react';
+import { TiUserOutline, TiLockClosedOutline, TiEyeOutline, TiEye } from 'react-icons/ti';
 
-import {
-  TiUserOutline,
-  TiLockClosedOutline,
-  TiEyeOutline,
-  TiEye,
-} from 'react-icons/ti';
+import { LABELS } from '../locals/sp/labels';
 
 const Login = ({ isLoginOn, setLoginOn }) => {
   const history = useHistory();
@@ -58,6 +52,7 @@ const Login = ({ isLoginOn, setLoginOn }) => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const buf = Buffer.from(password);
     const credentials = user + ':' + buf.toString('base64');
+
     console.log(credentials);
     const jsonMessage = {
       method: 'POST',
@@ -77,9 +72,10 @@ const Login = ({ isLoginOn, setLoginOn }) => {
     async function fetchData() {
       try {
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         if (resJson.response === 0) {
           setValidUser(true);
           localStorage.setItem('credentials', credentials);
@@ -87,30 +83,12 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             'userWorkgroups',
             JSON.stringify(resJson.message.entity.resource.workgroups)
           );
-          localStorage.setItem(
-            'workgroups',
-            JSON.stringify(resJson.message.workgroups)
-          );
-          localStorage.setItem(
-            'userName',
-            resJson.message.entity.resource.username
-          );
-          localStorage.setItem(
-            'isStudent',
-            resJson.message.entity.resource.student
-          );
-          localStorage.setItem(
-            'isEditor',
-            resJson.message.entity.resource.editor
-          );
-          localStorage.setItem(
-            'isResearcher',
-            resJson.message.entity.resource.researcher
-          );
-          localStorage.setItem(
-            'realName',
-            resJson.message.entity.resource.descriptor.title
-          );
+          localStorage.setItem('workgroups', JSON.stringify(resJson.message.workgroups));
+          localStorage.setItem('userName', resJson.message.entity.resource.username);
+          localStorage.setItem('isStudent', resJson.message.entity.resource.student);
+          localStorage.setItem('isEditor', resJson.message.entity.resource.editor);
+          localStorage.setItem('isResearcher', resJson.message.entity.resource.researcher);
+          localStorage.setItem('realName', resJson.message.entity.resource.descriptor.title);
         } else {
           setError(resJson.error.text);
         }
@@ -126,18 +104,18 @@ const Login = ({ isLoginOn, setLoginOn }) => {
     <form method="POST" onSubmit={handleSubmit}>
       <Stack
         alignSelf="center"
-        textAlign="center"
-        rounded="lg"
         bg="white"
         boxShadow="2xl"
-        maxWidth={500}
-        spacing={5}
         margin="auto"
-        marginTop={16}
         marginBottom={16}
+        marginTop={16}
+        maxWidth={500}
         padding={5}
+        rounded="lg"
+        spacing={5}
+        textAlign="center"
       >
-        <Heading color="primary" padding={5} fontWeight="400">
+        <Heading color="primary" fontWeight="400" padding={5}>
           {LABELS.LOGIN.TITLE}
         </Heading>
         <FormControl>
@@ -145,17 +123,17 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             {LABELS.LOGIN.FORM.USER_LABEL}
           </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none" fontSize="xl">
+            <InputLeftElement fontSize="xl" pointerEvents="none">
               <TiUserOutline color="gray" />
             </InputLeftElement>
             <Input
               isRequired
               autoFocus={true}
+              errorBorderColor="red.300"
               fontSize="sm"
-              type="text"
               id="user"
               placeholder={LABELS.LOGIN.FORM.USER_PLACEHOLDER}
-              errorBorderColor="red.300"
+              type="text"
               value={user}
               onChange={({ target }) => setUser(target.value)}
             />
@@ -166,17 +144,17 @@ const Login = ({ isLoginOn, setLoginOn }) => {
             {LABELS.LOGIN.FORM.PASS_LABEL}
           </FormLabel>
           <InputGroup>
-            <InputLeftElement pointerEvents="none" fontSize="xl">
+            <InputLeftElement fontSize="xl" pointerEvents="none">
               <TiLockClosedOutline color="gray" />
             </InputLeftElement>
             <Input
               isRequired
-              fontSize="sm"
-              type={showPassword ? 'text' : 'password'}
               autoComplete="off"
               errorBorderColor="red.300"
+              fontSize="sm"
               id="password"
               placeholder={LABELS.LOGIN.FORM.PASS_PLACEHOLDER}
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
@@ -192,12 +170,12 @@ const Login = ({ isLoginOn, setLoginOn }) => {
         </FormControl>
         <FormControl padding={2}>
           <Button
-            fontSize="sm"
             colorScheme="blue"
+            disabled={isInvalid}
+            fontSize="sm"
+            margin="5"
             type="submit"
             variant="primary"
-            disabled={isInvalid}
-            margin="5"
           >
             {LABELS.LOGIN.BUTTON_TEXT}
           </Button>

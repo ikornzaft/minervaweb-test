@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Stack, Button, useDisclosure, Box } from '@chakra-ui/react';
+
+import { LABELS } from '../../locals/sp/labels';
+
 import { LeftDrawer } from './leftDrawer';
 import { RightDrawer } from './rightDrawer';
-import { LABELS } from '../../locals/sp/labels';
 
 const TopMenu = ({ isLoginOn, setLoginOn }) => {
   const history = useHistory();
-  const {
-    isOpen: isOpenLeft,
-    onOpen: onOpenLeft,
-    onClose: onCloseLeft,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenRight,
-    onOpen: onOpenRight,
-    onClose: onCloseRight,
-  } = useDisclosure();
+  const { isOpen: isOpenLeft, onOpen: onOpenLeft, onClose: onCloseLeft } = useDisclosure();
+  const { isOpen: isOpenRight, onOpen: onOpenRight, onClose: onCloseRight } = useDisclosure();
   const btnRef1 = React.useRef();
   const btnRef2 = React.useRef();
   const menuHandler = (e) => {
@@ -46,22 +40,22 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
     }
   };
   const [activeButton, setActiveButton] = useState();
+
   useEffect(() => {
-    localStorage.getItem('isStudent') === 'true'
-      ? setActiveButton(0)
-      : setActiveButton(1);
+    localStorage.getItem('isStudent') === 'true' ? setActiveButton(0) : setActiveButton(1);
   }, []);
+
   return (
     <Stack
-      width="100vw"
-      position={['absolute', 'fixed']}
+      alignItems="center"
       bgColor="white"
-      borderBottomWidth="1px"
       borderBottomColor="gray.300"
+      borderBottomWidth="1px"
       direction="row"
       justifyContent="space-between"
-      alignItems="center"
       paddingX={6}
+      position={['absolute', 'fixed']}
+      width="100vw"
       zIndex="100"
     >
       <Button ref={btnRef1} variant="primary" onClick={onOpenLeft}>
@@ -70,43 +64,43 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
       <Stack direction={['column', 'row']}>
         {localStorage.getItem('isStudent') === 'true' ? (
           <Button
-            variant="underlined"
             id="menu-button_1"
-            w="10rem"
-            margin="0"
             isActive={activeButton === 0 ? true : false}
+            margin="0"
+            variant="underlined"
+            w="10rem"
             onClick={menuHandler}
           >
             {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_1}
           </Button>
         ) : null}
         <Button
-          variant="underlined"
           id="menu-button_2"
-          w="10rem"
-          margin="0"
           isActive={activeButton === 1 ? true : false}
+          margin="0"
+          variant="underlined"
+          w="10rem"
           onClick={menuHandler}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_2}
         </Button>
         <Button
-          variant="underlined"
           id="menu-button_3"
-          w="10rem"
-          margin="0"
           isActive={activeButton === 2 ? true : false}
+          margin="0"
+          variant="underlined"
+          w="10rem"
           onClick={menuHandler}
         >
           {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_3}
         </Button>
         {localStorage.getItem('isStudent') === 'false' ? (
           <Button
-            variant="underlined"
             id="menu-button_4"
-            w="10rem"
-            margin="0"
             isActive={activeButton === 3 ? true : false}
+            margin="0"
+            variant="underlined"
+            w="10rem"
             onClick={menuHandler}
           >
             {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_4}
@@ -114,11 +108,11 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
         ) : null}
         {localStorage.getItem('isStudent') === 'false' ? (
           <Button
-            variant="underlined"
             id="menu-button_5"
-            w="10rem"
-            margin="0"
             isActive={activeButton === 4 ? true : false}
+            margin="0"
+            variant="underlined"
+            w="10rem"
             onClick={menuHandler}
           >
             {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
@@ -126,11 +120,11 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
         ) : null}
         {localStorage.getItem('isStudent') === 'false' ? (
           <Button
-            variant="underlined"
             id="menu-button_6"
-            w="10rem"
-            margin="0"
             isActive={activeButton === 5 ? true : false}
+            margin="0"
+            variant="underlined"
+            w="10rem"
             onClick={menuHandler}
           >
             {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_6}
@@ -147,27 +141,27 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
       )}
 
       <LeftDrawer
-        placement="left"
-        isOpen={isOpenLeft}
-        onClose={onCloseLeft}
         finalFocusRef={btnRef1}
-        title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
-        inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
         firstButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.CANCEL_BUTTON}
+        inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
+        isLoginOn={isLoginOn}
+        isOpen={isOpenLeft}
+        placement="left"
         secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
         setActiveButton={setActiveButton}
-        isLoginOn={isLoginOn}
         setLoginOn={setLoginOn}
+        title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
+        onClose={onCloseLeft}
       />
       <RightDrawer
-        placement="right"
-        isOpen={isOpenRight}
-        onClose={onCloseRight}
         finalFocusRef={btnRef2}
-        title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
-        inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
         firstButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.CANCEL_BUTTON}
+        inputPlaceholder={LABELS.TOP_MENU.MENU.LEFT_DRAWER.INPUT_PLACEHOLDER}
+        isOpen={isOpenRight}
+        placement="right"
         secondButton={LABELS.TOP_MENU.MENU.LEFT_DRAWER.SAVE_BUTTON}
+        title={LABELS.TOP_MENU.MENU.LEFT_DRAWER.TITLE}
+        onClose={onCloseRight}
       />
     </Stack>
   );

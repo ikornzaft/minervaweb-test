@@ -4,20 +4,22 @@ import { HStack, Select, Text } from '@chakra-ui/react';
 
 const AreaSelector = (props) => {
   const { label, name, options, area, setArea, ...rest } = props;
+
   return (
     <HStack className="form-control">
       <Field name={name} {...rest}>
         {({ field }) => {
           setArea(field.value);
+
           return (
             <Select
               borderRadius="md"
-              size="sm"
+              id={name}
               placeholder={label}
+              size="sm"
               onChange={(e) => {
                 console.log(e.target.value);
               }}
-              id={name}
               {...field}
             >
               {options.map((option) => {
@@ -33,13 +35,7 @@ const AreaSelector = (props) => {
       </Field>
       <ErrorMessage name={name}>
         {(msg) => (
-          <Text
-            color="red"
-            fontSize="xs"
-            fontFamily="Open Sans"
-            position="absolute"
-            left="390px"
-          >
+          <Text color="red" fontFamily="Open Sans" fontSize="xs" left="390px" position="absolute">
             {msg}
           </Text>
         )}

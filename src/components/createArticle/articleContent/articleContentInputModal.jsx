@@ -20,16 +20,13 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
-import { FilesSelector } from './filesSelector';
-import { ArticleContentLinkSelector } from './articleContentLinkSelector';
+
 import { LABELS } from '../../../locals/sp/labels';
 
-const ArticleContentInputModal = ({
-  isOpen,
-  onClose,
-  paragraphList,
-  setParagraphList,
-}) => {
+import { FilesSelector } from './filesSelector';
+import { ArticleContentLinkSelector } from './articleContentLinkSelector';
+
+const ArticleContentInputModal = ({ isOpen, onClose, paragraphList, setParagraphList }) => {
   const [articleContent, setArticleContent] = useState([]);
   const [articleContentLinks, setArticleContentLinks] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -41,6 +38,7 @@ const ArticleContentInputModal = ({
 
     if (values.textContent) {
       const paragraphs = values.textContent.split(/\n\s*\n/);
+
       paragraphsToSubmit = paragraphs
         .filter((el) => el !== '')
         .map((el) => {
@@ -49,6 +47,7 @@ const ArticleContentInputModal = ({
               description: el,
             },
           };
+
           return obj;
         });
     }
@@ -58,16 +57,10 @@ const ArticleContentInputModal = ({
           ...paragraphList,
           ...paragraphsToSubmit.concat(uploadedFiles),
         ])
-      : setParagraphList((paragraphList) => [
-          ...paragraphList,
-          ...paragraphsToSubmit,
-        ]);
+      : setParagraphList((paragraphList) => [...paragraphList, ...paragraphsToSubmit]);
 
     if (articleContentLinks.length > 0)
-      setParagraphList((paragraphList) => [
-        ...paragraphList,
-        ...articleContentLinks,
-      ]);
+      setParagraphList((paragraphList) => [...paragraphList, ...articleContentLinks]);
 
     setUploadedFiles([]);
     setArticleContentLinks([]);
@@ -80,17 +73,17 @@ const ArticleContentInputModal = ({
       <ModalContent>
         <ModalHeader
           alignSelf="center"
-          paddingBottom={2}
           color="gray.700"
           fontFamily="Poppins"
           fontWeight="300"
+          paddingBottom={2}
         >
           Agregar contenido
         </ModalHeader>
         <ModalBody textAlign="center">
           <Formik
-            validationSchema={articleContentValidationSchema}
             initialValues={articleContent}
+            validationSchema={articleContentValidationSchema}
             onSubmit={handleSubmit}
           >
             {(formikProps) => (
@@ -98,13 +91,13 @@ const ArticleContentInputModal = ({
                 <Form>
                   <Tabs>
                     <TabList>
-                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
+                      <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1}>
                         {LABELS.CREATE_ARTICLE.PARAGRAPHS.TABS.TITLE_1}
                       </Tab>
-                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
+                      <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1}>
                         {LABELS.CREATE_ARTICLE.PARAGRAPHS.TABS.TITLE_2}
                       </Tab>
-                      <Tab fontSize="sm" fontFamily="Open Sans" paddingY={1}>
+                      <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1}>
                         {LABELS.CREATE_ARTICLE.PARAGRAPHS.TABS.TITLE_3}
                       </Tab>
                     </TabList>
@@ -115,10 +108,10 @@ const ArticleContentInputModal = ({
                           {({ field }) => (
                             <FormControl>
                               <FormLabel
-                                fontSize="sm"
-                                marginTop={4}
-                                htmlFor="textContent"
                                 fontFamily="Open Sans"
+                                fontSize="sm"
+                                htmlFor="textContent"
+                                marginTop={4}
                               >
                                 {LABELS.CREATE_ARTICLE.PARAGRAPHS.TAB_1.LABEL}
                               </FormLabel>
@@ -127,10 +120,7 @@ const ArticleContentInputModal = ({
                                 height={32}
                                 {...field}
                                 id="textContent"
-                                placeholder={
-                                  LABELS.CREATE_ARTICLE.PARAGRAPHS.TAB_1
-                                    .PLACEHOLDER
-                                }
+                                placeholder={LABELS.CREATE_ARTICLE.PARAGRAPHS.TAB_1.PLACEHOLDER}
                               />
                             </FormControl>
                           )}
@@ -139,8 +129,8 @@ const ArticleContentInputModal = ({
 
                       <TabPanel>
                         <FilesSelector
-                          uploadedFiles={uploadedFiles}
                           setUploadedFiles={setUploadedFiles}
+                          uploadedFiles={uploadedFiles}
                         />
                       </TabPanel>
 
@@ -154,10 +144,10 @@ const ArticleContentInputModal = ({
                   </Tabs>
                   <Flex justifyContent="center" paddingX={4}>
                     <Button
-                      mt={4}
+                      colorScheme="blue"
                       fontFamily="Poppins"
                       fontWeight="400"
-                      colorScheme="blue"
+                      mt={4}
                       type="submit"
                     >
                       {LABELS.CREATE_ARTICLE.PARAGRAPHS.SUBMIT_BUTTON}

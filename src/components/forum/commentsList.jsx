@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Box, VStack, HStack, Text, Heading } from '@chakra-ui/react';
+
 import { DisplayContent } from './displayContent';
 
 const CommentsList = ({ commentsArray }) => {
   const sortedArray = commentsArray.sort(
-    (a, b) =>
-      new Date(b.logs.inserted.timestamp) - new Date(a.logs.inserted.timestamp)
+    (a, b) => new Date(b.logs.inserted.timestamp) - new Date(a.logs.inserted.timestamp)
   );
 
   console.log(sortedArray);
+
   return (
     <Box w="100%">
-      <Box paddingY={3} paddingX={6}>
+      <Box paddingX={6} paddingY={3}>
         {commentsArray.length > 1 ? (
           <Heading fontSize="md">{commentsArray.length} respuestas</Heading>
         ) : (
@@ -19,27 +20,16 @@ const CommentsList = ({ commentsArray }) => {
         )}
       </Box>
       {commentsArray.map((comment, index) => (
-        <VStack
-          key={index}
-          paddingY={3}
-          paddingX={6}
-          alignItems="flex-start"
-          w="100%"
-        >
+        <VStack key={index} alignItems="flex-start" paddingX={6} paddingY={3} w="100%">
           <HStack>
-            <Text
-              fontSize="xs"
-              fontFamily="Open Sans"
-              fontWeight="700"
-              color="primary"
-            >
+            <Text color="primary" fontFamily="Open Sans" fontSize="xs" fontWeight="700">
               {comment.logs.inserted.principal}
             </Text>
             <Text color="gray.500" fontSize="xs">
               - {comment.logs.inserted.timestamp}
             </Text>
           </HStack>
-          <Text marginTop="0 !important" color="gray.700" fontSize="sm">
+          <Text color="gray.700" fontSize="sm" marginTop="0 !important">
             {comment.resource.articleHeader.descriptor.description}
           </Text>
           {comment.resource.paragraphs.length > 0 ? (

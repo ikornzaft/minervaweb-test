@@ -22,7 +22,9 @@ import {
   VStack,
   IconButton,
 } from '@chakra-ui/react';
+
 import { CoverImageInput } from '../draft/coverImageInput';
+
 import { AnswersInput } from './answersInput';
 import { QuizQuestionCreator } from './quizQuestionCreator';
 
@@ -55,6 +57,7 @@ const QuizQuestionsForm = ({
     if (question !== '') {
       const newArray = answersArray.map((answer, index) => {
         let isTrue;
+
         index === option ? (isTrue = true) : (isTrue = false);
         const obj = {
           answer: isTrue,
@@ -62,10 +65,12 @@ const QuizQuestionsForm = ({
             title: answer,
           },
         };
+
         return obj;
       });
 
       let newEntry;
+
       if (image) {
         newEntry = {
           descriptor: {
@@ -109,39 +114,19 @@ const QuizQuestionsForm = ({
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent p={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           {modalTitle}
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Pregunta
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Imágen
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Respuestas
               </Tab>
             </TabList>
@@ -149,11 +134,7 @@ const QuizQuestionsForm = ({
             <TabPanels>
               <TabPanel>
                 <Box h="8rem">
-                  <FormLabel
-                    fontSize="sm"
-                    fontFamily="Open Sans"
-                    htmlFor="question"
-                  >
+                  <FormLabel fontFamily="Open Sans" fontSize="sm" htmlFor="question">
                     Pregunta
                   </FormLabel>
                   <Textarea
@@ -167,15 +148,15 @@ const QuizQuestionsForm = ({
               </TabPanel>
 
               <TabPanel>
-                <HStack w="100%" justifyContent="center">
+                <HStack justifyContent="center" w="100%">
                   <VStack
-                    w="60%"
-                    p={4}
                     bg="gray.50"
                     borderRadius="md"
                     borderStyle="solid"
                     borderWidth="1px"
                     marginBottom={4}
+                    p={4}
+                    w="60%"
                   >
                     <Box paddingBottom={2}>
                       <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
@@ -193,8 +174,8 @@ const QuizQuestionsForm = ({
                 <VStack>
                   <AnswersInput
                     answersArray={answersArray}
-                    setAnswersArray={setAnswersArray}
                     option={option}
+                    setAnswersArray={setAnswersArray}
                     setOption={setOption}
                   />
                 </VStack>
@@ -204,7 +185,7 @@ const QuizQuestionsForm = ({
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <HStack w="100%" justifyContent="center">
+          <HStack justifyContent="center" w="100%">
             <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>
               {buttonText}
             </Button>

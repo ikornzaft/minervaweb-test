@@ -10,17 +10,14 @@ import {
   Textarea,
   Input,
 } from '@chakra-ui/react';
+
+import { LABELS } from '../../../locals/sp/labels';
+
 import { EditElementFormText } from './editElementFormText';
 import { EditElementFormFile } from './editElementFormFile';
 import { EditElementFormLink } from './editElementFormLink';
-import { LABELS } from '../../../locals/sp/labels';
 
-const EditElementForm = ({
-  paragraphList,
-  setParagraphList,
-  elementId,
-  onCancel,
-}) => {
+const EditElementForm = ({ paragraphList, setParagraphList, elementId, onCancel }) => {
   let currentElement = {};
 
   const [textParagraph, setTextParagraph] = useState('');
@@ -87,7 +84,9 @@ const EditElementForm = ({
 
     setParagraphList((prevState) => {
       const newState = [...prevState];
+
       newState[elementId] = currentElement;
+
       return newState;
     });
     onCancel();
@@ -97,12 +96,12 @@ const EditElementForm = ({
     if (typeOfResource === 'link') {
       return (
         <EditElementFormLink
-          title={description}
-          setTitle={setDescription}
-          subtitle={fileName}
-          setSubtitle={setFileName}
           location={location}
           setLocation={setLocation}
+          setSubtitle={setFileName}
+          setTitle={setDescription}
+          subtitle={fileName}
+          title={description}
         />
       );
     }
@@ -110,28 +109,25 @@ const EditElementForm = ({
       return (
         <EditElementFormFile
           description={description}
-          setDescription={setDescription}
           fileName={fileName}
-          setFileName={setFileName}
           location={location}
+          setDescription={setDescription}
+          setFileName={setFileName}
           setLocation={setLocation}
-          type={type}
           setType={setType}
+          type={type}
         />
       );
     }
     if (typeOfResource === 'text') {
       return (
-        <EditElementFormText
-          textParagraph={textParagraph}
-          setTextParagraph={setTextParagraph}
-        />
+        <EditElementFormText setTextParagraph={setTextParagraph} textParagraph={textParagraph} />
       );
     }
   };
 
   return (
-    <VStack justifyContent="space-between" w="100%" h="100%">
+    <VStack h="100%" justifyContent="space-between" w="100%">
       <Text>{LABELS.CREATE_ARTICLE.EDIT_PARAGRAPHS.MODAL_TITLE}</Text>
       {renderForm()}
       <ButtonGroup d="flex" justifyContent="flex-end">

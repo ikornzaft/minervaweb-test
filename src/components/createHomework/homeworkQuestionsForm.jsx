@@ -23,6 +23,7 @@ import {
   Switch,
   IconButton,
 } from '@chakra-ui/react';
+
 import { CoverImageInput } from '../draft/coverImageInput';
 
 const HomeworkQuestionsForm = ({
@@ -93,31 +94,16 @@ const HomeworkQuestionsForm = ({
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent p={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           {modalTitle}
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Consigna
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Imágen
               </Tab>
             </TabList>
@@ -139,15 +125,15 @@ const HomeworkQuestionsForm = ({
               </TabPanel>
 
               <TabPanel>
-                <HStack w="100%" justifyContent="center">
+                <HStack justifyContent="center" w="100%">
                   <VStack
-                    w="60%"
-                    p={4}
                     bg="gray.50"
                     borderRadius="md"
                     borderStyle="solid"
                     borderWidth="1px"
                     marginBottom={4}
+                    p={4}
+                    w="60%"
                   >
                     <Box paddingBottom={2}>
                       <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
@@ -165,7 +151,7 @@ const HomeworkQuestionsForm = ({
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <HStack w="100%" justifyContent="center">
+          <HStack justifyContent="center" w="100%">
             <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>
               {buttonText}
             </Button>

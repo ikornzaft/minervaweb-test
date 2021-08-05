@@ -21,11 +21,12 @@ import {
   Tooltip,
   Select,
 } from '@chakra-ui/react';
+import { RiContactsBookLine } from 'react-icons/ri';
+
 import { HomeworksSelector } from '../createArticle/sections/homeworksSelector';
 import { QuizzesSelector } from '../createArticle/sections/quizzesSelector';
 import { ExamsSelector } from '../createArticle/sections/examsSelector';
 import { AREAS } from '../../locals/sp/areas';
-import { RiContactsBookLine } from 'react-icons/ri';
 
 const TodoInputModal = ({
   isOpen,
@@ -53,6 +54,7 @@ const TodoInputModal = ({
   useEffect(() => {
     const quizzes = draftToDo.filter((el) => el.content.type === 'quiz');
     const exams = draftToDo.filter((el) => el.content.type === 'exam');
+
     setSelectedQuizzes(quizzes);
     setSelectedExams(exams);
   }, [draftToDo]);
@@ -70,38 +72,23 @@ const TodoInputModal = ({
       <ModalContent>
         <ModalHeader
           alignSelf="center"
-          paddingBottom={2}
           color="gray.700"
           fontFamily="Poppins"
           fontWeight="300"
+          paddingBottom={2}
         >
           Modificar &quot;Para Hacer&quot;
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Tareas
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Autoevaluaciones
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Pruebas
               </Tab>
             </TabList>
@@ -109,25 +96,25 @@ const TodoInputModal = ({
             <TabPanels>
               <TabPanel>
                 <HomeworksSelector
-                  workAreas={workAreas}
                   selectedHomeworks={selectedHomeworks}
                   setSelectedHomeworks={setSelectedHomeworks}
+                  workAreas={workAreas}
                 />
               </TabPanel>
 
               <TabPanel>
                 <QuizzesSelector
-                  workAreas={workAreas}
                   selectedQuizzes={selectedQuizzes}
                   setSelectedQuizzes={setSelectedQuizzes}
+                  workAreas={workAreas}
                 />
               </TabPanel>
 
               <TabPanel>
                 <ExamsSelector
-                  workAreas={workAreas}
                   selectedExams={selectedExams}
                   setSelectedExams={setSelectedExams}
+                  workAreas={workAreas}
                 />
               </TabPanel>
             </TabPanels>
@@ -135,12 +122,12 @@ const TodoInputModal = ({
         </ModalBody>
 
         <ModalFooter>
-          <Flex justifyContent="center" paddingX={4} paddingBottom={2} w="100%">
+          <Flex justifyContent="center" paddingBottom={2} paddingX={4} w="100%">
             <Button
-              mt={4}
+              colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
-              colorScheme="blue"
+              mt={4}
               onClick={submitTodoSection}
             >
               Confirmar contenido

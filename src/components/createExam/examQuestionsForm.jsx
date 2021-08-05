@@ -23,7 +23,9 @@ import {
   Switch,
   IconButton,
 } from '@chakra-ui/react';
+
 import { CoverImageInput } from '../draft/coverImageInput';
+
 import { AnswersInput } from './answersInput';
 
 const ExamQuestionsForm = ({
@@ -61,6 +63,7 @@ const ExamQuestionsForm = ({
       let options;
       const newArray = answersArray.map((answer, index) => {
         let isTrue;
+
         index === option ? (isTrue = true) : (isTrue = false);
         const obj = {
           answer: isTrue,
@@ -68,6 +71,7 @@ const ExamQuestionsForm = ({
             title: answer,
           },
         };
+
         return obj;
       });
       let newEntry;
@@ -118,39 +122,24 @@ const ExamQuestionsForm = ({
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent p={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           {modalTitle}
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Pregunta
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Imágen
               </Tab>
               <Tab
-                fontSize="sm"
-                width="12rem"
                 fontFamily="Open Sans"
-                paddingY={1}
+                fontSize="sm"
                 isDisabled={isChoice ? false : true}
+                paddingY={1}
+                width="12rem"
               >
                 Respuestas
               </Tab>
@@ -169,14 +158,14 @@ const ExamQuestionsForm = ({
                     value={question}
                     onChange={(el) => setQuestion(el.target.value)}
                   />
-                  <FormControl display="flex" alignItems="center">
+                  <FormControl alignItems="center" display="flex">
                     <FormLabel htmlFor="is_choice" mb="0">
                       <Text fontSize="sm">¿Es múltiple choice?</Text>
                     </FormLabel>
                     <Switch
                       id="is_choice"
-                      size="sm"
                       isChecked={isChoice ? true : false}
+                      size="sm"
                       onChange={(el) => setIsChoice(!isChoice)}
                     />
                   </FormControl>
@@ -184,15 +173,15 @@ const ExamQuestionsForm = ({
               </TabPanel>
 
               <TabPanel>
-                <HStack w="100%" justifyContent="center">
+                <HStack justifyContent="center" w="100%">
                   <VStack
-                    w="60%"
-                    p={4}
                     bg="gray.50"
                     borderRadius="md"
                     borderStyle="solid"
                     borderWidth="1px"
                     marginBottom={4}
+                    p={4}
+                    w="60%"
                   >
                     <Box paddingBottom={2}>
                       <Text fontSize="sm">Seleccionar imágen (opcional)</Text>
@@ -210,8 +199,8 @@ const ExamQuestionsForm = ({
                 <VStack>
                   <AnswersInput
                     answersArray={answersArray}
-                    setAnswersArray={setAnswersArray}
                     option={option}
+                    setAnswersArray={setAnswersArray}
                     setOption={setOption}
                   />
                 </VStack>
@@ -221,7 +210,7 @@ const ExamQuestionsForm = ({
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <HStack w="100%" justifyContent="center">
+          <HStack justifyContent="center" w="100%">
             <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>
               {buttonText}
             </Button>

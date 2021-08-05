@@ -5,45 +5,27 @@ const SectionElement = ({ title, subtitle, icon }) => {
   return (
     <>
       <Stack
-        width="40rem"
-        height="5.5rem"
+        _hover={{ bg: 'gray.50' }}
+        alignItems="flex-start"
         bgColor="white"
         borderRadius="lg"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        direction="row"
         borderWidth="1px"
+        direction="row"
+        height="5.5rem"
+        justifyContent="flex-start"
         maxHeight="100px"
-        _hover={{ bg: 'gray.50' }}
+        width="40rem"
       >
-        <Box
-          as={icon}
-          alignSelf="center"
-          w="80px"
-          h="80px"
-          p={2}
-          color="gray.600"
-        />
+        <Box alignSelf="center" as={icon} color="gray.600" h="80px" p={2} w="80px" />
 
-        <Stack width="100%" justifyContent="flex-start">
-          <Stack width="100%" direction="row" alignItems="center" paddingX={4}>
-            <Stack paddingTop={3} alignItems="flex-start" spacing="1">
-              <Heading
-                as="h3"
-                size="xs"
-                marginLeft={0}
-                lineHeight="1.2rem"
-                fontFamily="Open Sans"
-              >
+        <Stack justifyContent="flex-start" width="100%">
+          <Stack alignItems="center" direction="row" paddingX={4} width="100%">
+            <Stack alignItems="flex-start" paddingTop={3} spacing="1">
+              <Heading as="h3" fontFamily="Open Sans" lineHeight="1.2rem" marginLeft={0} size="xs">
                 {title}
               </Heading>
-              <Box textAlign="left" marginTop="0" paddingLeft={0}>
-                <Text
-                  as="h5"
-                  fontSize="xs"
-                  fontFamily="Open Sans"
-                  fontWeight="400"
-                >
+              <Box marginTop="0" paddingLeft={0} textAlign="left">
+                <Text as="h5" fontFamily="Open Sans" fontSize="xs" fontWeight="400">
                   {subtitle}
                 </Text>
               </Box>

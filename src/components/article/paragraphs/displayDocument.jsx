@@ -1,56 +1,26 @@
 import React from 'react';
-import {
-  Box,
-  HStack,
-  VStack,
-  Text,
-  LinkBox,
-  LinkOverlay,
-  Heading,
-} from '@chakra-ui/react';
-import { ParagraphReducer } from '../../common/paragraphReducer';
+import { Box, HStack, VStack, Text, LinkBox, LinkOverlay, Heading } from '@chakra-ui/react';
 import { VscFile } from 'react-icons/vsc';
+
+import { ParagraphReducer } from '../../common/paragraphReducer';
 
 const DisplayDocument = ({ linkLocation, title, subtitle }) => {
   const documentLink = `http://www.afatecha.com/id/files/document/${linkLocation}`;
 
   return (
-    <VStack w="100%" p={2}>
-      <LinkBox w="100%" _hover={{ bg: 'gray.50' }}>
+    <VStack p={2} w="100%">
+      <LinkBox _hover={{ bg: 'gray.50' }} w="100%">
         <LinkOverlay href={documentLink} isExternal="true" />
-        <HStack
-          justifyContent="flex-start"
-          h="100px"
-          borderRadius="lg"
-          borderWidth="1px"
-        >
-          <Box
-            as={VscFile}
-            alignSelf="center"
-            w="80px"
-            h="80px"
-            p={2}
-            color="gray.600"
-          />
-          <VStack w="90%" justifyContent="center" alignItems="flex-start">
+        <HStack borderRadius="lg" borderWidth="1px" h="100px" justifyContent="flex-start">
+          <Box alignSelf="center" as={VscFile} color="gray.600" h="80px" p={2} w="80px" />
+          <VStack alignItems="flex-start" justifyContent="center" w="90%">
             {title ? (
-              <Heading
-                as="h3"
-                size="xs"
-                marginLeft={0}
-                lineHeight="0.7rem"
-                fontFamily="Open Sans"
-              >
+              <Heading as="h3" fontFamily="Open Sans" lineHeight="0.7rem" marginLeft={0} size="xs">
                 {title}
               </Heading>
             ) : null}
             {subtitle ? (
-              <Text
-                as="h5"
-                fontSize="xs"
-                fontFamily="Open Sans"
-                fontWeight="400"
-              >
+              <Text as="h5" fontFamily="Open Sans" fontSize="xs" fontWeight="400">
                 {ParagraphReducer(subtitle)}
               </Text>
             ) : null}

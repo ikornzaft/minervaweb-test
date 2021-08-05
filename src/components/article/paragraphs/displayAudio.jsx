@@ -1,38 +1,34 @@
 import React from 'react';
 import { VStack, Heading, Text } from '@chakra-ui/react';
 import ReactPlayer from 'react-player/file';
+
 import { ParagraphReducer } from '../../common/paragraphReducer';
 
 const DisplayAudio = ({ linkLocation, title, subtitle }) => {
   const audioLink = `http://www.afatecha.com/id/files/audio/${linkLocation}`;
+
   return (
-    <VStack w="100%" p={2}>
+    <VStack p={2} w="100%">
       <VStack
-        justifyContent="flex-end"
-        w="100%"
-        p={2}
-        h="100px"
+        _hover={{ bg: 'gray.50' }}
         borderRadius="lg"
         borderWidth="1px"
-        _hover={{ bg: 'gray.50' }}
+        h="100px"
+        justifyContent="flex-end"
+        p={2}
+        w="100%"
       >
         {title ? (
-          <Heading
-            as="h3"
-            size="xs"
-            marginLeft={0}
-            lineHeight="0.7rem"
-            fontFamily="Open Sans"
-          >
+          <Heading as="h3" fontFamily="Open Sans" lineHeight="0.7rem" marginLeft={0} size="xs">
             {title}
           </Heading>
         ) : null}
         {subtitle ? (
-          <Text as="h5" fontSize="xs" fontFamily="Open Sans" fontWeight="400">
+          <Text as="h5" fontFamily="Open Sans" fontSize="xs" fontWeight="400">
             {ParagraphReducer(subtitle)}
           </Text>
         ) : null}
-        <ReactPlayer url={audioLink} controls="true" height="30%" width="90%" />
+        <ReactPlayer controls="true" height="30%" url={audioLink} width="90%" />
       </VStack>
     </VStack>
   );

@@ -45,12 +45,14 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
 
       async function fetchData() {
         const toast = createStandaloneToast();
+
         try {
           setIsLoading(true);
           const res = await fetch(url, jsonMessage);
-          if (res.status >= 400 && res.status < 600)
-            setError('Bad response from server');
+
+          if (res.status >= 400 && res.status < 600) setError('Bad response from server');
           const resJson = await res.json();
+
           console.log(resJson);
           toast({
             title: 'Artículo compartido',
@@ -77,31 +79,24 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
       fetchData();
     }
   };
+
   return (
     <Modal isOpen={isOpen} size="md" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           Compartir en...
         </ModalHeader>
         <ModalBody textAlign="center">
           <Select
             borderRadius="md"
-            size="sm"
             placeholder="Seleccionar grupo"
+            size="sm"
             onChange={(e) => setSelectedGroup(e.target.value)}
           >
             {filteredGroups.map((option) => {
               return (
-                <option
-                  key={option.resource.descriptor.title}
-                  value={option.header.privateId}
-                >
+                <option key={option.resource.descriptor.title} value={option.header.privateId}>
                   {option.resource.descriptor.title}
                 </option>
               );
@@ -110,12 +105,7 @@ const WorkgroupSelector = ({ isOpen, onClose }) => {
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <Button
-            fontFamily="Poppins"
-            fontWeight="400"
-            colorScheme="blue"
-            onClick={handlePublish}
-          >
+          <Button colorScheme="blue" fontFamily="Poppins" fontWeight="400" onClick={handlePublish}>
             Compartir
           </Button>
         </ModalFooter>

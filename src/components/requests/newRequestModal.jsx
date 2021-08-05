@@ -19,8 +19,9 @@ import {
   Stack,
   createStandaloneToast,
 } from '@chakra-ui/react';
-import { AREAS } from '../../locals/sp/areas';
 import { v4 as uuidv4 } from 'uuid';
+
+import { AREAS } from '../../locals/sp/areas';
 
 const NewRequestModal = ({ isOpen, onClose }) => {
   const validationSchema = Yup.object({
@@ -44,9 +45,7 @@ const NewRequestModal = ({ isOpen, onClose }) => {
   const handleSubmit = (values) => {
     const credentials = localStorage.getItem('credentials');
     const date = new Date();
-    const formatedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    )
+    const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     const questionId = 'Q-' + formatedDate + '-' + uuidv4();
@@ -99,9 +98,10 @@ const NewRequestModal = ({ isOpen, onClose }) => {
       try {
         setLoading(true);
         const response = await fetch(url, jsonMessage);
-        if (response.status >= 400 && response.status < 600)
-          setError('Bad response from server');
+
+        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
+
         toast({
           title: 'Consulta enviada.',
           description: 'Se creó un nuevo consulta.',
@@ -123,6 +123,7 @@ const NewRequestModal = ({ isOpen, onClose }) => {
         onClose();
       }
     };
+
     fetchData();
   };
 
@@ -130,59 +131,45 @@ const NewRequestModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           Crear nueva consulta
         </ModalHeader>
-        <ModalBody textAlign="left" paddingX={10}>
+        <ModalBody paddingX={10} textAlign="left">
           <VStack justifyContent="center" paddingBottom={6}>
             <Formik
-              validationSchema={validationSchema}
               initialValues={initialValues}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {(props) => (
                 <Stack w="100%">
                   <Form>
-                    <HStack w="100%" justifyContent="center" paddingBottom={8}>
+                    <HStack justifyContent="center" paddingBottom={8} w="100%">
                       <Field name="area">
                         {({ field, form }) => {
                           return (
                             <FormControl
+                              isInvalid={form.errors['area'] && form.touched['area']}
                               w="15rem"
-                              isInvalid={
-                                form.errors['area'] && form.touched['area']
-                              }
                             >
                               <Select
-                                placeholder="Selecciona la materia"
                                 borderRadius="md"
+                                id="area"
+                                placeholder="Selecciona la materia"
                                 size="sm"
                                 w="15rem"
-                                id="area"
                                 {...props}
                                 {...field}
                               >
                                 {workAreas.map((option) => {
                                   return (
-                                    <option
-                                      key={option.value}
-                                      value={option.value}
-                                    >
+                                    <option key={option.value} value={option.value}>
                                       {option.key}
                                     </option>
                                   );
                                 })}
                               </Select>
-                              <FormErrorMessage
-                                position="absolute"
-                                top="28px"
-                                fontSize="xs"
-                              >
+                              <FormErrorMessage fontSize="xs" position="absolute" top="28px">
                                 {form.errors['area']}
                               </FormErrorMessage>
                             </FormControl>
@@ -195,30 +182,19 @@ const NewRequestModal = ({ isOpen, onClose }) => {
                         {({ field, form }) => {
                           return (
                             <FormControl
+                              isInvalid={form.errors['title'] && form.touched['title']}
                               paddingBottom={10}
-                              isInvalid={
-                                form.errors['title'] && form.touched['title']
-                              }
                             >
                               <FormLabel
+                                fontSize="sm"
                                 htmlFor="title"
                                 position="absolute"
                                 top="-22px"
-                                fontSize="sm"
                               >
                                 Título
                               </FormLabel>
-                              <Input
-                                id="title"
-                                fontSize="sm"
-                                {...props}
-                                {...field}
-                              />
-                              <FormErrorMessage
-                                fontSize="xs"
-                                position="absolute"
-                                top="35px"
-                              >
+                              <Input fontSize="sm" id="title" {...props} {...field} />
+                              <FormErrorMessage fontSize="xs" position="absolute" top="35px">
                                 {form.errors['title']}
                               </FormErrorMessage>
                             </FormControl>
@@ -229,33 +205,26 @@ const NewRequestModal = ({ isOpen, onClose }) => {
                         {({ field, form }) => {
                           return (
                             <FormControl
+                              isInvalid={form.errors['question'] && form.touched['question']}
                               paddingBottom={8}
-                              isInvalid={
-                                form.errors['question'] &&
-                                form.touched['question']
-                              }
                             >
                               <FormLabel
+                                fontSize="sm"
                                 htmlFor="question"
                                 position="absolute"
                                 top="-22px"
-                                fontSize="sm"
                               >
                                 Consulta
                               </FormLabel>
                               <Input
-                                h="6rem"
-                                fontSize="sm"
                                 as="textarea"
+                                fontSize="sm"
+                                h="6rem"
                                 id="question"
                                 {...props}
                                 {...field}
                               />
-                              <FormErrorMessage
-                                fontSize="xs"
-                                position="absolute"
-                                top="91px"
-                              >
+                              <FormErrorMessage fontSize="xs" position="absolute" top="91px">
                                 {form.errors['question']}
                               </FormErrorMessage>
                             </FormControl>
@@ -265,10 +234,10 @@ const NewRequestModal = ({ isOpen, onClose }) => {
                     </VStack>
                     <HStack justifyContent="center">
                       <Button
-                        type="submit"
+                        colorScheme="blue"
                         fontFamily="Poppins"
                         fontWeight="400"
-                        colorScheme="blue"
+                        type="submit"
                       >
                         Crear consulta
                       </Button>

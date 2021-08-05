@@ -1,24 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Stack, HStack, Heading, LinkBox, LinkOverlay } from '@chakra-ui/react';
-import { SectionElement } from './sectionElement';
-import { ParagraphReducer } from '../common/paragraphReducer';
-import {
-  RiBook2Line,
-  RiImageLine,
-  RiVideoLine,
-  RiExternalLinkFill,
-} from 'react-icons/ri';
+import { RiBook2Line, RiImageLine, RiVideoLine, RiExternalLinkFill } from 'react-icons/ri';
 import { VscFilePdf, VscFile, VscLinkExternal } from 'react-icons/vsc';
 import { SiMicrosoftword } from 'react-icons/si';
 import { FiSpeaker } from 'react-icons/fi';
 
+import { ParagraphReducer } from '../common/paragraphReducer';
+
+import { SectionElement } from './sectionElement';
+
 const DisplayKnowMore = ({ sections, isTopic }) => {
   const clasifySection = (section) => {
     let toRender;
-    section.article
-      ? (toRender = displayArticle(section))
-      : (toRender = displayResource(section));
+
+    section.article ? (toRender = displayArticle(section)) : (toRender = displayResource(section));
+
     return toRender;
   };
 
@@ -27,8 +24,8 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
       <Link to={`/article/${section.article.entity.publicId}`}>
         <SectionElement
           icon={RiBook2Line}
-          title={section.descriptor.title}
           subtitle={ParagraphReducer(section.descriptor.subtitle)}
+          title={section.descriptor.title}
         />
       </Link>
     );
@@ -36,11 +33,13 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
 
   const determineTypeOfResource = (section) => {
     let icon;
+
     // Document
     if (section.content.link.type === 'document') {
       const fileName = section.descriptor.subtitle;
       const splittedNameArray = fileName.split('.');
       const extension = splittedNameArray[splittedNameArray.length - 1];
+
       if (extension === 'pdf') {
         icon = VscFilePdf;
       } else if (
@@ -70,27 +69,29 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
     if (section.content.link.type === 'link') {
       icon = RiExternalLinkFill;
     }
+
     return { icon };
   };
 
   const displayResource = (section) => {
     const { icon } = determineTypeOfResource(section);
     let resourceLink;
+
     if (section.content.link.locationType === 'absolute') {
       resourceLink = section.content.link.location;
-      if (resourceLink.substring(0, 4) !== 'http')
-        resourceLink = `http://${resourceLink}`;
+      if (resourceLink.substring(0, 4) !== 'http') resourceLink = `http://${resourceLink}`;
     } else {
       resourceLink = `http://www.afatecha.com/id/files/${section.content.link.type}/${section.content.link.location}`;
     }
+
     return (
       <LinkBox>
         <LinkOverlay href={resourceLink} isExternal="true" />
         <Stack cursor="pointer">
           <SectionElement
             icon={icon}
-            title={section.descriptor.title}
             subtitle={ParagraphReducer(section.descriptor.subtitle)}
+            title={section.descriptor.title}
           />
         </Stack>
       </LinkBox>
@@ -99,8 +100,8 @@ const DisplayKnowMore = ({ sections, isTopic }) => {
 
   return (
     <>
-      <HStack textAlign="left" justifyContent="flex-start" w="40rem">
-        <Heading fontSize="sm" color="gray.600" fontWeight="400">
+      <HStack justifyContent="flex-start" textAlign="left" w="40rem">
+        <Heading color="gray.600" fontSize="sm" fontWeight="400">
           PARA SABER MÁS
         </Heading>
       </HStack>

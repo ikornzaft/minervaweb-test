@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Link as ReactRouterLink,
-  useHistory,
-  useParams,
-} from 'react-router-dom';
+import { Link as ReactRouterLink, useHistory, useParams } from 'react-router-dom';
 import { HStack, Button, createStandaloneToast } from '@chakra-ui/react';
 
 const CompleteActivityBar = () => {
@@ -34,12 +30,14 @@ const CompleteActivityBar = () => {
 
     async function fetchData() {
       const toast = createStandaloneToast();
+
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         console.log(resJson);
         toast({
           title: 'Actividad completada',
@@ -66,23 +64,23 @@ const CompleteActivityBar = () => {
 
   return (
     <HStack
-      h="82px"
-      w="85rem"
-      position="fixed"
-      justifyContent="flex-end"
       alignItems="flex-end"
+      h="82px"
+      justifyContent="flex-end"
       paddingBottom={1}
       paddingX={2}
+      position="fixed"
+      w="85rem"
       zIndex="90"
     >
-      <HStack w="18rem" justifyContent="center">
+      <HStack justifyContent="center" w="18rem">
         <Button
-          w="14rem"
-          type="button"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
+          type="button"
           variant="primary"
+          w="14rem"
           onClick={completeHandler}
         >
           {' '}

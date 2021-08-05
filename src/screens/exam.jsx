@@ -1,17 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { Stack, Box, Spinner, VStack } from '@chakra-ui/react';
+
 import { ExamContent } from '../components/exam/examContent';
 
 const Loader = () => (
-  <Box paddingTop={24} height="50vh">
-    <Spinner
-      thickness="4px"
-      speed="0.65s"
-      emptyColor="gray.200"
-      color="blue.500"
-      size="xl"
-    />
+  <Box height="50vh" paddingTop={24}>
+    <Spinner color="blue.500" emptyColor="gray.200" size="xl" speed="0.65s" thickness="4px" />
   </Box>
 );
 
@@ -53,16 +48,13 @@ const Exam = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         console.log(resJson);
-        setTitle(
-          resJson.message.entity.resource.articleHeader.descriptor.title
-        );
-        setSubtitle(
-          resJson.message.entity.resource.articleHeader.descriptor.subtitle
-        );
+        setTitle(resJson.message.entity.resource.articleHeader.descriptor.title);
+        setSubtitle(resJson.message.entity.resource.articleHeader.descriptor.subtitle);
         setParagraphs(resJson.message.entity.resource.paragraphs);
         setWorkarea(resJson.message.entity.resource.workarea.publicId);
         setDate(resJson.message.entity.logs.inserted.timestamp);
@@ -82,21 +74,16 @@ const Exam = () => {
   }, [pathname]);
 
   return (
-    <Stack
-      marginTop={4}
-      alignItems="center"
-      paddingBottom={6}
-      ref={containerRef}
-    >
+    <Stack ref={containerRef} alignItems="center" marginTop={4} paddingBottom={6}>
       {isLoading ? (
         <Loader />
       ) : (
         <ExamContent
-          title={title}
-          subtitle={subtitle}
-          paragraphs={paragraphs}
-          workarea={workarea}
           date={date}
+          paragraphs={paragraphs}
+          subtitle={subtitle}
+          title={title}
+          workarea={workarea}
         />
       )}
     </Stack>

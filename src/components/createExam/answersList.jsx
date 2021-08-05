@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Stack,
-  HStack,
-  Radio,
-  RadioGroup,
-  Text,
-  Button,
-  IconButton,
-} from '@chakra-ui/react';
+import { Stack, HStack, Radio, RadioGroup, Text, Button, IconButton } from '@chakra-ui/react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
 const AnswersList = ({ answersArray, setAnswersArray, option, setOption }) => {
@@ -16,48 +8,39 @@ const AnswersList = ({ answersArray, setAnswersArray, option, setOption }) => {
   };
   const deleteItem = (e) => {
     const linkToDeleteId = e.currentTarget.id;
-    const filteredAnswers = answersArray.filter(
-      (item) => item !== answersArray[linkToDeleteId]
-    );
+    const filteredAnswers = answersArray.filter((item) => item !== answersArray[linkToDeleteId]);
+
     setAnswersArray(filteredAnswers);
     console.log(filteredAnswers, option);
   };
+
   return (
     <Stack w="100%">
-      <RadioGroup onChange={selectRadio} value={option}>
+      <RadioGroup value={option} onChange={selectRadio}>
         {answersArray.map((answer, index) => {
           return (
-            <HStack key={index} w="100%" paddingY={1}>
+            <HStack key={index} paddingY={1} w="100%">
               <HStack
+                alignItems="center"
                 bg="gray.100"
-                w="100%"
                 borderRadius="md"
                 justifyContent="space-between"
-                alignItems="center"
-                paddingY={2}
                 paddingX={4}
+                paddingY={2}
+                w="100%"
               >
-                <HStack w={6} justifyContent="center">
-                  <Radio
-                    borderColor="gray.300"
-                    colorScheme="blue"
-                    value={index}
-                  ></Radio>
+                <HStack justifyContent="center" w={6}>
+                  <Radio borderColor="gray.300" colorScheme="blue" value={index} />
                 </HStack>
-                <HStack
-                  w="100%"
-                  justifyContent="flex-start"
-                  textAlign="left"
-                  paddingX={2}
-                >
+                <HStack justifyContent="flex-start" paddingX={2} textAlign="left" w="100%">
                   <Text fontSize="xs">{answer}</Text>
                 </HStack>
-                <HStack w={6} justifyContent="center">
+                <HStack justifyContent="center" w={6}>
                   <IconButton
                     aria-label="delete answer"
-                    size="sm"
-                    id={index}
                     icon={<FaRegTrashAlt />}
+                    id={index}
+                    size="sm"
                     onClick={deleteItem}
                   />
                 </HStack>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { VStack } from '@chakra-ui/react';
+
 import { DisplayImage } from './displayImage';
 import { DisplayLink } from './displayLink';
 import { DisplayAudio } from './displayAudio';
@@ -12,30 +13,18 @@ const ParagraphItemDisplay = ({ item }) => {
   const subtitle = item.descriptor.subtitle;
 
   return (
-    <VStack w="100%" p={6}>
+    <VStack p={6} w="100%">
       {paragraphType === 'image' ? (
         <DisplayImage linkLocation={linkLocation} title={title} />
       ) : null}
       {paragraphType === 'link' ? (
-        <DisplayLink
-          linkLocation={linkLocation}
-          title={title}
-          subtitle={subtitle}
-        />
+        <DisplayLink linkLocation={linkLocation} subtitle={subtitle} title={title} />
       ) : null}
       {paragraphType === 'audio' ? (
-        <DisplayAudio
-          linkLocation={linkLocation}
-          title={title}
-          subtitle={subtitle}
-        />
+        <DisplayAudio linkLocation={linkLocation} subtitle={subtitle} title={title} />
       ) : null}
       {paragraphType === 'document' ? (
-        <DisplayDocument
-          linkLocation={linkLocation}
-          title={title}
-          subtitle={subtitle}
-        />
+        <DisplayDocument linkLocation={linkLocation} subtitle={subtitle} title={title} />
       ) : null}
     </VStack>
   );

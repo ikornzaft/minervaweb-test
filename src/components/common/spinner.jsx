@@ -3,14 +3,8 @@ import { Box, Spinner } from '@chakra-ui/react';
 
 const BlueSpinner = () => {
   return (
-    <Box paddingTop={24} height="50vh">
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
+    <Box height="50vh" paddingTop={24}>
+      <Spinner color="blue.500" emptyColor="gray.200" size="xl" speed="0.65s" thickness="4px" />
     </Box>
   );
 };

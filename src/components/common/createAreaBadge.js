@@ -2,6 +2,7 @@ import { LABELS } from '../../locals/sp/labels';
 
 const CreateAreaBadge = (area) => {
   let badge = {};
+
   if (area === 'mate')
     badge = {
       color: 'blue',

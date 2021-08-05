@@ -12,17 +12,11 @@ import {
   createStandaloneToast,
   Box,
 } from '@chakra-ui/react';
-import { LABELS } from '../../locals/sp/labels';
 import { v4 as uuidv4 } from 'uuid';
-
 import { FaQuestion } from 'react-icons/fa';
-const ParagraphPopover = ({
-  header,
-  paragraphId,
-  articleId,
-  area,
-  articleTitle,
-}) => {
+
+import { LABELS } from '../../locals/sp/labels';
+const ParagraphPopover = ({ header, paragraphId, articleId, area, articleTitle }) => {
   const [question, setQuestion] = useState('');
   const initialFocusRef = useRef();
   const [error, setError] = useState(null);
@@ -33,9 +27,7 @@ const ParagraphPopover = ({
 
     const credentials = localStorage.getItem('credentials');
     const date = new Date();
-    const formatedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    )
+    const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     const questionId = 'Q-' + formatedDate + '-' + uuidv4();
@@ -95,9 +87,10 @@ const ParagraphPopover = ({
       try {
         setLoading(true);
         const response = await fetch(url, jsonMessage);
-        if (response.status >= 400 && response.status < 600)
-          setError('Bad response from server');
+
+        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
+
         toast({
           title: 'Consulta enviada.',
           description: 'Se creó un nuevo consulta.',
@@ -119,6 +112,7 @@ const ParagraphPopover = ({
         setQuestion('');
       }
     };
+
     fetchData();
   };
 
@@ -126,17 +120,17 @@ const ParagraphPopover = ({
     <form onSubmit={handleSubmit}>
       <Textarea
         ref={initialFocusRef}
+        backgroundColor="white"
         fontFamily="Open Sans"
         fontSize="sm"
-        backgroundColor="white"
         id="question"
         name="question"
+        placeholder={LABELS.ARTICLE.POPOVER.PLACEHOLDER}
         value={question}
         onChange={(el) => setQuestion(el.target.value)}
-        placeholder={LABELS.ARTICLE.POPOVER.PLACEHOLDER}
       />
       <Box paddingY={3}>
-        <Button size="sm" variant="primary" type="submit" onClick={onClose}>
+        <Button size="sm" type="submit" variant="primary" onClick={onClose}>
           {LABELS.ARTICLE.POPOVER.BUTON_CONTENT}
         </Button>
       </Box>
@@ -149,23 +143,21 @@ const ParagraphPopover = ({
         <>
           <PopoverTrigger zIndex="1">
             <IconButton
-              size="sm"
+              _groupHover={{ visibility: 'visible' }}
               bg="primary"
               color="white"
-              visibility="hidden"
-              _groupHover={{ visibility: 'visible' }}
-              isRound={true}
               icon={<FaQuestion />}
+              isRound={true}
+              size="sm"
+              visibility="hidden"
             />
           </PopoverTrigger>
           <PopoverContent>
             <PopoverArrow />
-            <PopoverHeader paddingX={4} fontSize="sm">
+            <PopoverHeader fontSize="sm" paddingX={4}>
               {header}
             </PopoverHeader>
-            <PopoverBody textAlign="center">
-              {questionForm((onClose = { onClose }))}
-            </PopoverBody>
+            <PopoverBody textAlign="center">{questionForm((onClose = { onClose }))}</PopoverBody>
           </PopoverContent>
         </>
       )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
+
 import { DisplayExam } from './displayExam';
 
 const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
@@ -35,13 +36,15 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
         },
       }),
     };
+
     async function fetchData() {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         console.log(resJson);
         setExams(resJson.message.resources);
       } catch (err) {
@@ -59,14 +62,14 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
         key: exam.entity.publicId,
         value: exam.contentHeader.descriptor.title,
       };
+
       setExamsToDisplay((prevExams) => [...prevExams, newExamToDisplay]);
     });
   }, [exams]);
 
   const addExam = () => {
-    const examIndex = exams.findIndex(
-      (option) => option.entity.publicId === optionValue
-    );
+    const examIndex = exams.findIndex((option) => option.entity.publicId === optionValue);
+
     if (examIndex !== -1) {
       const examObj = {
         descriptor: {
@@ -84,6 +87,7 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
       const elementExists = selectedExams.findIndex(
         (el) => el.content.entity.publicId === optionValue
       );
+
       if (elementExists === -1) setSelectedExams([...selectedExams, examObj]);
     }
     setOptionValue(null);
@@ -92,11 +96,11 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
   return (
     <VStack paddingTop={2}>
       <Select
-        w="12rem"
-        borderRadius="md"
-        size="sm"
-        placeholder="Elige la materia"
         autoFocus={true}
+        borderRadius="md"
+        placeholder="Elige la materia"
+        size="sm"
+        w="12rem"
         onChange={(e) => {
           setSelectedArea(e.target.value);
         }}
@@ -112,9 +116,9 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
       <HStack className="form-control" paddingY={4}>
         <Select
           borderRadius="md"
-          w="20rem"
-          size="sm"
           placeholder="Selecciona un examen"
+          size="sm"
+          w="20rem"
           onChange={(e) => {
             setOptionValue(e.target.value);
           }}
@@ -128,14 +132,14 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
           })}
         </Select>
         <Button
-          type="button"
-          w="12rem"
-          variant="outline"
-          fontFamily="Poppins"
-          fontWeight="400"
           bgColor="white"
           colorScheme="blue"
+          fontFamily="Poppins"
+          fontWeight="400"
           size="sm"
+          type="button"
+          variant="outline"
+          w="12rem"
           onClick={addExam}
         >
           Agregar examen
@@ -145,10 +149,10 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
         if (exam !== '')
           return (
             <DisplayExam
+              exam={exam}
               options={exams}
               selectedExams={selectedExams}
               setSelectedExams={setSelectedExams}
-              exam={exam}
             />
           );
       })}

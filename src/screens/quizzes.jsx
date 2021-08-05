@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner } from '@chakra-ui/react';
+
 import { QuizzesList } from '../components/quizzes/quizzesList';
 import { LABELS } from '../locals/sp/labels';
 
@@ -74,9 +75,10 @@ const Quizzes = () => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         setQuizzes(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -101,32 +103,26 @@ const Quizzes = () => {
   };
 
   return (
-    <Container maxWidth="container.lg" alignSelf="center" pt={12}>
+    <Container alignSelf="center" maxWidth="container.lg" pt={12}>
       <Stack direction="column" textAlign="center">
         <Stack alignItems="center" padding={2} paddingBottom={8} spacing={6}>
           <Stack direction="row" w="50rem">
             <Heading
               as="h3"
-              width="100%"
+              borderBottomColor="primary"
+              borderBottomWidth="3px"
+              fontSize="lg"
+              fontWeight="400"
               paddingRight={8}
               paddingTop={2}
               textAlign="left"
-              fontSize="lg"
-              fontWeight="400"
-              borderBottomColor="primary"
-              borderBottomWidth="3px"
+              width="100%"
             >
               Autoevaluaciones
             </Heading>
           </Stack>
           {isLoading ? (
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="white"
-              color="primary"
-              size="xl"
-            >
+            <Spinner color="primary" emptyColor="white" size="xl" speed="0.65s" thickness="4px">
               Loading...
             </Spinner>
           ) : (

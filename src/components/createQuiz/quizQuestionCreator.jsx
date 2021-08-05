@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Input,
-  Textarea,
-  FormControl,
-  FormLabel,
-  Button,
-} from '@chakra-ui/react';
+import { Input, Textarea, FormControl, FormLabel, Button } from '@chakra-ui/react';
+
 import { WrongAnswersList } from './wrongAnswersList';
 
 const QuizQuestionCreator = ({ addNewQuestionToArray, onClose }) => {
@@ -51,25 +46,16 @@ const QuizQuestionCreator = ({ addNewQuestionToArray, onClose }) => {
     <>
       <FormControl>
         <FormLabel>Nueva pregunta</FormLabel>
-        <Textarea
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-        />
+        <Textarea value={question} onChange={(e) => setQuestion(e.target.value)} />
         <FormLabel>Respuesta correcta</FormLabel>
-        <Input
-          type="text"
-          value={rightAnswer}
-          onChange={(e) => setRightAnswer(e.target.value)}
-        />
+        <Input type="text" value={rightAnswer} onChange={(e) => setRightAnswer(e.target.value)} />
         <FormLabel>Opción incorrecta {wrongAnswers.length + 1}</FormLabel>
         <Input
           type="text"
           value={currentWrongAnswer}
           onChange={(e) => setCurrentWrongAnswer(e.target.value)}
         />
-        <Button onClick={addNewWrongAnswer}>
-          Ingresar nueva opción incorrecta
-        </Button>
+        <Button onClick={addNewWrongAnswer}>Ingresar nueva opción incorrecta</Button>
       </FormControl>
       <WrongAnswersList wrongAnswers={wrongAnswers} />
 

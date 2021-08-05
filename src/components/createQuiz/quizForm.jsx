@@ -24,12 +24,12 @@ import {
   Box,
   useDisclosure,
 } from '@chakra-ui/react';
+
 import { AREAS } from '../../locals/sp/areas';
+import { ParagraphReducer } from '../common/paragraphReducer';
 
 import { QuizQuestionsForm } from './quizQuestionsForm';
-
 import { ElementMenu } from './elementMenu';
-import { ParagraphReducer } from '../common/paragraphReducer';
 
 const QuizForm = ({ isOpen, onClose, modalTitle }) => {
   const [quizQuestionsArray, setQuizQuestionsArray] = useState([]);
@@ -74,9 +74,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
 
   const createNewQuiz = (el) => {
     const date = new Date();
-    const formatedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    )
+    const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     const quizId = 'QZ-' + formatedDate + '-' + uuidv4();
@@ -124,9 +122,10 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
       try {
         setLoading(true);
         const response = await fetch(url, jsonMessage);
-        if (response.status >= 400 && response.status < 600)
-          setError('Bad response from server');
+
+        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
+
         console.log(resJson);
         toast({
           title: 'Nueva autoevaluación guardada.',
@@ -150,36 +149,39 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
         setLoading(false);
       }
     };
+
     fetchData();
   };
 
   const listItems = (el, index) => {
     const descriptor = el.descriptor;
     let content;
+
     el.content ? (content = el.content) : (content = null);
+
     return (
       <HStack
         key={index}
-        width="30rem"
-        maxWidth="35rem"
-        minWidth="30rem"
-        paddingY={2}
-        paddingX={6}
         bgColor="gray.100"
         borderRadius="md"
-        marginBottom={2}
         justifyContent="space-between"
+        marginBottom={2}
+        maxWidth="35rem"
+        minWidth="30rem"
+        paddingX={6}
+        paddingY={2}
+        width="30rem"
       >
         <Text fontSize="sm" textAlign="left">
           {ParagraphReducer(descriptor.title)}
         </Text>
         <ElementMenu
-          index={index}
-          paragraphList={quizQuestionsArray}
-          setParagraphList={setQuizQuestionsArray}
           forceRender={forceRender}
-          setForceRender={setForceRender}
+          index={index}
           isImage="false"
+          paragraphList={quizQuestionsArray}
+          setForceRender={setForceRender}
+          setParagraphList={setQuizQuestionsArray}
         />
       </HStack>
     );
@@ -190,70 +192,56 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
       <Modal isOpen={isOpen} size="6xl" onClose={onClose}>
         <ModalOverlay />
         <ModalContent padding={2}>
-          <ModalHeader
-            alignSelf="center"
-            color="gray.700"
-            fontFamily="Poppins"
-            fontWeight="300"
-          >
+          <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
             {modalTitle}
           </ModalHeader>
           <ModalBody textAlign="center">
             <Formik
-              validationSchema={validationSchema}
               initialValues={initialValues}
+              validationSchema={validationSchema}
               onSubmit={createNewQuiz}
             >
               {(props) => (
                 <Form>
                   <Stack
-                    direction="row"
-                    w="full"
-                    justifyContent="space-evenly"
                     alignItems="flex-start"
+                    direction="row"
+                    justifyContent="space-evenly"
+                    w="full"
                   >
                     <VStack
+                      h="20rem"
+                      justifyContent="flex-start"
+                      paddingBottom={6}
                       paddingX={6}
                       w="50%"
-                      h="20rem"
-                      paddingBottom={6}
-                      justifyContent="flex-start"
                     >
                       <Field name="area">
                         {({ field, form }) => {
                           return (
                             <FormControl
-                              w="15rem"
+                              isInvalid={form.errors['area'] && form.touched['area']}
                               paddingBottom={4}
-                              isInvalid={
-                                form.errors['area'] && form.touched['area']
-                              }
+                              w="15rem"
                             >
                               <Select
-                                placeholder="Selecciona la materia"
                                 borderRadius="md"
+                                id="area"
+                                placeholder="Selecciona la materia"
                                 size="sm"
                                 w="15rem"
-                                id="area"
                                 {...props}
                                 {...field}
                               >
                                 {workAreas.map((option) => {
                                   return (
-                                    <option
-                                      key={option.value}
-                                      value={option.value}
-                                    >
+                                    <option key={option.value} value={option.value}>
                                       {option.key}
                                     </option>
                                   );
                                 })}
                               </Select>
-                              <FormErrorMessage
-                                position="absolute"
-                                top="1.7rem"
-                                fontSize="xs"
-                              >
+                              <FormErrorMessage fontSize="xs" position="absolute" top="1.7rem">
                                 {form.errors['area']}
                               </FormErrorMessage>
                             </FormControl>
@@ -265,31 +253,20 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                         {({ field, form }) => (
                           <FormControl
                             h={20}
+                            isInvalid={form.errors['title'] && form.touched['title']}
                             overflow="hidden"
                             padding="0"
-                            isInvalid={
-                              form.errors['title'] && form.touched['title']
-                            }
                           >
                             <FormLabel
-                              fontSize="sm"
                               fontFamily="Open Sans"
+                              fontSize="sm"
                               htmlFor="title"
                               marginBottom="0"
                             >
                               Título
                             </FormLabel>
-                            <Input
-                              fontSize="sm"
-                              {...props}
-                              {...field}
-                              id="title"
-                            />
-                            <FormErrorMessage
-                              position="absolute"
-                              top="3.5rem"
-                              fontSize="xs"
-                            >
+                            <Input fontSize="sm" {...props} {...field} id="title" />
+                            <FormErrorMessage fontSize="xs" position="absolute" top="3.5rem">
                               {form.errors['title']}
                             </FormErrorMessage>
                           </FormControl>
@@ -300,15 +277,12 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                         {({ field, form }) => (
                           <FormControl
                             h={32}
+                            isInvalid={form.errors['subtitle'] && form.touched['subtitle']}
                             padding="0"
-                            isInvalid={
-                              form.errors['subtitle'] &&
-                              form.touched['subtitle']
-                            }
                           >
                             <FormLabel
-                              fontSize="sm"
                               fontFamily="Open Sans"
+                              fontSize="sm"
                               htmlFor="subtitle"
                               marginBottom="0"
                             >
@@ -322,11 +296,7 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                               id="subtitle"
                               placeholder="Ingresa la descripción de la autoevaluación"
                             />
-                            <FormErrorMessage
-                              position="absolute"
-                              top="13rem"
-                              fontSize="xs"
-                            >
+                            <FormErrorMessage fontSize="xs" position="absolute" top="13rem">
                               {form.errors['subtitle']}
                             </FormErrorMessage>
                           </FormControl>
@@ -334,48 +304,41 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
                       </Field>
                     </VStack>
                     <VStack
-                      w="50%"
+                      borderRadius="md"
+                      borderWidth="1px"
                       h="26rem"
                       maxHeight="26rem"
                       overflowY="scroll"
-                      borderWidth="1px"
-                      borderRadius="md"
                       paddingLeft={6}
                       paddingTop={4}
+                      w="50%"
                     >
                       <Box h="2rem">
                         <Button
-                          variant="outline"
-                          colorScheme="blue"
                           bgColor="white"
-                          size="sm"
-                          width="12rem"
+                          colorScheme="blue"
                           fontFamily="Poppins"
                           fontWeight="400"
+                          size="sm"
+                          variant="outline"
+                          width="12rem"
                           onClick={handleNewQuestion}
                         >
                           + Nueva Pregunta
                         </Button>
                       </Box>
                       <VStack paddingTop={2}>
-                        {quizQuestionsArray.map((el, index) =>
-                          listItems(el, index)
-                        )}
+                        {quizQuestionsArray.map((el, index) => listItems(el, index))}
                       </VStack>
                     </VStack>
                   </Stack>
                   <HStack
-                    justifyContent="center"
                     alignItems="flex-end"
-                    paddingTop={6}
+                    justifyContent="center"
                     paddingBottom={3}
+                    paddingTop={6}
                   >
-                    <Button
-                      type="submit"
-                      colorScheme="blue"
-                      fontFamily="Poppins"
-                      fontWeight="400"
-                    >
+                    <Button colorScheme="blue" fontFamily="Poppins" fontWeight="400" type="submit">
                       Crear autoevaluación
                     </Button>
                   </HStack>
@@ -387,12 +350,12 @@ const QuizForm = ({ isOpen, onClose, modalTitle }) => {
         </ModalContent>
       </Modal>
       <QuizQuestionsForm
-        isOpen={isOpenNewQuestion}
-        onClose={onCloseNewQuestion}
-        modalTitle="Nueva pregunta"
         buttonText="Agregar pregunta"
-        quizQuestionsArray={quizQuestionsArray}
         changeQuestionsArray={changeQuestionsArray}
+        isOpen={isOpenNewQuestion}
+        modalTitle="Nueva pregunta"
+        quizQuestionsArray={quizQuestionsArray}
+        onClose={onCloseNewQuestion}
       />
     </>
   );

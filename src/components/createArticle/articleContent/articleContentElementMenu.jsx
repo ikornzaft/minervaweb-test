@@ -14,69 +14,62 @@ const ArticleContentElementMenu = ({
   isImage,
 }) => {
   const moveUp = (el) => {
-    const elementId = el.currentTarget.id.substr(
-      el.currentTarget.id.length - 1
-    );
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const newArray = [...paragraphList];
     const element = newArray.splice(elementId, 1);
     const removed = newArray.splice(elementId - 1, 0, element[0]);
+
     setParagraphList(newArray);
   };
 
   const moveDown = (el) => {
-    const elementId = el.currentTarget.id.substr(
-      el.currentTarget.id.length - 1
-    );
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const newArray = [...paragraphList];
     const element = newArray.splice(elementId, 1);
     const removed = newArray.splice(+elementId + 1, 0, element[0]);
+
     setParagraphList(newArray);
   };
 
   const delItem = (el) => {
-    const elementId = el.currentTarget.id.substr(
-      el.currentTarget.id.length - 1
-    );
+    const elementId = el.currentTarget.id.substr(el.currentTarget.id.length - 1);
     const newArray = [...paragraphList];
     const removed = newArray.splice(elementId, 1);
+
     setParagraphList(newArray);
   };
+
   return (
     <VStack heigth="100%">
       <Button
+        boxShadow="none !important"
+        id={`btn-up-${index}`}
+        isDisabled={index < 1 ? true : false}
         size="xs"
         type="button"
-        id={`btn-up-${index}`}
         onClick={moveUp}
-        isDisabled={index < 1 ? true : false}
-        boxShadow="none !important"
       >
         {<FaSortUp />}
       </Button>
       <EditElementPopover
-        id={`popover-${index}`}
-        paragraphList={paragraphList}
-        setParagraphList={setParagraphList}
         elementId={index}
         forceRender={forceRender}
-        setForceRender={setForceRender}
+        id={`popover-${index}`}
         isImage={isImage}
+        paragraphList={paragraphList}
+        setForceRender={setForceRender}
+        setParagraphList={setParagraphList}
       />
-      <Button
-        size="xs"
-        type="button"
-        id={`btn-delete-${index}`}
-        onClick={delItem}
-      >
+      <Button id={`btn-delete-${index}`} size="xs" type="button" onClick={delItem}>
         {<FaRegTrashAlt />}
       </Button>
       <Button
+        boxShadow="none !important"
+        id={`btn-down-${index}`}
+        isDisabled={index === paragraphList.length - 1 ? true : false}
         size="xs"
         type="button"
-        id={`btn-down-${index}`}
         onClick={moveDown}
-        boxShadow="none !important"
-        isDisabled={index === paragraphList.length - 1 ? true : false}
       >
         {<FaSortDown />}
       </Button>

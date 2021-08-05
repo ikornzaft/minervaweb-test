@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { HStack, Button, Box, useDisclosure } from '@chakra-ui/react';
+
 import { WorkgroupSelector } from '../article/publish/workgroupSelector';
 import { NewTopicModal } from '../forum/newTopicModal';
 
@@ -29,57 +30,57 @@ const DraftMenu = () => {
 
   return (
     <HStack
-      h="82px"
-      borderBottomWidth="1px"
-      borderBottomColor="gray.300"
-      w="100vw"
-      bg="primary_light"
-      position="fixed"
-      justifyContent="flex-end"
       alignItems="flex-end"
+      bg="primary_light"
+      borderBottomColor="gray.300"
+      borderBottomWidth="1px"
+      h="82px"
+      justifyContent="flex-end"
       paddingBottom={1}
       paddingX={6}
+      position="fixed"
+      w="100vw"
       zIndex="90"
     >
-      <HStack w="38rem" justifyContent="space-between">
+      <HStack justifyContent="space-between" w="38rem">
         <Button
           as={ReactRouterLink}
-          to={`/draft/${param.id}`}
-          type="button"
+          bg="white"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
+          to={`/draft/${param.id}`}
+          type="button"
           variant="ghost"
-          bg="white"
           width="12rem"
         >
           {' '}
           Visualizar borrador
         </Button>
         <Button
-          w="12rem"
-          type="button"
+          bg="white"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
+          type="button"
           variant="ghost"
-          bg="white"
+          w="12rem"
           onClick={createTopic}
         >
           {' '}
           Publicar en el foro
         </Button>
         <Button
-          w="12rem"
-          type="button"
+          bg="white"
           colorScheme="blue"
           fontFamily="Poppins"
           fontWeight="400"
           size="sm"
+          type="button"
           variant="ghost"
-          bg="white"
+          w="12rem"
           onClick={groupSelectorHandler}
         >
           {' '}
@@ -87,15 +88,8 @@ const DraftMenu = () => {
         </Button>
       </HStack>
 
-      <WorkgroupSelector
-        isOpen={isOpenGroupSelector}
-        onClose={onCloseGroupSelector}
-      />
-      <NewTopicModal
-        isOpen={isOpenTopicModal}
-        onClose={onCloseTopicModal}
-        articleId={param.id}
-      />
+      <WorkgroupSelector isOpen={isOpenGroupSelector} onClose={onCloseGroupSelector} />
+      <NewTopicModal articleId={param.id} isOpen={isOpenTopicModal} onClose={onCloseTopicModal} />
     </HStack>
   );
 };

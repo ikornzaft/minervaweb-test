@@ -12,6 +12,7 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
+
 import { ArticleContentInputModal } from '../createArticle/articleContent/articleContentInputModal';
 import { ArticleContentItem } from '../createArticle/articleContent/articleContentItem';
 import { ArticleContentElementMenu } from '../createArticle/articleContent/articleContentElementMenu';
@@ -21,28 +22,30 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
   const listItems = (el, index) => {
     const descriptor = el.descriptor;
     let content;
+
     el.content ? (content = el.content) : (content = null);
+
     return (
       <HStack
         key={index}
-        width="35rem"
-        maxWidth="35rem"
-        minWidth="30rem"
-        paddingY={2}
-        paddingX={6}
         bgColor="gray.100"
         borderRadius="md"
-        marginBottom={2}
         justifyContent="space-between"
+        marginBottom={2}
+        maxWidth="35rem"
+        minWidth="30rem"
+        paddingX={6}
+        paddingY={2}
+        width="35rem"
       >
-        <ArticleContentItem descriptor={descriptor} content={content} />
+        <ArticleContentItem content={content} descriptor={descriptor} />
         <ArticleContentElementMenu
-          index={index}
-          paragraphList={draftContent}
-          setParagraphList={setDraftContent}
           forceRender={forceRender}
-          setForceRender={setForceRender}
+          index={index}
           isImage="false"
+          paragraphList={draftContent}
+          setForceRender={setForceRender}
+          setParagraphList={setDraftContent}
         />
       </HStack>
     );
@@ -63,48 +66,36 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
     setDraftContent(draftContent);
     onClose();
   };
+
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           Editar contenido
         </ModalHeader>
         <ModalBody textAlign="center">
-          <VStack
-            w="100%"
-            paddingX={4}
-            paddingBottom={4}
-            borderRadius="md"
-            borderWidth="1px"
-          >
+          <VStack borderRadius="md" borderWidth="1px" paddingBottom={4} paddingX={4} w="100%">
             <Button
-              mt={4}
-              colorScheme="blue"
-              type="button"
-              variant="outline"
               bgColor="white"
-              onClick={addContentHandler}
-              size="sm"
+              colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
+              mt={4}
+              size="sm"
+              type="button"
+              variant="outline"
+              onClick={addContentHandler}
             >
               Agregar contenido
             </Button>
-            <VStack paddingTop={2}>
-              {draftContent.map((el, index) => listItems(el, index))}
-            </VStack>
+            <VStack paddingTop={2}>{draftContent.map((el, index) => listItems(el, index))}</VStack>
           </VStack>
-          <HStack w="100%" justifyContent="center" paddingY={4}>
+          <HStack justifyContent="center" paddingY={4} w="100%">
             <Button
+              colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
-              colorScheme="blue"
               onClick={handleChanges}
             >
               Confirmar cambios
@@ -115,9 +106,9 @@ const ContentModal = ({ isOpen, onClose, draftContent, setDraftContent }) => {
       </ModalContent>
       <ArticleContentInputModal
         isOpen={isOpenAddContent}
-        onClose={onCloseAddContent}
         paragraphList={draftContent}
         setParagraphList={setDraftContent}
+        onClose={onCloseAddContent}
       />
     </Modal>
   );

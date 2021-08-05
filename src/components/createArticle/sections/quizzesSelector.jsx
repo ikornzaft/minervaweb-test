@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
+
 import { DisplayQuiz } from './displayQuiz';
 
-const QuizzesSelector = ({
-  workAreas,
-  selectedQuizzes,
-  setSelectedQuizzes,
-}) => {
+const QuizzesSelector = ({ workAreas, selectedQuizzes, setSelectedQuizzes }) => {
   const [quizzes, setQuizzes] = useState([]);
   const [quizzesToDisplay, setQuizzesToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,13 +36,15 @@ const QuizzesSelector = ({
         },
       }),
     };
+
     async function fetchData() {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         console.log(resJson);
         setQuizzes(resJson.message.resources);
       } catch (err) {
@@ -63,14 +62,14 @@ const QuizzesSelector = ({
         key: quiz.entity.publicId,
         value: quiz.contentHeader.descriptor.title,
       };
+
       setQuizzesToDisplay((prevQuizzes) => [...prevQuizzes, newQuizToDisplay]);
     });
   }, [quizzes]);
 
   const addQuiz = () => {
-    const quizIndex = quizzes.findIndex(
-      (option) => option.entity.publicId === optionValue
-    );
+    const quizIndex = quizzes.findIndex((option) => option.entity.publicId === optionValue);
+
     if (quizIndex !== -1) {
       const quizObj = {
         descriptor: {
@@ -88,8 +87,8 @@ const QuizzesSelector = ({
       const elementExists = selectedQuizzes.findIndex(
         (el) => el.content.entity.publicId === optionValue
       );
-      if (elementExists === -1)
-        setSelectedQuizzes([...selectedQuizzes, quizObj]);
+
+      if (elementExists === -1) setSelectedQuizzes([...selectedQuizzes, quizObj]);
     }
     setOptionValue(null);
   };
@@ -97,11 +96,11 @@ const QuizzesSelector = ({
   return (
     <VStack paddingTop={2}>
       <Select
-        w="12rem"
-        borderRadius="md"
-        size="sm"
-        placeholder="Elige la materia"
         autoFocus={true}
+        borderRadius="md"
+        placeholder="Elige la materia"
+        size="sm"
+        w="12rem"
         onChange={(e) => {
           setSelectedArea(e.target.value);
         }}
@@ -117,9 +116,9 @@ const QuizzesSelector = ({
       <HStack className="form-control" paddingY={4}>
         <Select
           borderRadius="md"
-          w="20rem"
-          size="sm"
           placeholder="Selecciona una autoevaluación"
+          size="sm"
+          w="20rem"
           onChange={(e) => {
             setOptionValue(e.target.value);
           }}
@@ -133,14 +132,14 @@ const QuizzesSelector = ({
           })}
         </Select>
         <Button
-          type="button"
-          w="12rem"
-          variant="outline"
-          fontFamily="Poppins"
-          fontWeight="400"
           bgColor="white"
           colorScheme="blue"
+          fontFamily="Poppins"
+          fontWeight="400"
           size="sm"
+          type="button"
+          variant="outline"
+          w="12rem"
           onClick={addQuiz}
         >
           Agregar autoevaluación
@@ -151,9 +150,9 @@ const QuizzesSelector = ({
           return (
             <DisplayQuiz
               options={quizzes}
+              quiz={quiz}
               selectedQuizzes={selectedQuizzes}
               setSelectedQuizzes={setSelectedQuizzes}
-              quiz={quiz}
             />
           );
       })}

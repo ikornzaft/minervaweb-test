@@ -4,12 +4,7 @@ import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
 
 import { DisplayRelatedArticle } from './displayRelatedArticle';
 
-const RelatedArticleSelector = ({
-  selectedArticles,
-  setSelectedArticles,
-  area,
-  workAreas,
-}) => {
+const RelatedArticleSelector = ({ selectedArticles, setSelectedArticles, area, workAreas }) => {
   const [articles, setArticles] = useState([]);
   const [articlesToDisplay, setArticlesToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,9 +40,10 @@ const RelatedArticleSelector = ({
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         setArticles(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -64,18 +60,14 @@ const RelatedArticleSelector = ({
         key: article.entity.publicId,
         value: article.contentHeader.descriptor.title,
       };
-      setArticlesToDisplay((prevArticles) => [
-        ...prevArticles,
-        newArticleToDisplay,
-      ]);
+
+      setArticlesToDisplay((prevArticles) => [...prevArticles, newArticleToDisplay]);
     });
   }, [articles]);
 
   // Creamos el estado optionValue
   // ¿es un array? No vamos a encontrar una propiedad relatedArticles
-  const [optionValue, setOptionValue] = useState(
-    selectedArticles.relatedArticles
-  );
+  const [optionValue, setOptionValue] = useState(selectedArticles.relatedArticles);
 
   // Chequeamos si una determinada opción ya fue elegida
   const checkSelectedArticles = (option) => {
@@ -83,15 +75,16 @@ const RelatedArticleSelector = ({
       const checked = selectedArticles.find(
         (article) => article.article.entity.publicId === option.key
       );
+
       if (checked) return true;
     }
+
     return false;
   };
 
   const addArticle = () => {
-    const articleIndex = articles.findIndex(
-      (option) => option.entity.publicId === optionValue
-    );
+    const articleIndex = articles.findIndex((option) => option.entity.publicId === optionValue);
+
     if (articleIndex !== -1) {
       const articleObj = {
         descriptor: {
@@ -108,8 +101,8 @@ const RelatedArticleSelector = ({
       const elementExists = selectedArticles.findIndex(
         (el) => el.article.entity.publicId === optionValue
       );
-      if (elementExists === -1)
-        setSelectedArticles([...selectedArticles, articleObj]);
+
+      if (elementExists === -1) setSelectedArticles([...selectedArticles, articleObj]);
     }
 
     setOptionValue(null);
@@ -118,11 +111,11 @@ const RelatedArticleSelector = ({
   return (
     <VStack paddingTop={2}>
       <Select
-        w="12rem"
-        borderRadius="md"
-        size="sm"
-        placeholder="Elige la materia"
         autoFocus={true}
+        borderRadius="md"
+        placeholder="Elige la materia"
+        size="sm"
+        w="12rem"
         onChange={(e) => {
           setSelectedArea(e.target.value);
         }}
@@ -138,9 +131,9 @@ const RelatedArticleSelector = ({
       <HStack className="form-control" paddingY={4}>
         <Select
           borderRadius="md"
-          w="20rem"
-          size="sm"
           placeholder="Seleccionar un artículo"
+          size="sm"
+          w="20rem"
           onChange={(e) => {
             setOptionValue(e.target.value);
           }}
@@ -154,14 +147,14 @@ const RelatedArticleSelector = ({
           })}
         </Select>
         <Button
-          type="button"
-          w="10rem"
-          variant="outline"
-          fontFamily="Poppins"
-          fontWeight="400"
           bgColor="white"
           colorScheme="blue"
+          fontFamily="Poppins"
+          fontWeight="400"
           size="sm"
+          type="button"
+          variant="outline"
+          w="10rem"
           onClick={addArticle}
         >
           Agregar artículo
@@ -171,10 +164,10 @@ const RelatedArticleSelector = ({
         if (article !== '')
           return (
             <DisplayRelatedArticle
+              article={article}
               options={articles}
               selectedArticles={selectedArticles}
               setSelectedArticles={setSelectedArticles}
-              article={article}
             />
           );
       })}

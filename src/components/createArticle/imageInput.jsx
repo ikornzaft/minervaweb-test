@@ -12,13 +12,13 @@ import {
   Text,
   createStandaloneToast,
 } from '@chakra-ui/react';
+
 import { CreateFileName } from '../common/createFileName';
 
 const ImageInput = ({ coverImage, setCoverImage }) => {
   const imgInputRef = useRef();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImageDescription, setSelectedImageDescription] =
-    useState(null);
+  const [selectedImageDescription, setSelectedImageDescription] = useState(null);
   const [missingImageDescription, setMissingImageDescription] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
     if (selectedImageDescription) {
       setLoading(true);
       const toast = createStandaloneToast();
+
       try {
         await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
           method: 'POST',
@@ -71,10 +72,7 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
   const onFileUpload = () => {
     const formData = new FormData();
 
-    const { fileName, fileRoute } = CreateFileName(
-      selectedImage.type,
-      selectedImage.name
-    );
+    const { fileName, fileRoute } = CreateFileName(selectedImage.type, selectedImage.name);
 
     formData.append('fn', fileName);
     formData.append('file', selectedImage);
@@ -95,53 +93,53 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
 
   return (
     <HStack
+      alignItems="flex-end"
+      bgColor="gray.50"
+      borderRadius="md"
+      borderStyle="solid"
+      borderWidth="1px"
       marginTop={4}
       padding={2}
       w="25rem"
-      bgColor="gray.50"
-      borderRadius="md"
-      alignItems="flex-end"
-      borderStyle="solid"
-      borderWidth="1px"
     >
       <FormControl
+        alignItems="center"
         display="flex"
-        w="100%"
         h="100%"
         justifyContent="space-evenly"
-        alignItems="center"
         textAlign="center"
+        w="100%"
       >
         {thumbnails ? (
           <Image
-            src={thumbnails}
-            boxSize="150px"
-            borderStyle="dashed"
             borderColor="gray.400"
             borderRadius="lg"
+            borderStyle="dashed"
             borderWidth="2px"
+            boxSize="150px"
             objectFit="cover"
+            src={thumbnails}
             onClick={() => {
               imgInputRef.current.click();
             }}
           />
         ) : (
           <FormLabel
-            htmlFor={'articleImg'}
+            _hover={{ bgColor: 'gray.300' }}
             bgColor="gray.200"
-            boxSize="150px"
+            borderColor="gray.400"
+            borderRadius="lg"
             borderStyle="dashed"
             borderWidth="2px"
-            borderRadius="lg"
-            borderColor="gray.400"
-            textAlign="center"
-            paddingY={12}
-            paddingX={4}
+            boxSize="150px"
+            cursor="pointer"
+            fontSize="sm"
+            htmlFor={'articleImg'}
             marginBottom={0}
             marginRight={0}
-            fontSize="sm"
-            _hover={{ bgColor: 'gray.300' }}
-            cursor="pointer"
+            paddingX={4}
+            paddingY={12}
+            textAlign="center"
             onChange={(e) => {
               imgInputRef.current.click();
             }}
@@ -150,18 +148,21 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
           </FormLabel>
         )}
         <Input
-          type="file"
-          id="articleImg"
-          display="none"
-          accept="image/*"
           ref={imgInputRef}
+          accept="image/*"
+          display="none"
+          id="articleImg"
+          type="file"
           onChange={(event) => {
             setSelectedImageDescription('');
             const file = event.target.files[0];
+
             if (file && file.type.substring(0, 5) === 'image') {
               const reader = new FileReader();
+
               reader.onloadend = () => {
                 const readerResult = reader.result;
+
                 setSelectedImage(file);
                 setThumbnails(readerResult);
               };
@@ -171,26 +172,26 @@ const ImageInput = ({ coverImage, setCoverImage }) => {
         />
         <VStack h="100%" justifyContent="space-evenly">
           <Textarea
-            fontSize="sm"
             backgroundColor="white"
+            fontSize="sm"
             id="articleImgFooter"
-            w="12rem"
-            value={selectedImageDescription}
             placeholder="Descripción de la imágen"
+            value={selectedImageDescription}
+            w="12rem"
             onChange={onDescriptionChange}
           />
           {missingImageDescription ? (
-            <Text position="absolute" fontSize="xs" color="red">
+            <Text color="red" fontSize="xs" position="absolute">
               Ingresa una descripción
             </Text>
           ) : null}
           <Button
-            type="button"
             colorScheme="blue"
+            disabled={selectedImage ? false : true}
             fontFamily="Poppins"
             fontWeight="400"
             size="xs"
-            disabled={selectedImage ? false : true}
+            type="button"
             variant="outline"
             onClick={onFileUpload}
           >

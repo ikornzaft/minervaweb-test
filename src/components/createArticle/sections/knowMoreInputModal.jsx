@@ -16,6 +16,7 @@ import {
   TabPanel,
   Flex,
 } from '@chakra-ui/react';
+
 import { RelatedArticleSelector } from './relatedArticleSelector';
 import { KnowMoreSelector } from './knowMoreSelector';
 import { KnowMoreLinkSelector } from './knowMoreLinkSelector';
@@ -52,6 +53,7 @@ const KnowMoreInputModal = ({
           },
         },
       };
+
       setSelectedArticles([articleObj]);
     }
   }, []);
@@ -59,6 +61,7 @@ const KnowMoreInputModal = ({
   const handleSubmit = (values) => {
     const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);
     const newList = [...sectionsList];
+
     newList[0].contents = concatArray;
     setSectionsList(newList);
     onClose();
@@ -70,10 +73,10 @@ const KnowMoreInputModal = ({
       <ModalContent>
         <ModalHeader
           alignSelf="center"
-          paddingBottom={2}
           color="gray.700"
           fontFamily="Poppins"
           fontWeight="300"
+          paddingBottom={2}
         >
           {title}
         </ModalHeader>
@@ -84,28 +87,13 @@ const KnowMoreInputModal = ({
                 <Form>
                   <Tabs>
                     <TabList justifyContent="center">
-                      <Tab
-                        fontSize="sm"
-                        width="12rem"
-                        fontFamily="Open Sans"
-                        paddingY={1}
-                      >
+                      <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                         Articulos
                       </Tab>
-                      <Tab
-                        fontSize="sm"
-                        width="12rem"
-                        fontFamily="Open Sans"
-                        paddingY={1}
-                      >
+                      <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                         Archivos
                       </Tab>
-                      <Tab
-                        fontSize="sm"
-                        width="12rem"
-                        fontFamily="Open Sans"
-                        paddingY={1}
-                      >
+                      <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                         Links
                       </Tab>
                     </TabList>
@@ -115,17 +103,14 @@ const KnowMoreInputModal = ({
                         <RelatedArticleSelector
                           area={area}
                           options={selectorOptions}
-                          workAreas={workAreas}
                           selectedArticles={selectedArticles}
                           setSelectedArticles={setSelectedArticles}
+                          workAreas={workAreas}
                         />
                       </TabPanel>
 
                       <TabPanel>
-                        <KnowMoreSelector
-                          knowMore={knowMore}
-                          setKnowMore={setKnowMore}
-                        />
+                        <KnowMoreSelector knowMore={knowMore} setKnowMore={setKnowMore} />
                       </TabPanel>
 
                       <TabPanel>
@@ -138,10 +123,10 @@ const KnowMoreInputModal = ({
                   </Tabs>
                   <Flex justifyContent="center" paddingX={4}>
                     <Button
-                      mt={4}
+                      colorScheme="blue"
                       fontFamily="Poppins"
                       fontWeight="400"
-                      colorScheme="blue"
+                      mt={4}
                       type="submit"
                     >
                       Confirmar contenido

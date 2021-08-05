@@ -9,14 +9,14 @@ import {
   Textarea,
   Text,
 } from '@chakra-ui/react';
-import { CreateFileName } from '../common/createFileName';
 import { FiUpload } from 'react-icons/fi';
+
+import { CreateFileName } from '../common/createFileName';
 
 const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
   const imageInputRef = useRef();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedImageDescription, setSelectedImageDescription] =
-    useState(null);
+  const [selectedImageDescription, setSelectedImageDescription] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
@@ -41,10 +41,13 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
 
   const onFileChange = (el) => {
     const file = el.target.files[0];
+
     if (file && file.type.substring(0, 5) === 'image') {
       const reader = new FileReader();
+
       reader.onloadend = () => {
         const readerResult = reader.result;
+
         setSelectedImage(file);
         setThumbnail(readerResult);
       };
@@ -54,10 +57,8 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
 
   const onFileUpload = (el) => {
     const formData = new FormData();
-    const { fileName, fileRoute } = CreateFileName(
-      selectedImage.type,
-      selectedImage.name
-    );
+    const { fileName, fileRoute } = CreateFileName(selectedImage.type, selectedImage.name);
+
     formData.append('fn', fileName);
     formData.append('file', selectedImage);
 
@@ -72,6 +73,7 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
   const uploadFile = async (route, data, newUploadedImage) => {
     setLoading(true);
     const toast = createStandaloneToast();
+
     try {
       await fetch(`http://afatecha.com:8080/minerva-server-web/${route}`, {
         method: 'POST',
@@ -110,13 +112,13 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
     <Stack alignItems="center" justifyContent="flex-start">
       {thumbnail ? (
         <Image
-          src={thumbnail}
-          boxSize="120px"
-          borderStyle="dashed"
           borderColor="gray.400"
           borderRadius="lg"
+          borderStyle="dashed"
           borderWidth="2px"
+          boxSize="120px"
           objectFit="cover"
+          src={thumbnail}
           onClick={(el) => {
             el.preventDefault();
             imageInputRef.current.click();
@@ -124,55 +126,55 @@ const CoverImageInput = ({ image, setIsImage, onImageChange }) => {
         />
       ) : (
         <Stack
+          _hover={{ bgColor: 'gray.300' }}
           bgColor="gray.200"
-          cursor="pointer"
-          w="120px"
-          h="120px"
-          fontSize="sm"
+          borderColor="gray.400"
+          borderRadius="lg"
           borderStyle="dashed"
           borderWidth="2px"
-          borderRadius="lg"
-          borderColor="gray.400"
+          cursor="pointer"
+          fontSize="sm"
+          h="120px"
           marginBottom={0}
           marginRight={0}
-          _hover={{ bgColor: 'gray.300' }}
+          w="120px"
           onClick={(el) => {
             el.preventDefault();
             imageInputRef.current.click();
           }}
         >
           <Stack
-            w="100%"
-            h="100%"
             alignItems="center"
+            h="100%"
             justifyContent="center"
+            p={2}
+            textAlign="center"
+            w="100%"
             wordBreak="break-all"
             wordwrap="break-word"
-            textAlign="center"
-            p={2}
           >
             {loading ? <p>Loading...</p> : null}
-            <Box as={FiUpload} size="40px" color="gray.600" />
+            <Box as={FiUpload} color="gray.600" size="40px" />
           </Stack>
         </Stack>
       )}
       <Input
-        type="file"
-        display="none"
-        accept="image/*"
         ref={imageInputRef}
-        onChange={onFileChange}
+        accept="image/*"
+        display="none"
         placeholder="Selecciona un archivo"
+        type="file"
+        onChange={onFileChange}
       />
 
       <Button
-        type="button"
         colorScheme="blue"
+        disabled={selectedImage ? false : true}
         fontFamily="Poppins"
         fontWeight="400"
         size="xs"
+        type="button"
         variant="outline"
-        disabled={selectedImage ? false : true}
         onClick={onFileUpload}
       >
         {' '}

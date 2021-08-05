@@ -16,18 +16,13 @@ import {
   TabPanel,
   Flex,
 } from '@chakra-ui/react';
+
 import { RelatedArticleSelector } from '../createArticle/sections/relatedArticleSelector';
 import { KnowMoreSelector } from '../createArticle/sections/knowMoreSelector';
 import { KnowMoreLinkSelector } from '../createArticle/sections/knowMoreLinkSelector';
 import { AREAS } from '../../locals/sp/areas';
 
-const KnowMoreModal = ({
-  isOpen,
-  onClose,
-  draftKnowMore,
-  setDraftKnowMore,
-  area,
-}) => {
+const KnowMoreModal = ({ isOpen, onClose, draftKnowMore, setDraftKnowMore, area }) => {
   const [relatedArticles, setRelatedArticles] = useState([]);
   const [knowMore, setKnowMore] = useState([]);
   const [knowMoreLinks, setKnowMoreLinks] = useState([]);
@@ -44,6 +39,7 @@ const KnowMoreModal = ({
         key: 'Investigación',
         value: 'research',
       };
+
       setWorkAreas([...workAreas, researchArea]);
     }
   }, []);
@@ -52,17 +48,20 @@ const KnowMoreModal = ({
     const contents = draftKnowMore.filter((el) => el.content);
     const files = contents.filter((el) => el.content.link.type !== 'link');
     const links = contents.filter((el) => el.content.link.type === 'link');
+
     setKnowMore(files);
     setKnowMoreLinks(links);
   }, []);
 
   useEffect(() => {
     const articles = draftKnowMore.filter((el) => el.article);
+
     setRelatedArticles(articles);
   }, []);
 
   const handleSubmit = (values) => {
     const concatArray = relatedArticles.concat(knowMore, knowMoreLinks);
+
     setDraftKnowMore(concatArray);
     onClose();
   };
@@ -73,38 +72,23 @@ const KnowMoreModal = ({
       <ModalContent>
         <ModalHeader
           alignSelf="center"
-          paddingBottom={2}
           color="gray.700"
           fontFamily="Poppins"
           fontWeight="300"
+          paddingBottom={2}
         >
           Para saber más...
         </ModalHeader>
         <ModalBody textAlign="center">
           <Tabs>
             <TabList justifyContent="center">
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Articulos
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Archivos
               </Tab>
-              <Tab
-                fontSize="sm"
-                width="12rem"
-                fontFamily="Open Sans"
-                paddingY={1}
-              >
+              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Links
               </Tab>
             </TabList>
@@ -113,17 +97,14 @@ const KnowMoreModal = ({
               <TabPanel>
                 <RelatedArticleSelector
                   area={area}
-                  workAreas={workAreas}
                   selectedArticles={relatedArticles}
                   setSelectedArticles={setRelatedArticles}
+                  workAreas={workAreas}
                 />
               </TabPanel>
 
               <TabPanel>
-                <KnowMoreSelector
-                  knowMore={knowMore}
-                  setKnowMore={setKnowMore}
-                />
+                <KnowMoreSelector knowMore={knowMore} setKnowMore={setKnowMore} />
               </TabPanel>
 
               <TabPanel>
@@ -136,10 +117,10 @@ const KnowMoreModal = ({
           </Tabs>
           <Flex justifyContent="center" paddingX={4}>
             <Button
-              mt={4}
+              colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
-              colorScheme="blue"
+              mt={4}
               onClick={handleSubmit}
             >
               Confirmar contenido

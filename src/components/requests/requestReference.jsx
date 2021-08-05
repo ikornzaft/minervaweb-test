@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Text, Stack, Box, Spinner } from '@chakra-ui/react';
+
 import { ParagraphItemDisplay } from '../article/paragraphs/paragraphItemDisplay';
 
 const RequestReference = ({ articleId, articleParagraph }) => {
@@ -10,14 +11,8 @@ const RequestReference = ({ articleId, articleParagraph }) => {
   const param = useParams();
 
   const Loader = () => (
-    <Box paddingTop={24} height="50vh">
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
+    <Box height="50vh" paddingTop={24}>
+      <Spinner color="blue.500" emptyColor="gray.200" size="xl" speed="0.65s" thickness="4px" />
     </Box>
   );
 
@@ -46,12 +41,11 @@ const RequestReference = ({ articleId, articleParagraph }) => {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
-        setParagraph(
-          resJson.message.entity.resource.paragraphs[articleParagraph]
-        );
+
+        setParagraph(resJson.message.entity.resource.paragraphs[articleParagraph]);
       } catch (err) {
         setError(err);
       } finally {
@@ -72,7 +66,7 @@ const RequestReference = ({ articleId, articleParagraph }) => {
       if (paragraph.descriptor)
         return (
           <Box p={4}>
-            <Text fontSize="xs" color="gray.500">
+            <Text color="gray.500" fontSize="xs">
               {paragraph.descriptor.description}
             </Text>
           </Box>
@@ -81,7 +75,7 @@ const RequestReference = ({ articleId, articleParagraph }) => {
   };
 
   return (
-    <Stack w="100%" h="100%">
+    <Stack h="100%" w="100%">
       {isLoading ? <Loader /> : displayParagraph()}
     </Stack>
   );

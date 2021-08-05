@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-import {
-  VStack,
-  HStack,
-  Text,
-  Heading,
-  Button,
-  Tooltip,
-} from '@chakra-ui/react';
-import { ParagraphReducer } from '../../common/paragraphReducer';
+import { VStack, HStack, Text, Heading, Button, Tooltip } from '@chakra-ui/react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 
-const DisplayQuiz = ({
-  options,
-  quiz,
-  selectedQuizzes,
-  setSelectedQuizzes,
-}) => {
+import { ParagraphReducer } from '../../common/paragraphReducer';
+
+const DisplayQuiz = ({ options, quiz, selectedQuizzes, setSelectedQuizzes }) => {
   const titleString = quiz.descriptor.title;
   const subtitleString = quiz.descriptor.subtitle;
 
@@ -25,20 +14,21 @@ const DisplayQuiz = ({
     const filteredQuizzes = selectedQuizzes.filter(
       (el) => el.content.entity.publicId !== quiz.content.entity.publicId
     );
+
     setSelectedQuizzes(filteredQuizzes);
   };
 
   return (
     <HStack width="100%">
-      <VStack width="100%" p={3} bg="gray.100" borderRadius="md">
+      <VStack bg="gray.100" borderRadius="md" p={3} width="100%">
         <Heading as="h4" fontSize="sm">
           {titleString}
         </Heading>
-        <Text fontSize="xs" color="gray.700">
+        <Text color="gray.700" fontSize="xs">
           {ParagraphReducer(subtitleString)}
         </Text>
       </VStack>
-      <Tooltip label="Borrar artículo" bg="white" color="gray.700">
+      <Tooltip bg="white" color="gray.700" label="Borrar artículo">
         <Button margin="0" size="xs" onClick={deleteItem}>
           <FaRegTrashAlt />
         </Button>

@@ -13,6 +13,7 @@ import {
   HStack,
   Box,
 } from '@chakra-ui/react';
+
 import { CoverImageInput } from './coverImageInput';
 
 const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
@@ -51,63 +52,45 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
     }
     onClose();
   };
+
   return (
     <Modal isOpen={isOpen} size="2xl" onClose={onClose}>
       <ModalOverlay />
       <ModalContent padding={2}>
-        <ModalHeader
-          alignSelf="center"
-          color="gray.700"
-          fontFamily="Poppins"
-          fontWeight="300"
-        >
+        <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
           Editar encabezado
         </ModalHeader>
-        <ModalBody textAlign="left" paddingX={10}>
+        <ModalBody paddingX={10} textAlign="left">
           <Box paddingBottom={6}>
-            <Text
-              fontSize="sm"
-              fontFamily="Open Sans"
-              htmlFor="title"
-              marginBottom="0"
-            >
+            <Text fontFamily="Open Sans" fontSize="sm" htmlFor="title" marginBottom="0">
               Título
             </Text>
             <Input
-              type="text"
               fontSize="sm"
+              type="text"
               value={descriptor.title}
-              onChange={(el) =>
-                setDescriptor({ ...descriptor, title: el.target.value })
-              }
-            ></Input>
+              onChange={(el) => setDescriptor({ ...descriptor, title: el.target.value })}
+            />
           </Box>
           <Box paddingBottom={6}>
-            <Text
-              fontSize="sm"
-              fontFamily="Open Sans"
-              htmlFor="title"
-              marginBottom="0"
-            >
+            <Text fontFamily="Open Sans" fontSize="sm" htmlFor="title" marginBottom="0">
               Subtítulo
             </Text>
             <Textarea
               fontSize="sm"
-              value={descriptor.subtitle}
               h="8rem"
-              onChange={(el) =>
-                setDescriptor({ ...descriptor, subtitle: el.target.value })
-              }
+              value={descriptor.subtitle}
+              onChange={(el) => setDescriptor({ ...descriptor, subtitle: el.target.value })}
             />
           </Box>
-          <HStack w="100%" justifyContent="center" paddingBottom={4}>
+          <HStack justifyContent="center" paddingBottom={4} w="100%">
             <HStack
-              p={4}
               bgColor="gray.50"
-              w="25rem"
               borderRadius="md"
               borderWidth="1px"
               justifyContent="space-evenly"
+              p={4}
+              w="25rem"
             >
               <CoverImageInput
                 image={image}
@@ -115,23 +98,23 @@ const HeaderModal = ({ isOpen, onClose, draftHeader, setDraftHeader }) => {
                 onImageChange={onImageChange}
               />
               <Textarea
-                fontSize="sm"
                 backgroundColor="white"
-                id="articleImgFooter"
-                w="12rem"
-                h="6rem"
-                value={selectedImageDescription}
-                placeholder="Descripción de la imágen"
                 disabled={isImage ? false : true}
+                fontSize="sm"
+                h="6rem"
+                id="articleImgFooter"
+                placeholder="Descripción de la imágen"
+                value={selectedImageDescription}
+                w="12rem"
                 onChange={onDescriptionChange}
               />
             </HStack>
           </HStack>
-          <HStack w="100%" justifyContent="center" paddingY={4}>
+          <HStack justifyContent="center" paddingY={4} w="100%">
             <Button
+              colorScheme="blue"
               fontFamily="Poppins"
               fontWeight="400"
-              colorScheme="blue"
               onClick={handleChanges}
             >
               Confirmar cambios

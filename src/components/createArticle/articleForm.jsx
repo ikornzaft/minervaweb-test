@@ -22,6 +22,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
+
 import { LABELS } from '../../locals/sp/labels';
 import { AREAS } from '../../locals/sp/areas';
 
@@ -77,20 +78,20 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
         key: 'Investigación',
         value: 'research',
       };
+
       setWorkAreas([...workAreas, researchArea]);
     }
   }, []);
 
   const date = new Date();
-  const formatedDate = new Date(
-    date.getTime() - date.getTimezoneOffset() * 60000
-  )
+  const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
     .toISOString()
     .slice(0, 10);
   const randomId = formatedDate + '-' + uuidv4();
 
   useEffect(() => {
     const principal = localStorage.getItem('credentials');
+
     if (data.title) {
       const newEntry = {
         id: 'msgid-1',
@@ -120,8 +121,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       };
 
       const fetchData = async () => {
-        const url =
-          'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+        const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
 
         const jsonMessage = {
           method: 'POST',
@@ -135,9 +135,10 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
         try {
           const response = await fetch(url, jsonMessage);
-          if (response.status >= 400 && response.status < 600)
-            setError('Bad response from server');
+
+          if (response.status >= 400 && response.status < 600) setError('Bad response from server');
           const resJson = await response.json();
+
           toast({
             title: LABELS.CREATE_ARTICLE.FORM.TOASTS.SUCCESS.TITLE,
             description: LABELS.CREATE_ARTICLE.FORM.TOASTS.SUCCESS.DESCRIPTION,
@@ -182,6 +183,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           });
         }
       };
+
       fetchData();
     } else {
     }
@@ -189,12 +191,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const validationSchema = Yup.object({
     title: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.TITLE_ERROR),
-    subtitle: Yup.string().required(
-      LABELS.CREATE_ARTICLE.FORM.ERRORS.SUBTITLE_ERROR
-    ),
-    workArea: Yup.string().required(
-      LABELS.CREATE_ARTICLE.FORM.ERRORS.WORKAREA_ERROR
-    ),
+    subtitle: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.SUBTITLE_ERROR),
+    workArea: Yup.string().required(LABELS.CREATE_ARTICLE.FORM.ERRORS.WORKAREA_ERROR),
   });
 
   const {
@@ -203,11 +201,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
     onClose: onCloseContentLoader,
   } = useDisclosure();
 
-  const {
-    isOpen: isOpenTodo,
-    onOpen: onOpenTodo,
-    onClose: onCloseTodo,
-  } = useDisclosure();
+  const { isOpen: isOpenTodo, onOpen: onOpenTodo, onClose: onCloseTodo } = useDisclosure();
 
   const {
     isOpen: isOpenKnowMore,
@@ -232,6 +226,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
   const handleSubmit = (values) => {
     setData((data) => ({ ...data, ...values }));
+
     return;
   };
 
@@ -240,42 +235,32 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       <Modal isOpen={isOpen} size="6xl" onClose={onClose}>
         <ModalOverlay />
         <ModalContent padding={2}>
-          <ModalHeader
-            alignSelf="center"
-            color="gray.700"
-            fontFamily="Poppins"
-            fontWeight="300"
-          >
+          <ModalHeader alignSelf="center" color="gray.700" fontFamily="Poppins" fontWeight="300">
             {modalTitle}
           </ModalHeader>
           <ModalBody textAlign="center">
             <Formik
-              validationSchema={validationSchema}
               initialValues={data}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {(formikProps) => (
                 <Form>
-                  <Stack
-                    direction="row"
-                    w="full"
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                  >
-                    <VStack as="section" paddingX={6} w="50%" paddingBottom={6}>
+                  <Stack alignItems="center" direction="row" justifyContent="space-evenly" w="full">
+                    <VStack as="section" paddingBottom={6} paddingX={6} w="50%">
                       <AreaSelector
+                        area={area}
                         label={LABELS.CREATE_ARTICLE.FORM.AREA_SELECTOR.LABEL}
                         name="workArea"
                         options={workAreas}
-                        area={area}
                         setArea={setArea}
                       />
                       <Field name="title">
                         {({ field }) => (
                           <FormControl h={24} overflow="hidden" padding="0">
                             <FormLabel
-                              fontSize="sm"
                               fontFamily="Open Sans"
+                              fontSize="sm"
                               htmlFor="title"
                               marginBottom="0"
                             >
@@ -284,11 +269,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                             <Input fontSize="sm" {...field} id="title" />
                             <ErrorMessage name="title">
                               {(msg) => (
-                                <Text
-                                  color="red"
-                                  fontSize="xs"
-                                  fontFamily="Open Sans"
-                                >
+                                <Text color="red" fontFamily="Open Sans" fontSize="xs">
                                   {msg}
                                 </Text>
                               )}
@@ -301,8 +282,8 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                         {({ field }) => (
                           <FormControl h={32} overflow="hidden" padding="0">
                             <FormLabel
-                              fontSize="sm"
                               fontFamily="Open Sans"
+                              fontSize="sm"
                               htmlFor="subtitle"
                               marginBottom="0"
                             >
@@ -312,17 +293,11 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                               fontSize="sm"
                               {...field}
                               id="subtitle"
-                              placeholder={
-                                LABELS.CREATE_ARTICLE.FORM.SUBTITLE.PLACEHOLDER
-                              }
+                              placeholder={LABELS.CREATE_ARTICLE.FORM.SUBTITLE.PLACEHOLDER}
                             />
                             <ErrorMessage name="subtitle">
                               {(msg) => (
-                                <Text
-                                  color="red"
-                                  fontFamily="Open Sans"
-                                  fontSize="xs"
-                                >
+                                <Text color="red" fontFamily="Open Sans" fontSize="xs">
                                   {msg}
                                 </Text>
                               )}
@@ -332,20 +307,13 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                       </Field>
 
                       <Stack direction="row">
-                        <ImageInput
-                          coverImage={coverImage}
-                          setCoverImage={setCoverImage}
-                        />
+                        <ImageInput coverImage={coverImage} setCoverImage={setCoverImage} />
                       </Stack>
-                      <VStack w="100%" paddingTop={6}>
-                        <Stack
-                          w="100%"
-                          direction="row"
-                          justifyContent="flex-start"
-                        >
+                      <VStack paddingTop={6} w="100%">
+                        <Stack direction="row" justifyContent="flex-start" w="100%">
                           <Text
-                            fontSize="sm"
                             fontFamily="Open Sans"
+                            fontSize="sm"
                             htmlFor="subtitle"
                             marginBottom="0"
                           >
@@ -353,38 +321,38 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                           </Text>
                         </Stack>
                         <Flex
-                          direction="row"
-                          width="100%"
-                          marginTop="1px !important"
-                          borderWidth="1px"
-                          borderRadius="md"
-                          padding={2}
-                          justifyContent="space-evenly"
                           alignItems="center"
+                          borderRadius="md"
+                          borderWidth="1px"
+                          direction="row"
+                          justifyContent="space-evenly"
+                          marginTop="1px !important"
+                          padding={2}
+                          width="100%"
                         >
                           <Button
+                            bgColor="white"
                             colorScheme="blue"
+                            fontFamily="Poppins"
+                            fontWeight="400"
+                            size="sm"
                             type="button"
                             variant="outline"
                             w="9rem"
-                            bgColor="white"
                             onClick={knowMoreModalHandler}
-                            size="sm"
-                            fontFamily="Poppins"
-                            fontWeight="400"
                           >
                             {LABELS.CREATE_ARTICLE.FORM.SECTIONS.BUTTON_1}
                           </Button>
                           <Button
+                            bgColor="white"
                             colorScheme="blue"
+                            fontFamily="Poppins"
+                            fontWeight="400"
+                            size="sm"
                             type="button"
                             variant="outline"
                             w="9rem"
-                            bgColor="white"
                             onClick={todoModalHandler}
-                            size="sm"
-                            fontFamily="Poppins"
-                            fontWeight="400"
                           >
                             {LABELS.CREATE_ARTICLE.FORM.SECTIONS.BUTTON_2}
                           </Button>
@@ -393,25 +361,25 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                     </VStack>
 
                     <VStack
-                      w="50%"
+                      borderRadius="md"
+                      borderWidth="1px"
                       h="30rem"
                       maxHeight="30rem"
                       overflowY="scroll"
-                      borderWidth="1px"
-                      borderRadius="md"
                       paddingLeft={6}
+                      w="50%"
                     >
                       <HStack justifyContent="center">
                         <Button
-                          mt={4}
-                          colorScheme="blue"
-                          type="button"
-                          variant="outline"
                           bgColor="white"
-                          onClick={modalHandler}
-                          size="sm"
+                          colorScheme="blue"
                           fontFamily="Poppins"
                           fontWeight="400"
+                          mt={4}
+                          size="sm"
+                          type="button"
+                          variant="outline"
+                          onClick={modalHandler}
                         >
                           {LABELS.CREATE_ARTICLE.FORM.PARAGRAPHS.BUTTON}
                         </Button>
@@ -423,10 +391,10 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
                     </VStack>
                   </Stack>
                   <Button
-                    marginY={3}
+                    colorScheme="blue"
                     fontFamily="Poppins"
                     fontWeight="400"
-                    colorScheme="blue"
+                    marginY={3}
                     type="submit"
                   >
                     {LABELS.CREATE_ARTICLE.FORM.SUBMIT_BUTTON}
@@ -441,37 +409,37 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       </Modal>
       <ArticleContentInputModal
         isOpen={isOpenContentLoader}
-        onClose={onCloseContentLoader}
         paragraphList={paragraphList}
         setParagraphList={setParagraphList}
+        onClose={onCloseContentLoader}
       />
       <TodoInputModal
         isOpen={isOpenTodo}
-        onClose={onCloseTodo}
         sectionsList={sectionsList}
-        setSectionsList={setSectionsList}
         selectedExams={selectedExams}
-        setSelectedExams={setSelectedExams}
-        selectedQuizzes={selectedQuizzes}
-        setSelectedQuizzes={setSelectedQuizzes}
         selectedHomeworks={selectedHomeworks}
+        selectedQuizzes={selectedQuizzes}
+        setSectionsList={setSectionsList}
+        setSelectedExams={setSelectedExams}
         setSelectedHomeworks={setSelectedHomeworks}
+        setSelectedQuizzes={setSelectedQuizzes}
         workAreas={workAreas}
+        onClose={onCloseTodo}
       />
       <KnowMoreInputModal
-        isOpen={isOpenKnowMore}
-        onClose={onCloseKnowMore}
-        sectionsList={sectionsList}
-        setSectionsList={setSectionsList}
-        selectedArticles={selectedArticles}
-        setSelectedArticles={setSelectedArticles}
-        knowMore={knowMore}
-        setKnowMore={setKnowMore}
-        knowMoreLinks={knowMoreLinks}
-        setKnowMoreLinks={setKnowMoreLinks}
-        workAreas={workAreas}
         area={area}
+        isOpen={isOpenKnowMore}
+        knowMore={knowMore}
+        knowMoreLinks={knowMoreLinks}
+        sectionsList={sectionsList}
+        selectedArticles={selectedArticles}
+        setKnowMore={setKnowMore}
+        setKnowMoreLinks={setKnowMoreLinks}
+        setSectionsList={setSectionsList}
+        setSelectedArticles={setSelectedArticles}
         title="Para saber más..."
+        workAreas={workAreas}
+        onClose={onCloseKnowMore}
       />
     </>
   );

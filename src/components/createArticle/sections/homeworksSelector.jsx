@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
 
-const HomeworksSelector = ({
-  workAreas,
-  selectedHomeworks,
-  setSelectedHomeworks,
-}) => {
+const HomeworksSelector = ({ workAreas, selectedHomeworks, setSelectedHomeworks }) => {
   const [homeworks, setHomeworks] = useState([]);
   const [homeworksToDisplay, setHomeworksToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,13 +33,15 @@ const HomeworksSelector = ({
         },
       }),
     };
+
     async function fetchData() {
       try {
         setIsLoading(true);
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setError('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
+
         setHomeworks(resJson.message.resources);
       } catch (err) {
         setError(err);
@@ -60,17 +58,14 @@ const HomeworksSelector = ({
         key: homeworks.entity.publicId,
         value: homework.contentHeader.descriptor.title,
       };
-      setHomeworksToDisplay((prevHomeworks) => [
-        ...prevHomeworks,
-        newHomeworkToDisplay,
-      ]);
+
+      setHomeworksToDisplay((prevHomeworks) => [...prevHomeworks, newHomeworkToDisplay]);
     });
   }, [homeworks]);
 
   const addHomework = () => {
-    const homeworkIndex = homeworks.findIndex(
-      (option) => option.entity.publicId === optionValue
-    );
+    const homeworkIndex = homeworks.findIndex((option) => option.entity.publicId === optionValue);
+
     if (homeworkIndex !== -1) {
       const homeworkObj = {
         descriptor: {
@@ -81,8 +76,8 @@ const HomeworksSelector = ({
       const elementExists = selectedHomeworks.findIndex(
         (el) => el.homework.entity.publicId === optionValue
       );
-      if (elementExists === -1)
-        setSelectedHomeworks([...selectedHomeworks, homeworkObj]);
+
+      if (elementExists === -1) setSelectedHomeworks([...selectedHomeworks, homeworkObj]);
     }
 
     setOptionValue(null);
@@ -91,11 +86,11 @@ const HomeworksSelector = ({
   return (
     <VStack paddingTop={2}>
       <Select
-        w="12rem"
-        borderRadius="md"
-        size="sm"
-        placeholder="Elige la materia"
         autoFocus={true}
+        borderRadius="md"
+        placeholder="Elige la materia"
+        size="sm"
+        w="12rem"
         onChange={(e) => {
           setSelectedArea(e.target.value);
         }}
@@ -111,9 +106,9 @@ const HomeworksSelector = ({
       <HStack className="form-control" paddingY={4}>
         <Select
           borderRadius="md"
-          w="20rem"
-          size="sm"
           placeholder="Selecciona una tarea"
+          size="sm"
+          w="20rem"
           onChange={(e) => {
             setOptionValue(e.target.value);
           }}
@@ -127,14 +122,14 @@ const HomeworksSelector = ({
           })}
         </Select>
         <Button
-          type="button"
-          w="10rem"
-          variant="outline"
-          fontFamily="Poppins"
-          fontWeight="400"
           bgColor="white"
           colorScheme="blue"
+          fontFamily="Poppins"
+          fontWeight="400"
           size="sm"
+          type="button"
+          variant="outline"
+          w="10rem"
           onClick={addHomework}
         >
           Agregar tarea

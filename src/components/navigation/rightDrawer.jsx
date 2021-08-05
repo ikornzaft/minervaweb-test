@@ -8,11 +8,12 @@ import {
   Stack,
   useDisclosure,
 } from '@chakra-ui/react';
+import { BiPlusCircle } from 'react-icons/bi';
+
 import { ArticleForm } from '../createArticle/articleForm';
 import { ExamForm } from '../createExam/examForm';
 import { QuizForm } from '../createQuiz/quizForm';
 import { HomeworkForm } from '../createHomework/homeworkForm';
-import { BiPlusCircle } from 'react-icons/bi';
 import { LABELS } from '../../locals/sp/labels';
 
 const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
@@ -26,16 +27,8 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
     onOpen: onOpenNewHomework,
     onClose: onCloseNewHomework,
   } = useDisclosure();
-  const {
-    isOpen: isOpenNewExam,
-    onOpen: onOpenNewExam,
-    onClose: onCloseNewExam,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenNewQuiz,
-    onOpen: onOpenNewQuiz,
-    onClose: onCloseNewQuiz,
-  } = useDisclosure();
+  const { isOpen: isOpenNewExam, onOpen: onOpenNewExam, onClose: onCloseNewExam } = useDisclosure();
+  const { isOpen: isOpenNewQuiz, onOpen: onOpenNewQuiz, onClose: onCloseNewQuiz } = useDisclosure();
   const menuHandlerActivity = (e) => {
     onClose();
     onOpenNewActivity();
@@ -52,51 +45,42 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
     onClose();
     onOpenNewQuiz();
   };
+
   return (
     <>
-      <Drawer
-        isOpen={isOpen}
-        placement={placement}
-        onClose={onClose}
-        finalFocusRef={finalFocus}
-      >
+      <Drawer finalFocusRef={finalFocus} isOpen={isOpen} placement={placement} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody paddingX="0">
-            <Stack
-              width="100%"
-              direction="column"
-              paddingTop={8}
-              paddingLeft={4}
-            >
+            <Stack direction="column" paddingLeft={4} paddingTop={8} width="100%">
               <Button
-                variant="drawerRight"
-                rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_1"
+                rightIcon={<BiPlusCircle size="30px" />}
+                variant="drawerRight"
                 onClick={menuHandlerActivity}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_1}
               </Button>
               <Button
-                variant="drawerRight"
-                rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_2"
+                rightIcon={<BiPlusCircle size="30px" />}
+                variant="drawerRight"
                 onClick={menuHandlerHomework}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_2}
               </Button>
               <Button
-                variant="drawerRight"
-                rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_3"
+                rightIcon={<BiPlusCircle size="30px" />}
+                variant="drawerRight"
                 onClick={menuHandlerExam}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_3}
               </Button>
               <Button
-                variant="drawerRight"
-                rightIcon={<BiPlusCircle size="30px" />}
                 id="right_button_4"
+                rightIcon={<BiPlusCircle size="30px" />}
+                variant="drawerRight"
                 onClick={menuHandlerQuiz}
               >
                 {LABELS.TOP_MENU.MENU.RIGHT_DRAWER.OPCIONES.BUTTON_4}
@@ -107,24 +91,16 @@ const RightDrawer = ({ placement, isOpen, onClose, finalFocus }) => {
       </Drawer>
       <ArticleForm
         isOpen={isOpenNewActivity}
-        onClose={onCloseNewActivity}
         modalTitle={LABELS.TOP_MENU.MENU.RIGHT_DRAWER.NEW_ACTIVITY_MODAL.TITLE}
+        onClose={onCloseNewActivity}
       />
       <HomeworkForm
         isOpen={isOpenNewHomework}
-        onClose={onCloseNewHomework}
         modalTitle="Nueva tarea"
+        onClose={onCloseNewHomework}
       />
-      <ExamForm
-        isOpen={isOpenNewExam}
-        onClose={onCloseNewExam}
-        modalTitle="Nuevo examen"
-      />
-      <QuizForm
-        isOpen={isOpenNewQuiz}
-        onClose={onCloseNewQuiz}
-        modalTitle="Nueva autoevaluación"
-      />
+      <ExamForm isOpen={isOpenNewExam} modalTitle="Nuevo examen" onClose={onCloseNewExam} />
+      <QuizForm isOpen={isOpenNewQuiz} modalTitle="Nueva autoevaluación" onClose={onCloseNewQuiz} />
     </>
   );
 };

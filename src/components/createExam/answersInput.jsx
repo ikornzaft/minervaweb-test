@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import {
-  FormControl,
-  FormLabel,
-  HStack,
-  VStack,
-  Textarea,
-  Box,
-} from '@chakra-ui/react';
+import { FormControl, FormLabel, HStack, VStack, Textarea, Box } from '@chakra-ui/react';
 import { HiPlusCircle } from 'react-icons/hi';
 import { darken } from '@chakra-ui/theme-tools';
+
 import { AnswersList } from './answersList';
 
 const AnswersInput = ({ answersArray, setAnswersArray, option, setOption }) => {
@@ -24,12 +18,7 @@ const AnswersInput = ({ answersArray, setAnswersArray, option, setOption }) => {
   return (
     <VStack w="100%">
       <Box w="100%">
-        <FormLabel
-          fontSize="sm"
-          fontFamily="Open Sans"
-          htmlFor="answer"
-          marginBottom="0"
-        >
+        <FormLabel fontFamily="Open Sans" fontSize="sm" htmlFor="answer" marginBottom="0">
           Agregar respuesta
         </FormLabel>
       </Box>
@@ -41,18 +30,18 @@ const AnswersInput = ({ answersArray, setAnswersArray, option, setOption }) => {
           onChange={(el) => setActualAnswer(el.target.value)}
         />
         <Box
+          _hover={{ color: darken('primary', 10) }}
           as={HiPlusCircle}
+          color="primary"
           h="50px"
           w="50px"
-          color="primary"
           onClick={addAnswer}
-          _hover={{ color: darken('primary', 10) }}
         />
       </HStack>
       <AnswersList
         answersArray={answersArray}
-        setAnswersArray={setAnswersArray}
         option={option}
+        setAnswersArray={setAnswersArray}
         setOption={setOption}
       />
     </VStack>

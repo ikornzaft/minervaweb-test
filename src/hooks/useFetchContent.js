@@ -31,9 +31,10 @@ const useFetchContent = (filter) => {
     async function fetchData() {
       try {
         const res = await fetch(url, jsonMessage);
-        if (res.status >= 400 && res.status < 600)
-          setErrors('Bad response from server');
+
+        if (res.status >= 400 && res.status < 600) setErrors('Bad response from server');
         const resJson = await res.json();
+
         setContent(resJson.message.resources);
       } catch (err) {
         setErrors(err);
