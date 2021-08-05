@@ -24,11 +24,11 @@ const DisplayUploadedFiles = ({
   };
 
   const deleteItem = (e) => {
+    console.log(index);
     //const elementToDelete = options[index].key;
 
-    const fileToDeleteId = e.currentTarget.id;
     const filteredFiles = uploadedFiles.filter(
-      (file) => file.content.location !== fileToDeleteId
+      (file, _index) => _index !== index
     );
     setUploadedFiles(filteredFiles);
   };

@@ -198,6 +198,7 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
         if (file !== '')
           return (
             <DisplayUploadedFiles
+              index={index}
               file={file}
               uploadedFiles={uploadedFiles}
               setUploadedFiles={setUploadedFiles}

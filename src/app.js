@@ -16,6 +16,8 @@ import { Request } from './screens/request';
 import { Topic } from './screens/topic';
 import { Quizzes } from './screens/quizzes';
 import { Quiz } from './screens/quiz';
+import { Homeworks } from './screens/homeworks';
+import { Homework } from './screens/homework';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -40,6 +42,8 @@ function App() {
         <Route path="/topic/:id" component={Topic} />
         <Route exact path="/quizzes/" component={Quizzes} />
         <Route path="/quiz/:id" component={Quiz} />
+        <Route exact path="/homeworks/" component={Homeworks} />
+        <Route path="/homework/:id" component={Homework} />
         <Route exact path="/feed/" component={Feed} />
         <Redirect to="/" />
       </Switch>

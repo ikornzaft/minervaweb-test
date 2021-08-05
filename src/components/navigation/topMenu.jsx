@@ -38,7 +38,7 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
     }
     if (e.target.id === 'menu-button_5') {
       setActiveButton(4);
-      history.push('/tasks/');
+      history.push('/homeworks/');
     }
     if (e.target.id === 'menu-button_6') {
       setActiveButton(5);
@@ -105,7 +105,6 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
             id="menu-button_5"
             isActive={activeButton === 4 ? true : false}
             onClick={menuHandler}
-            disabled={true}
           >
             {LABELS.TOP_MENU.MENU.BUTTONS.BUTTON_5}
           </Button>
