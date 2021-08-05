@@ -110,7 +110,6 @@ const KnowMoreLinkSelector = ({ knowMoreLinks, setKnowMoreLinks }) => {
         </FormControl>
       </VStack>
       {knowMoreLinks.map((link, index) => {
-        console.log(link);
         if (link.content.link) {
           if (link.content.link.location !== '')
             return (

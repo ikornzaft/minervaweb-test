@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  VStack,
-  Text,
-  Stack,
-  ButtonGroup,
-  Button,
-  FormControl,
-  FormLabel,
-  Textarea,
-  Input,
-} from '@chakra-ui/react';
+import { VStack, Text, ButtonGroup, Button } from '@chakra-ui/react';
 
 import { LABELS } from '../../../locals/sp/labels';
 
@@ -45,7 +35,7 @@ const EditElementForm = ({ paragraphList, setParagraphList, elementId, onCancel 
       setTypeOfResource('text');
       setTextParagraph(paragraphList[elementId].descriptor.description);
     }
-  }, [paragraphList]);
+  }, [paragraphList, elementId]);
 
   const handleCancel = () => {
     currentElement = {};

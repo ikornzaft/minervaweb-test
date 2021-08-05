@@ -7,16 +7,16 @@ const DisplayImage = ({ linkLocation, title }) => {
   return (
     <>
       <Image
+        borderRadius="lg"
+        borderStyle="solid"
+        borderWidth="1px"
         boxSize="400px"
         objectFit="scale-down"
-        borderStyle="solid"
-        borderRadius="lg"
-        borderWidth="1px"
         src={imageSrc}
       />
       <HStack justifyContent="center" w="400px">
         {title ? (
-          <Text fontSize="xs" color="gray.500">
+          <Text color="gray.500" fontSize="xs">
             Imágen: {title}
           </Text>
         ) : null}

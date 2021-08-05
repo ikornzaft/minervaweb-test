@@ -13,7 +13,6 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
 
   useEffect(() => {
     setExamsToDisplay([]);
-    console.log(selectedArea);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
@@ -45,7 +44,6 @@ const ExamsSelector = ({ workAreas, selectedExams, setSelectedExams }) => {
         if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
 
-        console.log(resJson);
         setExams(resJson.message.resources);
       } catch (err) {
         setError(err);

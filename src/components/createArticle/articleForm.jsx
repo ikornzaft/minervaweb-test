@@ -173,7 +173,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
 
           onClose();
         } catch (err) {
-          error = err;
+          serError(err);
           toast({
             title: LABELS.CREATE_ARTICLE.FORM.TOASTS.ERROR.TITLE,
             description: error,

@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { VStack, HStack, Text, Heading, Button, Tooltip } from '@chakra-ui/react';
 import { FaRegTrashAlt } from 'react-icons/fa';
-
-import { ParagraphReducer } from '../../common/paragraphReducer';
 
 const DisplayUploadedFiles = ({ file, index, uploadedFiles, setUploadedFiles }) => {
   const defineType = (e) => {
@@ -13,9 +11,6 @@ const DisplayUploadedFiles = ({ file, index, uploadedFiles, setUploadedFiles }) 
   };
 
   const deleteItem = (e) => {
-    console.log(index);
-    //const elementToDelete = options[index].key;
-
     const filteredFiles = uploadedFiles.filter((file, _index) => _index !== index);
 
     setUploadedFiles(filteredFiles);

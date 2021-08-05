@@ -3,7 +3,7 @@ import { VStack, Text, Textarea } from '@chakra-ui/react';
 
 const EditElementFormText = ({ textParagraph, setTextParagraph }) => {
   return (
-    <VStack w="90%" h="250px">
+    <VStack h="250px" w="90%">
       <Textarea
         h="100%"
         value={textParagraph}

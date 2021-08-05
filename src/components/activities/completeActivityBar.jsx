@@ -38,7 +38,6 @@ const CompleteActivityBar = () => {
         if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
 
-        console.log(resJson);
         toast({
           title: 'Actividad completada',
           status: 'success',

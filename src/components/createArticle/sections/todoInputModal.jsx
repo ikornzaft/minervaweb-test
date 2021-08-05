@@ -44,9 +44,9 @@ const TodoInputModal = ({
   const [section1, setSection1] = useState(null);
   const [section2, setSection2] = useState(null);
 
-  useEffect(() => {
-    const [s1, s2] = [...sectionsList];
+  const [s1, s2] = [...sectionsList];
 
+  useEffect((s1, s2) => {
     setSection1(s1);
     setSection2(s2);
   }, []);
@@ -73,7 +73,7 @@ const TodoInputModal = ({
 
   useEffect(() => {
     setSectionsList([section1, section2]);
-  }, [section2]);
+  }, [section1, section2]);
 
   const submitTodoSection = () => {
     setSection2({

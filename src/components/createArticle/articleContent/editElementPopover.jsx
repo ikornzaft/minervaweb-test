@@ -8,8 +8,8 @@ import {
   useDisclosure,
   IconButton,
 } from '@chakra-ui/react';
-
 import { FaEdit } from 'react-icons/fa';
+
 import { EditElementForm } from './editElementForm';
 
 const EditElementPopover = ({
@@ -27,28 +27,28 @@ const EditElementPopover = ({
   return (
     <>
       <Popover
-        variant="extraheight"
-        isOpen={isOpen}
-        initialFocusRef={firstFieldRef}
-        onOpen={onOpen}
-        onClose={onClose}
-        placement="left"
         closeOnBlur={false}
+        initialFocusRef={firstFieldRef}
+        isOpen={isOpen}
+        placement="left"
+        variant="extraheight"
+        onClose={onClose}
+        onOpen={onOpen}
       >
         <PopoverTrigger>
-          <IconButton size="xs" icon={<FaEdit />} />
+          <IconButton icon={<FaEdit />} size="xs" />
         </PopoverTrigger>
-        <PopoverContent width="100%" height="100%" paddingY={4}>
+        <PopoverContent height="100%" paddingY={4} width="100%">
           <PopoverArrow />
 
           <EditElementForm
-            paragraphList={paragraphList}
             elementId={elementId}
+            forceRender={forceRender}
+            isImage={isImage}
+            paragraphList={paragraphList}
+            setForceRender={setForceRender}
             setParagraphList={setParagraphList}
             onCancel={onClose}
-            forceRender={forceRender}
-            setForceRender={setForceRender}
-            isImage={isImage}
           />
         </PopoverContent>
       </Popover>
