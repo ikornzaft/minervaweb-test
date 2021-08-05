@@ -67,6 +67,8 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
           <Button
             variant="underlined"
             id="menu-button_1"
+            w="10rem"
+            margin="0"
             isActive={activeButton === 0 ? true : false}
             onClick={menuHandler}
           >
@@ -76,6 +78,8 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
         <Button
           variant="underlined"
           id="menu-button_2"
+          w="10rem"
+          margin="0"
           isActive={activeButton === 1 ? true : false}
           onClick={menuHandler}
         >
@@ -84,6 +88,8 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
         <Button
           variant="underlined"
           id="menu-button_3"
+          w="10rem"
+          margin="0"
           isActive={activeButton === 2 ? true : false}
           onClick={menuHandler}
         >
@@ -93,6 +99,8 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
           <Button
             variant="underlined"
             id="menu-button_4"
+            w="10rem"
+            margin="0"
             isActive={activeButton === 3 ? true : false}
             onClick={menuHandler}
           >
@@ -103,6 +111,8 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
           <Button
             variant="underlined"
             id="menu-button_5"
+            w="10rem"
+            margin="0"
             isActive={activeButton === 4 ? true : false}
             onClick={menuHandler}
           >
@@ -113,6 +123,8 @@ const TopMenu = ({ isLoginOn, setLoginOn }) => {
           <Button
             variant="underlined"
             id="menu-button_6"
+            w="10rem"
+            margin="0"
             isActive={activeButton === 5 ? true : false}
             onClick={menuHandler}
           >
