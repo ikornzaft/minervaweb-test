@@ -29,7 +29,6 @@ const Homeworks = () => {
         requester: 'root:YWNhY2lhITIwMTc=',
         principal: credentials,
         message: {
-          workarea: { publicId: 'comunicacion' },
           workgroups: workgroups,
         },
       }),

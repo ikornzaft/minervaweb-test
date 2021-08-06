@@ -10,7 +10,11 @@ import {
   RadioGroup,
   Radio,
   Textarea,
+  Button,
+  useDisclosure,
 } from '@chakra-ui/react';
+
+import { FilesUploadModal } from './filesUploaderModal';
 
 const HomeworkParagraph = ({
   paragraph,
@@ -19,10 +23,25 @@ const HomeworkParagraph = ({
   answersArray,
   setAnswersArray,
   handleChangeTextAnswer,
+  setSendedAnswer,
+  setUploadedFiles,
+  uploadedFiles,
 }) => {
   console.log(paragraphsLength);
   const options = paragraph.content.options;
+  const allowsFileUpload = paragraph.descriptor.subtitle;
   const [value, setValue] = useState('');
+
+  const {
+    isOpen: isOpenFileUploader,
+    onOpen: onOpenFileUploader,
+    onClose: onCloseFileUploader,
+  } = useDisclosure();
+
+  const fileUploaderHandler = (e) => {
+    onCloseFileUploader();
+    onOpenFileUploader();
+  };
 
   const selectRadio = (el) => {
     setValue(+el);
@@ -47,6 +66,53 @@ const HomeworkParagraph = ({
           />
         ) : null}
       </Box>
+      {options.length > 0 ? (
+        <Box>
+          {options.map((option, index) => (
+            <RadioGroup key={index} value={value} onChange={selectRadio}>
+              <Stack p={1}>
+                <HStack
+                  _hover={{ bg: 'gray.200' }}
+                  bg="gray.100"
+                  borderColor="gray.300"
+                  borderRadius="lg"
+                  borderWidth="1px"
+                  p={3}
+                  w="35rem"
+                >
+                  <Radio borderColor="gray.400" value={index} w="100%">
+                    <Box w="100%">
+                      <Text>{option.descriptor.title}</Text>
+                    </Box>
+                  </Radio>
+                </HStack>
+              </Stack>
+            </RadioGroup>
+          ))}
+        </Box>
+      ) : (
+        <VStack>
+          <Textarea
+            placeholder="Tu respuesta..."
+            onChange={(el) => handleChangeTextAnswer(paragraphIndex, el.target.value)}
+          />
+          {allowsFileUpload === 'files' ? (
+            <HStack justifyContent="center" w="100%">
+              <Button variant="primary" w="11rem" onClick={fileUploaderHandler}>
+                Subir archivo
+              </Button>
+            </HStack>
+          ) : null}
+        </VStack>
+      )}
+      <FilesUploadModal
+        isOpen={isOpenFileUploader}
+        setSendedAnswer={setSendedAnswer}
+        setUploadedFiles={setUploadedFiles}
+        title="Subir archivo"
+        uploadedFiles={uploadedFiles}
+        onClose={onCloseFileUploader}
+      />
     </VStack>
   );
 };

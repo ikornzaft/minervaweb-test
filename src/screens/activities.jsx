@@ -45,6 +45,12 @@ const Activities = () => {
     fetchData();
   }, [credentials]);
 
+  useEffect(() => {
+    const sortedArray = activities.sort(
+      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+    );
+  }, [activities]);
+
   const renderList = () => {
     if (!error) {
       if (activities.length > 0) {

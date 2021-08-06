@@ -10,6 +10,13 @@ import {
   VStack,
   Button,
   useDisclosure,
+  createStandaloneToast,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from '@chakra-ui/react';
 
 import { CreateAreaBadge } from '../common/createAreaBadge';
@@ -25,8 +32,11 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const examDate = new Date(date).toLocaleDateString('es-Es', options);
   const badge = CreateAreaBadge(workarea);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
+  const toast = createStandaloneToast();
 
   const {
     isOpen: isOpenFileUploader,
@@ -86,12 +96,15 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
             paragraphIndex={index}
             paragraphsLength={paragraphs.length}
             setAnswersArray={setAnswersArray}
+            setSendedAnswer={setSendedAnswer}
+            setUploadedFiles={setUploadedFiles}
+            uploadedFiles={uploadedFiles}
           />
         ))}
       </VStack>
       <HStack justifyContent="center" paddingY={3} w="100%">
         <Button isDisabled={sendedAnswer} variant="primary" w="11rem" onClick={fileUploaderHandler}>
-          Enviar respuestas
+          Subir archivo
         </Button>
       </HStack>
       <FilesUploadModal

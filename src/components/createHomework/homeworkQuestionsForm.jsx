@@ -26,6 +26,8 @@ import {
 
 import { CoverImageInput } from '../draft/coverImageInput';
 
+import { AnswersInput } from './answersInput';
+
 const HomeworkQuestionsForm = ({
   homeworkQuestionsArray,
   changeQuestionsArray,
@@ -35,33 +37,61 @@ const HomeworkQuestionsForm = ({
   prevImage,
   prevQuestion,
   prevAnswers,
+  prevAllowsFiles,
+  truePrevAnswer,
   buttonText,
 }) => {
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState(null);
   const [isImage, setIsImage] = useState(false);
+  const [isChoice, setIsChoice] = useState(false);
+  const [allowsFiles, setAllowsFiles] = useState(false);
   const [answersArray, setAnswersArray] = useState([]);
   const [option, setOption] = useState(0);
 
   useEffect(() => {
+    console.log(Array.isArray(prevAnswers));
+    console.log(prevAnswers);
     setImage(prevImage);
     setQuestion(prevQuestion);
     if (prevAnswers) {
-      setAnswersArray(prevAnswers);
+      setAnswersArray(prevAnswers.map((el) => el.descriptor.title));
+      if (prevAnswers.length > 0) setIsChoice(true);
     }
+    if (prevAllowsFiles) setAllowsFiles(true);
+    setOption(truePrevAnswer);
   }, [prevImage, prevQuestion, prevAnswers]);
 
   const addNewQuestionToArray = () => {
     if (question !== '') {
+      let options;
+      const newArray = answersArray.map((answer, index) => {
+        let isTrue;
+
+        index === option ? (isTrue = true) : (isTrue = false);
+        const obj = {
+          answer: isTrue,
+          descriptor: {
+            title: answer,
+          },
+        };
+
+        return obj;
+      });
       let newEntry;
+      let allowsFileUpload;
+
+      isChoice ? (options = newArray) : (options = []);
+      allowsFiles ? (allowsFileUpload = 'files') : (allowsFileUpload = 'noFiles');
 
       if (image) {
         newEntry = {
           descriptor: {
             title: question,
-            subtitle: '',
+            subtitle: allowsFileUpload,
           },
           content: {
+            options: options,
             link: {
               locationType: 'relative',
               location: image.location,
@@ -73,15 +103,20 @@ const HomeworkQuestionsForm = ({
         newEntry = {
           descriptor: {
             title: question,
-            subtitle: '',
+            subtitle: allowsFileUpload,
           },
-          content: {},
+          content: {
+            options: newArray,
+          },
         };
       }
       changeQuestionsArray(newEntry);
+      console.log(newEntry);
       setQuestion('');
       setImage(null);
       setAnswersArray([]);
+      setIsChoice(false);
+      setOption(0);
       onClose();
     }
   };
@@ -106,6 +141,15 @@ const HomeworkQuestionsForm = ({
               <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
                 Imágen
               </Tab>
+              <Tab
+                fontFamily="Open Sans"
+                fontSize="sm"
+                isDisabled={isChoice ? false : true}
+                paddingY={1}
+                width="12rem"
+              >
+                Respuestas
+              </Tab>
             </TabList>
 
             <TabPanels>
@@ -121,6 +165,36 @@ const HomeworkQuestionsForm = ({
                     value={question}
                     onChange={(el) => setQuestion(el.target.value)}
                   />
+                  <FormControl alignItems="center" display="flex" paddingTop={2}>
+                    <FormLabel htmlFor="is_choice" mb="0">
+                      <Text fontSize="sm">¿Es múltiple choice?</Text>
+                    </FormLabel>
+                    <Switch
+                      id="is_choice"
+                      isChecked={isChoice ? true : false}
+                      size="sm"
+                      onChange={(el) => {
+                        setIsChoice(!isChoice);
+                        setAllowsFiles(false);
+                        console.log(isChoice);
+                      }}
+                    />
+                  </FormControl>
+                  <FormControl alignItems="center" display="flex">
+                    <FormLabel htmlFor="allows_file_upload" mb="0">
+                      <Text fontSize="sm">¿Permite subir archivos como respuesta?</Text>
+                    </FormLabel>
+                    <Switch
+                      id="allows_file_upload"
+                      isChecked={allowsFiles ? true : false}
+                      size="sm"
+                      onChange={(el) => {
+                        setAllowsFiles(!allowsFiles);
+                        setIsChoice(false);
+                        console.log(isChoice);
+                      }}
+                    />
+                  </FormControl>
                 </Box>
               </TabPanel>
 
@@ -146,12 +220,24 @@ const HomeworkQuestionsForm = ({
                   </VStack>
                 </HStack>
               </TabPanel>
+              <TabPanel>
+                {answersArray ? (
+                  <VStack>
+                    <AnswersInput
+                      answersArray={answersArray}
+                      option={option}
+                      setAnswersArray={setAnswersArray}
+                      setOption={setOption}
+                    />
+                  </VStack>
+                ) : null}
+              </TabPanel>
             </TabPanels>
           </Tabs>
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
-          <HStack justifyContent="center" w="100%">
+          <HStack justifyContent="center" paddingTop={4} w="100%">
             <Button variant="primary" w="12rem" onClick={addNewQuestionToArray}>
               {buttonText}
             </Button>

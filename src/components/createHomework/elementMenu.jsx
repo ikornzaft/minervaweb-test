@@ -23,6 +23,7 @@ const ElementMenu = ({
   const [prevImage, setPrevImage] = useState(null);
   const [prevQuestion, setPrevQuestion] = useState('');
   const [prevAnswers, setPrevAnswers] = useState([]);
+  const [prevAllowsFiles, setPrevAllowsFiles] = useState(false);
   const [truePrevAnswer, setTruePrevAnswer] = useState(0);
 
   const moveUp = (el) => {
@@ -54,6 +55,13 @@ const ElementMenu = ({
   const editItem = (el) => {
     if (paragraphList[index].content.link)
       setPrevImage({ location: paragraphList[index].content.link.location });
+    if (paragraphList[index].content.options.length > 0) {
+      const arr = paragraphList[index].content.options;
+
+      setPrevAnswers(arr);
+    }
+    //setPrevAnswers([...paragraphList[index].content.options]);
+    if (paragraphList[index].descriptor.subtitle === 'files') setPrevAllowsFiles(true);
     setPrevQuestion(paragraphList[index].descriptor.title);
     onOpenEditQuestion();
   };
@@ -99,6 +107,7 @@ const ElementMenu = ({
         examQuestionsArray={paragraphList}
         isOpen={isOpenEditQuestion}
         modalTitle="Editar pregunta"
+        prevAllowsFiles={prevAllowsFiles}
         prevAnswers={prevAnswers}
         prevImage={prevImage}
         prevQuestion={prevQuestion}

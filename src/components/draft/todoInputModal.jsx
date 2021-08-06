@@ -54,14 +54,16 @@ const TodoInputModal = ({
   useEffect(() => {
     const quizzes = draftToDo.filter((el) => el.content.type === 'quiz');
     const exams = draftToDo.filter((el) => el.content.type === 'exam');
+    const homeworks = draftToDo.filter((el) => el.content.type === 'homework');
 
     setSelectedQuizzes(quizzes);
     setSelectedExams(exams);
+    setSelectedHomeworks(homeworks);
   }, [draftToDo]);
 
   const submitTodoSection = () => {
     console.log(selectedExams);
-    setDraftToDo(selectedQuizzes.concat(selectedExams));
+    setDraftToDo(selectedQuizzes.concat(selectedExams, selectedHomeworks));
     console.log(draftToDo);
     onClose();
   };

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
 
+import { DisplayHomework } from './displayHomework';
+
 const HomeworksSelector = ({ workAreas, selectedHomeworks, setSelectedHomeworks }) => {
   const [homeworks, setHomeworks] = useState([]);
   const [homeworksToDisplay, setHomeworksToDisplay] = useState([]);
@@ -55,7 +57,7 @@ const HomeworksSelector = ({ workAreas, selectedHomeworks, setSelectedHomeworks 
   useEffect(() => {
     homeworks.map((homework) => {
       const newHomeworkToDisplay = {
-        key: homeworks.entity.publicId,
+        key: homework.entity.publicId,
         value: homework.contentHeader.descriptor.title,
       };
 
@@ -72,14 +74,20 @@ const HomeworksSelector = ({ workAreas, selectedHomeworks, setSelectedHomeworks 
           title: homeworks[homeworkIndex].contentHeader.descriptor.title,
           subtitle: homeworks[homeworkIndex].contentHeader.descriptor.subtitle,
         },
+        content: {
+          type: 'homework',
+          entity: {
+            publicId: optionValue,
+          },
+        },
       };
+
       const elementExists = selectedHomeworks.findIndex(
         (el) => el.homework.entity.publicId === optionValue
       );
 
       if (elementExists === -1) setSelectedHomeworks([...selectedHomeworks, homeworkObj]);
     }
-
     setOptionValue(null);
   };
 
@@ -135,6 +143,17 @@ const HomeworksSelector = ({ workAreas, selectedHomeworks, setSelectedHomeworks 
           Agregar tarea
         </Button>
       </HStack>
+      {selectedHomeworks.map((homework) => {
+        if (homework !== '')
+          return (
+            <DisplayHomework
+              homework={homework}
+              options={homeworks}
+              selectedHomeworks={selectedHomeworks}
+              setSelectedHomeworks={setSelectedHomeworks}
+            />
+          );
+      })}
     </VStack>
   );
 };

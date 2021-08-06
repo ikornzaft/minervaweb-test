@@ -78,7 +78,7 @@ const HomeworkForm = ({ isOpen, onClose, modalTitle }) => {
     const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
-    const homeworkId = 'EX-' + formatedDate + '-' + uuidv4();
+    const homeworkId = 'H-' + formatedDate + '-' + uuidv4();
     const principal = localStorage.getItem('credentials');
     const newHomeworkToSubmit = {
       id: 'msgid-1',
@@ -155,6 +155,7 @@ const HomeworkForm = ({ isOpen, onClose, modalTitle }) => {
   };
 
   const listItems = (el, index) => {
+    console.log(el);
     const descriptor = el.descriptor;
     let content;
 

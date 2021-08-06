@@ -51,26 +51,6 @@ const TodoInputModal = ({
     setSection2(s2);
   }, []);
 
-  /* useEffect(() => {
-    const homeworks = HomeworksDb;
-    setSelectorOptions([]);
-
-    if (homeworks.length > 0) {
-      homework.forEach((el) => {
-        // Falta filtrar si ese artículo ya fue elegido
-        const newOption = {
-          key: el.article.publicId,
-          value: el.descriptor.articleHeader.descriptor.title,
-          subtitle: el.resource.articleHeader.descriptor.subtitle,
-        };
-        setSelectorOptions((selectorOptions) => [
-          ...selectorOptions,
-          newOption,
-        ]);
-      });
-    }
-  }, []); */
-
   useEffect(() => {
     setSectionsList([section1, section2]);
   }, [section1, section2]);
@@ -78,7 +58,7 @@ const TodoInputModal = ({
   const submitTodoSection = () => {
     setSection2({
       ...section2,
-      contents: [...selectedQuizzes, ...selectedExams],
+      contents: [...selectedQuizzes, ...selectedExams, ...selectedHomeworks],
     });
     onClose();
   };
