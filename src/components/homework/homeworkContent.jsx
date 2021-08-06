@@ -51,10 +51,108 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
     onOpenFileUploader();
   };
 
+  const handleAnswerSubmit = () => {
+    console.log(answersArray);
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/homeworks/handlers/InsertHomeworkResponse',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          resource: {
+            paragraphs: answersArray,
+            worker: { publicId: localStorage.getItem('userName') },
+          },
+          entityRef: { publicId: param.id },
+        },
+      }),
+    };
+
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(url, jsonMessage);
+
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
+        const resJson = await res.json();
+
+        console.log(resJson);
+        if (resJson.error) {
+          if (resJson.error.code === 707501) {
+            toast({
+              title: 'Esta tarea ya fue realizada',
+              description: error,
+              status: 'error',
+              duration: 2500,
+              isClosable: true,
+            });
+          }
+        } else {
+          toast({
+            title: 'Respuestas enviadas.',
+            status: 'success',
+            duration: 2500,
+            isClosable: true,
+          });
+          setSendedAnswer(true);
+        }
+      } catch (err) {
+        setError(err);
+        toast({
+          title: 'Se produjo un error al enviar las respuesta',
+          description: error,
+          status: 'error',
+          duration: 2500,
+          isClosable: true,
+        });
+      } finally {
+        setUploadedFiles([]);
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  };
+
   const handleChangeTextAnswer = (id, value) => {
     const prevArray = answersArray;
 
-    prevArray[id] = value;
+    if (prevArray[id] && prevArray[id].files) {
+      const prevArrayFiles = prevArray[id].files;
+
+      prevArray[id] = {
+        descriptor: {
+          description: value,
+        },
+        files: prevArrayFiles,
+      };
+    } else {
+      prevArray[id] = {
+        descriptor: {
+          description: value,
+        },
+      };
+    }
+    setAnswersArray(prevArray);
+  };
+
+  const handleChangeFilesContent = (id, value) => {
+    const prevArray = answersArray;
+
+    const prevArrayDescriptor = prevArray[id].descriptor;
+
+    prevArray[id] = {
+      descriptor: prevArrayDescriptor,
+      files: value,
+    };
     setAnswersArray(prevArray);
   };
 
@@ -91,6 +189,7 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           <HomeworkParagraph
             key={index}
             answersArray={answersArray}
+            handleChangeFilesContent={handleChangeFilesContent}
             handleChangeTextAnswer={handleChangeTextAnswer}
             paragraph={paragraph}
             paragraphIndex={index}
@@ -103,11 +202,12 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
         ))}
       </VStack>
       <HStack justifyContent="center" paddingY={3} w="100%">
-        <Button isDisabled={sendedAnswer} variant="primary" w="11rem" onClick={fileUploaderHandler}>
-          Subir archivo
+        <Button isDisabled={sendedAnswer} variant="primary" w="11rem" onClick={handleAnswerSubmit}>
+          Enviar respuestas
         </Button>
       </HStack>
       <FilesUploadModal
+        handleChangeFilesContent={handleChangeFilesContent}
         isOpen={isOpenFileUploader}
         setSendedAnswer={setSendedAnswer}
         setUploadedFiles={setUploadedFiles}

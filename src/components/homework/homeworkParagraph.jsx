@@ -13,6 +13,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react';
+import { FiUpload } from 'react-icons/fi';
 
 import { FilesUploadModal } from './filesUploaderModal';
 
@@ -23,6 +24,7 @@ const HomeworkParagraph = ({
   answersArray,
   setAnswersArray,
   handleChangeTextAnswer,
+  handleChangeFilesContent,
   setSendedAnswer,
   setUploadedFiles,
   uploadedFiles,
@@ -91,14 +93,23 @@ const HomeworkParagraph = ({
           ))}
         </Box>
       ) : (
-        <VStack>
+        <VStack w="100%">
           <Textarea
             placeholder="Tu respuesta..."
+            w="35rem"
             onChange={(el) => handleChangeTextAnswer(paragraphIndex, el.target.value)}
           />
           {allowsFileUpload === 'files' ? (
-            <HStack justifyContent="center" w="100%">
-              <Button variant="primary" w="11rem" onClick={fileUploaderHandler}>
+            <HStack justifyContent="flex-end" paddingX={16} w="100%">
+              <Button
+                colorScheme="blue"
+                fontWeight="400"
+                leftIcon={<FiUpload />}
+                size="xs"
+                variant="outline"
+                w="10rem"
+                onClick={fileUploaderHandler}
+              >
                 Subir archivo
               </Button>
             </HStack>
@@ -106,6 +117,8 @@ const HomeworkParagraph = ({
         </VStack>
       )}
       <FilesUploadModal
+        handleChangeFilesContent={handleChangeFilesContent}
+        index={paragraphIndex}
         isOpen={isOpenFileUploader}
         setSendedAnswer={setSendedAnswer}
         setUploadedFiles={setUploadedFiles}

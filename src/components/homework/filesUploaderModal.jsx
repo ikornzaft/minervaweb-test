@@ -18,9 +18,11 @@ import { FilesSelector } from '../createArticle/articleContent/filesSelector';
 const FilesUploadModal = ({
   isOpen,
   onClose,
+  handleChangeFilesContent,
   uploadedFiles,
   setUploadedFiles,
   title,
+  index,
   setSendedAnswer,
 }) => {
   const [error, setError] = useState(null);
@@ -29,74 +31,7 @@ const FilesUploadModal = ({
   const toast = createStandaloneToast();
 
   const handleAnswerSubmit = () => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/homeworks/handlers/InsertHomeworkResponse',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-
-        message: {
-          resource: {
-            paragraphs: uploadedFiles,
-            worker: { publicId: localStorage.getItem('userName') },
-          },
-          entityRef: { publicId: param.id },
-        },
-      }),
-    };
-
-    async function fetchData() {
-      try {
-        console.log('enviando');
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
-
-        console.log(resJson);
-        if (resJson.error) {
-          if (resJson.error.code === 707501) {
-            toast({
-              title: 'Esta tarea ya fue realizado',
-              description: error,
-              status: 'error',
-              duration: 2500,
-              isClosable: true,
-            });
-          }
-        } else {
-          toast({
-            title: 'Respuesta enviada.',
-            status: 'success',
-            duration: 2500,
-            isClosable: true,
-          });
-          setSendedAnswer(true);
-        }
-      } catch (err) {
-        setError(err);
-        toast({
-          title: 'Se produjo un error al enviar la respuesta',
-          description: error,
-          status: 'error',
-          duration: 2500,
-          isClosable: true,
-        });
-      } finally {
-        setUploadedFiles([]);
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    handleChangeFilesContent(index, uploadedFiles);
 
     onClose();
   };
@@ -121,7 +56,7 @@ const FilesUploadModal = ({
         <ModalFooter justifyContent="center">
           <Box paddingBottom={2}>
             <Button variant="primary" onClick={handleAnswerSubmit}>
-              Enviar
+              Confirmar
             </Button>
           </Box>
         </ModalFooter>
