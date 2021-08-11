@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
-import { Stack, Box, Spinner, VStack } from '@chakra-ui/react';
+import { Stack, Box, Spinner } from '@chakra-ui/react';
 
+import { StatsMenu } from '../components/navigation/statsMenu';
 import { ExamContent } from '../components/exam/examContent';
 
 const Loader = () => (
@@ -52,7 +53,6 @@ const Exam = () => {
         if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
 
-        console.log(resJson);
         setTitle(resJson.message.entity.resource.articleHeader.descriptor.title);
         setSubtitle(resJson.message.entity.resource.articleHeader.descriptor.subtitle);
         setParagraphs(resJson.message.entity.resource.paragraphs);
@@ -75,6 +75,8 @@ const Exam = () => {
 
   return (
     <Stack ref={containerRef} alignItems="center" marginTop={4} paddingBottom={6}>
+      {localStorage.getItem('isEditor') === 'true' ? <StatsMenu /> : null}
+
       {isLoading ? (
         <Loader />
       ) : (

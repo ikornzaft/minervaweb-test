@@ -18,6 +18,7 @@ import { Quizzes } from './screens/quizzes';
 import { Quiz } from './screens/quiz';
 import { Homeworks } from './screens/homeworks';
 import { Homework } from './screens/homework';
+import { Stats } from './screens/stats';
 
 function App() {
   const [isLoginOn, setLoginOn] = useState(false);
@@ -45,6 +46,8 @@ function App() {
         <Route component={Quiz} path="/quiz/:id" />
         <Route exact component={Homeworks} path="/homeworks/" />
         <Route component={Homework} path="/homework/:id" />
+        <Route component={Stats} path="/stats/:id" />
+
         <Redirect to="/" />
       </Switch>
     </Layout>

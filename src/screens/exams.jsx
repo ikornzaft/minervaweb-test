@@ -43,7 +43,6 @@ const Exams = () => {
         const resJson = await res.json();
 
         setExams(resJson.message.resources);
-        console.log(resJson);
       } catch (err) {
         setError(err);
       } finally {

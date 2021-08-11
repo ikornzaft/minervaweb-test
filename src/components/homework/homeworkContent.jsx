@@ -37,6 +37,10 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const toast = createStandaloneToast();
+  const workgroups = JSON.parse(localStorage.getItem('workgroups'));
+  const workgroupsIds = workgroups.map((el) => el.header.privateId);
+
+  console.log(workgroupsIds);
 
   const {
     isOpen: isOpenFileUploader,
@@ -52,7 +56,6 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   };
 
   const handleAnswerSubmit = () => {
-    console.log(answersArray);
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const credentials = localStorage.getItem('credentials');
     const jsonMessage = {
@@ -71,6 +74,7 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
           resource: {
             paragraphs: answersArray,
             worker: { publicId: localStorage.getItem('userName') },
+            workgroup: { publicId: workgroupsIds[0] },
           },
           entityRef: { publicId: param.id },
         },
