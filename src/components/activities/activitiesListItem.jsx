@@ -1,8 +1,10 @@
 import React from 'react';
 import { Stack, Badge, Text, Image, Heading, Box } from '@chakra-ui/react';
+import { IoMdCheckboxOutline } from 'react-icons/io';
 
 import { LABELS } from '../../locals/sp/labels';
 import fallBackImg from '../../assets/images/Online-Tutor.svg';
+import testImage from '../../assets/images/test.jpg';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { useCreateAreaBadge } from '../../hooks/useCreateAreaBadge';
 
@@ -12,8 +14,12 @@ const ActivitiesListItem = ({ article }) => {
   const date = new Date(article.inserted.timestamp).toLocaleDateString('es-Es', options);
   let image;
 
+  console.log(article);
+
   if (article.contentHeader.image) {
     image = `http://www.afatecha.com/id/files/image/${article.contentHeader.image.location}`;
+  } else if (article.type === 'exam') {
+    image = testImage;
   } else {
     image = fallBackImg;
   }
@@ -42,6 +48,7 @@ const ActivitiesListItem = ({ article }) => {
           src={image}
         />
       </Box>
+
       <Stack justifyContent="flex-start" width="100%">
         <Stack
           alignItems="center"

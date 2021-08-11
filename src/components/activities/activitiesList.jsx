@@ -10,7 +10,7 @@ const ActivitiesList = ({ activities }) => {
         <Link
           key={index}
           to={{
-            pathname: `/article/${el.entity.publicId}`,
+            pathname: `/${el.type}/${el.entity.publicId}`,
             state: { activity: true },
           }}
         >
