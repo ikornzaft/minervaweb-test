@@ -18,6 +18,7 @@ const Stats = () => {
   const [draft, setDraft] = useState(null);
   const [articleHeader, setArticleHeader] = useState(null);
   const [paragraphs, setParagraphs] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const [title, setTitle] = useState('');
   const [sections, setSections] = useState(null);
 
@@ -62,6 +63,24 @@ const Stats = () => {
         },
       }),
     };
+    const jsonAnswers = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: `mods/${selectContentType().type}/handlers/${selectContentType().method}`,
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+
+        message: {
+          entityRef: { publicId: param.id },
+          workgroup: { publicId: 'aula/test_a/quinto' },
+        },
+      }),
+    };
 
     async function fetchData() {
       try {
@@ -73,6 +92,14 @@ const Stats = () => {
 
         setParagraphs(resJson.message.entity.resource.paragraphs);
         setTitle(resJson.message.entity.resource.articleHeader.descriptor.title);
+        const answersRes = await fetch(url, jsonAnswers);
+
+        if (answersRes.status >= 400 && answersRes.status < 600)
+          setError('Bad response from server');
+        const answersResJson = await answersRes.json();
+
+        setAnswers(answersResJson);
+        console.log(answersResJson);
       } catch (err) {
         setError(err);
       } finally {
