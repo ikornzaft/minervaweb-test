@@ -52,9 +52,9 @@ const Articles = () => {
   const [content, setContent] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
 
   useEffect(() => {
+    const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
     const message = {
       workarea: {

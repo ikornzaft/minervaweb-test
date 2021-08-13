@@ -12,9 +12,11 @@ import { Link } from 'react-router-dom';
 
 import { RequestItem } from '../components/requests/requestItem';
 import { NewRequestModal } from '../components/requests/newRequestModal';
+import { FetchComponent } from '../components/common/fetchComponent';
 
 const RequestsBoard = () => {
   const [questionsArray, setQuestionsArray] = useState([]);
+  const [content, setContent] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const isStudent = localStorage.getItem('isStudent');
@@ -29,49 +31,24 @@ const RequestsBoard = () => {
   };
 
   useEffect(() => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/questions/handlers/FindQuestion',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {
-          workgroups: workgroups,
-        },
-      }),
+    const message = {
+      workgroups: workgroups,
     };
+    const method = 'mods/questions/handlers/FindQuestion';
 
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
-
-        setQuestionsArray(resJson.message.resources);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    FetchComponent(method, message, setIsLoading, setError, setContent);
   }, []);
 
   useEffect(() => {
-    const sortedArray = questionsArray.sort(
-      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
-    );
-  }, [questionsArray]);
+    if (content?.message) {
+      const sortedArray = content.message.resources.sort(
+        (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+      );
+
+      setQuestionsArray(content.message.resources);
+    }
+  }, [content, questionsArray]);
 
   return (
     <>

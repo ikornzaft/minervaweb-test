@@ -12,9 +12,12 @@ import { Link } from 'react-router-dom';
 
 import { ForumItem } from '../components/forum/forumItem';
 import { NewTopicModal } from '../components/forum/newTopicModal';
+import { FetchComponent } from '../components/common/fetchComponent';
 
 const Forum = () => {
   const [topicsArray, setTopicsArray] = useState([]);
+  const [content, setContent] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const isStudent = localStorage.getItem('isStudent');
@@ -29,49 +32,24 @@ const Forum = () => {
   };
 
   useEffect(() => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/topics/handlers/FindTopic',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {
-          workgroups: workgroups,
-        },
-      }),
+    const message = {
+      workgroups: workgroups,
     };
+    const method = 'mods/topics/handlers/FindTopic';
 
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
-
-        setTopicsArray(resJson.message.resources);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    FetchComponent(method, message, setIsLoading, setError, setContent);
   }, []);
 
   useEffect(() => {
-    const sortedArray = topicsArray.sort(
-      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
-    );
-  }, [topicsArray]);
+    if (content?.message) {
+      const sortedArray = content.message.resources.sort(
+        (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+      );
+
+      setTopicsArray(content.message.resources);
+    }
+  }, [content, topicsArray]);
 
   return (
     <>
