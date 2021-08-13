@@ -8,7 +8,6 @@ import { Article } from './screens/article';
 import { Draft } from './screens/draft';
 import { Layout } from './screens/layout';
 import { RequestsBoard } from './screens/requests';
-import { Tasks } from './screens/tasks';
 import { Exams } from './screens/exams';
 import { Exam } from './screens/exam';
 import { Forum } from './screens/forum';
@@ -37,7 +36,6 @@ function App() {
         <Route component={Draft} path="/draft/:id" />
         <Route exact component={RequestsBoard} path="/requests-board/" />
         <Route component={Request} path="/request/:id" />
-        <Route exact component={Tasks} path="/tasks/" />
         <Route exact component={Exams} path="/exams/" />
         <Route component={Exam} path="/exam/:id" />
         <Route exact component={Forum} path="/forum/" />
