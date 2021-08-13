@@ -3,61 +3,37 @@ import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner } from '@chakra-ui/react';
 
 import { HomeworksList } from '../components/homeworks/homeworksList';
+import { FetchComponent } from '../components/common/fetchComponent';
 import { LABELS } from '../locals/sp/labels';
 
 const Homeworks = () => {
-  const [workarea, setWorkarea] = useState(null);
   const param = useParams();
 
   const [homeworks, setHomeworks] = useState([]);
+  const [content, setContent] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/homeworks/handlers/FindHomeworks',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {
-          workgroups: workgroups,
-        },
-      }),
+    const message = {
+      workgroups: workgroups,
     };
+    const method = 'mods/homeworks/handlers/FindHomeworks';
 
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
-
-        setHomeworks(resJson.message.resources);
-        console.log(resJson);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    FetchComponent(method, message, setIsLoading, setError, setContent);
   }, [param.id]);
 
   useEffect(() => {
-    const sortedArray = homeworks.sort(
-      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
-    );
-  }, [homeworks]);
+    if (content?.message) {
+      const sortedArray = content.message.resources.sort(
+        (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+      );
+
+      setHomeworks(content.message.resources);
+    }
+  }, [content, homeworks]);
 
   const renderList = () => {
     if (!error) {

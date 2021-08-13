@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner } from '@chakra-ui/react';
 
 import { ArticlesList } from '../components/articles/articlesList';
+import { FetchComponent } from '../components/common/fetchComponent';
 import { LABELS } from '../locals/sp/labels';
 
 const Articles = () => {
@@ -11,6 +12,7 @@ const Articles = () => {
   const param = useParams();
 
   useEffect(() => {
+    console.log('ACA');
     if (param.id) {
       switch (param.id) {
         case 'mate':
@@ -47,56 +49,34 @@ const Articles = () => {
   }, [param.id]);
 
   const [articles, setArticles] = useState([]);
+  const [content, setContent] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
 
   useEffect(() => {
     const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
-    const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
+    const message = {
+      workarea: {
+        publicId: param.id,
       },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/articles/handlers/FindArticles',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {
-          workarea: {
-            publicId: param.id,
-          },
-          workgroups: workgroups,
-        },
-      }),
+      workgroups: workgroups,
     };
 
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
+    const method = 'mods/articles/handlers/FindArticles';
 
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
-
-        setArticles(resJson.message.resources);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    FetchComponent(method, message, setIsLoading, setError, setContent);
   }, [param.id]);
 
   useEffect(() => {
-    const sortedArray = articles.sort(
-      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
-    );
-  }, [articles]);
+    if (content?.message) {
+      const sortedArray = content.message.resources.sort(
+        (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+      );
+
+      setArticles(content.message.resources);
+    }
+  }, [content, articles]);
 
   const renderList = () => {
     if (!error) {

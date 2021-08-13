@@ -4,52 +4,30 @@ import { Container, Stack, Heading, Spinner, Box } from '@chakra-ui/react';
 import { BlueSpinner } from '../components/common/spinner';
 import { LABELS } from '../locals/sp/labels';
 import { ActivitiesList } from '../components/activities/activitiesList';
+import { FetchComponent } from '../components/common/fetchComponent';
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);
+  const [content, setContent] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const credentials = localStorage.getItem('credentials');
-  const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
 
   useEffect(() => {
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/commons/handlers/FindActivities',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {},
-      }),
-    };
+    const message = {};
+    const method = 'mods/commons/handlers/FindActivities';
 
-    async function fetchData() {
-      try {
-        const res = await fetch(url, jsonMessage);
+    FetchComponent(method, message, setIsLoading, setError, setContent);
+  }, []);
 
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
+  useEffect(() => {
+    if (content?.message) {
+      const sortedArray = content.message.resources.sort(
+        (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+      );
 
-        setActivities(resJson.message.resources);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
+      setActivities(content.message.resources);
     }
-    fetchData();
-  }, [credentials]);
-
-  useEffect(() => {
-    const sortedArray = activities.sort(
-      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
-    );
-  }, [activities]);
+  }, [content, activities]);
 
   const renderList = () => {
     if (!error) {

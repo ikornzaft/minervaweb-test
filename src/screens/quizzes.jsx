@@ -3,11 +3,15 @@ import { useParams } from 'react-router-dom';
 import { Container, Stack, Heading, Spinner } from '@chakra-ui/react';
 
 import { QuizzesList } from '../components/quizzes/quizzesList';
+import { FetchComponent } from '../components/common/fetchComponent';
 import { LABELS } from '../locals/sp/labels';
 
 const Quizzes = () => {
-  const [workarea, setWorkarea] = useState(null);
   const [areaTitle, setAreaTitle] = useState({});
+  const [content, setContent] = useState([]);
+  const [quizzes, setQuizzes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const param = useParams();
 
   useEffect(() => {
@@ -46,54 +50,25 @@ const Quizzes = () => {
     }
   }, [param.id]);
 
-  const [quizzes, setQuizzes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   useEffect(() => {
-    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-    const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-    const jsonMessage = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      body: JSON.stringify({
-        id: 'msgid-1',
-        target: 'soa@service/minerva',
-        method: 'mods/quizzes/handlers/FindQuizzes',
-        requester: 'root:YWNhY2lhITIwMTc=',
-        principal: credentials,
-        message: {
-          workgroups: workgroups,
-        },
-      }),
+    const message = {
+      workgroups: workgroups,
     };
+    const method = 'mods/quizzes/handlers/FindQuizzes';
 
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(url, jsonMessage);
-
-        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-        const resJson = await res.json();
-
-        setQuizzes(resJson.message.resources);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
+    FetchComponent(method, message, setIsLoading, setError, setContent);
   }, [param.id]);
 
   useEffect(() => {
-    const sortedArray = quizzes.sort(
-      (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
-    );
-  }, [quizzes]);
+    if (content?.message) {
+      const sortedArray = content.message.resources.sort(
+        (a, b) => new Date(b.inserted.timestamp) - new Date(a.inserted.timestamp)
+      );
+
+      setQuizzes(content.message.resources);
+    }
+  }, [content, quizzes]);
 
   const renderList = () => {
     if (!error) {
