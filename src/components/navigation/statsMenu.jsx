@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { HStack, Button, Box, useDisclosure } from '@chakra-ui/react';
 
-import { WorkgroupSelector } from '../common/workgroupSelector';
+import { PublishWorkgroupSelector } from '../common/publishWorkgroupSelector';
 import { NewTopicModal } from '../forum/newTopicModal';
 
 const StatsMenu = () => {
@@ -74,7 +74,7 @@ const StatsMenu = () => {
         </Button>
       </HStack>
 
-      <WorkgroupSelector isOpen={isOpenGroupSelector} onClose={onCloseGroupSelector} />
+      <PublishWorkgroupSelector isOpen={isOpenGroupSelector} onClose={onCloseGroupSelector} />
       <NewTopicModal articleId={param.id} isOpen={isOpenTopicModal} onClose={onCloseTopicModal} />
     </HStack>
   );
