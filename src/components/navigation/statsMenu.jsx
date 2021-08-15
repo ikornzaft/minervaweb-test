@@ -3,7 +3,6 @@ import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { HStack, Button, Box, useDisclosure } from '@chakra-ui/react';
 
 import { PublishWorkgroupSelector } from '../common/publishWorkgroupSelector';
-import { NewTopicModal } from '../forum/newTopicModal';
 
 const StatsMenu = () => {
   const param = useParams();
@@ -75,7 +74,6 @@ const StatsMenu = () => {
       </HStack>
 
       <PublishWorkgroupSelector isOpen={isOpenGroupSelector} onClose={onCloseGroupSelector} />
-      <NewTopicModal articleId={param.id} isOpen={isOpenTopicModal} onClose={onCloseTopicModal} />
     </HStack>
   );
 };
