@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import { HStack, VStack, Heading, Text } from '@chakra-ui/react';
 
 import { FetchComponent } from '../components/common/fetchComponent';
+import { StudentsList } from '../components/stats/studentsList';
+import { StudentAnswers } from '../components/stats/studentAnswers';
 
 const Stats = () => {
   const history = useHistory();
@@ -11,7 +13,9 @@ const Stats = () => {
   const [error, setError] = useState(null);
   const [content, setContent] = useState(null);
   const [title, setTitle] = useState(null);
+  const [questionsArray, setQuestionsArray] = useState([]);
   const [answersEntities, setAnswersEntities] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(0);
 
   const [draft, setDraft] = useState(null);
   const [articleHeader, setArticleHeader] = useState(null);
@@ -48,6 +52,7 @@ const Stats = () => {
   useEffect(() => {
     if (!title) {
       setTitle(content?.message.entity.resource.articleHeader.descriptor.title);
+      setQuestionsArray(content?.message.entity.resource.paragraphs);
     } else {
       setAnswersEntities(content?.message.entities);
     }
@@ -76,10 +81,12 @@ const Stats = () => {
         </Heading>
       </HStack>
       <HStack
+        alignItems="center"
         bg="gray.100"
         borderColor="gray.300"
         borderRadius="lg"
         borderWidth="1px"
+        justifyContent="space-evenly"
         paddingX="2rem"
         paddingY="2rem"
         w="49rem"
@@ -89,16 +96,29 @@ const Stats = () => {
           borderColor="gray.300"
           borderRadius="lg"
           borderWidth="1px"
+          h="20rem"
+          maxHeight="20rem"
+          overflowX="hidden"
+          overflowY="scroll"
           p={4}
-          w="20rem"
+          w="15rem"
         >
           {answersEntities.length > 0 ? (
-            answersEntities.map((el, index) => {
-              return <p key={index}>{el.resource.worker.publicId}</p>;
-            })
+            <StudentsList
+              selectedStudent={selectedStudent}
+              setSelectedStudent={setSelectedStudent}
+              studentsArray={answersEntities}
+            />
           ) : (
             <Text>No hay respuestas aún...</Text>
           )}
+        </VStack>
+        <VStack justifyContent="center" w="30rem">
+          <StudentAnswers
+            answers={answersEntities}
+            questions={questionsArray}
+            student={selectedStudent}
+          />
         </VStack>
       </HStack>
     </VStack>
