@@ -32,9 +32,8 @@ const CommentsList = ({ commentsArray }) => {
           <Text color="gray.700" fontSize="sm" marginTop="0 !important">
             {comment.resource.articleHeader.descriptor.description}
           </Text>
-          {comment.resource.paragraphs.length > 0 ? (
-            <DisplayContent paragraphs={comment.resource.paragraphs} />
-          ) : null}
+
+          <DisplayContent paragraphs={comment.resource.paragraphs} />
         </VStack>
       ))}
     </Box>
