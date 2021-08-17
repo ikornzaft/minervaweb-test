@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { Stack, Box, Spinner } from '@chakra-ui/react';
 
+import { StatsMenu } from '../components/navigation/statsMenu';
 import { HomeworkContent } from '../components/homework/homeworkContent';
 
 const Loader = () => (
@@ -75,6 +76,8 @@ const Homework = () => {
 
   return (
     <Stack ref={containerRef} alignItems="center" marginTop={4} paddingBottom={6}>
+      {localStorage.getItem('isEditor') === 'true' ? <StatsMenu /> : null}
+
       {isLoading ? (
         <Loader />
       ) : (

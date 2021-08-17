@@ -65,7 +65,10 @@ const ExamContent = ({ title, subtitle, paragraphs, workarea, date }) => {
         message: {
           resource: {
             paragraphs: answersArray,
-            worker: { publicId: localStorage.getItem('userName') },
+            worker: {
+              publicId: localStorage.getItem('userName'),
+              title: localStorage.getItem('realName'),
+            },
           },
           entityRef: { publicId: param.id },
         },

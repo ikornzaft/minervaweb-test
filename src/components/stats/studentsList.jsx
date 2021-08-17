@@ -34,7 +34,7 @@ const StudentsList = ({ studentsArray, selectedStudent, setSelectedStudent }) =>
           <Box _hover={{ bg: 'gray.200' }} paddingX={4} paddingY={2} w="238px">
             <Radio borderColor="gray.400" value={index} w="100%">
               <Box w="100%">
-                <Text>{el.resource.worker.publicId}</Text>
+                <Text>{el.resource.worker.title}</Text>
               </Box>
             </Radio>
           </Box>

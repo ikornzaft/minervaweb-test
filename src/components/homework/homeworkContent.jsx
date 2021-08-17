@@ -73,7 +73,10 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
         message: {
           resource: {
             paragraphs: answersArray,
-            worker: { publicId: localStorage.getItem('userName') },
+            worker: {
+              publicId: localStorage.getItem('userName'),
+              title: localStorage.getItem('realName'),
+            },
             workgroup: { publicId: workgroupsIds[0] },
           },
           entityRef: { publicId: param.id },

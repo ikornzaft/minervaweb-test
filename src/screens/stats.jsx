@@ -61,6 +61,7 @@ const Stats = () => {
   useEffect(() => {
     if (title) {
       const method = `mods/${selectContentType().type}/handlers/${selectContentType().method}`;
+
       const message = {
         entityRef: { publicId: param.id },
         workgroup: { publicId: 'aula/test_a/quinto' },
