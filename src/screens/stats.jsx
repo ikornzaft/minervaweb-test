@@ -5,6 +5,7 @@ import { HStack, VStack, Heading, Text } from '@chakra-ui/react';
 import { FetchComponent } from '../components/common/fetchComponent';
 import { StudentsList } from '../components/stats/studentsList';
 import { StudentAnswers } from '../components/stats/studentAnswers';
+import { WorkgroupSelector } from '../components/common/workgroupSelector';
 
 const Stats = () => {
   const history = useHistory();
@@ -16,6 +17,7 @@ const Stats = () => {
   const [questionsArray, setQuestionsArray] = useState([]);
   const [answersEntities, setAnswersEntities] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(0);
+  const [selectedGroup, setSelectedGroup] = useState('');
 
   const [draft, setDraft] = useState(null);
   const [articleHeader, setArticleHeader] = useState(null);
@@ -43,11 +45,11 @@ const Stats = () => {
     const method = `mods/${selectContentType().type}/handlers/${selectContentType().contentMethod}`;
     const message = {
       entityRef: { publicId: param.id },
-      workgroup: { publicId: 'aula/test_a/quinto' },
+      workgroup: { publicId: selectedGroup },
     };
 
     FetchComponent(method, message, setIsLoading, setError, setContent);
-  }, [param.id]);
+  }, [selectedGroup]);
 
   useEffect(() => {
     if (!title) {
@@ -59,17 +61,17 @@ const Stats = () => {
   }, [content]);
 
   useEffect(() => {
-    if (title) {
+    if (title && selectedGroup !== '') {
       const method = `mods/${selectContentType().type}/handlers/${selectContentType().method}`;
 
       const message = {
         entityRef: { publicId: param.id },
-        workgroup: { publicId: 'aula/test_a/quinto' },
+        workgroup: { publicId: selectedGroup },
       };
 
       FetchComponent(method, message, setIsLoading, setError, setContent);
     }
-  }, [title]);
+  }, [selectedGroup]);
 
   return (
     <VStack alignItems="center" paddingTop={16}>
@@ -81,47 +83,60 @@ const Stats = () => {
           {title}
         </Heading>
       </HStack>
-      <HStack
-        alignItems="center"
-        bg="gray.100"
-        borderColor="gray.300"
-        borderRadius="lg"
-        borderWidth="1px"
-        justifyContent="space-evenly"
-        paddingX="2rem"
-        paddingY="2rem"
-        w="49rem"
-      >
-        <VStack
-          bg="white"
-          borderColor="gray.300"
-          borderRadius="lg"
-          borderWidth="1px"
-          h="20rem"
-          maxHeight="20rem"
-          overflowX="hidden"
-          overflowY="scroll"
-          p={4}
-          w="15rem"
+      <VStack borderColor="gray.300" borderRadius="lg" borderWidth="1px" paddingY={4}>
+        <WorkgroupSelector setSelectedGroup={setSelectedGroup} />
+        <HStack
+          alignItems="center"
+          justifyContent="space-evenly"
+          paddingX="2rem"
+          paddingY="2rem"
+          spacing={6}
+          w="49rem"
         >
-          {answersEntities.length > 0 ? (
-            <StudentsList
-              selectedStudent={selectedStudent}
-              setSelectedStudent={setSelectedStudent}
-              studentsArray={answersEntities}
+          <VStack
+            bg="white"
+            borderColor="gray.300"
+            borderRadius="lg"
+            borderWidth="1px"
+            h="20rem"
+            maxHeight="20rem"
+            overflowX="hidden"
+            overflowY="scroll"
+            p={4}
+            w="15rem"
+          >
+            {answersEntities?.length > 0 ? (
+              <StudentsList
+                selectedStudent={selectedStudent}
+                setSelectedStudent={setSelectedStudent}
+                studentsArray={answersEntities}
+              />
+            ) : (
+              <Text>No hay respuestas aún...</Text>
+            )}
+          </VStack>
+          <VStack
+            alignItems="center"
+            borderColor="gray.300"
+            borderRadius="lg"
+            borderWidth="1px"
+            h="20rem"
+            justifyContent="flex-start"
+            maxHeight="20rem"
+            overflowX="hidden"
+            overflowY="scroll"
+            paddingTop={6}
+            paddingX={4}
+            w="26rem"
+          >
+            <StudentAnswers
+              answers={answersEntities}
+              questions={questionsArray}
+              student={selectedStudent}
             />
-          ) : (
-            <Text>No hay respuestas aún...</Text>
-          )}
-        </VStack>
-        <VStack justifyContent="center" w="30rem">
-          <StudentAnswers
-            answers={answersEntities}
-            questions={questionsArray}
-            student={selectedStudent}
-          />
-        </VStack>
-      </HStack>
+          </VStack>
+        </HStack>
+      </VStack>
     </VStack>
   );
 };
