@@ -51,6 +51,7 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
   const [selectedHomeworks, setSelectedHomeworks] = useState([]);
   const [error, setError] = useState(null);
   const [paragraphList, setParagraphList] = useState([]);
+  const [resetSection2, setResetSection2] = useState(false);
 
   const [sectionsList, setSectionsList] = useState([
     {
@@ -170,6 +171,9 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
           setKnowMoreLinks([]);
           setCoverImage(null);
           setSelectedQuizzes([]);
+          setSelectedQuizzes([]);
+          setSelectedExams([]);
+          setSelectedHomeworks([]);
 
           onClose();
         } catch (err) {
@@ -415,10 +419,12 @@ const ArticleForm = ({ isOpen, onClose, modalTitle }) => {
       />
       <TodoInputModal
         isOpen={isOpenTodo}
+        resetSection2={resetSection2}
         sectionsList={sectionsList}
         selectedExams={selectedExams}
         selectedHomeworks={selectedHomeworks}
         selectedQuizzes={selectedQuizzes}
+        setResetSection2={setResetSection2}
         setSectionsList={setSectionsList}
         setSelectedExams={setSelectedExams}
         setSelectedHomeworks={setSelectedHomeworks}

@@ -1,7 +1,7 @@
 {
   "name": "minervaweb-test",
   "version": "0.1.0",
-  "homepage": "http://www.afatecha.com/novoa/minerva-test",
+  "homepage": "http://www.afatecha.com/minerva",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.6.1",

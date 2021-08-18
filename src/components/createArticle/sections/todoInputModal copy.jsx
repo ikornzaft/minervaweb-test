@@ -39,33 +39,29 @@ const TodoInputModal = ({
   selectedHomeworks,
   setSelectedHomeworks,
   workAreas,
-  resetSection2,
-  setResetSection2,
 }) => {
   const [selectorOptions, setSelectorOptions] = useState([]);
-  const [section1, setSection1] = useState(sectionsList[0]);
-  const [section2, setSection2] = useState(sectionsList[1]);
+  const [section1, setSection1] = useState(null);
+  const [section2, setSection2] = useState(null);
 
-  console.log(sectionsList);
+  const [s1, s2] = [...sectionsList];
+
+  console.log(s1);
+
+  useEffect((s1, s2) => {
+    setSection1(s1);
+    setSection2(s2);
+  }, []);
+
   useEffect(() => {
     setSectionsList([section1, section2]);
   }, [section1, section2]);
-
-  useEffect(() => {
-    if (resetSection2) {
-      console.log('VACIANDO');
-      setSection2([]);
-      setSection1([]);
-      setResetSection2(false);
-    }
-  }, [resetSection2]);
 
   const submitTodoSection = () => {
     setSection2({
       ...section2,
       contents: [...selectedQuizzes, ...selectedExams, ...selectedHomeworks],
     });
-    console.log(section2);
     onClose();
   };
 

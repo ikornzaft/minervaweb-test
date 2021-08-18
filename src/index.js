@@ -14,7 +14,7 @@ import customTheme from './styles/theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename={'/novoa/minerva-test'}>
+    <BrowserRouter basename={'/minerva'}>
       <ChakraProvider theme={customTheme}>
         <App />
       </ChakraProvider>
