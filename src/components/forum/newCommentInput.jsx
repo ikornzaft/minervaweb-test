@@ -51,10 +51,6 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleParagraphsChange = () => {
-    setParagraphs([...paragraphs, ...selectedArticles, ...knowMore, ...knowMoreLinks]);
-  };
-
   const submitNewComment = () => {
     const credentials = localStorage.getItem('credentials');
     const date = new Date();
@@ -132,8 +128,8 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
   };
 
   useEffect(() => {
-    if (paragraphs.length > 0) submitNewComment();
-  }, [paragraphs]);
+    setParagraphs([...paragraphs, ...selectedArticles, ...knowMore, ...knowMoreLinks]);
+  }, [selectedArticles, knowMore, knowMoreLinks]);
 
   return (
     <VStack justifyContent="center" paddingTop={3} paddingX={6} w="100%">
@@ -165,7 +161,7 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
           size="sm"
           variant="primary"
           w="10rem"
-          onClick={handleParagraphsChange}
+          onClick={submitNewComment}
         >
           Publicar comentario
         </Button>
