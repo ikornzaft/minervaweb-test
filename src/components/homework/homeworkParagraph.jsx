@@ -29,7 +29,6 @@ const HomeworkParagraph = ({
   setUploadedFiles,
   uploadedFiles,
 }) => {
-  console.log(paragraphsLength);
   const options = paragraph.content.options;
   const allowsFileUpload = paragraph.descriptor.subtitle;
   const [value, setValue] = useState('');

@@ -53,7 +53,6 @@ const Homework = () => {
         if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
 
-        console.log(resJson);
         setTitle(resJson.message.entity.resource.articleHeader.descriptor.title);
         setSubtitle(resJson.message.entity.resource.articleHeader.descriptor.subtitle);
         setParagraphs(resJson.message.entity.resource.paragraphs);

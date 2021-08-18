@@ -4,7 +4,6 @@ import { VStack, HStack, Text, LinkBox, LinkOverlay } from '@chakra-ui/react';
 
 const DisplayContent = ({ paragraphs }) => {
   const DisplayItem = (item) => {
-    console.log(item);
     if (item.article)
       return (
         <Link to={`/article/${item.article.entity.publicId}`}>

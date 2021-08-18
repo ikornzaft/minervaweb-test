@@ -13,20 +13,6 @@ const StudentsList = ({ studentsArray, selectedStudent, setSelectedStudent }) =>
     setSelectedStudent(el);
   };
 
-  //Esto se va
-  useEffect(() => {
-    const newStudent = {
-      resource: {
-        worker: {
-          publicId: 'Pepito',
-        },
-      },
-    };
-
-    studentsArray.push(newStudent);
-  }, [studentsArray, value]);
-  //Hasta acá
-
   return (
     <div>
       {studentsArray.map((el, index) => (

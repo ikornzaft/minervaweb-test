@@ -40,8 +40,6 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   const workgroups = JSON.parse(localStorage.getItem('workgroups'));
   const workgroupsIds = workgroups.map((el) => el.header.privateId);
 
-  console.log(workgroupsIds);
-
   const {
     isOpen: isOpenFileUploader,
     onOpen: onOpenFileUploader,
