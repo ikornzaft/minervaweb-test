@@ -71,8 +71,8 @@ const FilesSelector = ({ uploadedFiles, setUploadedFiles }) => {
   };
 
   const onFileChange = (e) => {
-    defineFileType(e.target.files[0].type);
-    setSelectedFile(e.target.files[0]);
+    defineFileType(e.target?.files[0].type);
+    setSelectedFile(e.target?.files[0]);
   };
 
   const onDescriptionChange = (e) => {

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { VStack, HStack, Select, Text, Button } from '@chakra-ui/react';
 
-import { FetchComponent } from '../../common/fetchComponent';
-
 import { DisplayQuiz } from './displayQuiz';
 
 const QuizzesSelector = ({ workAreas, selectedQuizzes, setSelectedQuizzes }) => {
@@ -10,29 +8,51 @@ const QuizzesSelector = ({ workAreas, selectedQuizzes, setSelectedQuizzes }) => 
   const [quizzesToDisplay, setQuizzesToDisplay] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [content, setContent] = useState([]);
   const [selectedArea, setSelectedArea] = useState([]);
   const [optionValue, setOptionValue] = useState('');
 
   useEffect(() => {
     setQuizzesToDisplay([]);
+    const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const credentials = localStorage.getItem('credentials');
     const workgroups = JSON.parse(localStorage.getItem('userWorkgroups'));
-    const method = 'mods/quizzes/handlers/FindQuizzes';
-    const message = {
-      workarea: {
-        publicId: selectedArea,
+    const jsonMessage = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
       },
-      workgroups: workgroups,
+      body: JSON.stringify({
+        id: 'msgid-1',
+        target: 'soa@service/minerva',
+        method: 'mods/quizzes/handlers/FindQuizzes',
+        requester: 'root:YWNhY2lhITIwMTc=',
+        principal: credentials,
+        message: {
+          workarea: {
+            publicId: selectedArea,
+          },
+          workgroups: workgroups,
+        },
+      }),
     };
 
-    FetchComponent(method, message, setIsLoading, setError, setContent);
-  }, [setQuizzesToDisplay, selectedArea]);
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(url, jsonMessage);
 
-  useEffect(() => {
-    if (content.message) {
-      setQuizzes(content.message?.resources);
+        if (res.status >= 400 && res.status < 600) setError('Bad response from server');
+        const resJson = await res.json();
+
+        setQuizzes(resJson.message.resources);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }, [content]);
+    fetchData();
+  }, [setQuizzesToDisplay, selectedArea]);
 
   useEffect(() => {
     quizzes.map((quiz) => {

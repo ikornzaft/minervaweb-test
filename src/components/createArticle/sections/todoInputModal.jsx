@@ -8,64 +8,26 @@ import {
   ModalBody,
   ModalFooter,
   ModalCloseButton,
-  FormLabel,
-  FormControl,
   Button,
-  Text,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
   Flex,
-  Stack,
-  Tooltip,
-  Select,
 } from '@chakra-ui/react';
 
-import { HomeworksSelector } from './homeworksSelector';
 import { QuizzesSelector } from './quizzesSelector';
-import { ExamsSelector } from './examsSelector';
 
 const TodoInputModal = ({
   isOpen,
   onClose,
   sectionsList,
   setSectionsList,
-  selectedExams,
-  setSelectedExams,
   selectedQuizzes,
   setSelectedQuizzes,
-  selectedHomeworks,
-  setSelectedHomeworks,
   workAreas,
-  resetSection2,
-  setResetSection2,
 }) => {
-  const [selectorOptions, setSelectorOptions] = useState([]);
-  const [section1, setSection1] = useState(sectionsList[0]);
-  const [section2, setSection2] = useState(sectionsList[1]);
-
-  console.log(sectionsList);
-  useEffect(() => {
-    setSectionsList([section1, section2]);
-  }, [section1, section2]);
-
-  useEffect(() => {
-    if (resetSection2) {
-      console.log('VACIANDO');
-      setSection2([]);
-      setSection1([]);
-      setResetSection2(false);
-    }
-  }, [resetSection2]);
-
   const submitTodoSection = () => {
-    setSection2({
-      ...section2,
-      contents: [...selectedQuizzes, ...selectedExams, ...selectedHomeworks],
-    });
-    console.log(section2);
+    const newList = [...sectionsList];
+
+    newList[1].contents = selectedQuizzes;
+    setSectionsList(newList);
     onClose();
   };
 
@@ -83,45 +45,11 @@ const TodoInputModal = ({
           Agregar a Secciones
         </ModalHeader>
         <ModalBody textAlign="center">
-          <Tabs>
-            <TabList justifyContent="center">
-              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
-                Tareas
-              </Tab>
-              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
-                Autoevaluaciones
-              </Tab>
-              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
-                Pruebas
-              </Tab>
-            </TabList>
-
-            <TabPanels>
-              <TabPanel>
-                <HomeworksSelector
-                  selectedHomeworks={selectedHomeworks}
-                  setSelectedHomeworks={setSelectedHomeworks}
-                  workAreas={workAreas}
-                />
-              </TabPanel>
-
-              <TabPanel>
-                <QuizzesSelector
-                  selectedQuizzes={selectedQuizzes}
-                  setSelectedQuizzes={setSelectedQuizzes}
-                  workAreas={workAreas}
-                />
-              </TabPanel>
-
-              <TabPanel>
-                <ExamsSelector
-                  selectedExams={selectedExams}
-                  setSelectedExams={setSelectedExams}
-                  workAreas={workAreas}
-                />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+          <QuizzesSelector
+            selectedQuizzes={selectedQuizzes}
+            setSelectedQuizzes={setSelectedQuizzes}
+            workAreas={workAreas}
+          />
         </ModalBody>
         <ModalCloseButton />
         <ModalFooter>
