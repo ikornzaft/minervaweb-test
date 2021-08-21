@@ -24,10 +24,13 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal';
+import { FetchComponent } from '../common/fetchComponent';
 import { AREAS } from '../../locals/sp/areas';
 
 const NewTopicModal = ({ isOpen, onClose, articleId }) => {
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [content, setContent] = useState([]);
   const [prevArticle, setPrevArticle] = useState(null);
   const [selectedArticles, setSelectedArticles] = useState([]);
   const [contents, setContents] = useState([]);
@@ -42,55 +45,31 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
 
   useEffect(() => {
     if (articleId) {
-      const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
-      const credentials = localStorage.getItem('credentials');
-      const jsonMessage = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        body: JSON.stringify({
-          id: 'msgid-1',
-          target: 'soa@service/minerva',
-          method: 'mods/articles/handlers/GetArticle',
-          requester: 'root:YWNhY2lhITIwMTc=',
-          principal: credentials,
+      const method = 'mods/articles/handlers/GetArticle';
+      const message = { entityRef: { publicId: articleId } };
 
-          message: {
-            entityRef: { publicId: articleId },
+      FetchComponent(method, message, setIsLoading, setError, setContent);
+    }
+  }, [articleId]);
+
+  useEffect(() => {
+    if (content?.message) {
+      const articleObj = {
+        descriptor: {
+          title: content.message.entity.resource.articleHeader.descriptor.title,
+          subtitle: content.message.entity.resource.articleHeader.descriptor.subtitle,
+        },
+        article: {
+          type: 'article',
+          entity: {
+            publicId: content.message.entity.header.publicId,
           },
-        }),
+        },
       };
 
-      async function fetchData() {
-        try {
-          const res = await fetch(url, jsonMessage);
-
-          if (res.status >= 400 && res.status < 600) setError('Bad response from server');
-          const resJson = await res.json();
-
-          //setPrevArticle(resJson.message.entity);
-          const articleObj = {
-            descriptor: {
-              title: resJson.message.entity.resource.articleHeader.descriptor.title,
-              subtitle: resJson.message.entity.resource.articleHeader.descriptor.subtitle,
-            },
-            article: {
-              type: 'article',
-              entity: {
-                publicId: resJson.message.entity.header.publicId,
-              },
-            },
-          };
-
-          setSelectedArticles([articleObj]);
-        } catch (err) {
-          setError(err);
-        }
-      }
-      fetchData();
+      setSelectedArticles([articleObj]);
     }
-  }, []);
+  }, [content]);
 
   const [paragraphList, setParagraphList] = useState([
     {
@@ -126,7 +105,6 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
 
   const storedGroups = JSON.parse(localStorage.getItem('workgroups'));
   const filteredGroups = storedGroups.filter((el) => !el.resource.private);
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (values) => {
     const contentsToSubmit =
@@ -138,81 +116,49 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
       .toISOString()
       .slice(0, 10);
     const topicId = 'T-' + formatedDate + '-' + uuidv4();
-    const newEntry = {
-      id: 'msgid-1',
-      target: 'soa@service/minerva',
-      method: 'mods/topics/handlers/InsertTopic',
-      requester: 'root:YWNhY2lhITIwMTc=',
-      principal: credentials,
-      message: {
-        entity: {
-          resource: {
-            articleHeader: {
-              descriptor: {
-                subtitle: values.message,
-                title: values.title,
-              },
+    const method = 'mods/topics/handlers/InsertTopic';
+    const message = {
+      entity: {
+        resource: {
+          articleHeader: {
+            descriptor: {
+              subtitle: values.message,
+              title: values.title,
             },
-            paragraphs: contentsToSubmit,
-            workgroup: { publicId: values.group },
           },
-          header: { publicId: topicId },
+          paragraphs: contentsToSubmit,
+          workgroup: { publicId: values.group },
         },
+        header: { publicId: topicId },
       },
     };
 
-    const fetchData = async () => {
-      const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const successToastTitle = 'Se publicó un nuevo tópico.';
+    const successToastDescription = '';
+    const errorToastTitle = 'Se produjo un error al crear el tópico';
 
-      const jsonMessage = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        body: JSON.stringify(newEntry),
-      };
+    FetchComponent(
+      method,
+      message,
+      setIsLoading,
+      setError,
+      setContent,
+      successToastTitle,
+      successToastDescription,
+      errorToastTitle
+    );
 
-      const toast = createStandaloneToast();
-
-      try {
-        setLoading(true);
-        const response = await fetch(url, jsonMessage);
-
-        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
-        const resJson = await response.json();
-
-        toast({
-          title: 'Se publicó un nuevo tópico.',
-          status: 'success',
-          duration: 2500,
-          isClosable: true,
-        });
-      } catch (err) {
-        error = err;
-        toast({
-          title: 'Se produjo un error al crear el tópico',
-          description: error,
-          status: 'error',
-          duration: 2500,
-          isClosable: true,
-        });
-      } finally {
-        setLoading(false);
-        setParagraphList([
-          {
-            section: { publicId: '1' },
-            contents: [],
-          },
-          {
-            section: { publicId: '2' },
-            contents: [],
-          },
-        ]);
-        onClose();
-      }
-    };
-
-    fetchData();
+    setParagraphList([
+      {
+        section: { publicId: '1' },
+        contents: [],
+      },
+      {
+        section: { publicId: '2' },
+        contents: [],
+      },
+    ]);
+    onClose();
   };
 
   return (
