@@ -111,7 +111,6 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
         if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
 
-        console.log(topicId, resJson);
         toast({
           title: 'Comentario enviado.',
           status: 'success',

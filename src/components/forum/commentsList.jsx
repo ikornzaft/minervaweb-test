@@ -8,8 +8,6 @@ const CommentsList = ({ commentsArray }) => {
     (a, b) => new Date(b.logs.inserted.timestamp) - new Date(a.logs.inserted.timestamp)
   );
 
-  console.log(sortedArray);
-
   return (
     <Box w="100%">
       <Box paddingX={6} paddingY={3}>

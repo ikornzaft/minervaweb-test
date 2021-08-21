@@ -65,7 +65,7 @@ const DisplayContent = ({ paragraphs }) => {
               ) : null}
               <Text fontSize="xs">Adjunto: </Text>
               <Text fontSize="xs" fontWeight="700">
-                {item.descriptor.title}
+                {item.descriptor.title ? item.descriptor.title : item.descriptor.subtitle}
               </Text>
             </HStack>
           </LinkBox>
