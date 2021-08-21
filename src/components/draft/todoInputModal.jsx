@@ -7,25 +7,11 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  FormLabel,
-  FormControl,
   Button,
-  Text,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
   Flex,
-  Stack,
-  Tooltip,
-  Select,
 } from '@chakra-ui/react';
-import { RiContactsBookLine } from 'react-icons/ri';
 
-import { HomeworksSelector } from '../createArticle/sections/homeworksSelector';
 import { QuizzesSelector } from '../createArticle/sections/quizzesSelector';
-import { ExamsSelector } from '../createArticle/sections/examsSelector';
 import { AREAS } from '../../locals/sp/areas';
 
 const TodoInputModal = ({
@@ -59,12 +45,10 @@ const TodoInputModal = ({
     setSelectedQuizzes(quizzes);
     setSelectedExams(exams);
     setSelectedHomeworks(homeworks);
-  }, [draftToDo]);
+  }, [draftToDo, setSelectedQuizzes, setSelectedExams, setSelectedHomeworks]);
 
   const submitTodoSection = () => {
-    console.log(selectedExams);
     setDraftToDo(selectedQuizzes.concat(selectedExams, selectedHomeworks));
-    console.log(draftToDo);
     onClose();
   };
 
@@ -82,45 +66,11 @@ const TodoInputModal = ({
           Modificar &quot;Para Hacer&quot;
         </ModalHeader>
         <ModalBody textAlign="center">
-          <Tabs>
-            <TabList justifyContent="center">
-              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
-                Tareas
-              </Tab>
-              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
-                Autoevaluaciones
-              </Tab>
-              <Tab fontFamily="Open Sans" fontSize="sm" paddingY={1} width="12rem">
-                Pruebas
-              </Tab>
-            </TabList>
-
-            <TabPanels>
-              <TabPanel>
-                <HomeworksSelector
-                  selectedHomeworks={selectedHomeworks}
-                  setSelectedHomeworks={setSelectedHomeworks}
-                  workAreas={workAreas}
-                />
-              </TabPanel>
-
-              <TabPanel>
-                <QuizzesSelector
-                  selectedQuizzes={selectedQuizzes}
-                  setSelectedQuizzes={setSelectedQuizzes}
-                  workAreas={workAreas}
-                />
-              </TabPanel>
-
-              <TabPanel>
-                <ExamsSelector
-                  selectedExams={selectedExams}
-                  setSelectedExams={setSelectedExams}
-                  workAreas={workAreas}
-                />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
+          <QuizzesSelector
+            selectedQuizzes={selectedQuizzes}
+            setSelectedQuizzes={setSelectedQuizzes}
+            workAreas={workAreas}
+          />
         </ModalBody>
 
         <ModalFooter>
