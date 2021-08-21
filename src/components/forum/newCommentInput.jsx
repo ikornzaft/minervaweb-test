@@ -15,6 +15,7 @@ import { AREAS } from '../../locals/sp/areas';
 
 const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) => {
   const [paragraphs, setParagraphs] = useState([]);
+  const [disabledSubmitButton, setDisabledSubmitButton] = useState(true);
   const [newComment, setNewComment] = useState('');
   const [selectedArticles, setSelectedArticles] = useState([]);
   const [knowMore, setKnowMore] = useState([]);
@@ -30,6 +31,15 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
       contents: [],
     },
   ]);
+
+  useEffect(() => {
+    if (sectionsList[0].contents.length > 0 || newComment !== '') {
+      setDisabledSubmitButton(false);
+    } else {
+      setDisabledSubmitButton(true);
+    }
+  }, [sectionsList, newComment]);
+
   const [workAreas, setWorkAreas] = useState([
     { key: AREAS.area_1.tag, value: AREAS.area_1.route },
     { key: AREAS.area_2.tag, value: AREAS.area_2.route },
@@ -157,7 +167,7 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
         </Button>
         <Button
           _hover={newComment === '' ? { bg: 'primary' } : { bg: darken('primary', 10) }}
-          isDisabled={newComment === '' ? true : false}
+          isDisabled={disabledSubmitButton ? true : false}
           size="sm"
           variant="primary"
           w="10rem"
