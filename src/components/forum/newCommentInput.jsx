@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Textarea,
-  VStack,
-  HStack,
-  Button,
-  createStandaloneToast,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Textarea, VStack, HStack, Button, useDisclosure } from '@chakra-ui/react';
 import { darken } from '@chakra-ui/theme-tools';
 import { v4 as uuidv4 } from 'uuid';
 
 import { KnowMoreInputModal } from '../createArticle/sections/knowMoreInputModal';
+import { FetchComponent } from '../common/fetchComponent';
 import { AREAS } from '../../locals/sp/areas';
 
 const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) => {
@@ -59,81 +53,50 @@ const NewCommentInput = ({ topicId, group, commentsNumber, setCommentsNumber }) 
   };
 
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [content, setContent] = useState([]);
 
   const submitNewComment = () => {
-    const credentials = localStorage.getItem('credentials');
     const date = new Date();
     const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
       .toISOString()
       .slice(0, 10);
     const commentId = 'CT-' + formatedDate + '-' + uuidv4();
-    const newEntry = {
-      id: 'msgid-1',
-      target: 'soa@service/minerva',
-      method: 'mods/topics/handlers/InsertTopicComment',
-      requester: 'root:YWNhY2lhITIwMTc=',
-      principal: credentials,
-      message: {
-        resource: {
-          articleHeader: {
-            descriptor: {
-              subtitle: null,
-              title: null,
-              description: newComment,
-            },
+    const method = 'mods/topics/handlers/InsertTopicComment';
+    const message = {
+      resource: {
+        articleHeader: {
+          descriptor: {
+            subtitle: null,
+            title: null,
+            description: newComment,
           },
-
-          paragraphs: paragraphs,
-          workgroup: { publicId: group },
         },
-        entityRef: { publicId: topicId },
+
+        paragraphs: paragraphs,
+        workgroup: { publicId: group },
       },
+      entityRef: { publicId: topicId },
     };
 
-    const fetchData = async () => {
-      const url = 'http://afatecha.com:8080/minerva-server-web/minerva/perform';
+    const successToastTitle = 'Comentario enviado.';
+    const successToastDescription = '';
+    const errorToastTitle = 'Se produjo un error al enviar el comentario.';
 
-      const jsonMessage = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        body: JSON.stringify(newEntry),
-      };
+    FetchComponent(
+      method,
+      message,
+      setIsLoading,
+      setError,
+      setContent,
+      successToastTitle,
+      successToastDescription,
+      errorToastTitle
+    );
 
-      const toast = createStandaloneToast();
-
-      try {
-        setLoading(true);
-        const response = await fetch(url, jsonMessage);
-
-        if (response.status >= 400 && response.status < 600) setError('Bad response from server');
-        const resJson = await response.json();
-
-        toast({
-          title: 'Comentario enviado.',
-          status: 'success',
-          duration: 2500,
-          isClosable: true,
-        });
-      } catch (err) {
-        error = err;
-        toast({
-          title: 'Se produjo un error al enviar el comentario',
-          description: error,
-          status: 'error',
-          duration: 2500,
-          isClosable: true,
-        });
-      } finally {
-        setCommentsNumber(commentsNumber + 1);
-        setNewComment('');
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    setCommentsNumber(commentsNumber + 1);
+    setNewComment('');
+    setIsLoading(false);
   };
 
   useEffect(() => {
