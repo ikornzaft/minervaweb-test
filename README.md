@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# "Aprender en red" Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created entirely with JavaScript, React.js and Chakra.ui.
 
-## Available Scripts
+It's an initiative of the "Instituto de Investigación para el Desarrollo" from Paraguay, funded by the CONACyT. 
 
-In the project directory, you can run:
+The goal of this project is to bring a tool that facilitates communication between teacher and students, and within the educational community itself.
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `yarn test`
+The App allows the creation of a wide variety of articles and activities:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+https://user-images.githubusercontent.com/65148805/130170353-88d5a867-2c0f-4d8e-98d4-7b2532fd6adf.mp4
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The students have access to the content that the teacher shared with them. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+https://user-images.githubusercontent.com/65148805/130170604-7035ab57-8063-4cd8-accb-c914e746aac0.mp4
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Then the students work on their activities, and send the answers to the teacher.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Edit options
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Teachers can create and edit articles and activities for their students.
+
+
+
+https://user-images.githubusercontent.com/65148805/130171093-ce8974dd-2e47-4a0a-a82c-578aaa2de790.mp4
+
+
+
+https://user-images.githubusercontent.com/65148805/130171228-6ede001f-5ab4-431f-9923-f6b20462cc32.mp4
+
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Please, feel free to ask me anything about this or my other projects.
