@@ -29,6 +29,16 @@ import { AREAS } from '../../locals/sp/areas';
 const NewTopicModal = ({ isOpen, onClose, articleId }) => {
   const [error, setError] = useState(null);
   const [prevArticle, setPrevArticle] = useState(null);
+  const [selectedArticles, setSelectedArticles] = useState([]);
+  const [contents, setContents] = useState([]);
+  const [links, setLinks] = useState([]);
+  const [workAreas, setWorkAreas] = useState([
+    { key: AREAS.area_1.tag, value: AREAS.area_1.route },
+    { key: AREAS.area_2.tag, value: AREAS.area_2.route },
+    { key: AREAS.area_3.tag, value: AREAS.area_3.route },
+    { key: AREAS.area_4.tag, value: AREAS.area_4.route },
+  ]);
+  const [area, setArea] = useState('mate');
 
   useEffect(() => {
     if (articleId) {
@@ -59,7 +69,21 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
           if (res.status >= 400 && res.status < 600) setError('Bad response from server');
           const resJson = await res.json();
 
-          setPrevArticle(resJson.message.entity);
+          //setPrevArticle(resJson.message.entity);
+          const articleObj = {
+            descriptor: {
+              title: resJson.message.entity.resource.articleHeader.descriptor.title,
+              subtitle: resJson.message.entity.resource.articleHeader.descriptor.subtitle,
+            },
+            article: {
+              type: 'article',
+              entity: {
+                publicId: resJson.message.entity.header.publicId,
+              },
+            },
+          };
+
+          setSelectedArticles([articleObj]);
         } catch (err) {
           setError(err);
         }
@@ -78,16 +102,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
       contents: [],
     },
   ]);
-  const [selectedArticles, setSelectedArticles] = useState([]);
-  const [contents, setContents] = useState([]);
-  const [links, setLinks] = useState([]);
-  const [workAreas, setWorkAreas] = useState([
-    { key: AREAS.area_1.tag, value: AREAS.area_1.route },
-    { key: AREAS.area_2.tag, value: AREAS.area_2.route },
-    { key: AREAS.area_3.tag, value: AREAS.area_3.route },
-    { key: AREAS.area_4.tag, value: AREAS.area_4.route },
-  ]);
-  const [area, setArea] = useState('mate');
+
   const {
     isOpen: isOpenKnowMore,
     onOpen: onOpenKnowMore,
@@ -112,7 +127,11 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
   const storedGroups = JSON.parse(localStorage.getItem('workgroups'));
   const filteredGroups = storedGroups.filter((el) => !el.resource.private);
   const [loading, setLoading] = useState(false);
+
   const handleSubmit = (values) => {
+    const contentsToSubmit =
+      paragraphList[0].contents.length > 0 ? paragraphList[0].contents : selectedArticles;
+
     const credentials = localStorage.getItem('credentials');
     const date = new Date();
     const formatedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
@@ -134,7 +153,7 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
                 title: values.title,
               },
             },
-            paragraphs: paragraphList[0].contents,
+            paragraphs: contentsToSubmit,
             workgroup: { publicId: values.group },
           },
           header: { publicId: topicId },
@@ -162,7 +181,6 @@ const NewTopicModal = ({ isOpen, onClose, articleId }) => {
         if (response.status >= 400 && response.status < 600) setError('Bad response from server');
         const resJson = await response.json();
 
-        console.log(resJson);
         toast({
           title: 'Se publicó un nuevo tópico.',
           status: 'success',

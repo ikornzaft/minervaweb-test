@@ -37,7 +37,6 @@ const KnowMoreInputModal = ({
   prevArticle,
   title,
 }) => {
-  console.log(sectionsList);
   const [selectorOptions, setSelectorOptions] = useState([]);
 
   useEffect(() => {
@@ -60,7 +59,6 @@ const KnowMoreInputModal = ({
   }, [prevArticle, setSelectedArticles]);
 
   const handleSubmit = (values) => {
-    console.log(sectionsList);
     const concatArray = selectedArticles.concat(knowMore, knowMoreLinks);
     const newList = [...sectionsList];
 

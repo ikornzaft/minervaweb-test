@@ -90,7 +90,6 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
         if (res.status >= 400 && res.status < 600) setError('Bad response from server');
         const resJson = await res.json();
 
-        console.log(resJson);
         if (resJson.error) {
           if (resJson.error.code === 707501) {
             toast({
@@ -152,7 +151,7 @@ const HomeworkContent = ({ title, subtitle, paragraphs, workarea, date }) => {
   const handleChangeFilesContent = (id, value) => {
     const prevArray = answersArray;
 
-    const prevArrayDescriptor = prevArray[id].descriptor;
+    const prevArrayDescriptor = prevArray[id]?.descriptor;
 
     prevArray[id] = {
       descriptor: prevArrayDescriptor,
