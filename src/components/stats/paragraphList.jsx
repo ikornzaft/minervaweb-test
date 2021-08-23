@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
-import {
-  VStack,
-  HStack,
-  Stack,
-  Heading,
-  Box,
-  Text,
-  Image,
-  RadioGroup,
-  Radio,
-  Textarea,
-} from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
+import { Stack, VStack, HStack, Heading, Box, Text, Image } from '@chakra-ui/react';
 import { GoCheck, GoX } from 'react-icons/go';
 
-const ParagraphList = ({ paragraph, paragraphIndex, answersArray = [], student }) => {
-  console.log(answersArray);
-  console.log(student);
-  console.log(paragraph);
-  const options = paragraph.content.options;
-  const [value, setValue] = useState('');
+import { DisplayContent } from '../forum/displayContent';
 
-  const selectRadio = (el) => {
-    setValue(+el);
+const ParagraphList = ({ paragraph, paragraphIndex, answersArray = [], student }) => {
+  const param = useParams();
+
+  const options = paragraph.content.options;
+
+  const DisplayAnswer = (index) => {
+    if (answersArray[student]?.resource.paragraphs[index].files) {
+      return (
+        <Box paddingTop={4}>
+          <DisplayContent paragraphs={answersArray[student]?.resource.paragraphs[index].files} />
+        </Box>
+      );
+    } else {
+      return (
+        <Text color="gray.700">
+          {answersArray[student]?.resource.paragraphs[index].descriptor.description}
+        </Text>
+      );
+    }
   };
 
   return (
-    <VStack borderColor="gray.300" borderRadius="lg" borderWidth="1px" p={3} w="45rem">
+    <VStack bg="white" borderColor="gray.300" borderRadius="lg" borderWidth="1px" p={3} w="45rem">
       <Text fontSize="xs">PREGUNTA {paragraphIndex + 1}:</Text>
       <Box paddingBottom={1}>
         <Heading as="h3" fontFamily="open sans" fontSize="md">
@@ -46,7 +48,12 @@ const ParagraphList = ({ paragraph, paragraphIndex, answersArray = [], student }
         <HStack>
           {answersArray[student]?.resource.paragraphs[paragraphIndex] ? (
             <>
-              <Text>{answersArray[student]?.resource.paragraphs[paragraphIndex]}</Text>
+              <Text>
+                {param.id.slice(0, 1) === 'H'
+                  ? answersArray[student]?.resource.paragraphs[paragraphIndex].descriptor
+                      .description
+                  : answersArray[student]?.resource.paragraphs[paragraphIndex]}
+              </Text>
               {options.find((el) => el.answer === true).descriptor.title ===
               answersArray[student]?.resource.paragraphs[paragraphIndex] ? (
                 <Box as={GoCheck} color="green" size="20px" />
@@ -57,8 +64,32 @@ const ParagraphList = ({ paragraph, paragraphIndex, answersArray = [], student }
           ) : null}
         </HStack>
       ) : (
-        <Box borderColor="gray.300" borderRadius="lg" borderWidth="1px" p={6} w="35rem">
-          {answersArray[student]?.resource.paragraphs[paragraphIndex]}
+        <Box>
+          {param.id.slice(0, 1) === 'H' ? (
+            <Stack
+              alignItems="center"
+              borderColor="gray.300"
+              borderRadius="lg"
+              borderWidth="1px"
+              justifyContent="center"
+              p={6}
+              w="35rem"
+            >
+              {DisplayAnswer(paragraphIndex)}
+            </Stack>
+          ) : (
+            <Stack
+              alignItems="center"
+              borderColor="gray.300"
+              borderRadius="lg"
+              borderWidth="1px"
+              justifyContent="center"
+              p={6}
+              w="35rem"
+            >
+              <Box>{answersArray[student]?.resource.paragraphs[paragraphIndex]}</Box>
+            </Stack>
+          )}
         </Box>
       )}
     </VStack>

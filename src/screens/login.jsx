@@ -53,7 +53,6 @@ const Login = ({ isLoginOn, setLoginOn }) => {
     const buf = Buffer.from(password);
     const credentials = user + ':' + buf.toString('base64');
 
-    console.log(credentials);
     const jsonMessage = {
       method: 'POST',
       headers: {

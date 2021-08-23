@@ -7,7 +7,7 @@ import fallBackImg from '../../assets/images/Online-Tutor.svg';
 import { ParagraphReducer } from '../common/paragraphReducer';
 import { CreateAreaBadge } from '../common/createAreaBadge';
 
-const HomeworksListItem = ({ homework, key }) => {
+const HomeworksListItem = ({ homework }) => {
   const area = homework.workarea.publicId;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const date = new Date(homework.inserted.timestamp).toLocaleDateString('es-Es', options);

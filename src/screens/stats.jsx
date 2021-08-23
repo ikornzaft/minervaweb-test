@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { HStack, VStack, Heading, Text } from '@chakra-ui/react';
+import { HStack, VStack, Heading, Box, Text } from '@chakra-ui/react';
 
 import { FetchComponent } from '../components/common/fetchComponent';
 import { StudentsList } from '../components/stats/studentsList';
@@ -83,23 +83,28 @@ const Stats = () => {
           {title}
         </Heading>
       </HStack>
-      <VStack borderColor="gray.300" borderRadius="lg" borderWidth="1px" paddingY={4}>
-        <HStack>
-          <WorkgroupSelector setSelectedGroup={setSelectedGroup} />
-          <StudentsList
-            selectedStudent={selectedStudent}
-            setSelectedStudent={setSelectedStudent}
-            studentsArray={answersEntities}
-          />
+      <VStack borderColor="gray.300" borderRadius="lg" borderWidth="1px" padding={4}>
+        <HStack paddingBottom={2} spacing={20}>
+          <VStack>
+            <Box>
+              {' '}
+              <Text fontSize="xs">GRUPO</Text>
+            </Box>
+
+            <WorkgroupSelector setSelectedGroup={setSelectedGroup} />
+          </VStack>
+          <VStack>
+            <Box>
+              <Text fontSize="xs">ALUMNO</Text>
+            </Box>
+            <StudentsList
+              selectedStudent={selectedStudent}
+              setSelectedStudent={setSelectedStudent}
+              studentsArray={answersEntities}
+            />
+          </VStack>
         </HStack>
-        <HStack
-          alignItems="center"
-          justifyContent="space-evenly"
-          paddingX="2rem"
-          paddingY="2rem"
-          spacing={6}
-          w="49rem"
-        />
+
         <VStack justifyContent="center" spacing="20px" w="100%">
           {questionsArray?.map((paragraph, index) => (
             <ParagraphList

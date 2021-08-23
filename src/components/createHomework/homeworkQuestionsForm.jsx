@@ -50,8 +50,6 @@ const HomeworkQuestionsForm = ({
   const [option, setOption] = useState(0);
 
   useEffect(() => {
-    console.log(Array.isArray(prevAnswers));
-    console.log(prevAnswers);
     setImage(prevImage);
     setQuestion(prevQuestion);
     if (prevAnswers) {
@@ -111,7 +109,6 @@ const HomeworkQuestionsForm = ({
         };
       }
       changeQuestionsArray(newEntry);
-      console.log(newEntry);
       setQuestion('');
       setImage(null);
       setAnswersArray([]);
@@ -191,7 +188,6 @@ const HomeworkQuestionsForm = ({
                       onChange={(el) => {
                         setAllowsFiles(!allowsFiles);
                         setIsChoice(false);
-                        console.log(isChoice);
                       }}
                     />
                   </FormControl>
