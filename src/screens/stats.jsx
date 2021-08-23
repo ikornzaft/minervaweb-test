@@ -6,6 +6,7 @@ import { FetchComponent } from '../components/common/fetchComponent';
 import { StudentsList } from '../components/stats/studentsList';
 import { StudentAnswers } from '../components/stats/studentAnswers';
 import { WorkgroupSelector } from '../components/common/workgroupSelector';
+import { ParagraphList } from '../components/stats/paragraphList';
 
 const Stats = () => {
   const history = useHistory();
@@ -23,7 +24,6 @@ const Stats = () => {
   const [articleHeader, setArticleHeader] = useState(null);
   const [paragraphs, setParagraphs] = useState([]);
   const [sections, setSections] = useState(null);
-
   const selectContentType = () => {
     if (param.id.slice(0, 1) === 'E')
       return {
@@ -49,7 +49,7 @@ const Stats = () => {
     };
 
     FetchComponent(method, message, setIsLoading, setError, setContent);
-  }, [selectedGroup]);
+  }, [selectedGroup, param.id]);
 
   useEffect(() => {
     if (!title) {
@@ -71,7 +71,7 @@ const Stats = () => {
 
       FetchComponent(method, message, setIsLoading, setError, setContent);
     }
-  }, [selectedGroup]);
+  }, [selectedGroup, param.id]);
 
   return (
     <VStack alignItems="center" paddingTop={16}>
@@ -84,7 +84,14 @@ const Stats = () => {
         </Heading>
       </HStack>
       <VStack borderColor="gray.300" borderRadius="lg" borderWidth="1px" paddingY={4}>
-        <WorkgroupSelector setSelectedGroup={setSelectedGroup} />
+        <HStack>
+          <WorkgroupSelector setSelectedGroup={setSelectedGroup} />
+          <StudentsList
+            selectedStudent={selectedStudent}
+            setSelectedStudent={setSelectedStudent}
+            studentsArray={answersEntities}
+          />
+        </HStack>
         <HStack
           alignItems="center"
           justifyContent="space-evenly"
@@ -92,50 +99,18 @@ const Stats = () => {
           paddingY="2rem"
           spacing={6}
           w="49rem"
-        >
-          <VStack
-            bg="white"
-            borderColor="gray.300"
-            borderRadius="lg"
-            borderWidth="1px"
-            h="20rem"
-            maxHeight="20rem"
-            overflowX="hidden"
-            overflowY="scroll"
-            p={4}
-            w="15rem"
-          >
-            {answersEntities?.length > 0 ? (
-              <StudentsList
-                selectedStudent={selectedStudent}
-                setSelectedStudent={setSelectedStudent}
-                studentsArray={answersEntities}
-              />
-            ) : (
-              <Text>No hay respuestas aún...</Text>
-            )}
-          </VStack>
-          <VStack
-            alignItems="center"
-            borderColor="gray.300"
-            borderRadius="lg"
-            borderWidth="1px"
-            h="20rem"
-            justifyContent="flex-start"
-            maxHeight="20rem"
-            overflowX="hidden"
-            overflowY="scroll"
-            paddingTop={6}
-            paddingX={4}
-            w="26rem"
-          >
-            <StudentAnswers
-              answers={answersEntities}
-              questions={questionsArray}
+        />
+        <VStack justifyContent="center" spacing="20px" w="100%">
+          {questionsArray?.map((paragraph, index) => (
+            <ParagraphList
+              key={index}
+              answersArray={answersEntities}
+              paragraph={paragraph}
+              paragraphIndex={index}
               student={selectedStudent}
             />
-          </VStack>
-        </HStack>
+          ))}
+        </VStack>
       </VStack>
     </VStack>
   );
