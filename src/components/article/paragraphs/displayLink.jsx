@@ -11,7 +11,7 @@ const DisplayLink = ({ linkLocation, title, subtitle }) => {
   const isYoutubeLink = () => {
     const splittedLink = linkLocation.split('.');
 
-    if (splittedLink[1] === 'youtube') return true;
+    if (splittedLink[1] === 'youtube' && splittedLink[2].includes('watch')) return true;
 
     return false;
   };
